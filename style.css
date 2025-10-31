@@ -1,0 +1,132 @@
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border:0;
+    list-style: none;
+    appearance: none;
+
+}
+
+body{
+    width: 100vw ;
+    height: 100vh;
+    font-size: 0, 88rem;
+    user-select:none;
+    overflow-x: hidden;
+    background: pink ;
+}
+
+
+.container{
+    display: grid;
+    grid-template-columns: 14rem auto 14rem;
+    width: 96%;
+    gap: 1.8rem;
+    margin: 0 auto ;
+}
+h2{
+    font-size: 1.4rem;
+}
+
+h3{
+    font-size: 0.87rem;
+}
+
+h4{
+    font-size: 0.8rem;
+}
+
+h5{
+    font-size: 0.77rem;
+}
+
+small{
+    font-size: 0.75rem;
+}
+
+.text-muted{
+    color: var(--clr--info-dark);
+}
+
+aside{
+    height:100vh;
+}
+
+aside .top{
+    background-color:white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1.4rem;
+
+}
+
+aside .top .div .close{
+    display: none;
+
+}
+
+/*sidebar*/
+
+aside .sidebar{
+    background-color: azure;
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    position: relative;
+    top: 1rem;
+}
+
+aside .sidebar h3{
+    font-weight: 500;
+}
+
+aside .sidebar a{
+    display: flex;
+    color:grey;
+    margin-left: 2rem;
+    gap: 1rem;
+    align-items: center;
+    height: 3.2rem;
+    transition: all .1s ease-in;
+}
+
+aside .sidebar a span{
+    font-size: 1.6rem;
+    transition: all .1s ease-in;
+}
+
+aside .sidebar a:last-child{
+    bottom: 1rem;
+    width: 100%;
+}
+
+
+aside .sidebar a .active{
+    background: burlywood;
+     color: aqua;
+    margin-left: 0;
+    margin-left: 5px solid purple;
+   
+}
+
+aside .sidebar a .active::before{
+    content: '';
+    width:6px;
+    height: 100%;
+    background-color: cornflowerblue;
+}
+aside .sidebar a:hover{
+    color: forestgreen;
+}
+
+aside .sidebar a:hover span{
+    margin-left: 1rem;
+    transition: 4s ease-in;
+}
+
+
+

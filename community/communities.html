@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Hub - University Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+ <link href="../assets/css/communitycss/community.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+   <header class="dashboard-header">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-link text-white me-3 d-md-none p-2" id="sidebarToggle" title="Toggle Sidebar">
+            <i class="fas fa-bars fa-lg"></i>
+          </button>
+          <div class="logo-section d-flex align-items-center me-4">
+            <div class="logo-icon me-2">
+              <i class="fas fa-graduation-cap fa-2x"></i>
+            </div>
+            <div class="logo-text">
+              <h1 class="mb-0 fw-bold">Community Hub</h1>
+              <small class="text-white-50">Events</small>
+            </div>
+          </div>
+        </div>
+        <div class="header-actions d-flex align-items-center">
+          <button class="btn btn-link text-white me-3 p-2" id="darkModeToggle" title="Toggle Dark Mode">
+            <i class="fas fa-moon fa-lg icon-dark-mode"></i>
+          </button>
+          <div class="dropdown me-3">
+            <button class="btn btn-link text-white position-relative p-2" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" title="Notifications">
+              <i class="fas fa-bell fa-lg icon-bell"></i>
+              <span class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle" id="notificationCount">2</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow" id="notificationsMenu">
+              <li><h6 class="dropdown-header fw-bold">Notifications</h6></li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#" data-id="1">
+                <i class="fas fa-users me-2 text-primary"></i>New community joined</a></li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#" data-id="2">
+                <i class="fas fa-calendar me-2 text-warning"></i>Event reminder</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-center fw-bold" href="#">View all notifications</a></li>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <button class="btn btn-link text-white d-flex align-items-center p-2" type="button" id="profileDropdown" data-bs-toggle="dropdown">
+              <div class="user-avatar me-2">
+                <i class="fas fa-user-circle fa-lg icon-user"></i>
+              </div>
+              <div class="user-info text-start d-none d-sm-block">
+                <div class="fw-bold small">Student User</div>
+                <div class="text-white-50 small">student@university.edu</div>
+              </div>
+              <i class="fas fa-chevron-down ms-2 small icon-professional"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+              <li><a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="fas fa-user me-2"></i>My Profile</a></li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="fas fa-cog me-2"></i>Settings</a></li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="fas fa-question-circle me-2"></i>Help & Support</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item d-flex align-items-center text-danger" href="#" id="logoutBtn">
+                <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+     <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+        <div class="sidebar-header p-3">
+          <h5>Navigation Menu</h5>
+        </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <button class="nav-link active" data-section="Communities" onclick="reloadPage()">
+              <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+            </button>
+          </li>
+                 <li class="nav-item">
+            <button class="nav-link" data-section="Communities"  onclick="window.location.href='../components/community/community-details.html'">
+              <i class="fas fa-users me-2"></i> Communities
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-section="Events"  onclick="window.location.href='../components/community/event/events.html'">
+              <i class="fas fa-calendar-alt me-2"></i> Events
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-section="Discussions"  onclick="window.location.href='../components/community/discussion/discussions.html'">
+              <i class="fas fa-comments me-2"></i> Discussions
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-section="FileManagement"  onclick="window.location.href='../components/community/file-management/file-manager.html'">
+              <i class="fas fa-folder me-2"></i> File Management
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="col-md-9 ms-sm-auto col-lg-10 dashboard-main">
+        <!-- Communities Section -->
+        <div id="communities" class="dashboard-section active">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h2>Communities Overview</h2>
+              <p class="text-muted">Welcome to the Community Hub! Here's what's happening today.</p>
+            </div>
+            <div>
+              <button class="btn btn-purple" id="refreshBtn">
+                <i class="fas fa-sync-alt me-1"></i> Refresh Data
+              </button>
+            </div>
+          </div>
+
+          <!-- Stats Cards -->
+          <div class="row mb-4">
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card stat-card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Communities</h5>
+                      <span class="h2 font-weight-bold mb-0" id="totalCommunities">24</span>
+                    </div>
+                    <div class="stat-icon">
+                      <i class="fas fa-users"></i>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-success">
+                    <span class="me-2"><i class="fas fa-arrow-up"></i> 3.2%</span>
+                    <span class="text-nowrap">Since last month</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card stat-card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Active Members</h5>
+                      <span class="h2 font-weight-bold mb-0" id="activeMembers">1,847</span>
+                    </div>
+                    <div class="stat-icon">
+                      <i class="fas fa-user-friends"></i>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-success">
+                    <span class="me-2"><i class="fas fa-arrow-up"></i> 5.7%</span>
+                    <span class="text-nowrap">Since last month</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card stat-card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Upcoming Events</h5>
+                      <span class="h2 font-weight-bold mb-0" id="upcomingEvents">12</span>
+                    </div>
+                    <div class="stat-icon">
+                      <i class="fas fa-calendar-alt"></i>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-warning">
+                    <span class="me-2"><i class="fas fa-minus"></i> 0.0%</span>
+                    <span class="text-nowrap">Since last month</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card stat-card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Active Discussions</h5>
+                      <span class="h2 font-weight-bold mb-0" id="activeDiscussions">89</span>
+                    </div>
+                    <div class="stat-icon">
+                      <i class="fas fa-comments"></i>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-success">
+                    <span class="me-2"><i class="fas fa-arrow-up"></i> 12.3%</span>
+                    <span class="text-nowrap">Since last month</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-8 mb-4">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0"><i class="fas fa-users me-2"></i>Recent Communities</h5>
+                  <button class="btn btn-sm btn-outline-purple" onclick="window.location.href='../components/community/community-details.html'">
+                    View All
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Community</th>
+                          <th>Members</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="recentCommunitiesTable" >
+                        <!-- Communities will be populated by JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                  <div class="d-grid gap-2">
+                    <a href="../components/community/create-community.html" class="btn btn-purple mb-2">
+                      <i class="fas fa-plus-circle me-2"></i> Create Community
+                    </a>
+                    <button class="btn btn-outline-purple mb-2" data-bs-toggle="modal" data-bs-target="#joinCommunityModal">
+                      <i class="fas fa-user-plus me-2"></i> Join Community
+                    </button>
+                    <a href="../components/community/event/create-event.html" class="btn btn-outline-purple mb-2">
+                      <i class="fas fa-calendar-plus me-2"></i> Create Event
+                    </a>
+                    <a href="../components/community/discussion/create-discussion.html" class="btn btn-outline-purple mb-2">
+                      <i class="fas fa-comments me-2"></i> Start Discussion
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 mb-4">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Upcoming Events</h5>
+                  <button class="btn btn-sm btn-outline-purple" onclick="window.location.href='../components/community/event/events.html'">
+                    View All
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div class="row" id="upcomingEventsContainer">
+                    <!-- Upcoming events will be loaded here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0"><i class="fas fa-comments me-2"></i>Recent Discussions</h5>
+                  <button class="btn btn-sm btn-outline-purple" onclick="window.location.href='../components/community/discussion/discussions.html'">
+                    View All
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div id="recentDiscussionsContainer">
+                    <!-- Recent discussions will be loaded here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Include component sections -->
+        <div id="sectionEvents" class="dashboard-section" data-component="../components/community/event/events.html"></div>
+        <div id="sectionDiscussions" class="dashboard-section" data-component="../components/community/discussion/discussions.html"></div>
+        <div id="sectionFileManagement" class="dashboard-section" data-component="../components/community/file-management/file-manager.html"></div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <!-- Join Community Modal -->
+  <div class="modal fade" id="joinCommunityModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Join Community</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="searchCommunity" class="form-label">Search Communities</label>
+            <input type="text" class="form-control" id="searchCommunity" placeholder="Type community name...">
+          </div>
+          <div id="communitySearchResults">
+            <div class="empty-state">
+              <i class="fas fa-search"></i>
+              <p>Start typing to search for communities...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Details Modal -->
+  <div class="modal fade" id="notificationDetailsModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Notification Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="notificationDetailsContent">
+          <!-- Notification details will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/community/dataManager.js"></script>
+  <script src="../assets/js/community/communities.js"></script>
+  <script src="../assets/js/community/events.js"></script>
+  <script src="../assets/js/community/discussion.js"></script>
+  <script src="../assets/js/community/fileManager.js"></script>
+  <script src="../assets/js/community/communityDashboard.js"></script>
+</body>
+</html>

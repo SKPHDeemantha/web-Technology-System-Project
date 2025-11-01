@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussions - Learning Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="../../../assets/css/styles.css" rel="stylesheet">
+    <link href="../../../assets/css/communitycss/discussion.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-link text-white me-3 d-md-none p-2" id="sidebarToggle" title="Toggle Sidebar">
+            <i class="fas fa-bars fa-lg"></i>
+          </button>
+          <div class="logo-section d-flex align-items-center me-4">
+            <div class="logo-icon me-2">
+              <i class="fas fa-graduation-cap fa-2x"></i>
+            </div>
+            <div class="logo-text">
+              <h1 class="mb-0 fw-bold">Community Hub</h1>
+              <small class="text-white-50">Discussions</small>
+            </div>
+          </div>
+        </div>
+        <div class="header-actions d-flex align-items-center">
+          <button class="btn btn-link text-white me-3 p-2" id="darkModeToggle" title="Toggle Dark Mode">
+            <i class="fas fa-moon fa-lg"></i>
+          </button>
+          <div class="dropdown me-3">
+            <button class="btn btn-link text-white position-relative p-2" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" title="Notifications">
+              <i class="fas fa-bell fa-lg"></i>
+              <span class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle" id="notificationCount">2</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow" id="notificationsMenu">
+              <li><h6 class="dropdown-header fw-bold">Notifications</h6></li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#" data-id="1">
+                <i class="fas fa-users me-2 text-primary"></i>New community joined</a></li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#" data-id="2">
+                <i class="fas fa-calendar me-2 text-warning"></i>Event reminder</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-center fw-bold" href="#">View all notifications</a></li>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <button class="btn btn-link text-white d-flex align-items-center p-2" type="button" id="profileDropdown" data-bs-toggle="dropdown">
+              <div class="user-avatar me-2">
+                <i class="fas fa-user-circle fa-lg"></i>
+              </div>
+              <div class="user-info text-start d-none d-sm-block">
+                <div class="fw-bold small">Student User</div>
+                <div class="text-white-50 small">student@university.edu</div>
+              </div>
+              <i class="fas fa-chevron-down ms-2 small"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+              <li><a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="fas fa-user me-2"></i>My Profile</a></li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="fas fa-cog me-2"></i>Settings</a></li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="fas fa-question-circle me-2"></i>Help & Support</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item d-flex align-items-center text-danger" href="#" id="logoutBtn">
+                <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+    <div class="container-fluid back">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3">
+                  <div class="sidebar-header p-3">
+          <h5>Navigation Menu</h5>
+        </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../../community/communities.html">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../community-details.html">
+                                <i class="fas fa-users"></i>
+                                Communities
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../event/events.html">
+                                <i class="fas fa-calendar"></i>
+                                Events
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="discussions.html">
+                                <i class="fas fa-comments"></i>
+                                Discussions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../file-management/file-manager.html">
+                                <i class="fas fa-folder"></i>
+                                Files
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <!-- Discussions Section -->
+        <div id="discussions" class="dashboard-section">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h2>Discussion Forums</h2>
+              <p class="text-muted">Engage in community discussions</p>
+            </div>
+            <a href="create-discussion.html" class="btn btn-purple">
+              <i class="fas fa-plus me-1"></i> Start Discussion
+            </a>
+          </div>
+
+          <!-- Discussion Statistics -->
+          <div class="row mt-4 mb-5">
+            <div class="col-md-3">
+              <div class="card stat-card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Discussions</h5>
+                      <span class="h2 font-weight-bold mb-0" id="totalDiscussionsCount">0</span>
+                    </div>
+                    <div class="stat-icon">
+                      <i class="fas fa-comments"></i>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-success">
+                    <span class="me-2"><i class="fas fa-arrow-up"></i> 8.5%</span>
+                    <span class="text-nowrap">Since last month</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card stat-card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Active Today</h5>
+                      <span class="h2 font-weight-bold mb-0" id="activeDiscussionsCount">0</span>
+                    </div>
+                    <div class="stat-icon">
+                      <i class="fas fa-clock"></i>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-success">
+                    <span class="me-2"><i class="fas fa-arrow-up"></i> 15.2%</span>
+                    <span class="text-nowrap">Since last month</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card stat-card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Replies</h5>
+                      <span class="h2 font-weight-bold mb-0" id="totalRepliesCount">0</span>
+                    </div>
+                    <div class="stat-icon">
+                      <i class="fas fa-reply"></i>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-success">
+                    <span class="me-2"><i class="fas fa-arrow-up"></i> 12.7%</span>
+                    <span class="text-nowrap">Since last month</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card stat-card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Most Liked</h5>
+                      <span class="h2 font-weight-bold mb-0" id="mostLikedCount">0</span>
+                    </div>
+                    <div class="stat-icon">
+                      <i class="fas fa-heart"></i>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-warning">
+                    <span class="me-2"><i class="fas fa-minus"></i> 2.1%</span>
+                    <span class="text-nowrap">Since last month</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Discussion Categories Chart -->
+          <!-- <div class="chart-container">
+            <h5 class="mb-4">Discussion Categories Overview</h5>
+            <canvas id="discussionsChart" width="40" height="20"></canvas>
+          </div> -->
+
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col-md-4">
+                  <h5 class="mb-0">All Discussions</h5>
+                </div>
+                <div class="col-md-8">
+                  <div class="d-flex justify-content-end flex-wrap gap-2">
+                    <div class="d-flex align-items-center">
+                      <label for="discussionSort" class="form-label me-2 mb-0 fw-bold">Sort by:</label>
+                      <select id="discussionSort" class="form-select form-select-sm">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="most-liked">Most Liked</option>
+                        <option value="most-replies">Most Replies</option>
+                        <option value="most-views">Most Views</option>
+                      </select>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <label for="discussionFilter" class="form-label me-2 mb-0 fw-bold">Filter:</label>
+                      <select id="discussionFilter" class="form-select form-select-sm">
+                        <option value="all">All Categories</option>
+                        <option value="academic">Academic</option>
+                        <option value="technical">Technical</option>
+                        <option value="social">Social</option>
+                        <option value="general">General</option>
+                      </select>
+                    </div>
+                    <div class="input-group input-group-sm w-auto">
+                      <input type="text" id="discussionSearch" class="form-control" placeholder="Search discussions...">
+                      <button class="btn btn-outline-secondary" type="button" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="discussionsContainer">
+                <!-- Discussions will be populated by JavaScript -->
+              </div>
+              <div class="discussion-pagination">
+                <nav aria-label="Discussion pagination">
+                  <ul class="pagination justify-content-center" id="paginationContainer">
+                    <!-- Pagination will be populated by JavaScript -->
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Start Discussion Modal -->
+  <div class="modal fade" id="startDiscussionModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Start New Discussion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="startDiscussionForm">
+            <div class="mb-3">
+              <label for="discussionTitle" class="form-label">Discussion Title *</label>
+              <input type="text" class="form-control" id="discussionTitle" required>
+            </div>
+            <div class="mb-3">
+              <label for="discussionContent" class="form-label">Content *</label>
+              <textarea class="form-control" id="discussionContent" rows="4" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="discussionCategory" class="form-label">Category</label>
+              <select class="form-select" id="discussionCategory">
+                <option value="academic">Academic</option>
+                <option value="technical">Technical</option>
+                <option value="social">Social</option>
+                <option value="general">General</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="discussionTags" class="form-label">Tags</label>
+              <input type="text" class="form-control" id="discussionTags" placeholder="react, javascript, web-development">
+              <div class="form-text">Separate tags with commas</div>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-purple">Start Discussion</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Discussion Modal -->
+  <div class="modal fade" id="viewDiscussionModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewDiscussionTitle">Discussion Title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div id="viewDiscussionContent">
+            <!-- Discussion content will be populated here -->
+          </div>
+          <hr>
+          <h6>Replies</h6>
+          <div id="repliesContainer">
+            <!-- Replies will be populated here -->
+          </div>
+          <div class="mt-3">
+            <form id="replyForm">
+              <div class="mb-3">
+                <label for="replyContent" class="form-label">Add Reply</label>
+                <textarea class="form-control" id="replyContent" rows="3" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-purple">Post Reply</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Discussion Modal -->
+  <div class="modal fade" id="editDiscussionModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Discussion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editDiscussionForm">
+            <div class="mb-3">
+              <label for="editDiscussionTitle" class="form-label">Discussion Title *</label>
+              <input type="text" class="form-control" id="editDiscussionTitle" required>
+            </div>
+            <div class="mb-3">
+              <label for="editDiscussionContent" class="form-label">Content *</label>
+              <textarea class="form-control" id="editDiscussionContent" rows="4" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editDiscussionCategory" class="form-label">Category</label>
+              <select class="form-select" id="editDiscussionCategory">
+                <option value="academic">Academic</option>
+                <option value="technical">Technical</option>
+                <option value="social">Social</option>
+                <option value="general">General</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="editDiscussionTags" class="form-label">Tags</label>
+              <input type="text" class="form-control" id="editDiscussionTags" placeholder="react, javascript, web-development">
+              <div class="form-text">Separate tags with commas</div>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-purple">Update Discussion</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../../../assets/js/community/discussion.js"></script>
+  <script src="../../../assets/js/community/communityDashboard.js"></script>
+</body>
+</html>

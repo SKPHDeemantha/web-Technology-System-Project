@@ -45,8 +45,12 @@ body {
   color: white;
   padding: 1rem 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1030;
+  overflow: visible;
 }
 
 .dashboard-header .container-fluid {
@@ -238,11 +242,17 @@ body {
   padding-top: 1rem;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
   overflow-y: auto;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 220px;
+  height: calc(100vh - 80px);
 }
 
 [data-theme="dark"] #sidebar {
-  background: #1f2937;
-  border-right: 1px solid var(--border-light);
+  background: var(--bg-panel) !important; /* Pure black panel for dark mode */
+  border-right: 1px solid rgba(139, 92, 246, 0.2);
+  box-shadow: inset -1px 0 0 rgba(139, 92, 246, 0.1);
 }
 
 .sidebar-header {
@@ -296,10 +306,18 @@ body {
   background: #fff;
 }
 
+[data-theme="dark"] .content-area {
+  background: var(--bg-main) !important; /* Pure black background for dark mode */
+}
+
 @media (min-width: 768px) {
   .content-area {
     margin-left: 220px;
   }
+}
+
+main {
+  padding-top: 120px;
 }
 
 /* ---------- BUTTON ---------- */
@@ -317,12 +335,12 @@ body {
 .card {
   border: none;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
 
 .card:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .card-header {
@@ -554,9 +572,71 @@ body {
   --glow-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
 }
 
+/* Enhanced Dark Mode Text Visibility */
+[data-theme="dark"] .sidebar-heading {
+  color: var(--text-light) !important;
+}
+
+[data-theme="dark"] .dashboard-section h2 {
+  color: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .dashboard-section p {
+  color: var(--text-light) !important;
+}
+
+[data-theme="dark"] .card h5 {
+  color: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .table td {
+  color: var(--text-light) !important;
+}
+
+[data-theme="dark"] .stat-card .card-title {
+  color: var(--text-light) !important;
+}
+
+[data-theme="dark"] .stat-card .h2 {
+  color: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .stat-card p {
+  color: var(--text-light) !important;
+}
+
+[data-theme="dark"] .text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* Additional Dark Mode Enhancements for Better Visibility */
+[data-theme="dark"] .card-body {
+  color: var(--text-light) !important;
+}
+
+[data-theme="dark"] .table th {
+  color: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .btn-link {
+  color: var(--text-light) !important;
+}
+
+[data-theme="dark"] .btn-link:hover {
+  color: var(--accent-purple) !important;
+}
+
+[data-theme="dark"] .form-label {
+  color: var(--text-light) !important;
+}
+
+[data-theme="dark"] .modal-title {
+  color: var(--text-dark) !important;
+}
+
 /* Base */
-[data-theme="dark"] body {
-  background-color: var(--bg-main);
+body.dark-mode.file-manager-page {
+  background-color: var(--bg-main) !important;
   color: var(--text-light);
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
@@ -569,6 +649,9 @@ body {
   border-bottom: 1px solid var(--border-glow);
   box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
   color: #fff;
+}
+[data-theme="dark"] .dashboard-section {
+background-color: #1f2937;
 }
 
 /* Sidebar */

@@ -27,11 +27,6 @@ body:has(.sidebar) {
   align-items: flex-start;
 }
 
-/* Dark mode for pages with sidebar */
-body.dark-mode:has(.sidebar) {
-  background: #1a1a1a;
-}
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -42,8 +37,6 @@ body.dark-mode {
   background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
   color: #ddd;
 }
-
-
 
 /* Colors */
 :root {

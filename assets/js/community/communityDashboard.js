@@ -20,25 +20,6 @@
         }
       });
     }
-
-    // Setup notifications dropdown
-    const notificationsDropdown = document.getElementById('notificationsDropdown');
-    if (notificationsDropdown) {
-      notificationsDropdown.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Prevent default dropdown behavior to handle custom logic
-      });
-
-      // Handle notification item clicks
-      const notificationItems = document.querySelectorAll('#notificationsMenu .dropdown-item[data-id]');
-      notificationItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-          e.preventDefault();
-          const notificationId = this.getAttribute('data-id');
-          showNotificationDetails(notificationId);
-        });
-      });
-    }
   });
 
   function initializeDashboard() {
@@ -235,7 +216,7 @@
                                         <small class="text-muted">
                                             <i class="fas fa-calendar me-1"></i>${new Date(
                                               event.date
-                                            ).toLocaleDateString()}
+                                            ).toLocaleDateString()} 
                                             at ${event.time}
                                         </small>
                                     </p>
@@ -667,7 +648,3 @@
     });
   }
 })();
-
-window.reloadPage = function () {
-  window.location.reload();
-};

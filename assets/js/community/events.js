@@ -35,20 +35,14 @@ function initializeEventsPage() {
 
     // If no events in localStorage, use sample data
     if (events.length === 0) {
-        const today = new Date();
-        const nextWeek = new Date(today);
-        nextWeek.setDate(today.getDate() + 7);
-        const nextMonth = new Date(today);
-        nextMonth.setMonth(today.getMonth() + 1);
-
         events = [
             {
                 id: 1,
                 title: 'Web Development Workshop',
-                date: nextWeek.toISOString().split('T')[0],
+                date: '2025-01-15',
                 time: '14:00',
                 location: 'Tech Lab A',
-                description: 'Learn modern web development techniques including React, Node.js, and database integration',
+                description: 'Learn modern web development techniques',
                 type: 'workshop',
                 attendees: 15,
                 createdBy: 'Student User',
@@ -57,10 +51,10 @@ function initializeEventsPage() {
             {
                 id: 2,
                 title: 'Monthly Community Meeting',
-                date: nextMonth.toISOString().split('T')[0],
+                date: '2025-01-20',
                 time: '18:00',
                 location: 'Community Hall',
-                description: 'Monthly community gathering and planning session to discuss upcoming projects and initiatives',
+                description: 'Monthly community gathering and planning session',
                 type: 'meeting',
                 attendees: 25,
                 createdBy: 'Student User',
@@ -601,14 +595,6 @@ function renderEventDetails(event) {
 }
 
 function initializeEventActions(event, allEvents) {
-    // Back Button
-    const backBtn = document.getElementById('backButton');
-    if (backBtn) {
-        backBtn.addEventListener('click', function() {
-            window.location.href = 'events.html';
-        });
-    }
-
     // Join Event Button
     const joinBtn = document.getElementById('joinEventBtn');
     if (joinBtn) {
@@ -897,51 +883,4 @@ function initializeCreateEventPage() {
             }, 1500);
         });
     }
-}
-
-// Toast notification system
-function showToast(message, type = 'info') {
-    // Create toast container if it doesn't exist
-    let toastContainer = document.querySelector('.toast-container');
-    if (!toastContainer) {
-        toastContainer = document.createElement('div');
-        toastContainer.className = 'toast-container position-fixed top-0 end-0 p-3';
-        toastContainer.style.zIndex = '9999';
-        document.body.appendChild(toastContainer);
-    }
-
-    // Create toast element
-    const toast = document.createElement('div');
-    toast.className = `toast align-items-center text-white bg-${type === 'error' ? 'danger' : type} border-0`;
-    toast.setAttribute('role', 'alert');
-    toast.setAttribute('aria-live', 'assertive');
-    toast.setAttribute('aria-atomic', 'true');
-
-    // Toast content
-    toast.innerHTML = `
-        <div class="d-flex">
-            <div class="toast-body">
-                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : type === 'warning' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
-                ${message}
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    `;
-
-    // Add toast to container
-    toastContainer.appendChild(toast);
-
-    // Initialize Bootstrap toast
-    const bsToast = new bootstrap.Toast(toast, {
-        autohide: true,
-        delay: 3000
-    });
-
-    // Show toast
-    bsToast.show();
-
-    // Remove toast from DOM after it's hidden
-    toast.addEventListener('hidden.bs.toast', function() {
-        toast.remove();
-    });
 }

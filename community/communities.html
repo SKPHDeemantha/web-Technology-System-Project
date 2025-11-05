@@ -10,65 +10,41 @@
 </head>
 <body>
   <!-- Header -->
-   <header class="dashboard-header">
-    <div class="container-fluid">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-          <button class="btn btn-link text-white me-3 d-md-none p-2" id="sidebarToggle" title="Toggle Sidebar">
-            <i class="fas fa-bars fa-lg"></i>
-          </button>
-          <div class="logo-section d-flex align-items-center me-4">
-            <div class="logo-icon me-2">
-              <i class="fas fa-graduation-cap fa-2x"></i>
-            </div>
-            <div class="logo-text">
-              <h1 class="mb-0 fw-bold">Community Hub</h1>
-              <small class="text-white-50">Events</small>
-            </div>
-          </div>
+  <header class="dashboard-header">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <div class="logo me-3">
+          <i class="fas fa-users"></i>
         </div>
-        <div class="header-actions d-flex align-items-center">
-          <button class="btn btn-link text-white me-3 p-2" id="darkModeToggle" title="Toggle Dark Mode">
-            <i class="fas fa-moon fa-lg icon-dark-mode"></i>
+        <h1>Community Hub</h1>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-outline-light me-2" id="darkModeToggle" title="Toggle Dark Mode">
+          <i class="fas fa-moon"></i>
+        </button>
+        <div class="dropdown me-2">
+          <button class="btn btn-outline-light dropdown-toggle position-relative" type="button" id="notificationsDropdown" data-bs-toggle="dropdown">
+            <i class="fas fa-bell"></i>
+            <span class="badge bg-danger notification-badge" id="notificationCount">2</span>
           </button>
-          <div class="dropdown me-3">
-            <button class="btn btn-link text-white position-relative p-2" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" title="Notifications">
-              <i class="fas fa-bell fa-lg icon-bell"></i>
-              <span class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle" id="notificationCount">2</span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow" id="notificationsMenu">
-              <li><h6 class="dropdown-header fw-bold">Notifications</h6></li>
-              <li><a class="dropdown-item d-flex align-items-center" href="#" data-id="1">
-                <i class="fas fa-users me-2 text-primary"></i>New community joined</a></li>
-              <li><a class="dropdown-item d-flex align-items-center" href="#" data-id="2">
-                <i class="fas fa-calendar me-2 text-warning"></i>Event reminder</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-center fw-bold" href="#">View all notifications</a></li>
-            </ul>
-          </div>
-          <div class="dropdown">
-            <button class="btn btn-link text-white d-flex align-items-center p-2" type="button" id="profileDropdown" data-bs-toggle="dropdown">
-              <div class="user-avatar me-2">
-                <i class="fas fa-user-circle fa-lg icon-user"></i>
-              </div>
-              <div class="user-info text-start d-none d-sm-block">
-                <div class="fw-bold small">Student User</div>
-                <div class="text-white-50 small">student@university.edu</div>
-              </div>
-              <i class="fas fa-chevron-down ms-2 small icon-professional"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow">
-              <li><a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="fas fa-user me-2"></i>My Profile</a></li>
-              <li><a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="fas fa-cog me-2"></i>Settings</a></li>
-              <li><a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="fas fa-question-circle me-2"></i>Help & Support</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item d-flex align-items-center text-danger" href="#" id="logoutBtn">
-                <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-            </ul>
-          </div>
+          <ul class="dropdown-menu dropdown-menu-end" id="notificationsMenu">
+            <li><h6 class="dropdown-header">Notifications</h6></li>
+            <li><a class="dropdown-item notification-item" href="#" data-id="1">New community joined</a></li>
+            <li><a class="dropdown-item notification-item" href="#" data-id="2">Event reminder</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-center" href="#">View all</a></li>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown">
+            <i class="fas fa-user-circle me-1"></i> Student User
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>My Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -83,8 +59,8 @@
         </div>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <button class="nav-link active" data-section="Communities" onclick="reloadPage()">
-              <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+            <button class="nav-link active" data-section="Communities"  onclick="window.location.href='communities.html'">
+              <i class="fas fa-users me-2"></i> Dashboared
             </button>
           </li>
                  <li class="nav-item">
@@ -93,17 +69,17 @@
             </button>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-section="Events"  onclick="window.location.href='../components/community/event/events.html'">
+            <button class="nav-link" data-section="Events"  onclick="window.location.href='../../components/community/event/events.html'">
               <i class="fas fa-calendar-alt me-2"></i> Events
             </button>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-section="Discussions"  onclick="window.location.href='../components/community/discussion/discussions.html'">
+            <button class="nav-link" data-section="Discussions"  onclick="window.location.href='../../components/community/discussion/discussions.html'">
               <i class="fas fa-comments me-2"></i> Discussions
             </button>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-section="FileManagement"  onclick="window.location.href='../components/community/file-management/file-manager.html'">
+            <button class="nav-link" data-section="FileManagement"  onclick="window.location.href='../../components/community/file-management/file-manager.html'">
               <i class="fas fa-folder me-2"></i> File Management
             </button>
           </li>
@@ -226,7 +202,7 @@
                           <th>Actions</th>
                         </tr>
                       </thead>
-                      <tbody id="recentCommunitiesTable" >
+                      <tbody id="recentCommunitiesTable">
                         <!-- Communities will be populated by JavaScript -->
                       </tbody>
                     </table>
@@ -322,21 +298,6 @@
               <p>Start typing to search for communities...</p>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Notification Details Modal -->
-  <div class="modal fade" id="notificationDetailsModal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Notification Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body" id="notificationDetailsContent">
-          <!-- Notification details will be loaded here -->
         </div>
       </div>
     </div>

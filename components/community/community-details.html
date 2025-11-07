@@ -1,51 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community Details - Learning Platform</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="../../assets/css/styles.css" rel="stylesheet">
-    <link href="../../assets/css/communitycss/community.css" rel="stylesheet">
+    <link href="../../../assets/css/styles.css" rel="stylesheet">
+    <link href="../../../assets/css/communitycss/community.css" rel="stylesheet">
+    <link href="../../../assets/css/communitycss/community-details.css" rel="stylesheet">
 </head>
-<body>
+
+<body class="community-details-page">
     <!-- Header -->
     <header class="dashboard-header">
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center">
-                <div class="logo me-3">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h1>Community Details</h1>
-            </div>
-            <div class="header-actions">
-                <button class="btn btn-outline-light me-2" id="darkModeToggle" title="Toggle Dark Mode">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <div class="dropdown me-2">
-                    <button class="btn btn-outline-light dropdown-toggle position-relative" type="button" id="notificationsDropdown" data-bs-toggle="dropdown">
-                        <i class="fas fa-bell"></i>
-                        <span class="badge bg-danger notification-badge" id="notificationCount">2</span>
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-link text-white me-3 d-md-none p-2" id="sidebarToggle"
+                        title="Toggle Sidebar">
+                        <i class="fas fa-bars fa-lg"></i>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end" id="notificationsMenu">
-                        <li><h6 class="dropdown-header">Notifications</h6></li>
-                        <li><a class="dropdown-item notification-item" href="#" data-id="1">New community joined</a></li>
-                        <li><a class="dropdown-item notification-item" href="#" data-id="2">Event reminder</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-center" href="#">View all</a></li>
-                    </ul>
+                    <div class="logo-section d-flex align-items-center me-4">
+                        <div class="logo-icon me-2">
+                            <i class="fas fa-graduation-cap fa-2x"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h1 class="mb-0 fw-bold">Community Hub</h1>
+                            <small class="text-white-50">Community Details</small>
+                        </div>
+                    </div>
                 </div>
-                <div class="dropdown">
-                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown">
-                        <i class="fas fa-user-circle me-1"></i> Student User
+                <div class="header-actions d-flex align-items-center">
+                    <button class="btn btn-link text-white me-3 p-2" id="darkModeToggle" title="Toggle Dark Mode">
+                        <i class="fas fa-moon fa-lg"></i>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>My Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                    </ul>
+                    <div class="dropdown me-3">
+                        <button class="btn btn-link text-white position-relative p-2" type="button"
+                            id="notificationsDropdown" data-bs-toggle="dropdown" title="Notifications">
+                            <i class="fas fa-bell fa-lg"></i>
+                            <span
+                                class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle"
+                                id="notificationCount">2</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow" id="notificationsMenu">
+                            <li>
+                                <h6 class="dropdown-header fw-bold">Notifications</h6>
+                            </li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="#" data-id="1">
+                                    <i class="fas fa-users me-2 text-primary"></i>New member joined</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="#" data-id="2">
+                                    <i class="fas fa-calendar me-2 text-warning"></i>Event reminder</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-center fw-bold" href="#">View all notifications</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-link text-white d-flex align-items-center p-2" type="button"
+                            id="profileDropdown" data-bs-toggle="dropdown">
+                            <div class="user-avatar me-2">
+                                <i class="fas fa-user-circle fa-lg"></i>
+                            </div>
+                            <div class="user-info text-start d-none d-sm-block">
+                                <div class="fw-bold small">Student User</div>
+                                <div class="text-white-50 small">student@university.edu</div>
+                            </div>
+                            <i class="fas fa-chevron-down ms-2 small"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <li><a class="dropdown-item d-flex align-items-center" href="#">
+                                    <i class="fas fa-user me-2"></i>My Profile</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="#">
+                                    <i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="#">
+                                    <i class="fas fa-question-circle me-2"></i>Help & Support</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item d-flex align-items-center text-danger" href="#" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,231 +92,259 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-block sidebar">
-                <div class="sidebar-header p-3">
-                    <h5>Navigation Menu</h5>
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="sidebar-header p-3">
+                        <h5>Navigation Menu</h5>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../../community/communities.html">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="community-details.html">
+                                <i class="fas fa-users"></i>
+                                Community Details
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="event/events.html">
+                                <i class="fas fa-calendar"></i>
+                                Events
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="discussion/discussions.html">
+                                <i class="fas fa-comments"></i>
+                                Discussions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="file-management/file-manager.html">
+                                <i class="fas fa-folder"></i>
+                                Files
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showTab('members')">
+                                <i class="fas fa-user-friends"></i>
+                                Members
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showTab('groups')">
+                                <i class="fas fa-hashtag"></i>
+                                Groups/Channels
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showTab('settings')">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../community/communities.html">
-                            <i class="fas fa-arrow-left me-2"></i>
-                            Back to Communities
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#overview" onclick="showSection('overview')">
-                            <i class="fas fa-home me-2"></i>
-                            Overview
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" onclick="window.location.href='../../components/community/discussion/discussions.html'">
-                            <i class="fas fa-comments me-2"></i>
-                            Discussions
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" onclick="window.location.href='../../components/community/event/events.html'">
-                            <i class="fas fa-calendar-alt me-2"></i>
-                            Events
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" onclick="window.location.href='../../components/community/file-management/file-manager.html'">
-                            <i class="fas fa-folder me-2"></i>
-                            Files
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" onclick="window.location.href='../../components/community/members.html'">
-                            <i class="fas fa-users me-2"></i>
-                            Members
-                        </a>
-                    </li>
-                </ul>
             </nav>
 
             <!-- Main content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 dashboard-main">
-                <!-- Global Search -->
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div class="d-flex align-items-center gap-3">
-                        <input type="text" id="globalSearch" class="form-control" placeholder="Search across community..." style="width: 300px;">
-                        <button class="btn btn-outline-secondary" onclick="document.getElementById('globalSearch').value='';">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-outline-primary" onclick="window.communityDetails.inviteMembers()">
-                            <i class="fas fa-user-plus me-1"></i>Invite
-                        </button>
-                        <button class="btn btn-outline-secondary" onclick="window.communityDetails.editCommunity()">
-                            <i class="fas fa-edit me-1"></i>Edit
-                        </button>
-                    </div>
-                </div>
-
-                <div id="communityHeader">
-                    <!-- Community header will be loaded here -->
-                </div>
-
-                <div id="communityStats" class="mb-4">
-                    <!-- Stats will be loaded here -->
-                </div>
-
-                <!-- Overview Section -->
-                <div id="overview" class="community-section">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5>Recent Activity</h5>
-                                    <div class="activity-list">
-                                        <div class="activity-item">
-                                            <i class="fas fa-comment text-primary"></i>
-                                            <span>New discussion started</span>
-                                            <small class="text-muted">2 hours ago</small>
-                                        </div>
-                                        <div class="activity-item">
-                                            <i class="fas fa-calendar text-success"></i>
-                                            <span>New event scheduled</span>
-                                            <small class="text-muted">1 day ago</small>
-                                        </div>
-                                        <div class="activity-item">
-                                            <i class="fas fa-file-upload text-info"></i>
-                                            <span>New file uploaded</span>
-                                            <small class="text-muted">2 days ago</small>
-                                        </div>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="margin-top: 6rem;">
+                <!-- Community Stats -->
+                <div class="row mt-4 mb-5 justify-content-center">
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h5 class="card-title text-uppercase text-muted mb-0">Total Members</h5>
+                                        <span class="h2 font-weight-bold mb-0" id="totalMembersCount">25</span>
+                                    </div>
+                                    <div class="stat-icon">
+                                        <i class="fas fa-users"></i>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5>Quick Actions</h5>
-                                    <div class="d-grid gap-2">
-                                        <!-- <button class="btn btn-outline-primary" onclick="showSection('discussions')">
-                                            Start Discussion
-                                        </button>
-                                        <button class="btn btn-outline-success" onclick="showSection('events')">
-                                            Create Event
-                                        </button>
-                                        <button class="btn btn-outline-info" onclick="showSection('files')">
-                                            Upload File
-                                        </button> -->
-                                        <button class="btn btn-outline-warning" onclick="showSection('members')">
-                                            Manage Members
-                                        </button>
-                                    </div>
-                                </div>
+                                <p class="mt-3 mb-0 text-success">
+                                    <span class="me-2"><i class="fas fa-arrow-up"></i> 12.5%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Discussions Section -->
-                <div id="discussions" class="community-section" style="display: none;">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4>Discussions</h4>
-                        <div class="d-flex gap-2">
-                            <input type="text" id="discussionsSearch" class="form-control form-control-sm" placeholder="Search discussions..." style="width: 200px;">
-                            <select id="discussionsFilter" class="form-select form-select-sm" style="width: 120px;">
-                                <option value="">All Categories</option>
-                                <option value="general">General</option>
-                                <option value="academic">Academic</option>
-                                <option value="technical">Technical</option>
-                            </select>
-                            <select id="discussionsSort" class="form-select form-select-sm" style="width: 120px;">
-                                <option value="newest">Newest</option>
-                                <option value="oldest">Oldest</option>
-                                <option value="popular">Most Replies</option>
-                            </select>
-                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createDiscussionModal">
-                                <i class="fas fa-plus"></i> Start Discussion
-                            </button>
-                        </div>
-                    </div>
-                    <div id="discussionsContainer">
-                        <!-- Discussions will be loaded here -->
-                    </div>
-                </div>
-
-                <!-- Events Section -->
-                <div id="events" class="community-section" style="display: none;">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4>Events</h4>
-                        <div class="d-flex gap-2">
-                            <input type="text" id="eventsSearch" class="form-control form-control-sm" placeholder="Search events..." style="width: 200px;">
-                            <select id="eventsFilter" class="form-select form-select-sm" style="width: 120px;">
-                                <option value="">All Types</option>
-                                <option value="meetup">Meetup</option>
-                                <option value="workshop">Workshop</option>
-                                <option value="seminar">Seminar</option>
-                            </select>
-                            <select id="eventsSort" class="form-select form-select-sm" style="width: 120px;">
-                                <option value="upcoming">Upcoming</option>
-                                <option value="recent">Recent</option>
-                                <option value="popular">Most Attendees</option>
-                            </select>
-                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#createEventModal">
-                                <i class="fas fa-plus"></i> Create Event
-                            </button>
-                        </div>
-                    </div>
-                    <div id="eventsContainer">
-                        <!-- Events will be loaded here -->
-                    </div>
-                </div>
-
-                <!-- Files Section -->
-                <div id="files" class="community-section" style="display: none;">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4>Files</h4>
-                        <div class="d-flex gap-2">
-                            <input type="text" id="filesSearch" class="form-control form-control-sm" placeholder="Search files..." style="width: 200px;">
-                            <select id="filesFilter" class="form-select form-select-sm" style="width: 120px;">
-                                <option value="">All Types</option>
-                                <option value="document">Documents</option>
-                                <option value="image">Images</option>
-                                <option value="video">Videos</option>
-                            </select>
-                            <select id="filesSort" class="form-select form-select-sm" style="width: 120px;">
-                                <option value="newest">Newest</option>
-                                <option value="oldest">Oldest</option>
-                                <option value="name">Name</option>
-                                <option value="size">Size</option>
-                            </select>
-                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#uploadFileModal">
-                                <i class="fas fa-plus"></i> Upload File
-                            </button>
-                        </div>
-                    </div>
-                    <div id="filesContainer">
-                        <!-- Files will be loaded here -->
-                    </div>
-                </div>
-
-                <!-- Members Section -->
-                <div id="members" class="community-section" style="display: none;">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4>Members</h4>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemberModal">
-                            <i class="fas fa-plus"></i> Add Member
-                        </button>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div id="membersList">
-                                <!-- Members will be listed here -->
-                                <div class="member-list-item">
-                                    <img src="https://via.placeholder.com/40" alt="User" class="member-avatar">
-                                    <div class="flex-grow-1 ms-3">
-                                        <h6 class="mb-0">Admin User</h6>
-                                        <small class="text-muted">admin@example.com</small>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h5 class="card-title text-uppercase text-muted mb-0">Total Posts</h5>
+                                        <span class="h2 font-weight-bold mb-0" id="totalPostsCount">156</span>
                                     </div>
-                                    <span class="role-badge role-admin">Admin</span>
+                                    <div class="stat-icon">
+                                        <i class="fas fa-comment"></i>
+                                    </div>
                                 </div>
+                                <p class="mt-3 mb-0 text-success">
+                                    <span class="me-2"><i class="fas fa-arrow-up"></i> 8.2%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h5 class="card-title text-uppercase text-muted mb-0">Events</h5>
+                                        <span class="h2 font-weight-bold mb-0" id="eventsCount">8</span>
+                                    </div>
+                                    <div class="stat-icon">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                </div>
+                                <p class="mt-3 mb-0 text-success">
+                                    <span class="me-2"><i class="fas fa-arrow-up"></i> 15.7%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h5 class="card-title text-uppercase text-muted mb-0">Active Users</h5>
+                                        <span class="h2 font-weight-bold mb-0" id="activeUsersCount">18</span>
+                                    </div>
+                                    <div class="stat-icon">
+                                        <i class="fas fa-user-check"></i>
+                                    </div>
+                                </div>
+                                <p class="mt-3 mb-0 text-warning">
+                                    <span class="me-2"><i class="fas fa-minus"></i> 2.1%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs for sub-parts -->
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs" id="communityTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="members-tab" data-bs-toggle="tab"
+                                    data-bs-target="#members" type="button" role="tab" aria-controls="members"
+                                    aria-selected="true">Members</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="groups-tab" data-bs-toggle="tab" data-bs-target="#groups"
+                                    type="button" role="tab" aria-controls="groups"
+                                    aria-selected="false">Groups/Channels</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
+                                    data-bs-target="#settings" type="button" role="tab" aria-controls="settings"
+                                    aria-selected="false">Settings</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="communityTabContent">
+                            <!-- Members Tab -->
+                            <div class="tab-pane fade show active" id="members" role="tabpanel"
+                                aria-labelledby="members-tab">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5>Members</h5>
+                                    <button class="btn btn-purple" data-bs-toggle="modal"
+                                        data-bs-target="#addMemberModal">
+                                        <i class="fas fa-plus me-1"></i> Add Member
+                                    </button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Role</th>
+                                                <th>Joined</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="membersTable">
+                                            <!-- Members will be populated by JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Groups/Channels Tab -->
+                            <div class="tab-pane fade" id="groups" role="tabpanel" aria-labelledby="groups-tab">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5>Groups/Channels</h5>
+                                    <button class="btn btn-purple" data-bs-toggle="modal"
+                                        data-bs-target="#addGroupModal">
+                                        <i class="fas fa-plus me-1"></i> Add Group
+                                    </button>
+                                </div>
+                                <div class="row" id="groupsContainer">
+                                    <!-- Groups will be populated by JS -->
+                                </div>
+                            </div>
+
+                            <!-- Settings Tab -->
+                            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                                <h5>Community Settings</h5>
+                                <form id="communitySettingsForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="communityName" class="form-label">Community Name</label>
+                                                <input type="text" class="form-control" id="communityName"
+                                                    value="Computer Science Club">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="communityDescription" class="form-label">Description</label>
+                                                <textarea class="form-control" id="communityDescription"
+                                                    rows="3">A community for computer science students and enthusiasts.</textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="communityPrivacy" class="form-label">Privacy</label>
+                                                <select class="form-select" id="communityPrivacy">
+                                                    <option value="public">Public</option>
+                                                    <option value="private">Private</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="communityCategory" class="form-label">Category</label>
+                                                <select class="form-select" id="communityCategory">
+                                                    <option value="academic">Academic</option>
+                                                    <option value="social">Social</option>
+                                                    <option value="professional">Professional</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="communityTags" class="form-label">Tags</label>
+                                                <input type="text" class="form-control" id="communityTags"
+                                                    value="CS, Programming, Technology">
+                                            </div>
+                                            <div class="mb-3 form-check">
+                                                <input type="checkbox" class="form-check-input" id="allowJoinRequests"
+                                                    checked>
+                                                <label class="form-check-label" for="allowJoinRequests">Allow join
+                                                    requests</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-purple">Save Settings</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -298,166 +364,90 @@
                 <div class="modal-body">
                     <form id="addMemberForm">
                         <div class="mb-3">
-                            <label for="memberUserId" class="form-label">User ID</label>
-                            <input type="text" class="form-control" id="memberUserId" required>
-                            <div class="form-text">Enter the user ID of the person you want to add</div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="addMemberForm" class="btn btn-primary">Add Member</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Create Discussion Modal -->
-    <div class="modal fade" id="createDiscussionModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Start New Discussion</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="createDiscussionForm">
-                        <div class="mb-3">
-                            <label for="discussionTitle" class="form-label">Title</label>
-                            <input type="text" class="form-control" id="discussionTitle" required>
+                            <label for="memberEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="memberEmail" required>
                         </div>
                         <div class="mb-3">
-                            <label for="discussionContent" class="form-label">Content</label>
-                            <textarea class="form-control" id="discussionContent" rows="4" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="discussionCategory" class="form-label">Category</label>
-                            <select class="form-select" id="discussionCategory" required>
-                                <option value="general">General</option>
-                                <option value="academic">Academic</option>
-                                <option value="technical">Technical</option>
-                                <option value="cultural">Cultural</option>
+                            <label for="memberRole" class="form-label">Role</label>
+                            <select class="form-select" id="memberRole" required>
+                                <option value="member">Member</option>
+                                <option value="moderator">Moderator</option>
+                                <option value="admin">Admin</option>
                             </select>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="createDiscussionForm" class="btn btn-primary">Start Discussion</button>
+                    <button type="submit" form="addMemberForm" class="btn btn-purple">Add Member</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Create Event Modal -->
-    <div class="modal fade" id="createEventModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Create New Event</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="createEventForm">
-                        <div class="mb-3">
-                            <label for="eventTitle" class="form-label">Event Title</label>
-                            <input type="text" class="form-control" id="eventTitle" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="eventDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="eventDescription" rows="3" required></textarea>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="eventDate" class="form-label">Date</label>
-                                <input type="date" class="form-control" id="eventDate" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="eventTime" class="form-label">Time</label>
-                                <input type="time" class="form-control" id="eventTime" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="eventLocation" class="form-label">Location</label>
-                            <input type="text" class="form-control" id="eventLocation" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="eventType" class="form-label">Event Type</label>
-                            <select class="form-select" id="eventType" required>
-                                <option value="meetup">Meetup</option>
-                                <option value="workshop">Workshop</option>
-                                <option value="seminar">Seminar</option>
-                                <option value="social">Social Event</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="createEventForm" class="btn btn-success">Create Event</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Upload File Modal -->
-    <div class="modal fade" id="uploadFileModal" tabindex="-1">
+    <!-- Add Group Modal -->
+    <div class="modal fade" id="addGroupModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Upload File</h5>
+                    <h5 class="modal-title">Add Group/Channel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="uploadFileForm">
+                    <form id="addGroupForm">
                         <div class="mb-3">
-                            <label for="fileInput" class="form-label">Select File</label>
-                            <input type="file" class="form-control" id="fileInput" required>
-                            <div class="form-text">Supported formats: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, JPG, PNG, GIF, MP4, AVI</div>
+                            <label for="groupName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="groupName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="groupType" class="form-label">Type</label>
+                            <select class="form-select" id="groupType" required>
+                                <option value="group">Group</option>
+                                <option value="channel">Channel</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="groupDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="groupDescription" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="groupPrivate">
+                            <label class="form-check-label" for="groupPrivate">Private</label>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="uploadFileForm" class="btn btn-info">Upload File</button>
+                    <button type="submit" form="addGroupForm" class="btn btn-purple">Create</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Search Results Modal -->
-    <div class="modal fade" id="searchResultsModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+    <!-- Notification Details Modal -->
+    <div class="modal fade" id="notificationDetailsModal" tabindex="-1">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Search Results</h5>
+                    <h5 class="modal-title">Notification Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
-                    <div id="searchResultsContainer">
-                        <!-- Search results will be loaded here -->
-                    </div>
+                <div class="modal-body" id="notificationDetailsContent">
+                    <!-- Notification details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="../../assets/js/community/dataManager.js"></script> -->
-    <script src="../../assets/js/community/community-details.js"></script>
-    <script>
-        // Global search functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const globalSearch = document.getElementById('globalSearch');
-            if (globalSearch) {
-                globalSearch.addEventListener('input', function() {
-                    const query = this.value.trim();
-                    if (query.length > 2) {
-                        window.communityDetails.performGlobalSearch(query);
-                    }
-                });
-            }
-        });
-    </script>
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../assets/js/community/community-details.js"></script>
+    <script src="../../../assets/js/community/communityDashboard.js"></script>
 </body>
+
 </html>

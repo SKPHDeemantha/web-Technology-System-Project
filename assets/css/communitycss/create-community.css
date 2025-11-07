@@ -188,7 +188,16 @@
     color: #e2e8f0;
 }
 
-[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-text {
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .form-control {
+    background-color: #4a5568;
+    border-color: #718096;
+    color: #e2e8f0;
+}
+
 [data-theme="dark"] .form-select {
     background-color: #4a5568;
     border-color: #718096;
@@ -200,6 +209,10 @@
     background-color: #4a5568;
     border-color: #667eea;
     color: #e2e8f0;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: #ffffff;
 }
 
 [data-theme="dark"] .community-preview {
@@ -262,4 +275,10 @@
     .create-community-card .card-body {
         padding: 1rem;
     }
+}
+.container-fluid {
+  padding: 6rem 2rem 2rem;
+
+  transition: all 0.3s ease;
+  
 }

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="..\..\assets\css\studentcss\message.css">
+</head>
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <button class="mobile-menu-btn" id="menuToggle">☰</button>
+            <h1>Community Hub</h1>
+        </div>
+        <div class="header-icons">
+            <button class="icon-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C10.9 2 10 2.9 10 4V4.29C7.12 5.14 5 7.82 5 11V17L3 19V20H21V19L19 17V11C19 7.82 16.88 5.14 14 4.29V4C14 2.9 13.1 2 12 2ZM12 6C14.76 6 17 8.24 17 11V18H7V11C7 8.24 9.24 6 12 6ZM10 21C10 22.1 10.9 23 12 23C13.1 23 14 22.1 14 21H10Z"/>
+                </svg>
+                <span class="notification-badge">4</span>
+            </button>
+            <button class="icon-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">Student Portal</div>
+            <a href="#" class="nav-item" onclick="navigateTo('dashboard')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                </svg>
+                Dashboard
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('communities')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                </svg>
+                Communities
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('profile')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                Profile
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('courses')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                </svg>
+                Courses
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('grades')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                </svg>
+                Grades
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('attendance')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                </svg>
+                Attendance
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('schedule')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                </svg>
+                Schedule
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('assignments')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                </svg>
+                Assignments
+            </a>
+            <a href="#" class="nav-item active" onclick="navigateTo('messages')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 14H6v-2h2v2zm0-3H6V9h2v2zm0-3H6V6h2v2zm7 6h-5v-2h5v2zm3-3h-8V9h8v2zm0-3h-8V6h8v2z"/>
+                </svg>
+                Messages
+            </a>
+        </aside>
+
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page">
+                <div class="page-content">
+                    <h1>Dashboard</h1>
+                    <p>Welcome to your student dashboard! Here you can get an overview of your academic progress.</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Current GPA</h3>
+                            <div class="value">3.75</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Assignments Due</h3>
+                            <div class="value">5</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Attendance Rate</h3>
+                            <div class="value">94%</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Upcoming Classes</h3>
+                            <div class="value">3</div>
+                        </div>
+                    </div>
+                    
+                    <h2 style="margin-top: 30px;">Recent Activity</h2>
+                    <div class="assignment-list">
+                        <div class="assignment-item">
+                            <h3>Mathematics Quiz</h3>
+                            <p>Submitted: Yesterday</p>
+                            <p>Grade: 92%</p>
+                        </div>
+                        <div class="assignment-item">
+                            <h3>Physics Lab Report</h3>
+                            <p>Due: Tomorrow</p>
+                            <button>Complete Assignment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schedule Page -->
+            <div id="schedule-page" class="page">
+                <div class="page-content">
+                    <h1>Weekly Schedule</h1>
+                    <p>Your class schedule for the current week.</p>
+                    
+                    <table class="schedule-table">
+                        <tr>
+                            <th>Time</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                        </tr>
+                        <tr>
+                            <td>9:00 AM</td>
+                            <td>English</td>
+                            <td>English</td>
+                            <td>Mathematics</td>
+                            <td>Mathematics</td>
+                            <td>History</td>
+                        </tr>
+                        <tr>
+                            <td>10:00 AM</td>
+                            <td>Mathematics</td>
+                            <td>Mathematics</td>
+                            <td>Physics</td>
+                            <td>Physics</td>
+                            <td>Mathematics</td>
+                        </tr>
+                        <tr>
+                            <td>11:00 AM</td>
+                            <td>Chemistry</td>
+                            <td>Chemistry</td>
+                            <td>Chemistry</td>
+                            <td>History</td>
+                            <td>Physics</td>
+                        </tr>
+                        <tr>
+                            <td>1:00 PM</td>
+                            <td>History</td>
+                            <td>Physics</td>
+                            <td>English</td>
+                            <td>English</td>
+                            <td>Chemistry</td>
+                        </tr>
+                        <tr>
+                            <td>2:00 PM</td>
+                            <td>Physics</td>
+                            <td>History</td>
+                            <td>History</td>
+                            <td>Chemistry</td>
+                            <td>English</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Assignments Page -->
+            <div id="assignments-page" class="page">
+                <div class="page-content">
+                    <h1>Assignments</h1>
+                    <p>View and manage your course assignments.</p>
+                    
+                    <div class="assignment-list">
+                        <div class="assignment-item">
+                            <h3>Mathematics Homework - Calculus</h3>
+                            <p><strong>Due:</strong> January 15, 2024</p>
+                            <p><strong>Status:</strong> Submitted</p>
+                            <p><strong>Grade:</strong> 88%</p>
+                            <button>View Feedback</button>
+                        </div>
+                        <div class="assignment-item">
+                            <h3>Physics Lab Report - Optics</h3>
+                            <p><strong>Due:</strong> January 18, 2024</p>
+                            <p><strong>Status:</strong> In Progress</p>
+                            <button>Continue Working</button>
+                        </div>
+                        <div class="assignment-item">
+                            <h3>English Essay - Shakespeare</h3>
+                            <p><strong>Due:</strong> January 22, 2024</p>
+                            <p><strong>Status:</strong> Not Started</p>
+                            <button>Start Assignment</button>
+                        </div>
+                        <div class="assignment-item">
+                            <h3>Chemistry Research Paper</h3>
+                            <p><strong>Due:</strong> January 25, 2024</p>
+                            <p><strong>Status:</strong> In Progress</p>
+                            <button>Continue Working</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages Page -->
+            <div id="messages-page" class="page active">
+                <div class="messages-container">
+                    <div class="messages-tabs">
+                        <a href="#" class="tab active" data-tab="inbox">
+                            Inbox
+                            <span class="tab-badge">6</span>
+                        </a>
+                        <a href="#" class="tab" data-tab="sent">
+                            Sent
+                            <span class="tab-badge">2</span>
+                        </a>
+                        <a href="#" class="compose-btn" id="composeBtn">
+                            + Compose
+                        </a>
+                    </div>
+
+                    <div class="messages-header">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search messages..." id="searchInput">
+                        </div>
+                        <div class="actions-bar">
+                            <button class="action-btn" id="markAllRead">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                                </svg>
+                                <span>Mark All Read</span>
+                            </button>
+                            <button class="action-btn delete" id="deleteSelected">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                </svg>
+                                <span>Delete Selected</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <ul class="messages-list" id="messagesList">
+                        <li class="message-item" data-message-id="1">
+                            <input type="checkbox" class="message-checkbox">
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <div class="sender-info">
+                                        <span class="sender-name">Professor Smith</span>
+                                        <span class="badge urgent">Urgent</span>
+                                    </div>
+                                    <span class="message-time">1 hour ago</span>
+                                </div>
+                                <div class="message-subject">Regarding your assignment submission</div>
+                                <div class="message-preview">Your recent assignment submission needs revision. Please review the feedback and resubmit by tomorrow.</div>
+                                <div class="message-actions">
+                                    <button class="msg-action-btn reply">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/>
+                                        </svg>
+                                        Reply
+                                    </button>
+                                    <button class="msg-action-btn delete">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                        </svg>
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="message-item" data-message-id="2">
+                            <input type="checkbox" class="message-checkbox">
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <div class="sender-info">
+                                        <span class="sender-name">Dr. Johnson</span>
+                                    </div>
+                                    <span class="message-time">2 hours ago</span>
+                                </div>
+                                <div class="message-subject">Physics lab results are now available</div>
+                                <div class="message-preview">Your physics lab results have been posted. You scored 85% on the experiment.</div>
+                                <div class="message-actions">
+                                    <button class="msg-action-btn reply">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/>
+                                        </svg>
+                                        Reply
+                                    </button>
+                                    <button class="msg-action-btn delete">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                        </svg>
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="message-item" data-message-id="3">
+                            <input type="checkbox" class="message-checkbox">
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <div class="sender-info">
+                                        <span class="sender-name">Ms. Wilson</span>
+                                    </div>
+                                    <span class="message-time">1 day ago</span>
+                                </div>
+                                <div class="message-subject">English literature reading list update</div>
+                                <div class="message-preview">The reading list for next week has been updated. Please check the course materials.</div>
+                                <div class="message-actions">
+                                    <button class="msg-action-btn reply">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/>
+                                        </svg>
+                                        Reply
+                                    </button>
+                                    <button class="msg-action-btn delete">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                        </svg>
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="message-item" data-message-id="4">
+                            <input type="checkbox" class="message-checkbox">
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <div class="sender-info">
+                                        <span class="sender-name">Admin Office</span>
+                                        <span class="badge admin">Admin</span>
+                                    </div>
+                                    <span class="message-time">3 days ago</span>
+                                </div>
+                                <div class="message-subject">Tuition fee payment reminder</div>
+                                <div class="message-preview">Your tuition fee payment is due on January 31st. Please make the payment to avoid late fees.</div>
+                                <div class="message-actions">
+                                    <button class="msg-action-btn reply">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/>
+                                        </svg>
+                                        Reply
+                                    </button>
+                                    <button class="msg-action-btn delete">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                        </svg>
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Other Pages (Placeholders) -->
+            <div id="communities-page" class="page">
+                <div class="page-content">
+                    <h1>Communities</h1>
+                    <p>Connect with other students and join academic communities.</p>
+                    <!-- Add communities content here -->
+                </div>
+            </div>
+
+            <div id="profile-page" class="page">
+                <div class="page-content">
+                    <h1>Profile</h1>
+                    <p>Manage your personal information and account settings.</p>
+                    <!-- Add profile content here -->
+                </div>
+            </div>
+
+            <div id="courses-page" class="page">
+                <div class="page-content">
+                    <h1>Courses</h1>
+                    <p>View your enrolled courses and course materials.</p>
+                    <!-- Add courses content here -->
+                </div>
+            </div>
+
+            <div id="grades-page" class="page">
+                <div class="page-content">
+                    <h1>Grades</h1>
+                    <p>Check your academic performance and grades.</p>
+                    <!-- Add grades content here -->
+                </div>
+            </div>
+
+            <div id="attendance-page" class="page">
+                <div class="page-content">
+                    <h1>Attendance</h1>
+                    <p>Track your class attendance records.</p>
+                    <!-- Add attendance content here -->
+                </div>
+            </div>
+        </main>
+    </div> 
+    <script src="..\..\assets\js\student\message.js"></script>    
+</body>
+</html>

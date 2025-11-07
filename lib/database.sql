@@ -264,3 +264,29 @@ INSERT INTO users (email, password_hash, first_name, last_name, display_name, ro
 VALUES
   ('admin@example.edu','<bcrypt-hash>', 'Site','Admin','Admin', 3, NULL, 1);
 
+-- Sample lecturer user (mock data from app.js)
+INSERT INTO users (email, password_hash, first_name, last_name, display_name, role_id, year_id, is_active)
+VALUES
+  ('alice@uni.edu', 'password', 'Alice', 'Benson', 'Dr. Alice Benson', 2, NULL, 1);
+
+-- Sample student users (mock data from app.js)
+INSERT INTO users (email, password_hash, first_name, last_name, display_name, role_id, year_id, is_active)
+VALUES
+  ('john.1@uni.edu', 'password', 'John', 'Doe', 'John Doe', 1, 1, 1),
+  ('jane.2@uni.edu', 'password', 'Jane', 'Smith', 'Jane Smith', 1, 2, 1);
+
+-- Sample course (based on mock timetable)
+INSERT INTO courses (course_code, course_name, description, lecturer_id, year_id, semester, credits, is_active)
+VALUES
+  ('CS101', 'Introduction to Programming', 'Basic programming course', 2, 1, 'fall', 3, 1);
+
+-- Sample timetable (mock data from app.js)
+INSERT INTO timetables (course_id, day_of_week, start_time, end_time, room)
+VALUES
+  (1, 'monday', '09:00:00', '11:00:00', 'Room A1');
+
+-- Sample announcement (mock data from app.js)
+INSERT INTO announcements (author_id, title, body, target_year_id, is_pinned)
+VALUES
+  (2, 'Welcome to Semester', 'Semester starts Monday. Check your timetable.', NULL, 0);
+

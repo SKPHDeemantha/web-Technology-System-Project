@@ -401,49 +401,6 @@
             background: #fef2f2;
         }
 
-        /* Assignments Styles */
-        .assignment-list {
-            margin-top: 20px;
-        }
-
-        .assignment-item {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: all 0.2s;
-        }
-
-        .assignment-item:hover {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-color: #667eea;
-        }
-
-        .assignment-item h3 {
-            color: #2d3748;
-            margin-bottom: 8px;
-        }
-
-        .assignment-item p {
-            color: #718096;
-            margin-bottom: 12px;
-        }
-
-        .assignment-item button {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .assignment-item button:hover {
-            background: #5a6fd8;
-        }
-
         /* Dashboard Styles */
         .stats-grid {
             display: grid;

@@ -1,4 +1,4 @@
-// Navigation functionality
+    // Navigation functionality
         function navigateTo(page) {
             // Hide all pages
             document.querySelectorAll('.page').forEach(p => {
@@ -31,6 +31,86 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.remove('active');
             this.classList.remove('active');
+        });
+
+        // Upload Modal functionality
+        const uploadModal = document.getElementById('uploadModal');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const closeModal = document.getElementById('closeModal');
+        const cancelUpload = document.getElementById('cancelUpload');
+        const dropZone = document.getElementById('dropZone');
+        const browseBtn = document.getElementById('browseBtn');
+
+        // Open modal
+        uploadBtn.addEventListener('click', function() {
+            uploadModal.classList.add('active');
+        });
+
+        // Close modal
+        function closeUploadModal() {
+            uploadModal.classList.remove('active');
+        }
+
+        closeModal.addEventListener('click', closeUploadModal);
+        cancelUpload.addEventListener('click', closeUploadModal);
+
+        // Close modal when clicking outside
+        uploadModal.addEventListener('click', function(e) {
+            if (e.target === uploadModal) {
+                closeUploadModal();
+            }
+        });
+
+        // Drag and drop functionality
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight() {
+            dropZone.classList.add('dragover');
+        }
+
+        function unhighlight() {
+            dropZone.classList.remove('dragover');
+        }
+
+        dropZone.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                const file = files[0];
+                alert(`File selected: ${file.name}\nSize: ${(file.size / 1024 / 1024).toFixed(2)}MB`);
+                // Here you would typically handle the file upload
+            }
+        }
+
+        browseBtn.addEventListener('click', function() {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.pdf,.mp4,.doc,.docx,.ppt,.pptx';
+            fileInput.onchange = function(e) {
+                handleFiles(e.target.files);
+            };
+            fileInput.click();
         });
 
         // Resources filter functionality

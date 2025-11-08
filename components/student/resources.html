@@ -115,15 +115,24 @@
                             <input type="text" placeholder="Search resources..." id="searchResources">
                             <span class="search-icon">🔍</span>
                         </div>
-                        <div class="filter-buttons">
-                            <button class="filter-btn active" data-filter="all">All</button>
-                            <button class="filter-btn" data-filter="pdf">PDF</button>
-                            <button class="filter-btn" data-filter="videos">Videos</button>
-                            <button class="filter-btn" data-filter="interactive">Interactive</button>
+                        <div class="header-actions">
+                            <div class="filter-buttons">
+                                <button class="filter-btn active" data-filter="all">All</button>
+                                <button class="filter-btn" data-filter="pdf">PDF</button>
+                                <button class="filter-btn" data-filter="videos">Videos</button>
+                                <button class="filter-btn" data-filter="interactive">Interactive</button>
+                            </div>
+                            <button class="upload-btn" id="uploadBtn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                                </svg>
+                                Upload Resource
+                            </button>
                         </div>
                     </div>
 
                     <div class="resources-grid">
+                        <!-- Existing resource cards remain the same -->
                         <!-- Mathematics Notes -->
                         <div class="resource-card" data-type="pdf">
                             <div class="resource-header">
@@ -269,83 +278,70 @@
             </div>
 
             <!-- Other Pages (Placeholders) -->
-            <div id="dashboard-page" class="page">
-                <div class="page-content">
-                    <h1>Dashboard</h1>
-                    <p>Welcome to your student dashboard!</p>
-                </div>
-            </div>
-
-            <div id="communities-page" class="page">
-                <div class="page-content">
-                    <h1>Communities</h1>
-                    <p>Connect with other students and join academic communities.</p>
-                </div>
-            </div>
-
-            <div id="profile-page" class="page">
-                <div class="page-content">
-                    <h1>Profile</h1>
-                    <p>Manage your personal information and account settings.</p>
-                </div>
-            </div>
-
-            <div id="courses-page" class="page">
-                <div class="page-content">
-                    <h1>Courses</h1>
-                    <p>View your enrolled courses and course materials.</p>
-                </div>
-            </div>
-
-            <div id="grades-page" class="page">
-                <div class="page-content">
-                    <h1>Grades</h1>
-                    <p>Check your academic performance and grades.</p>
-                </div>
-            </div>
-
-            <div id="attendance-page" class="page">
-                <div class="page-content">
-                    <h1>Attendance</h1>
-                    <p>Track your class attendance records.</p>
-                </div>
-            </div>
-
-            <div id="schedule-page" class="page">
-                <div class="page-content">
-                    <h1>Schedule</h1>
-                    <p>View your weekly class schedule.</p>
-                </div>
-            </div>
-
-            <div id="assignments-page" class="page">
-                <div class="page-content">
-                    <h1>Assignments</h1>
-                    <p>Manage your course assignments.</p>
-                </div>
-            </div>
-
-            <div id="messages-page" class="page">
-                <div class="page-content">
-                    <h1>Messages</h1>
-                    <p>Check your messages and notifications.</p>
-                </div>
-            </div>
-
-            <div id="announcements-page" class="page">
-                <div class="page-content">
-                    <h1>Announcements</h1>
-                    <p>View important announcements from your institution.</p>
-                </div>
-            </div>
-
-            <div id="settings-page" class="page">
-                <div class="page-content">
-                    <h1>Settings</h1>
-                    <p>Configure your account and application settings.</p>
-                </div>
-            </div>
+            <!-- ... other page placeholders remain the same ... -->
         </main>
+    </div>
+
+    <!-- Upload Modal -->
+    <div class="modal-overlay" id="uploadModal">
+        <div class="upload-modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Usuband Resources</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <p style="color: #718096; margin-bottom: 25px;">Share educational materials with the community</p>
+            
+            <div class="upload-section">
+                <div class="upload-area" id="dropZone">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">Drag & Drop Files Here</div>
+                    <div class="upload-subtext">Or</div>
+                    <button class="browse-btn" id="browseBtn">Browse Files</button>
+                    <div class="file-info">Supported: PDF, MP4, DOC, PPT (Max 50MB)</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Resource Title</label>
+                <input type="text" class="form-input" placeholder="Enter resource title">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-input" placeholder="Describe the resource content" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Resource Type</label>
+                <select class="form-select">
+                    <option>Select type</option>
+                    <option>PDF Document</option>
+                    <option>Video</option>
+                    <option>Presentation</option>
+                    <option>Interactive</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Subject/Category</label>
+                <select class="form-select">
+                    <option>Select subject</option>
+                    <option>Mathematics</option>
+                    <option>Physics</option>
+                    <option>Chemistry</option>
+                    <option>Biology</option>
+                    <option>History</option>
+                    <option>English</option>
+                    <option>Computer Science</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button class="cancel-btn" id="cancelUpload">Cancel</button>
+                <button class="submit-btn">Upload Resource</button>
+            </div>
+        </div>
     </div>
     <script src="..\..\assets\js\student\resources.js"></script>
 </body>

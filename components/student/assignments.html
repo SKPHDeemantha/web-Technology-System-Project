@@ -4,183 +4,173 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Portal - Assignments</title>
-    <link rel="stylesheet" href="..\..\assets\css\studentcss\assignements.css">
+    <link rel="stylesheet" href="..\..\assets\css\studentcss\assignments.css">
 </head>
 <body>
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    
     <div class="header">
         <div style="display: flex; align-items: center; gap: 15px;">
-            <button class="menu-toggle" id="menuToggle">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </button>
+            <button class="mobile-menu-btn" id="menuToggle">☰</button>
             <h1>Community Hub</h1>
         </div>
         <div class="header-icons">
             <button class="icon-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C10.9 2 10 2.9 10 4V4.29C7.12 5.14 5 7.82 5 11V17L3 19V20H21V19L19 17V11C19 7.82 16.88 5.14 14 4.29V4C14 2.9 13.1 2 12 2ZM12 6C14.76 6 17 8.24 17 11V18H7V11C7 8.24 9.24 6 12 6ZM10 21C10 22.1 10.9 23 12 23C13.1 23 14 22.1 14 21H10Z"/>
                 </svg>
                 <span class="notification-badge">4</span>
             </button>
             <button class="icon-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/>
                 </svg>
             </button>
         </div>
     </div>
 
+    <div class="overlay" id="overlay"></div>
+
     <div class="container">
-        <div class="sidebar" id="sidebar">
-            <div class="portal-title">Student Portal</div>
-            <nav class="nav-menu">
-                <a class="nav-item" href="#">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="7" height="7"></rect>
-                        <rect x="14" y="3" width="7" height="7"></rect>
-                        <rect x="14" y="14" width="7" height="7"></rect>
-                        <rect x="3" y="14" width="7" height="7"></rect>
-                    </svg>
-                    <span>Dashboard</span>
-                </a>
-                <a class="nav-item" href="#">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                    </svg>
-                    <span>Communities</span>
-                </a>
-                <a class="nav-item" href="#">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span>Profile</span>
-                </a>
-                <a class="nav-item" href="#">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                    </svg>
-                    <span>Courses</span>
-                </a>
-                <a class="nav-item" href="#">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                    </svg>
-                    <span>Grades</span>
-                </a>
-                <a class="nav-item" href="#">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
-                    <span>Attendance</span>
-                </a>
-                <a class="nav-item" href="schedule.html">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                    </svg>
-                    <span>Schedule</span>
-                </a>
-                <a class="nav-item active" href="#">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <polyline points="10 9 9 9 8 9"></polyline>
-                    </svg>
-                    <span>Assignments</span>
-                </a>
-                <a class="nav-item" href="#">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>
-                    <span>Messages</span>
-                </a>
-            </nav>
-        </div>
-
-        <div class="main-content">
-            <div class="content-header">
-                <h2>Assignments</h2>
-            </div>
-
-            <div class="section-title">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="8" y1="6" x2="21" y2="6"></line>
-                    <line x1="8" y1="12" x2="21" y2="12"></line>
-                    <line x1="8" y1="18" x2="21" y2="18"></line>
-                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">Student Portal</div>
+            <a href="#" class="nav-item" onclick="navigateTo('dashboard')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
                 </svg>
-                Upcoming Assignments
+                Dashboard
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('communities')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                </svg>
+                Communities
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('profile')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                Profile
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('courses')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                </svg>
+                Courses
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('grades')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                </svg>
+                Grades
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('attendance')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                </svg>
+                Attendance
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('schedule')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                </svg>
+                Schedule
+            </a>
+            <a href="#" class="nav-item active" onclick="navigateTo('assignments')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                </svg>
+                Assignments
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('messages')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 14H6v-2h2v2zm0-3H6V9h2v2zm0-3H6V6h2v2zm7 6h-5v-2h5v2zm3-3h-8V9h8v2zm0-3h-8V6h8v2z"/>
+                </svg>
+                Messages
+            </a>
+        </aside>
+
+        <main class="main-content">
+            <!-- Assignments Page -->
+            <div id="assignments-page" class="page active">
+                <div class="page-content">
+                    <h1>Assignments</h1>
+                    <p>View and manage your course assignments.</p>
+                    
+                    <div class="assignment-filters">
+                        <button class="filter-btn active">All</button>
+                        <button class="filter-btn">Pending</button>
+                        <button class="filter-btn">Submitted</button>
+                        <button class="filter-btn">Graded</button>
+                    </div>
+                    
+                    <div class="assignment-list">
+                        <div class="assignment-item">
+                            <div class="assignment-header">
+                                <h3>Mathematics Homework - Calculus</h3>
+                                <span class="status-badge submitted">Submitted</span>
+                            </div>
+                            <div class="assignment-details">
+                                <p><strong>Course:</strong> Mathematics 101</p>
+                                <p><strong>Due:</strong> January 15, 2024</p>
+                                <p><strong>Grade:</strong> 88%</p>
+                            </div>
+                            <div class="assignment-actions">
+                                <button class="action-btn view">View Feedback</button>
+                                <button class="action-btn download">Download</button>
+                            </div>
+                        </div>
+                        
+                        <div class="assignment-item">
+                            <div class="assignment-header">
+                                <h3>Physics Lab Report - Optics</h3>
+                                <span class="status-badge in-progress">In Progress</span>
+                            </div>
+                            <div class="assignment-details">
+                                <p><strong>Course:</strong> Physics 201</p>
+                                <p><strong>Due:</strong> January 18, 2024</p>
+                                <p><strong>Progress:</strong> 60% complete</p>
+                            </div>
+                            <div class="assignment-actions">
+                                <button class="action-btn primary">Continue Working</button>
+                                <button class="action-btn">Save Draft</button>
+                            </div>
+                        </div>
+                        
+                        <div class="assignment-item">
+                            <div class="assignment-header">
+                                <h3>English Essay - Shakespeare</h3>
+                                <span class="status-badge not-started">Not Started</span>
+                            </div>
+                            <div class="assignment-details">
+                                <p><strong>Course:</strong> English Literature</p>
+                                <p><strong>Due:</strong> January 22, 2024</p>
+                                <p><strong>Word Count:</strong> 1500 words</p>
+                            </div>
+                            <div class="assignment-actions">
+                                <button class="action-btn primary">Start Assignment</button>
+                                <button class="action-btn">View Requirements</button>
+                            </div>
+                        </div>
+                        
+                        <div class="assignment-item">
+                            <div class="assignment-header">
+                                <h3>Chemistry Research Paper</h3>
+                                <span class="status-badge in-progress">In Progress</span>
+                            </div>
+                            <div class="assignment-details">
+                                <p><strong>Course:</strong> Chemistry 301</p>
+                                <p><strong>Due:</strong> January 25, 2024</p>
+                                <p><strong>Progress:</strong> 40% complete</p>
+                            </div>
+                            <div class="assignment-actions">
+                                <button class="action-btn primary">Continue Working</button>
+                                <button class="action-btn">View Resources</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="assignments-list">
-                <div class="assignment-item">
-                    <div class="assignment-info">
-                        <h3>Mathematics Homework 4</h3>
-                        <p>Complete exercises 1-10 from chapter 5</p>
-                        <div class="due-date">Due: 2023-10-20</div>
-                    </div>
-                    <span class="status-badge status-pending">Pending</span>
-                </div>
-
-                <div class="assignment-item">
-                    <div class="assignment-info">
-                        <h3>Physics Lab Report</h3>
-                        <p>Write a report on the pendulum experiment</p>
-                        <div class="due-date">Due: 2023-10-18</div>
-                    </div>
-                    <span class="status-badge status-overdue">Overdue</span>
-                </div>
-
-                <div class="assignment-item">
-                    <div class="assignment-info">
-                        <h3>Chemistry Midterm Exam</h3>
-                        <p>Study chapters 1-4 for the exam</p>
-                        <div class="due-date">Due: 2023-10-25</div>
-                    </div>
-                    <span class="status-badge status-upcoming">Upcoming</span>
-                </div>
-
-                <div class="assignment-item">
-                    <div class="assignment-info">
-                        <h3>History Essay</h3>
-                        <p>Write a 1000-word essay on World War II</p>
-                        <div class="due-date">Due: 2023-10-22</div>
-                    </div>
-                    <span class="status-badge status-pending">Pending</span>
-                </div>
-
-                <div class="assignment-item">
-                    <div class="assignment-info">
-                        <h3>English Literature Review</h3>
-                        <p>Review the novel "To Kill a Mockingbird"</p>
-                        <div class="due-date">Due: 2023-10-28</div>
-                    </div>
-                    <span class="status-badge status-completed">Completed</span>
-                </div>
-            </div>
-        </div>
-    </div>
-     <script src="..\..\assets\js\student\assignments.js"></script>
+        </main>
+    </div>  
+    <script src="..\..\assets\js\student\assignments.js"></script>   
 </body>
 </html>
-
-

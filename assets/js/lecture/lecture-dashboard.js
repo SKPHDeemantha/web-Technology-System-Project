@@ -188,59 +188,151 @@ function initializeQuickActions() {
     });
 }
 
-// Activity Chart Functionality
+// Line Chart Functionality
 function initializeActivityChart() {
     const activityChart = document.getElementById('activityChart');
     if (!activityChart) return;
+
+    // Clear any existing content
+    activityChart.innerHTML = '';
+    activityChart.className = 'line-chart';
+
+    // Sample data - using the numbers from your second image
+    const activityData = [40, 30, 30, 37, 36, 35, 34, 32, 31];
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue'];
+
+    // Create SVG element
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute('class', 'line-chart-container');
+    svg.setAttribute('viewBox', '0 0 400 200');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+    // Create gradient for area fill
+    const defs = document.createElementNS(svgNS, "defs");
+    const gradient = document.createElementNS(svgNS, "linearGradient");
+    gradient.setAttribute('id', 'lineChartGradient');
+    gradient.setAttribute('x1', '0%');
+    gradient.setAttribute('y1', '0%');
+    gradient.setAttribute('x2', '0%');
+    gradient.setAttribute('y2', '100%');
     
-    const activityData = [45, 52, 38, 65, 72, 58, 49];
+    const stop1 = document.createElementNS(svgNS, "stop");
+    stop1.setAttribute('offset', '0%');
+    stop1.setAttribute('stop-color', 'var(--primary-purple)');
+    stop1.setAttribute('stop-opacity', '0.4');
     
-    activityData.forEach((value, index) => {
-        const bar = document.createElement('div');
-        bar.className = 'activity-bar animated';
-        bar.style.height = `${value}%`;
-        bar.style.animationDelay = `${index * 0.1}s`;
-        
+    const stop2 = document.createElementNS(svgNS, "stop");
+    stop2.setAttribute('offset', '100%');
+    stop2.setAttribute('stop-color', 'var(--primary-purple)');
+    stop2.setAttribute('stop-opacity', '0.1');
+    
+    gradient.appendChild(stop1);
+    gradient.appendChild(stop2);
+    defs.appendChild(gradient);
+    svg.appendChild(defs);
+
+    // Create grid lines
+    for (let i = 0; i <= 4; i++) {
+        const y = 40 + (i * 40);
+        const gridLine = document.createElementNS(svgNS, "line");
+        gridLine.setAttribute('class', 'line-chart-grid');
+        gridLine.setAttribute('x1', '20');
+        gridLine.setAttribute('y1', y);
+        gridLine.setAttribute('x2', '380');
+        gridLine.setAttribute('y2', y);
+        svg.appendChild(gridLine);
+    }
+
+    // Calculate points for the line
+    const points = activityData.map((value, index) => {
+        const x = 20 + (index * 40);
+        const y = 200 - ((value / 50) * 160); // Scale to fit 0-50 range
+        return { x, y, value };
+    });
+
+    // Create area path
+    let areaPath = `M ${points[0].x} 200 `;
+    points.forEach(point => {
+        areaPath += `L ${point.x} ${point.y} `;
+    });
+    areaPath += `L ${points[points.length - 1].x} 200 Z`;
+
+    const area = document.createElementNS(svgNS, "path");
+    area.setAttribute('class', 'line-chart-area');
+    area.setAttribute('d', areaPath);
+    svg.appendChild(area);
+
+    // Create line path
+    let linePath = `M ${points[0].x} ${points[0].y} `;
+    points.slice(1).forEach(point => {
+        linePath += `L ${point.x} ${point.y} `;
+    });
+
+    const path = document.createElementNS(svgNS, "path");
+    path.setAttribute('class', 'line-chart-path');
+    path.setAttribute('d', linePath);
+    svg.appendChild(path);
+
+    // Create points and value labels
+    points.forEach((point, index) => {
+        // Create data point
+        const circle = document.createElementNS(svgNS, "circle");
+        circle.setAttribute('class', 'line-chart-point');
+        circle.setAttribute('cx', point.x);
+        circle.setAttribute('cy', point.y);
+        circle.setAttribute('r', '4');
+        circle.setAttribute('data-value', point.value);
+        circle.style.animationDelay = `${index * 0.2}s`;
+
+        // Create value label
+        const valueLabel = document.createElement('div');
+        valueLabel.className = 'line-chart-value';
+        valueLabel.textContent = point.value;
+        valueLabel.style.left = `${(point.x / 400) * 100}%`;
+        valueLabel.style.top = `${(point.y / 200) * 100}%`;
+
+        // Add hover event
+        circle.addEventListener('mouseenter', function() {
+            this.setAttribute('r', '6');
+            valueLabel.style.opacity = '1';
+            valueLabel.style.transform = 'translate(-50%, -120%)';
+        });
+
+        circle.addEventListener('mouseleave', function() {
+            this.setAttribute('r', '4');
+            valueLabel.style.opacity = '0';
+            valueLabel.style.transform = 'translate(-50%, -100%)';
+        });
+
+        svg.appendChild(circle);
+        activityChart.appendChild(valueLabel);
+    });
+
+    // Create day labels
+    const labelsContainer = document.createElement('div');
+    labelsContainer.className = 'line-chart-labels';
+
+    days.forEach((day, index) => {
         const label = document.createElement('div');
-        label.className = 'activity-bar-label';
-        label.textContent = value;
-        label.style.cssText = `
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-dark);
-        `;
-        
-        const dayLabel = document.createElement('div');
-        dayLabel.className = 'activity-day-label';
-        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        dayLabel.textContent = days[index];
-        dayLabel.style.cssText = `
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            color: var(--text-light);
-        `;
-        
-        bar.appendChild(label);
-        bar.appendChild(dayLabel);
-        activityChart.appendChild(bar);
-        
-        // Add hover effect
-        bar.addEventListener('mouseenter', function() {
-            this.style.transform = 'scaleY(1.15)';
-            label.style.fontWeight = '700';
-        });
-        
-        bar.addEventListener('mouseleave', function() {
-            this.style.transform = 'scaleY(1)';
-            label.style.fontWeight = '600';
-        });
+        label.className = 'line-chart-label';
+        label.textContent = day;
+        label.style.flex = '1';
+        label.style.textAlign = 'center';
+        labelsContainer.appendChild(label);
+    });
+
+    activityChart.appendChild(svg);
+    activityChart.appendChild(labelsContainer);
+
+    // Add resize handler for responsiveness
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            // Re-initialize chart on resize for better responsiveness
+            initializeActivityChart();
+        }, 250);
     });
 }
 

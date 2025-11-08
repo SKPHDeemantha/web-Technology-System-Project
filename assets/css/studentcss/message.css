@@ -401,34 +401,6 @@
             background: #fef2f2;
         }
 
-        /* Schedule Styles */
-        .schedule-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .schedule-table th, .schedule-table td {
-            padding: 12px 15px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-        }
-
-        .schedule-table th {
-            background: #667eea;
-            color: white;
-            font-weight: 600;
-        }
-
-        .schedule-table tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-
-        .schedule-table tr:hover {
-            background: #edf2f7;
-        }
-
         /* Assignments Styles */
         .assignment-list {
             margin-top: 20px;

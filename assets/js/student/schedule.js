@@ -1,46 +1,41 @@
- // Mobile menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
+// Navigation functionality
+function navigateTo(page) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(p => {
+        p.classList.remove('active');
+    });
+    
+    // Show the selected page
+    document.getElementById(page + '-page').classList.add('active');
+    
+    // Update active navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    // Close mobile sidebar if open
+    document.getElementById('sidebar').classList.remove('active');
+    document.getElementById('overlay').classList.remove('active');
+}
 
-        menuToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        });
+// Mobile menu functionality
+document.getElementById('menuToggle').addEventListener('click', function() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+});
 
-        overlay.addEventListener('click', function() {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
+document.getElementById('overlay').addEventListener('click', function() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.remove('active');
+    this.classList.remove('active');
+});
 
-        // Close sidebar when clicking a nav item on mobile
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
-                }
-            });
-        });
 
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-            }
-        });
-
-        // Smooth scroll behavior
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+    // Schedule page is active by default
+    // You can add any schedule-specific initialization here
+});

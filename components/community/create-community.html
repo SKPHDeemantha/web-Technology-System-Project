@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Community - University Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="../../assets/css/communitycss/community.css" rel="stylesheet">
+  <link href="../../assets/css/communitycss/create-community.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <div class="logo me-3">
+          <i class="fas fa-users"></i>
+        </div>
+        <h1>Create Community</h1>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-outline-light me-2" id="darkModeToggle" title="Toggle Dark Mode">
+          <i class="fas fa-moon"></i>
+        </button>
+        <a href="/community/communities.html" class="btn btn-outline-light">
+          <i class="fas fa-arrow-left me-1"></i> Back to Communities
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-xl-6">
+        <div class="create-community-card">
+          <div class="card-header text-center">
+            <h2><i class="fas fa-plus-circle me-2"></i>Create New Community</h2>
+            <p class="text-muted">Build a community around your interests and connect with like-minded people</p>
+          </div>
+
+          <div class="card-body">
+            <form id="createCommunityForm">
+              <!-- Basic Information -->
+              <div class="section">
+                <h4 class="section-title"><i class="fas fa-info-circle me-2"></i>Basic Information</h4>
+
+                <div class="mb-3">
+                  <label for="communityName" class="form-label required">Community Name *</label>
+                  <input type="text" class="form-control" id="communityName" placeholder="e.g., Computer Science Study Group" required>
+                  <div class="form-text">Choose a clear, descriptive name for your community</div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="communityDescription" class="form-label required">Description *</label>
+                  <textarea class="form-control" id="communityDescription" rows="4" placeholder="Describe what your community is about, its goals, and what members can expect..." required></textarea>
+                  <div class="form-text">Provide a detailed description to help others understand your community</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="communityCategory" class="form-label required">Category *</label>
+                    <select class="form-select" id="communityCategory" required>
+                      <option value="">Select a category</option>
+                      <option value="academic">Academic</option>
+                      <option value="technical">Technical</option>
+                      <option value="cultural">Cultural</option>
+                      <option value="social">Social</option>
+                      <option value="sports">Sports & Recreation</option>
+                      <option value="arts">Arts & Creativity</option>
+                      <option value="professional">Professional</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="communityType" class="form-label">Community Type</label>
+                    <select class="form-select" id="communityType">
+                      <option value="public">Public (Anyone can join)</option>
+                      <option value="private">Private (Approval required)</option>
+                      <option value="invite-only">Invite Only</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Community Settings -->
+              <div class="section">
+                <h4 class="section-title"><i class="fas fa-cog me-2"></i>Community Settings</h4>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="maxMembers" class="form-label">Maximum Members</label>
+                    <input type="number" class="form-control" id="maxMembers" placeholder="Unlimited" min="1">
+                    <div class="form-text">Leave empty for unlimited members</div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="communityTags" class="form-label">Tags</label>
+                    <input type="text" class="form-control" id="communityTags" placeholder="javascript, web-development, coding">
+                    <div class="form-text">Separate tags with commas</div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="communityRules" class="form-label">Community Rules</label>
+                  <textarea class="form-control" id="communityRules" rows="3" placeholder="Optional: Set guidelines for community behavior and participation..."></textarea>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="allowDiscussions" checked>
+                  <label class="form-check-label" for="allowDiscussions">
+                    Allow discussions and forums
+                  </label>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="allowEvents" checked>
+                  <label class="form-check-label" for="allowEvents">
+                    Allow event creation
+                  </label>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="allowFileSharing" checked>
+                  <label class="form-check-label" for="allowFileSharing">
+                    Allow file sharing
+                  </label>
+                </div>
+              </div>
+
+              <!-- Preview Section -->
+              <div class="section">
+                <h4 class="section-title"><i class="fas fa-eye me-2"></i>Preview</h4>
+                <div id="communityPreview" class="community-preview">
+                  <div class="preview-header">
+                    <div class="preview-avatar">
+                      <i class="fas fa-users"></i>
+                    </div>
+                    <div class="preview-info">
+                      <h5 id="previewName">Community Name</h5>
+                      <p id="previewDescription">Community description will appear here...</p>
+                      <div class="preview-meta">
+                        <span class="badge bg-secondary" id="previewCategory">Category</span>
+                        <span class="badge bg-info" id="previewType">Public</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="preview-stats">
+                    <div class="stat-item">
+                      <span class="stat-number">1</span>
+                      <span class="stat-label">Member</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-number">0</span>
+                      <span class="stat-label">Events</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-number">0</span>
+                      <span class="stat-label">Discussions</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Buttons -->
+              <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-purple btn-lg">
+                  <i class="fas fa-plus-circle me-2"></i>Create Community
+                </button>
+                <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='../communities.html'">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/js/community/dataManager.js"></script>
+  <script src="../../assets/js/community/createCommunity.js"></script>
+</body>
+</html>

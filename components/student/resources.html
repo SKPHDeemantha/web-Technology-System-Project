@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - Resources</title>
+    <link rel="stylesheet" href="..\..\assets\css\studentcss\resources.css">
+</head>
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <button class="mobile-menu-btn" id="menuToggle">☰</button>
+            <h1>Community Hub</h1>
+        </div>
+        <div class="header-icons">
+            <button class="icon-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C10.9 2 10 2.9 10 4V4.29C7.12 5.14 5 7.82 5 11V17L3 19V20H21V19L19 17V11C19 7.82 16.88 5.14 14 4.29V4C14 2.9 13.1 2 12 2ZM12 6C14.76 6 17 8.24 17 11V18H7V11C7 8.24 9.24 6 12 6ZM10 21C10 22.1 10.9 23 12 23C13.1 23 14 22.1 14 21H10Z"/>
+                </svg>
+                <span class="notification-badge">4</span>
+            </button>
+            <button class="icon-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">Student Portal</div>
+            <a href="#" class="nav-item" onclick="navigateTo('dashboard')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                </svg>
+                Dashboard
+            </a>
+            <a href="..\..\community\communities.html" class="nav-item" onclick="navigateTo('communities')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                </svg>
+                Communities
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('profile')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                Profile
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('courses')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                </svg>
+                Courses
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('grades')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                </svg>
+                Grades
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('attendance')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                </svg>
+                Attendance
+            </a>
+            <a href="schedule.html" class="nav-item" onclick="navigateTo('schedule')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                </svg>
+                Schedule
+            </a>
+            <a href="assignments.html" class="nav-item" onclick="navigateTo('assignments')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                </svg>
+                Assignments
+            </a>
+            <a href="message.html" class="nav-item" onclick="navigateTo('messages')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 14H6v-2h2v2zm0-3H6V9h2v2zm0-3H6V6h2v2zm7 6h-5v-2h5v2zm3-3h-8V9h8v2zm0-3h-8V6h8v2z"/>
+                </svg>
+                Messages
+            </a>
+            <a href="announcements.html" class="nav-item" onclick="navigateTo('announcements')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 9h-2V5h2v6zm0 4h-2v-2h2v2z"/>
+                </svg>
+                Announcements
+            </a>
+            <a href="resources.html" class="nav-item active" onclick="navigateTo('resources')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                </svg>
+                Resources
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('settings')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                </svg>
+                Settings
+            </a>
+        </aside>
+
+        <main class="main-content">
+            <!-- Resources Page -->
+            <div id="resources-page" class="page active">
+                <div class="page-content">
+                    <div class="resources-header">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search resources..." id="searchResources">
+                            <span class="search-icon">🔍</span>
+                        </div>
+                        <div class="header-actions">
+                            <div class="filter-buttons">
+                                <button class="filter-btn active" data-filter="all">All</button>
+                                <button class="filter-btn" data-filter="pdf">PDF</button>
+                                <button class="filter-btn" data-filter="videos">Videos</button>
+                                <button class="filter-btn" data-filter="interactive">Interactive</button>
+                            </div>
+                            <button class="upload-btn" id="uploadBtn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                                </svg>
+                                Upload Resource
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="resources-grid">
+                        <!-- Existing resource cards remain the same -->
+                        <!-- Mathematics Notes -->
+                        <div class="resource-card" data-type="pdf">
+                            <div class="resource-header">
+                                <span class="resource-type pdf">PDF</span>
+                            </div>
+                            <h3 class="resource-title">Mathematics Notes - Calculus</h3>
+                            <p class="resource-description">Chapter 1-5 notes and solutions for Calculus I</p>
+                            <div class="resource-meta">
+                                <span>Uploaded: Jan 15, 2024</span>
+                                <span>Downloads: 45</span>
+                            </div>
+                            <div class="resource-actions">
+                                <button class="action-btn">Preview</button>
+                                <button class="action-btn download">Download</button>
+                            </div>
+                        </div>
+
+                        <!-- Mechanics Tutorials -->
+                        <div class="resource-card" data-type="videos">
+                            <div class="resource-header">
+                                <span class="resource-type videos">Videos</span>
+                            </div>
+                            <h3 class="resource-title">Mechanics Tutorials</h3>
+                            <p class="resource-description">Video lectures on classical mechanics</p>
+                            <div class="resource-meta">
+                                <span>Duration: 30 min</span>
+                                <span>Views: 69</span>
+                            </div>
+                            <div class="resource-actions">
+                                <button class="action-btn">Watch</button>
+                                <button class="action-btn download">Download</button>
+                            </div>
+                        </div>
+
+                        <!-- Algebra Basics -->
+                        <div class="resource-card" data-type="videos">
+                            <div class="resource-header">
+                                <span class="resource-type videos">Videos</span>
+                            </div>
+                            <h3 class="resource-title">Algebra Fundamentals</h3>
+                            <p class="resource-description">Complete video series on algebra basics</p>
+                            <div class="resource-meta">
+                                <span>Duration: 20 min</span>
+                                <span>Views: 108</span>
+                            </div>
+                            <div class="resource-actions">
+                                <button class="action-btn">Watch</button>
+                                <button class="action-btn download">Download</button>
+                            </div>
+                        </div>
+
+                        <!-- Organic Chemistry -->
+                        <div class="resource-card" data-type="pdf">
+                            <div class="resource-header">
+                                <span class="resource-type pdf">PDF</span>
+                            </div>
+                            <h3 class="resource-title">Organic Chemistry Guide</h3>
+                            <p class="resource-description">Comprehensive guide to organic reactions</p>
+                            <div class="resource-meta">
+                                <span>Uploaded: Jan 5, 2024</span>
+                                <span>Downloads: 52</span>
+                            </div>
+                            <div class="resource-actions">
+                                <button class="action-btn">Preview</button>
+                                <button class="action-btn download">Download</button>
+                            </div>
+                        </div>
+
+                        <!-- Physics Lab Manual -->
+                        <div class="resource-card" data-type="pdf">
+                            <div class="resource-header">
+                                <span class="resource-type lab-manual">Lab Manual</span>
+                            </div>
+                            <h3 class="resource-title">Physics Lab Manual</h3>
+                            <p class="resource-description">Experiment procedures and safety guidelines</p>
+                            <div class="resource-meta">
+                                <span>Uploaded: Jan 8, 2024</span>
+                                <span>Downloads: 67</span>
+                            </div>
+                            <div class="resource-actions">
+                                <button class="action-btn">Preview</button>
+                                <button class="action-btn download">Download</button>
+                            </div>
+                        </div>
+
+                        <!-- WWII Timeline -->
+                        <div class="resource-card" data-type="interactive">
+                            <div class="resource-header">
+                                <span class="resource-type interactive">Interactive</span>
+                            </div>
+                            <h3 class="resource-title">World War II Timeline</h3>
+                            <p class="resource-description">Interactive timeline of WWII events</p>
+                            <div class="resource-meta">
+                                <span>Uploaded: Jan 3, 2024</span>
+                                <span>Views: 34</span>
+                            </div>
+                            <div class="resource-actions">
+                                <button class="action-btn">Explore</button>
+                                <button class="action-btn download">Download</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ai-categories">
+                        <h2 class="section-title">AI Categories</h2>
+                        <div class="resources-grid">
+                            <!-- Grammar Guide -->
+                            <div class="resource-card" data-type="pdf">
+                                <div class="resource-header">
+                                    <span class="resource-type pdf">PDF</span>
+                                </div>
+                                <h3 class="resource-title">Grammar & Literature Guide</h3>
+                                <p class="resource-description">Comprehensive grammar rules and literature analyses</p>
+                                <div class="resource-meta">
+                                    <span>Uploaded: Jan 10, 2024</span>
+                                    <span>Downloads: 28</span>
+                                </div>
+                                <div class="resource-actions">
+                                    <button class="action-btn">Preview</button>
+                                    <button class="action-btn download">Download</button>
+                                </div>
+                            </div>
+
+                            <!-- Practice Quizzes -->
+                            <div class="resource-card" data-type="interactive">
+                                <div class="resource-header">
+                                    <span class="resource-type interactive">Interactive</span>
+                                </div>
+                                <h3 class="resource-title">Practice Quizzes</h3>
+                                <p class="resource-description">Test your knowledge across all subjects</p>
+                                <div class="resource-meta">
+                                    <span>Uploaded: Jan 12, 2024</span>
+                                    <span>Attempts: 156</span>
+                                </div>
+                                <div class="resource-actions">
+                                    <button class="action-btn">Start Quiz</button>
+                                    <button class="action-btn download">Download</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Pages (Placeholders) -->
+            <!-- ... other page placeholders remain the same ... -->
+        </main>
+    </div>
+
+    <!-- Upload Modal -->
+    <div class="modal-overlay" id="uploadModal">
+        <div class="upload-modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Usuband Resources</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <p style="color: #718096; margin-bottom: 25px;">Share educational materials with the community</p>
+            
+            <div class="upload-section">
+                <div class="upload-area" id="dropZone">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">Drag & Drop Files Here</div>
+                    <div class="upload-subtext">Or</div>
+                    <button class="browse-btn" id="browseBtn">Browse Files</button>
+                    <div class="file-info">Supported: PDF, MP4, DOC, PPT (Max 50MB)</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Resource Title</label>
+                <input type="text" class="form-input" placeholder="Enter resource title">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-input" placeholder="Describe the resource content" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Resource Type</label>
+                <select class="form-select">
+                    <option>Select type</option>
+                    <option>PDF Document</option>
+                    <option>Video</option>
+                    <option>Presentation</option>
+                    <option>Interactive</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Subject/Category</label>
+                <select class="form-select">
+                    <option>Select subject</option>
+                    <option>Mathematics</option>
+                    <option>Physics</option>
+                    <option>Chemistry</option>
+                    <option>Biology</option>
+                    <option>History</option>
+                    <option>English</option>
+                    <option>Computer Science</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button class="cancel-btn" id="cancelUpload">Cancel</button>
+                <button class="submit-btn">Upload Resource</button>
+            </div>
+        </div>
+    </div>
+    <script src="..\..\assets\js\student\resources.js"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - Schedule</title>
+    <link rel="stylesheet" href="..\..\assets\css\studentcss\schedule.css">
+</head>
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <button class="mobile-menu-btn" id="menuToggle">☰</button>
+            <h1>Community Hub</h1>
+        </div>
+        <div class="header-icons">
+            <button class="icon-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C10.9 2 10 2.9 10 4V4.29C7.12 5.14 5 7.82 5 11V17L3 19V20H21V19L19 17V11C19 7.82 16.88 5.14 14 4.29V4C14 2.9 13.1 2 12 2ZM12 6C14.76 6 17 8.24 17 11V18H7V11C7 8.24 9.24 6 12 6ZM10 21C10 22.1 10.9 23 12 23C13.1 23 14 22.1 14 21H10Z"/>
+                </svg>
+                <span class="notification-badge">4</span>
+            </button>
+            <button class="icon-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">Student Portal</div>
+            <a href="#" class="nav-item" onclick="navigateTo('dashboard')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                </svg>
+                Dashboard
+            </a>
+            <a href="..\..\community\communities.html" class="nav-item" onclick="navigateTo('communities')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                </svg>
+                Communities
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('profile')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                Profile
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('courses')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                </svg>
+                Courses
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('grades')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                </svg>
+                Grades
+            </a>
+            <a href="#" class="nav-item" onclick="navigateTo('attendance')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                </svg>
+                Attendance
+            </a>
+            <a href="schedule.html" class="nav-item active" onclick="navigateTo('schedule')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                </svg>
+                Schedule
+            </a>
+            <a href="assignments.html" class="nav-item" onclick="navigateTo('assignments')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                </svg>
+                Assignments
+            </a>
+            <a href="message.html" class="nav-item" onclick="navigateTo('messages')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 14H6v-2h2v2zm0-3H6V9h2v2zm0-3H6V6h2v2zm7 6h-5v-2h5v2zm3-3h-8V9h8v2zm0-3h-8V6h8v2z"/>
+                </svg>
+                Messages
+            </a>
+        </aside>
+
+        <main class="main-content">
+            <!-- Schedule Page -->
+            <div id="schedule-page" class="page active">
+                <div class="page-content">
+                    <h1>Weekly Schedule</h1>
+                    <p>Your class schedule for the current week.</p>
+                    
+                    <div class="schedule-controls">
+                        <button class="schedule-btn" id="prevWeek">Previous Week</button>
+                        <span class="current-week" id="currentWeek">January 15 - 19, 2024</span>
+                        <button class="schedule-btn" id="nextWeek">Next Week</button>
+                    </div>
+                    
+                    <table class="schedule-table">
+                        <tr>
+                            <th>Time</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                        </tr>
+                        <tr>
+                            <td>9:00 AM</td>
+                            <td>English</td>
+                            <td>English</td>
+                            <td>Mathematics</td>
+                            <td>Mathematics</td>
+                            <td>History</td>
+                        </tr>
+                        <tr>
+                            <td>10:00 AM</td>
+                            <td>Mathematics</td>
+                            <td>Mathematics</td>
+                            <td>Physics</td>
+                            <td>Physics</td>
+                            <td>Mathematics</td>
+                        </tr>
+                        <tr>
+                            <td>11:00 AM</td>
+                            <td>Chemistry</td>
+                            <td>Chemistry</td>
+                            <td>Chemistry</td>
+                            <td>History</td>
+                            <td>Physics</td>
+                        </tr>
+                        <tr>
+                            <td>1:00 PM</td>
+                            <td>History</td>
+                            <td>Physics</td>
+                            <td>English</td>
+                            <td>English</td>
+                            <td>Chemistry</td>
+                        </tr>
+                        <tr>
+                            <td>2:00 PM</td>
+                            <td>Physics</td>
+                            <td>History</td>
+                            <td>History</td>
+                            <td>Chemistry</td>
+                            <td>English</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="upcoming-classes">
+                        <h2>Upcoming Classes</h2>
+                        <div class="class-list">
+                            <div class="class-item">
+                                <h3>Mathematics</h3>
+                                <p>Tomorrow, 9:00 AM</p>
+                                <p>Room 201</p>
+                            </div>
+                            <div class="class-item">
+                                <h3>Physics Lab</h3>
+                                <p>Tomorrow, 11:00 AM</p>
+                                <p>Science Building, Lab 3</p>
+                            </div>
+                            <div class="class-item">
+                                <h3>English Literature</h3>
+                                <p>Wednesday, 1:00 PM</p>
+                                <p>Room 105</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>  
+    <script src="..\..\assets\js\student\schedule.js"></script>   
+</body>
+</html>

@@ -1,0 +1,162 @@
+<section class="container">
+  <h2>Courses</h2>
+  <div class="tabs">
+    <button class="tab-btn active" data-target="enrolled">Enrolled Courses (5)</button>
+    <button class="tab-btn" data-target="available">Available Courses</button>
+  </div>
+
+  <div class="tab-panels">
+    <!-- Enrolled -->
+    <div class="panel" id="enrolled">
+      <div class="grid">
+        <article class="card">
+          <div class="card-head">
+            <div class="course-title">Mathematics</div>
+            <span class="badge enrolled">Enrolled</span>
+          </div>
+          <div class="meta">
+            <div><strong>Instructor:</strong> Dr. Smith</div>
+            <div><strong>Schedule:</strong> Mon/Wed 10:00 AM</div>
+            <div><strong>Room:</strong> MATH-101</div>
+          </div>
+          <div class="progress">
+            <div class="progress-bar" style="width:65%"></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn primary" data-action="view">View Details</button>
+            <button class="btn outline" data-action="drop">Drop Course</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div class="course-title">Physics</div>
+            <span class="badge enrolled">Enrolled</span>
+          </div>
+          <div class="meta">
+            <div><strong>Instructor:</strong> Prof. Johnson</div>
+            <div><strong>Schedule:</strong> Tue/Thu 2:00 PM</div>
+            <div><strong>Room:</strong> PHYS-205</div>
+          </div>
+          <div class="progress">
+            <div class="progress-bar" style="width:40%"></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn primary" data-action="view">View Details</button>
+            <button class="btn outline" data-action="drop">Drop Course</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div class="course-title">Chemistry</div>
+            <span class="badge enrolled">Enrolled</span>
+          </div>
+          <div class="meta">
+            <div><strong>Instructor:</strong> Dr. Lee</div>
+            <div><strong>Schedule:</strong> Wed/Fri 11:00 AM</div>
+            <div><strong>Room:</strong> CHEM-103</div>
+          </div>
+          <div class="progress">
+            <div class="progress-bar" style="width:80%"></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn primary" data-action="view">View Details</button>
+            <button class="btn outline" data-action="drop">Drop Course</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div class="course-title">History</div>
+            <span class="badge enrolled">Enrolled</span>
+          </div>
+          <div class="meta">
+            <div><strong>Instructor:</strong> Prof. Davis</div>
+            <div><strong>Schedule:</strong> Mon/Fri 1:00 PM</div>
+            <div><strong>Room:</strong> HIST-202</div>
+          </div>
+          <div class="progress">
+            <div class="progress-bar" style="width:25%"></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn primary" data-action="view">View Details</button>
+            <button class="btn outline" data-action="drop">Drop Course</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div class="course-title">English</div>
+            <span class="badge enrolled">Enrolled</span>
+          </div>
+          <div class="meta">
+            <div><strong>Instructor:</strong> Ms. Wilson</div>
+            <div><strong>Schedule:</strong> Tue/Thu 9:00 AM</div>
+            <div><strong>Room:</strong> ENG-105</div>
+          </div>
+          <div class="progress">
+            <div class="progress-bar" style="width:95%"></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn primary" data-action="view">View Details</button>
+            <button class="btn outline" data-action="drop">Drop Course</button>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Available -->
+    <div class="panel hidden" id="available">
+      <div class="grid">
+        <article class="card available">
+          <div class="card-head">
+            <div class="course-title">Art & Design</div>
+            <span class="badge available">Available</span>
+          </div>
+          <div class="meta">
+            <div><strong>Instructor:</strong> Mr. Park</div>
+            <div><strong>Schedule:</strong> Wed 3:00 PM</div>
+            <div><strong>Room:</strong> ART-11</div>
+          </div>
+          <div class="card-actions">
+            <button class="btn primary" data-action="enroll">Enroll</button>
+            <button class="btn outline" data-action="view">Details</button>
+          </div>
+        </article>
+
+        <article class="card available">
+          <div class="card-head">
+            <div class="course-title">Computer Science</div>
+            <span class="badge available">Available</span>
+          </div>
+          <div class="meta">
+            <div><strong>Instructor:</strong> Dr. Rivera</div>
+            <div><strong>Schedule:</strong> Mon 4:00 PM</div>
+            <div><strong>Room:</strong> CS-220</div>
+          </div>
+          <div class="card-actions">
+            <button class="btn primary" data-action="enroll">Enroll</button>
+            <button class="btn outline" data-action="view">Details</button>
+          </div>
+        </article>
+
+        <article class="card available">
+          <div class="card-head">
+            <div class="course-title">Philosophy</div>
+            <span class="badge available">Available</span>
+          </div>
+          <div class="meta">
+            <div><strong>Instructor:</strong> Prof. Khan</div>
+            <div><strong>Schedule:</strong> Thu 5:00 PM</div>
+            <div><strong>Room:</strong> PHIL-01</div>
+          </div>
+          <div class="card-actions">
+            <button class="btn primary" data-action="enroll">Enroll</button>
+            <button class="btn outline" data-action="view">Details</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

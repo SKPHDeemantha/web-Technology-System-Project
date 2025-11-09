@@ -1,0 +1,227 @@
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding-top: 30px;
+}
+
+.container h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  margin-top: -10px;
+  font-weight: bold;
+  padding-bottom: 30px;
+}
+
+.content {
+  background: transparent;
+  padding: 6px 8px;
+  margin-top: 100px;
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px
+}
+
+.tab-btn {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.tab-btn.active {
+  background: linear-gradient(90deg, #eef2ff, #fff);
+  box-shadow: var(--shadow);
+  color: var(--accent)
+}
+
+
+/* Grid of cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px
+}
+
+/* Card */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  border-left: 6px solid rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px
+}
+
+.course-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: #0f172a
+}
+
+.badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700
+}
+
+.badge.enrolled {
+  background: #ecfdf5;
+  color: var(--green);
+  border: 1px solid rgba(16, 185, 129, 0.12)
+}
+
+.badge.available {
+  background: #eff6ff;
+  color: var(--accent-2);
+  border: 1px solid rgba(0, 163, 255, 0.12)
+}
+
+.meta {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4
+}
+
+/* Progress bar container */
+.progress {
+  height: 12px;
+  background: #f3f4f6;
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 8px;
+}
+
+/* Actual progress fill */
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #16a34a, #4923d1);
+  border-radius: 999px;
+  transition: width 0.4s ease-in-out;
+}
+
+/* Text label (e.g. "75% Complete") */
+.progress::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 10px;
+  top: -18px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+
+/* Actions */
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px
+}
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 600
+}
+
+.btn.primary {
+  background: linear-gradient(90deg, var(--accent), #076ad6);
+  color: white;
+  border: none
+}
+
+.btn.outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid rgba(79, 70, 229, 0.12)
+}
+
+/* --- Button Styling Enhancement --- */
+
+.btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Primary Button (View Details) */
+.btn.primary {
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  color: #fff;
+  border: none;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25);
+}
+
+.btn.primary:hover {
+  background: linear-gradient(90deg, #1d4ed8, #1e40af);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(37, 99, 235, 0.35);
+}
+
+/* Outline Button (Drop Course) */
+.btn.outline {
+  border: 2px solid #ef4444;
+  color: #ef4444;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(239, 68, 68, 0.15);
+}
+
+.btn.outline:hover {
+  background: #ef4444;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(239, 68, 68, 0.25);
+}
+
+/* Button Focus/Click */
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Available cards slightly different */
+.card.available {
+  border-left-color: rgba(0, 163, 255, 0.3)
+}
+
+/* Hidden helper */
+.hidden {
+  display: none
+}
+
+/* Responsive */
+@media (max-width:900px) {
+  .app {
+    padding: 12px;
+    margin: 12px
+  }
+
+  .sidebar {
+    display: none
+  }
+}

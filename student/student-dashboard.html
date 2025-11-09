@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="..\..\assets\css\studentcss\student-dashboard.css" />
+  <link rel="stylesheet" href="..\..\assets\css\studentcss\profile.css" />
+  <link rel="stylesheet" href="..\..\assets\css\studentcss\course.css" />
+  <link rel="stylesheet" href="..\..\assets\css\studentcss\grade.css" />
+  <link rel="stylesheet" href="..\..\assets\css\studentcss\attendence.css" />
+
+</head>
+
+<body>
+
+  <!-- Top Header -->
+  <header class="header">
+    <div class="welcome">
+      <h2>Welcome, Alex</h2>
+      <p>Have a great day of learning!</p>
+    </div>
+    <div class="header-icons">
+            <button class="icon-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C10.9 2 10 2.9 10 4V4.29C7.12 5.14 5 7.82 5 11V17L3 19V20H21V19L19 17V11C19 7.82 16.88 5.14 14 4.29V4C14 2.9 13.1 2 12 2ZM12 6C14.76 6 17 8.24 17 11V18H7V11C7 8.24 9.24 6 12 6ZM10 21C10 22.1 10.9 23 12 23C13.1 23 14 22.1 14 21H10Z"/>
+                </svg>
+                <span class="notification-badge">4</span>
+            </button>
+            <button class="icon-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/>
+                </svg>
+            </button>
+        </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">Student Portal</h2>
+    <ul class="menu">
+      <li data-page="dashboard" class="active"><a href="javascript:void(0)">🏠 Dashboard</a></li>
+      <li data-page="communities"><a href="#">👥 Communities</a></li>
+      <li data-page="profile"><a href="javascript:void(0)">👤 Profile</a></li>
+      <li data-page="course"><a href="javascript:void(0)">📚 Courses</a></li>
+      <li data-page="grade"><a href="javascript:void(0)">📊 Grades</a></li>
+      <li data-page="attendence"><a href="javascript:void(0)">🕒 Attendance</a></li>
+      <li data-page="schedule"><a href="javascript:void(0)">📅 Schedule</a></li>
+      <li data-page="assignments"><a href="javascript:void(0)">📝 Assignments</a></li>
+      <li data-page="messages"><a href="javascript:void(0)">💬 Messages</a></li>
+      <li data-page="announcements"><a href="javascript:void(0)">📢 Announcement</a></li>
+      <li data-page="resources"><a href="javascript:void(0)">📚 Resources</a></li>
+      <li data-page="settings"><a href="javascript:void(0)">⚙️ Settings</a></li>
+    </ul>
+  </aside>
+
+
+
+  <div class="main-content">
+
+    <!-- 🔹 Dashboard content container -->
+    <div id="dashboard-content">
+      <section class="overview">
+        <div class="cards">
+          <div class="card">
+            <div class="icon-box">📘</div>
+            <h4>Courses Enrolled</h4>
+            <h1>5</h1>
+            <p>Click to view details</p>
+          </div>
+          <div class="card">
+            <div class="icon-box">📈</div>
+            <h4>Current GPA</h4>
+            <h1 class="green">3.8</h1>
+            <p>Click to view grades</p>
+          </div>
+          <div class="card">
+            <div class="icon-box">🕒</div>
+            <h4>Attendance Rate</h4>
+            <h1 class="blue">92%</h1>
+            <p>Click to view attendance</p>
+          </div>
+          <div class="card">
+            <div class="icon-box">🗒️</div>
+            <h4>Pending Tasks</h4>
+            <h1 class="orange">2</h1>
+            <p>Click to view assignments</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="performance">
+        <div class="chart-section">
+          <h3>📊 Academic Performance Overview</h3>
+          <canvas id="gpaChart"></canvas>
+        </div>
+
+        <div class="quick-actions">
+          <h3>⚡ Quick Actions</h3>
+          <button class="btn-blue-outline">Register for Course</button>
+          <button class="btn-green-outline">Submit Assignment</button>
+          <button class="btn-lightblue-outline">Message Instructor</button>
+          <button class="btn-yellow-outline">Book Appointment</button>
+          <button class="btn-grey-outline">Download Resources</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="content-area">
+
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const canvas = document.getElementById("gpaChart");
+      if (!canvas) return;
+
+      const ctx = canvas.getContext("2d");
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["Sem 1", "Sem 2", "Sem 3", "Sem 4", "Sem 5"],
+          datasets: [{
+            label: "GPA Progress",
+            data: [3.4, 3.5, 3.6, 3.75, 3.8],
+            borderColor: "#2563eb",
+            backgroundColor: "rgba(37, 99, 235, 0.1)",
+            borderWidth: 2,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 5,
+            pointBackgroundColor: "#2563eb",
+            pointHoverRadius: 7,
+            pointHoverBackgroundColor: "#1d4ed8",
+          }],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            title: { display: true, text: "Academic Performance Overview", color: "#111", font: { size: 18, weight: "bold" } },
+            tooltip: { backgroundColor: "#1e3a8a", titleColor: "#fff", bodyColor: "#fff", borderColor: "#2563eb", borderWidth: 1, padding: 10, cornerRadius: 6 },
+          },
+          scales: {
+            x: { grid: { display: false }, title: { display: true, text: "Semester", color: "#444", font: { size: 14 } } },
+            y: { beginAtZero: false, min: 3.0, max: 4.0, ticks: { stepSize: 0.1 }, title: { display: true, text: "GPA", color: "#444", font: { size: 14 } } },
+          },
+        },
+      });
+    });
+  </script>
+
+  <script src="../../assets/js/student/studentDashboard.js"></script>
+  
+
+</body>
+
+</html>

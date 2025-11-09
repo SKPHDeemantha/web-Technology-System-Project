@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
   <link href="../../../assets/css/styles.css" rel="stylesheet">
   <link href="../../../assets/css/communitycss/event.css" rel="stylesheet">
 </head>
+
 <body>
   <!-- Header -->
   <header class="dashboard-header">
@@ -33,41 +35,47 @@
             <i class="fas fa-moon fa-lg"></i>
           </button>
           <div class="dropdown me-3">
-            <button class="btn btn-link text-white position-relative p-2" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" title="Notifications">
+            <button class="btn btn-link text-white position-relative p-2" type="button" id="notificationsDropdown"
+              data-bs-toggle="dropdown" title="Notifications">
               <i class="fas fa-bell fa-lg"></i>
-              <span class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle" id="notificationCount">2</span>
+              <span class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle"
+                id="notificationCount">2</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end shadow" id="notificationsMenu">
-              <li><h6 class="dropdown-header fw-bold">Notifications</h6></li>
+              <li>
+                <h6 class="dropdown-header fw-bold">Notifications</h6>
+              </li>
               <li><a class="dropdown-item d-flex align-items-center" href="#" data-id="1">
-                <i class="fas fa-users me-2 text-primary"></i>New community joined</a></li>
+                  <i class="fas fa-users me-2 text-primary"></i>New community joined</a></li>
               <li><a class="dropdown-item d-flex align-items-center" href="#" data-id="2">
-                <i class="fas fa-calendar me-2 text-warning"></i>Event reminder</a></li>
-              <li><hr class="dropdown-divider"></li>
+                  <i class="fas fa-calendar me-2 text-warning"></i>Event reminder</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
               <li><a class="dropdown-item text-center fw-bold" href="#">View all notifications</a></li>
             </ul>
           </div>
           <div class="dropdown">
-            <button class="btn btn-link text-white d-flex align-items-center p-2" type="button" id="profileDropdown" data-bs-toggle="dropdown">
+            <button class="btn btn-link text-white d-flex align-items-center p-2" type="button" id="profileDropdown"
+              data-bs-toggle="dropdown">
               <div class="user-avatar me-2">
                 <i class="fas fa-user-circle fa-lg"></i>
               </div>
               <div class="user-info text-start d-none d-sm-block">
-                <div class="fw-bold small">Student User</div>
-                <div class="text-white-50 small">student@university.edu</div>
               </div>
-              <i class="fas fa-chevron-down ms-2 small"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end shadow">
               <li><a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="fas fa-user me-2"></i>My Profile</a></li>
+                  <i class="fas fa-user me-2"></i>My Profile</a></li>
               <li><a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="fas fa-cog me-2"></i>Settings</a></li>
+                  <i class="fas fa-cog me-2"></i>Settings</a></li>
               <li><a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="fas fa-question-circle me-2"></i>Help & Support</a></li>
-              <li><hr class="dropdown-divider"></li>
+                  <i class="fas fa-question-circle me-2"></i>Help & Support</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
               <li><a class="dropdown-item d-flex align-items-center text-danger" href="#" id="logoutBtn">
-                <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                  <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
             </ul>
           </div>
         </div>
@@ -79,156 +87,164 @@
     <div class="row">
       <!-- Sidebar -->
       <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse p-3">
-                <div class="position-sticky pt-3">
-                  <div class="sidebar-header p-3">
-          <h5>Navigation Menu</h5>
-        </div>
-        <ul class="nav flex-column">
-          <li class="nav-item"><a class="nav-link" href="../../../community/communities.html"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="../community-details.html"><i class="fas fa-users me-2"></i>Communities</a></li>
-          <li class="nav-item"><a class="nav-link active" href="../event/events.html"><i class="fas fa-calendar me-2"></i>Events</a></li>
-          <li class="nav-item"><a class="nav-link" href="../discussion/discussions.html"><i class="fas fa-comments me-2"></i>Discussions</a></li>
-          <li class="nav-item"><a class="nav-link" href="../file-management/file-manager.html"><i class="fas fa-folder me-2"></i>Files</a></li>
-        </ul>
+        <div class="position-sticky pt-3">
+          <div class="sidebar-header p-3">
+            <h5>Navigation Menu</h5>
+          </div>
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="../../../community/communities.html"><i
+                  class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="../community-details.html"><i
+                  class="fas fa-users me-2"></i>Communities</a></li>
+            <li class="nav-item"><a class="nav-link active" href="../event/events.html"><i
+                  class="fas fa-calendar me-2"></i>Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="../discussion/discussions.html"><i
+                  class="fas fa-comments me-2"></i>Discussions</a></li>
+            <li class="nav-item"><a class="nav-link" href="../file-management/file-manager.html"><i
+                  class="fas fa-folder me-2"></i>Files</a></li>
+          </ul>
       </nav>
 
       <!-- Main content -->
-       <div class="back">
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4 content-area">
-        <section id="events" class="dashboard-section">
-          <!-- File Statistics -->
-          <div class="row mt-4 mb-5 justify-content-center">
-            <div class="col-md-3 ">
-              <div class="card stat-card">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                    <div>
-                      <h5 class="card-title text-uppercase text-muted mb-0">Total Events</h5>
-                      <span class="h2 font-weight-bold mb-0" id="totalEventsCount">0</span>
+      <div class="back">
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4 content-area">
+          <section id="events" class="dashboard-section">
+            <!-- File Statistics -->
+            <div class="row mt-4 mb-5 justify-content-center">
+              <div class="col-md-3 ">
+                <div class="card stat-card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5 class="card-title text-uppercase text-muted mb-0">Total Events</h5>
+                        <span class="h2 font-weight-bold mb-0" id="totalEventsCount">0</span>
+                      </div>
+                      <div class="stat-icon">
+                        <i class="fas fa-calendar"></i>
+                      </div>
                     </div>
-                    <div class="stat-icon">
-                      <i class="fas fa-calendar"></i>
-                    </div>
+                    <p class="mt-3 mb-0 text-success">
+                      <span class="me-2"><i class="fas fa-arrow-up"></i> 8.5%</span>
+                      <span class="text-nowrap">Since last month</span>
+                    </p>
                   </div>
-                  <p class="mt-3 mb-0 text-success">
-                    <span class="me-2"><i class="fas fa-arrow-up"></i> 8.5%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card stat-card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5 class="card-title text-uppercase text-muted mb-0">Upcoming</h5>
+                        <span class="h2 font-weight-bold mb-0" id="upcomingEventsCount">0</span>
+                      </div>
+                      <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                      </div>
+                    </div>
+                    <p class="mt-3 mb-0 text-success">
+                      <span class="me-2"><i class="fas fa-arrow-up"></i> 15.2%</span>
+                      <span class="text-nowrap">Since last month</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card stat-card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5 class="card-title text-uppercase text-muted mb-0">This Month</h5>
+                        <span class="h2 font-weight-bold mb-0" id="thisMonthEventsCount">0</span>
+                      </div>
+                      <div class="stat-icon">
+                        <i class="fas fa-calendar-week"></i>
+                      </div>
+                    </div>
+                    <p class="mt-3 mb-0 text-success">
+                      <span class="me-2"><i class="fas fa-arrow-up"></i> 12.7%</span>
+                      <span class="text-nowrap">Since last month</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card stat-card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5 class="card-title text-uppercase text-muted mb-0">Total Attendees</h5>
+                        <span class="h2 font-weight-bold mb-0" id="totalAttendeesCount">0</span>
+                      </div>
+                      <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                      </div>
+                    </div>
+                    <p class="mt-3 mb-0 text-warning">
+                      <span class="me-2"><i class="fas fa-minus"></i> 2.1%</span>
+                      <span class="text-nowrap">Since last month</span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="card stat-card">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                    <div>
-                      <h5 class="card-title text-uppercase text-muted mb-0">Upcoming</h5>
-                      <span class="h2 font-weight-bold mb-0" id="upcomingEventsCount">0</span>
-                    </div>
-                    <div class="stat-icon">
-                      <i class="fas fa-clock"></i>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-success">
-                    <span class="me-2"><i class="fas fa-arrow-up"></i> 15.2%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card stat-card">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                    <div>
-                      <h5 class="card-title text-uppercase text-muted mb-0">This Month</h5>
-                      <span class="h2 font-weight-bold mb-0" id="thisMonthEventsCount">0</span>
-                    </div>
-                    <div class="stat-icon">
-                      <i class="fas fa-calendar-week"></i>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-success">
-                    <span class="me-2"><i class="fas fa-arrow-up"></i> 12.7%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card stat-card">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                    <div>
-                      <h5 class="card-title text-uppercase text-muted mb-0">Total Attendees</h5>
-                      <span class="h2 font-weight-bold mb-0" id="totalAttendeesCount">0</span>
-                    </div>
-                    <div class="stat-icon">
-                      <i class="fas fa-users"></i>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-warning">
-                    <span class="me-2"><i class="fas fa-minus"></i> 2.1%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-              <h2>Event Management</h2>
-              <p class="text-muted">Manage all events in the community</p>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h2>Event Management</h2>
+                <p class="text-muted">Manage all events in the community</p>
+              </div>
+              <a href="create-event.html" class="btn btn-primary">
+                <i class="fas fa-plus me-1"></i> Create Event
+              </a>
             </div>
-            <a href="create-event.html" class="btn btn-primary">
-              <i class="fas fa-plus me-1"></i> Create Event
-            </a>
-          </div>
 
-          <div class="card shadow-sm">
-            <div class="card-header bg-light">
-              <div class="row align-items-center">
-                <div class="col-md-6"><h5 class="mb-0">All Events</h5></div>
-                <div class="col-md-6">
-                  <div class="d-flex justify-content-end align-items-center">
-                    <select id="eventFilter" class="form-select form-select-sm me-2 w-auto">
-                      <option value="all">All Types</option>
-                      <option value="workshop">Workshop</option>
-                      <option value="meeting">Meeting</option>
-                      <option value="seminar">Seminar</option>
-                      <option value="social">Social</option>
-                    </select>
-                    <div class="input-group input-group-sm w-auto">
-                      <input type="text" class="form-control" id="eventSearch" placeholder="Search events...">
-                      <button class="btn btn-outline-secondary" type="button" id="searchBtn"><i class="fas fa-search"></i></button>
+            <div class="card shadow-sm">
+              <div class="card-header bg-light">
+                <div class="row align-items-center">
+                  <div class="col-md-6">
+                    <h5 class="mb-0">All Events</h5>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="d-flex justify-content-end align-items-center">
+                      <select id="eventFilter" class="form-select form-select-sm me-2 w-auto">
+                        <option value="all">All Types</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="meeting">Meeting</option>
+                        <option value="seminar">Seminar</option>
+                        <option value="social">Social</option>
+                      </select>
+                      <div class="input-group input-group-sm w-auto">
+                        <input type="text" class="form-control" id="eventSearch" placeholder="Search events...">
+                        <button class="btn btn-outline-secondary" type="button" id="searchBtn"><i
+                            class="fas fa-search"></i></button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-hover">
-                  <thead class="table-light">
-                    <tr>
-                      <th>Event</th>
-                      <th>Date</th>
-                      <th>Location</th>
-                      <th>Attendees</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="eventsTableBody">
-                    <!-- JS will populate here -->
-                  </tbody>
-                </table>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Attendees</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="eventsTableBody">
+                      <!-- JS will populate here -->
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      </main>
-    </div>
+          </section>
+        </main>
+      </div>
     </div>
   </div>
 
@@ -241,4 +257,5 @@
   <script src="../../../assets/js/community/events.js"></script>
   <script src="../../../assets/js/community/communityDashboard.js"></script>
 </body>
+
 </html>

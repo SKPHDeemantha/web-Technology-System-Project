@@ -48,10 +48,68 @@ document.getElementById('signupForm').addEventListener('submit', e => {
 
   // For demo, store in localStorage (in real app, send to server)
   localStorage.setItem('signedUpUser', JSON.stringify(userData));
+  localStorage.setItem('auth.user', JSON.stringify(userData)); // Also store as auth.user for consistency
   alert('Signup successful! Please login.');
 
   // Redirect to login
   window.location.href = 'index.html';
+});
+
+// Login form handler
+document.getElementById('loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+
+  const role = document.getElementById('role').value;
+  const year = document.getElementById('year').value;
+  const email = e.target[2].value.trim(); // Email input
+  const password = e.target[3].value; // Password input
+
+  // Basic validation
+  if (!role || !email || !password) {
+    alert('Please fill in all fields.');
+    return;
+  }
+  if (role === 'student' && !year) {
+    alert('Please select your year.');
+    return;
+  }
+
+  // Mock login logic - check against signed up user
+  const signedUpUser = JSON.parse(localStorage.getItem('signedUpUser'));
+  if (signedUpUser && signedUpUser.email === email) {
+    // Store authenticated user
+    localStorage.setItem('auth.user', JSON.stringify(signedUpUser));
+    alert('Login successful!');
+
+    // Redirect based on role
+    if (role === 'admin') {
+      window.location.href = 'admin/admin-panel.html';
+    } else {
+      window.location.href = 'community/communities.html';
+    }
+  } else {
+    alert('Invalid credentials or user not found.');
+  }
+});
+
+// Role change handler for login
+document.getElementById('role').addEventListener('change', () => {
+  const role = document.getElementById('role').value;
+  const yearGroup = document.getElementById('yearGroup');
+  if (role === 'student') {
+    yearGroup.style.display = 'block';
+  } else {
+    yearGroup.style.display = 'none';
+  }
+});
+
+// Password toggle
+document.querySelector('.toggle-password').addEventListener('click', function() {
+  const passwordInput = document.getElementById('password');
+  const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  passwordInput.setAttribute('type', type);
+  this.classList.toggle('fa-eye');
+  this.classList.toggle('fa-eye-slash');
 });
 
 // Google OAuth placeholder

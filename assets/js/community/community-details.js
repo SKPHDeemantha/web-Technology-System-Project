@@ -1,359 +1,732 @@
-// Community Details JavaScript
+// Community Dashboard JavaScript
+(function () {
+  // Initialize dashboard when DOM is loaded
+  document.addEventListener("DOMContentLoaded", function () {
+    initializeDashboard();
+    setupNavigation();
+    applyRoleBasedVisibility();
+    setupDarkMode();
+    setupCardClickHandlers();
+    setupModalHandlers();
+    setupNotifications();
+    loadDashboardData();
 
-document.addEventListener('DOMContentLoaded', function() {
-    initializeCommunityDetails();
-});
-
-function initializeCommunityDetails() {
-    loadCommunityStats();
-    loadMembers();
-    loadGroups();
-    setupEventListeners();
-    initializeModals();
-    initializeDarkMode();
-}
-
-function initializeDarkMode() {
-    const savedTheme = localStorage.getItem('theme');
-    const icon = document.getElementById('darkModeToggle').querySelector('i');
-
-    if (savedTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        document.body.classList.add('dark-mode');
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-    } else {
-        document.documentElement.removeAttribute('data-theme');
-        document.body.classList.remove('dark-mode');
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
+    // Setup logout functionality
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (confirm("Are you sure you want to logout?")) {
+          window.location.href = "../../../index.html";
+        }
+      });
     }
-}
 
-function loadCommunityStats() {
-    // Simulate loading community statistics
-    // In a real app, this would fetch data from an API
+    // Setup notifications dropdown
+    const notificationsDropdown = document.getElementById('notificationsDropdown');
+    if (notificationsDropdown) {
+      notificationsDropdown.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Prevent default dropdown behavior to handle custom logic
+      });
+
+      // Handle notification item clicks
+      const notificationItems = document.querySelectorAll('#notificationsMenu .dropdown-item[data-id]');
+      notificationItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          const notificationId = this.getAttribute('data-id');
+          showNotificationDetails(notificationId);
+        });
+      });
+    }
+  });
+
+  function initializeDashboard() {
+    // Set up section switching
+    const navLinks = document.querySelectorAll(
+      "#sidebar .nav-link[data-section]"
+    );
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const sectionId = this.getAttribute("data-section");
+
+        // Remove active class from all nav links
+        navLinks.forEach((navLink) => navLink.classList.remove("active"));
+
+        // Add active class to clicked link
+        this.classList.add("active");
+
+        // Hide all sections
+        document.querySelectorAll(".dashboard-section").forEach((section) => {
+          section.classList.remove("active");
+        });
+
+        // Show selected section
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+          targetSection.classList.add("active");
+        }
+      });
+    });
+  }
+
+  function setupNavigation() {
+    // Additional navigation setup if needed
+  }
+
+  function getCurrentUserRole() {
+    const user = JSON.parse(localStorage.getItem('auth.user'));
+    return user ? user.role : 'student'; // default to student if no user
+  }
+
+  function applyRoleBasedVisibility() {
+    const role = getCurrentUserRole();
+
+    // Sidebar modifications
+    const sidebar = document.getElementById('sidebar');
+    const navUl = sidebar.querySelector('.nav');
+
+    if (role === 'admin') {
+      // Add Admin Panel
+      const adminLi = document.createElement('li');
+      adminLi.className = 'nav-item';
+      adminLi.innerHTML = `<button class="nav-link" data-section="AdminPanel" onclick="window.location.href='../admin/admin-panel.html'"><i class="fas fa-cog me-2"></i> Admin Panel</button>`;
+      navUl.appendChild(adminLi);
+    }
+
+    if (role === 'lecturer' || role === 'admin') {
+      // Add My Communities
+      const myCommLi = document.createElement('li');
+      myCommLi.className = 'nav-item';
+      myCommLi.innerHTML = `<button class="nav-link" data-section="MyCommunities"><i class="fas fa-users-cog me-2"></i> My Communities</button>`;
+      navUl.appendChild(myCommLi);
+    }
+
+    // Quick Actions visibility
+    const quickActions = document.querySelector('.card-body .d-grid');
+    if (quickActions) {
+      const buttons = quickActions.querySelectorAll('.btn');
+      buttons.forEach(btn => {
+        const text = btn.textContent.trim();
+        if (text.includes('Create Community')) {
+          if (role !== 'admin' && role !== 'lecturer') btn.style.display = 'none';
+        } else if (text.includes('Join Community')) {
+          if (role !== 'student') btn.style.display = 'none';
+        } else if (text.includes('Create Event')) {
+          if (role !== 'admin' && role !== 'lecturer') btn.style.display = 'none';
+        } else if (text.includes('Start Discussion')) {
+          if (role !== 'student') btn.style.display = 'none';
+        }
+      });
+    }
+
+    // Update user info in header based on role
+    const userInfo = document.querySelector('.user-info .fw-bold');
+    if (userInfo) {
+      const user = JSON.parse(localStorage.getItem('auth.user'));
+      if (user) {
+        userInfo.textContent = user.name;
+        const emailEl = document.querySelector('.user-info .text-white-50');
+        if (emailEl) emailEl.textContent = user.email;
+      }
+    }
+  }
+
+  function loadDashboardData() {
+    // Load community stats if on communities page
+    if (document.getElementById("totalCommunities")) {
+      updateCommunityStats();
+      loadRecentCommunities();
+    }
+
+    // Load upcoming events if container exists
+    if (document.getElementById("upcomingEventsContainer")) {
+      loadUpcomingEvents();
+    }
+
+    // Load recent discussions if container exists
+    if (document.getElementById("recentDiscussionsContainer")) {
+      loadRecentDiscussions();
+    }
+  }
+
+  function updateCommunityStats() {
+    // Simulate loading stats - in real app, this would be from API
     const stats = {
-        totalMembers: 25,
-        totalPosts: 156,
-        events: 8,
-        activeUsers: 18
+      totalCommunities: 24,
+      activeMembers: 1847,
+      upcomingEvents: 12,
+      activeDiscussions: 89,
     };
 
-    document.getElementById('totalMembersCount').textContent = stats.totalMembers;
-    document.getElementById('totalPostsCount').textContent = stats.totalPosts;
-    document.getElementById('eventsCount').textContent = stats.events;
-    document.getElementById('activeUsersCount').textContent = stats.activeUsers;
-}
+    document.getElementById("totalCommunities").textContent =
+      stats.totalCommunities;
+    document.getElementById("activeMembers").textContent =
+      stats.activeMembers.toLocaleString();
+    document.getElementById("upcomingEvents").textContent =
+      stats.upcomingEvents;
+    document.getElementById("activeDiscussions").textContent =
+      stats.activeDiscussions;
+  }
 
-function loadMembers() {
-    const membersTable = document.getElementById('membersTable');
-    const members = [
-        { name: 'John Doe', role: 'Admin', joined: '2023-01-15', status: 'Active' },
-        { name: 'Jane Smith', role: 'Moderator', joined: '2023-02-20', status: 'Active' },
-        { name: 'Bob Johnson', role: 'Member', joined: '2023-03-10', status: 'Active' },
-        { name: 'Alice Brown', role: 'Member', joined: '2023-04-05', status: 'Inactive' }
+  function loadRecentCommunities() {
+    const communities = [
+      {
+        name: "Computer Science Club",
+        members: 142,
+        category: "Technical",
+        status: "Active",
+      },
+      {
+        name: "Math Study Group",
+        members: 98,
+        category: "Academic",
+        status: "Active",
+      },
+      {
+        name: "Art & Design Society",
+        members: 76,
+        category: "Cultural",
+        status: "Active",
+      },
+      {
+        name: "Business Leaders Forum",
+        members: 65,
+        category: "Social",
+        status: "Active",
+      },
+      {
+        name: "Environmental Club",
+        members: 54,
+        category: "Social",
+        status: "Active",
+      },
     ];
 
-    membersTable.innerHTML = '';
-    members.forEach(member => {
-        const row = `
-            <tr>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <img src="https://via.placeholder.com/40" alt="${member.name}" class="member-avatar rounded-circle me-2">
-                        ${member.name}
-                    </div>
-                </td>
-                <td><span class="badge bg-${member.role === 'Admin' ? 'danger' : member.role === 'Moderator' ? 'warning' : 'secondary'}">${member.role}</span></td>
-                <td>${new Date(member.joined).toLocaleDateString()}</td>
-                <td><span class="badge bg-${member.status === 'Active' ? 'success' : 'secondary'}">${member.status}</span></td>
-                <td>
-                    <div class="dropdown">
-                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-ellipsis-v"></i>
+    const tbody = document.getElementById("recentCommunitiesTable");
+    if (tbody) {
+      tbody.innerHTML = communities
+        .map(
+          (community) => `
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-sm bg-purple text-white rounded-circle me-2 d-flex align-items-center justify-content-center">
+                                ${community.name
+                                  .split(" ")
+                                  .map((word) => word[0])
+                                  .join("")
+                                  .toUpperCase()}
+                            </div>
+                            <div>
+                                <div class="fw-bold">${community.name}</div>
+                                <small class="text-muted">${
+                                  community.category
+                                }</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${community.members}</td>
+                    <td><span class="badge bg-success">${
+                      community.status
+                    }</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-purple me-1" onclick="viewCommunity('${
+                          community.name
+                        }')">
+                            <i class="fas fa-eye"></i>
                         </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" onclick="viewMember('${member.name}')">View Profile</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="changeRole('${member.name}')">Change Role</a></li>
-                            <li><a class="dropdown-item text-danger" href="#" onclick="removeMember('${member.name}')">Remove</a></li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-        `;
-        membersTable.insertAdjacentHTML('beforeend', row);
-    });
-}
+                        <button class="btn btn-sm btn-outline-primary" onclick="joinCommunity('${
+                          community.name
+                        }')">
+                            <i class="fas fa-user-plus"></i>
+                        </button>
+                    </td>
+                </tr>
+            `
+        )
+        .join("");
+    }
+  }
 
-function loadGroups() {
-    const groupsContainer = document.getElementById('groupsContainer');
-    const groups = [
-        { name: 'General Discussion', type: 'Channel', description: 'General discussions about computer science', private: false, members: 25 },
-        { name: 'Study Group A', type: 'Group', description: 'Group for algorithm studies', private: true, members: 8 },
-        { name: 'Project Collaboration', type: 'Channel', description: 'Channel for project collaborations', private: false, members: 15 }
+  function loadUpcomingEvents() {
+    const events = [
+      {
+        title: "Web Development Workshop",
+        date: "2023-12-15",
+        time: "14:00",
+        location: "Tech Lab A",
+        type: "workshop",
+      },
+      {
+        title: "Monthly Community Meeting",
+        date: "2023-12-20",
+        time: "18:00",
+        location: "Community Hall",
+        type: "meeting",
+      },
+      {
+        title: "AI Research Seminar",
+        date: "2023-12-22",
+        time: "16:00",
+        location: "Lecture Hall B",
+        type: "seminar",
+      },
     ];
 
-    groupsContainer.innerHTML = '';
-    groups.forEach(group => {
-        const groupCard = `
-            <div class="col-md-4 mb-3">
-                <div class="group-card">
-                    <div class="group-icon">
-                        <i class="fas fa-${group.type === 'Channel' ? 'hashtag' : 'users'}"></i>
-                    </div>
-                    <h6>${group.name}</h6>
-                    <p>${group.description}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <small class="text-muted">${group.members} members</small>
-                        <span class="badge bg-${group.private ? 'warning' : 'success'}">${group.private ? 'Private' : 'Public'}</span>
-                    </div>
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-outline-primary me-1" onclick="joinGroup('${group.name}')">Join</button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="viewGroup('${group.name}')">View</button>
+    const container = document.getElementById("upcomingEventsContainer");
+    if (container) {
+      container.innerHTML = events
+        .map(
+          (event) => `
+                <div class="col-md-12 mb-3">
+                    <div class="card event-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="card-title mb-1">${
+                                      event.title
+                                    }</h6>
+                                    <p class="card-text mb-1">
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar me-1"></i>${new Date(
+                                              event.date
+                                            ).toLocaleDateString()}
+                                            at ${event.time}
+                                        </small>
+                                    </p>
+                                    <p class="card-text mb-0">
+                                        <small class="text-muted">
+                                            <i class="fas fa-map-marker-alt me-1"></i>${
+                                              event.location
+                                            }
+                                        </small>
+                                    </p>
+                                </div>
+                                <span class="badge bg-purple">${
+                                  event.type
+                                }</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            `
+        )
+        .join("");
+    }
+  }
+
+  function loadRecentDiscussions() {
+    const discussions = [
+      {
+        title: "Best practices for React development",
+        author: "John Doe",
+        replies: 15,
+        views: 120,
+        lastActivity: "2 hours ago",
+      },
+      {
+        title: "Upcoming project deadlines",
+        author: "Jane Smith",
+        replies: 8,
+        views: 85,
+        lastActivity: "5 hours ago",
+      },
+      {
+        title: "Study group for final exams",
+        author: "Mike Johnson",
+        replies: 23,
+        views: 210,
+        lastActivity: "1 day ago",
+      },
+    ];
+
+    const container = document.getElementById("recentDiscussionsContainer");
+    if (container) {
+      container.innerHTML = discussions
+        .map(
+          (discussion) => `
+                <div class="card discussion-card mb-3">
+                    <div class="card-body">
+                        <h6 class="card-title mb-1">${discussion.title}</h6>
+                        <p class="card-text mb-2">
+                            <small class="text-muted">
+                                By ${discussion.author} • ${discussion.lastActivity}
+                            </small>
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="badge bg-light text-dark me-2">
+                                    <i class="fas fa-comment me-1"></i>${discussion.replies}
+                                </span>
+                                <span class="badge bg-light text-dark">
+                                    <i class="fas fa-eye me-1"></i>${discussion.views}
+                                </span>
+                            </div>
+                            <button class="btn btn-sm btn-outline-purple" onclick="viewDiscussion('${discussion.title}')">
+                                View
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `
+        )
+        .join("");
+    }
+  }
+
+  // Action functions
+  window.viewCommunity = function (name) {
+    showToast(`Viewing community: ${name}`, "info");
+  };
+
+  window.joinCommunity = function (name) {
+    showToast(`Joining community: ${name}`, "success");
+  };
+
+  window.joinEvent = function (title) {
+    showToast(`Joining event: ${title}`, "success");
+  };
+
+  window.viewEvent = function (title) {
+    showToast(`Viewing event: ${title}`, "info");
+  };
+
+  window.editEvent = function (title) {
+    showToast(`Editing event: ${title}`, "info");
+  };
+
+  window.deleteEvent = function (title) {
+    if (confirm(`Are you sure you want to delete "${title}"?`)) {
+      showToast(`Event "${title}" deleted`, "success");
+    }
+  };
+
+  window.viewDiscussion = function (title) {
+    showToast(`Viewing discussion: ${title}`, "info");
+  };
+
+  window.likeDiscussion = function (title) {
+    showToast(`Liking discussion: ${title}`, "success");
+  };
+
+  window.downloadFile = function (name) {
+    showToast(`Downloading file: ${name}`, "success");
+  };
+
+  // Dark mode setup
+  function setupDarkMode() {
+    const toggle = document.getElementById("darkModeToggle");
+    if (!toggle) return;
+
+    const darkModeIcon = toggle.querySelector("i");
+
+    // Check for saved dark mode preference
+    const savedTheme =
+      localStorage.getItem("theme") || localStorage.getItem("darkMode");
+
+    if (savedTheme === "dark" || savedTheme === "enabled") {
+      document.body.setAttribute("data-theme", "dark");
+      darkModeIcon.classList.remove("fa-moon");
+      darkModeIcon.classList.add("fa-sun");
+    } else {
+      document.body.removeAttribute("data-theme");
+      darkModeIcon.classList.remove("fa-sun");
+      darkModeIcon.classList.add("fa-moon");
+    }
+
+    toggle.addEventListener("click", function () {
+      const isDark = document.body.getAttribute("data-theme") === "dark";
+
+      if (isDark) {
+        // Switch to light mode
+        document.body.removeAttribute("data-theme");
+        darkModeIcon.classList.remove("fa-sun");
+        darkModeIcon.classList.add("fa-moon");
+        localStorage.setItem("theme", "light");
+        localStorage.setItem("darkMode", "disabled");
+      } else {
+        // Switch to dark mode
+        document.body.setAttribute("data-theme", "dark");
+        darkModeIcon.classList.remove("fa-moon");
+        darkModeIcon.classList.add("fa-sun");
+        localStorage.setItem("theme", "dark");
+        localStorage.setItem("darkMode", "enabled");
+      }
+    });
+  }
+
+  // Card click handlers
+  function setupCardClickHandlers() {
+    // Stats cards navigation
+    const statCards = document.querySelectorAll(".stat-card");
+    statCards.forEach((card, index) => {
+      card.style.cursor = "pointer";
+      card.addEventListener("click", function () {
+        const sections = [
+          "communities",
+          "communities",
+          "events",
+          "discussions",
+        ];
+        const targetSection = sections[index];
+        if (targetSection) {
+          navigateToSection(targetSection);
+        }
+      });
+    });
+  }
+
+  // Modal handlers
+  function setupModalHandlers() {
+    // Create Community Form
+    const createCommunityForm = document.getElementById("createCommunityForm");
+    if (createCommunityForm) {
+      createCommunityForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const communityData = {
+          name: document.getElementById("communityName").value,
+          description: document.getElementById("communityDescription").value,
+          category: document.getElementById("communityCategory").value,
+          isPublic: document.getElementById("isPublic").checked,
+        };
+
+        // Simulate API call
+        showToast("Community created successfully!", "success");
+        bootstrap.Modal.getInstance(
+          document.getElementById("createCommunityModal")
+        ).hide();
+        this.reset();
+        loadDashboardData(); // Refresh data
+      });
+    }
+
+    // Create Event Form
+    const createEventForm = document.getElementById("createEventForm");
+    if (createEventForm) {
+      createEventForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const eventData = {
+          title: document.getElementById("eventTitle").value,
+          description: document.getElementById("eventDescription").value,
+          date: document.getElementById("eventDate").value,
+          time: document.getElementById("eventTime").value,
+          location: document.getElementById("eventLocation").value,
+          type: document.getElementById("eventType").value,
+        };
+
+        // Save to localStorage
+        const events =
+          JSON.parse(localStorage.getItem("communityEvents")) || [];
+        eventData.id =
+          events.length > 0 ? Math.max(...events.map((e) => e.id)) + 1 : 1;
+        eventData.attendees = 0;
+        eventData.createdBy = "Student User";
+        eventData.createdAt = new Date().toISOString();
+
+        events.push(eventData);
+        localStorage.setItem("communityEvents", JSON.stringify(events));
+
+        showToast("Event created successfully!", "success");
+        bootstrap.Modal.getInstance(
+          document.getElementById("createEventModal")
+        ).hide();
+        this.reset();
+        loadDashboardData(); // Refresh data
+      });
+    }
+
+    // Start Discussion Form
+    const startDiscussionForm = document.getElementById("startDiscussionForm");
+    if (startDiscussionForm) {
+      startDiscussionForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const discussionData = {
+          title: document.getElementById("discussionTitle").value,
+          content: document.getElementById("discussionContent").value,
+          category: document.getElementById("discussionCategory").value,
+          tags: document
+            .getElementById("discussionTags")
+            .value.split(",")
+            .map((tag) => tag.trim())
+            .filter((tag) => tag),
+        };
+
+        // Save to localStorage
+        const discussions =
+          JSON.parse(localStorage.getItem("communityDiscussions")) || [];
+        discussionData.id =
+          discussions.length > 0
+            ? Math.max(...discussions.map((d) => d.id)) + 1
+            : 1;
+        discussionData.author = "Student User";
+        discussionData.createdAt = new Date().toISOString();
+        discussionData.replies = 0;
+        discussionData.views = 0;
+        discussionData.likes = 0;
+
+        discussions.push(discussionData);
+        localStorage.setItem(
+          "communityDiscussions",
+          JSON.stringify(discussions)
+        );
+
+        showToast("Discussion started successfully!", "success");
+        bootstrap.Modal.getInstance(
+          document.getElementById("startDiscussionModal")
+        ).hide();
+        this.reset();
+        loadDashboardData(); // Refresh data
+      });
+    }
+
+    // Join Community Search
+    const searchCommunity = document.getElementById("searchCommunity");
+    if (searchCommunity) {
+      searchCommunity.addEventListener("input", function () {
+        const query = this.value.toLowerCase();
+        const results = document.getElementById("communitySearchResults");
+
+        if (query.length > 2) {
+          // Simulate search results
+          const mockResults = [
+            {
+              name: "Computer Science Club",
+              members: 142,
+              category: "Technical",
+            },
+            { name: "Math Study Group", members: 98, category: "Academic" },
+            { name: "Art & Design Society", members: 76, category: "Cultural" },
+          ].filter((community) => community.name.toLowerCase().includes(query));
+
+          if (mockResults.length > 0) {
+            results.innerHTML = mockResults
+              .map(
+                (community) => `
+                            <div class="search-result-item">
+                                <div>
+                                    <strong>${community.name}</strong>
+                                    <br><small class="text-muted">${community.category} • ${community.members} members</small>
+                                </div>
+                                <button class="btn btn-sm btn-purple" onclick="joinCommunity('${community.name}')">Join</button>
+                            </div>
+                        `
+              )
+              .join("");
+          } else {
+            results.innerHTML =
+              '<div class="empty-state"><i class="fas fa-search"></i><p>No communities found</p></div>';
+          }
+        } else {
+          results.innerHTML =
+            '<div class="empty-state"><i class="fas fa-search"></i><p>Start typing to search for communities...</p></div>';
+        }
+      });
+    }
+  }
+
+  // Notifications system
+  function setupNotifications() {
+    const notificationItems = document.querySelectorAll(".notification-item");
+    const notificationBadge = document.getElementById("notificationCount");
+
+    if (!notificationItems.length || !notificationBadge) return;
+
+    notificationItems.forEach((item) => {
+      item.addEventListener("click", function (e) {
+        e.preventDefault();
+        const notificationId = this.getAttribute("data-id");
+
+        // Mark as read (in a real app, this would call an API)
+        this.style.opacity = "0.6";
+        this.classList.add("text-muted");
+
+        // Update badge count
+        let currentCount = parseInt(notificationBadge.textContent);
+        if (currentCount > 0) {
+          currentCount--;
+          notificationBadge.textContent = currentCount;
+
+          // Hide badge if no notifications
+          if (currentCount === 0) {
+            notificationBadge.style.display = "none";
+          }
+        }
+      });
+    });
+  }
+
+  // Utility functions
+  window.navigateToSection = function (sectionId) {
+    const navLinks = document.querySelectorAll(
+      "#sidebar .nav-link[data-section]"
+    );
+    navLinks.forEach((link) => {
+      if (link.getAttribute("data-section") === sectionId) {
+        link.click();
+      }
+    });
+  };
+
+  window.showToast = function (message, type = "info") {
+    const toastContainer = document.querySelector(".toast-container");
+    if (!toastContainer) return;
+
+    const toastId = "toast-" + Date.now();
+
+    const toast = document.createElement("div");
+    toast.className = `toast align-items-center text-bg-${type} border-0`;
+    toast.id = toastId;
+    toast.setAttribute("role", "alert");
+    toast.setAttribute("aria-live", "assertive");
+    toast.setAttribute("aria-atomic", "true");
+
+    toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${message}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
             </div>
         `;
-        groupsContainer.insertAdjacentHTML('beforeend', groupCard);
-    });
-}
 
-function setupEventListeners() {
-    // Add Member Form
-    document.getElementById('addMemberForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        addMember();
-    });
-
-    // Add Group Form
-    document.getElementById('addGroupForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        addGroup();
-    });
-
-    // Community Settings Form
-    document.getElementById('communitySettingsForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        saveSettings();
-    });
-
-    // Sidebar toggle
-    document.getElementById('sidebarToggle').addEventListener('click', function() {
-        const sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('show');
-    });
-
-    // Dark mode toggle
-    document.getElementById('darkModeToggle').addEventListener('click', function() {
-        toggleDarkMode();
-    });
-
-    // Handle notification item clicks
-    const notificationItems = document.querySelectorAll('#notificationsMenu .dropdown-item[data-id]');
-    notificationItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const notificationId = this.getAttribute('data-id');
-            showNotificationDetails(notificationId);
-        });
-    });
-}
-
-function toggleDarkMode() {
-    const isDark = document.body.classList.contains('dark-mode');
-    const icon = document.getElementById('darkModeToggle').querySelector('i');
-
-    if (isDark) {
-        document.documentElement.removeAttribute('data-theme');
-        document.body.classList.remove('dark-mode');
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-        localStorage.setItem('theme', 'light');
-    } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        document.body.classList.add('dark-mode');
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-        localStorage.setItem('theme', 'dark');
-    }
-}
-
-function initializeModals() {
-    // Initialize Bootstrap modals if needed
-    const modals = document.querySelectorAll('.modal');
-    modals.forEach(modal => {
-        new bootstrap.Modal(modal);
-    });
-}
-
-function addMember() {
-    const email = document.getElementById('memberEmail').value;
-    const role = document.getElementById('memberRole').value;
-
-    // Simulate adding member
-    showToast('Member added successfully!', 'success');
-    bootstrap.Modal.getInstance(document.getElementById('addMemberModal')).hide();
-    document.getElementById('addMemberForm').reset();
-
-    // Reload members
-    loadMembers();
-}
-
-function addGroup() {
-    const name = document.getElementById('groupName').value;
-    const type = document.getElementById('groupType').value;
-    const description = document.getElementById('groupDescription').value;
-    const isPrivate = document.getElementById('groupPrivate').checked;
-
-    // Simulate adding group
-    showToast('Group created successfully!', 'success');
-    bootstrap.Modal.getInstance(document.getElementById('addGroupModal')).hide();
-    document.getElementById('addGroupForm').reset();
-
-    // Reload groups
-    loadGroups();
-}
-
-function saveSettings() {
-    // Simulate saving settings
-    showToast('Settings saved successfully!', 'success');
-}
-
-function viewMember(name) {
-    showToast(`Viewing profile for ${name}`, 'info');
-}
-
-function changeRole(name) {
-    showToast(`Changing role for ${name}`, 'info');
-}
-
-function removeMember(name) {
-    if (confirm(`Are you sure you want to remove ${name}?`)) {
-        showToast(`${name} removed from community`, 'warning');
-        loadMembers();
-    }
-}
-
-function joinGroup(name) {
-    showToast(`Joined ${name}`, 'success');
-}
-
-function viewGroup(name) {
-    showToast(`Viewing ${name}`, 'info');
-}
-
-function showToast(message, type) {
-    const toastContainer = document.querySelector('.toast-container');
-    const toast = document.createElement('div');
-    toast.className = `toast align-items-center text-white bg-${type} border-0`;
-    toast.setAttribute('role', 'alert');
-    toast.innerHTML = `
-        <div class="d-flex">
-            <div class="toast-body">${message}</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-    `;
     toastContainer.appendChild(toast);
 
-    const bsToast = new bootstrap.Toast(toast);
+    const bsToast = new bootstrap.Toast(toast, {
+      autohide: true,
+      delay: 3000,
+    });
+
     bsToast.show();
 
-    toast.addEventListener('hidden.bs.toast', () => {
-        toast.remove();
+    // Remove toast from DOM after it's hidden
+    toast.addEventListener("hidden.bs.toast", function () {
+      toast.remove();
     });
-}
+  };
 
-function showTab(tabName) {
-    const tabButton = document.getElementById(`${tabName}-tab`);
-    if (tabButton) {
-        tabButton.click();
-    }
-}
+  // Refresh data function
+  const refreshBtn = document.getElementById("refreshBtn");
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", function () {
+      loadDashboardData();
+      // Show loading state
+      const originalText = this.innerHTML;
+      this.innerHTML = '<span class="spinner me-1"></span> Refreshing...';
+      this.disabled = true;
 
-function showNotificationDetails(notificationId) {
-    const notifications = {
-        1: {
-            title: 'New member joined',
-            message: 'John Doe has joined the Computer Science Club community.',
-            time: '2 hours ago',
-            type: 'member_join'
-        },
-        2: {
-            title: 'Event reminder',
-            message: 'Web Development Workshop is scheduled for tomorrow at 14:00.',
-            time: '1 day ago',
-            type: 'event_reminder'
-        }
-    };
+      setTimeout(() => {
+        this.innerHTML = originalText;
+        this.disabled = false;
+        showToast("Data refreshed successfully!", "success");
+      }, 1000);
+    });
+  }
+})();
 
-    const notification = notifications[notificationId];
-    if (notification) {
-        const content = `
-            <div class="notification-detail">
-                <div class="mb-3">
-                    <h6 class="fw-bold">${notification.title}</h6>
-                    <p class="text-muted small">${notification.time}</p>
-                </div>
-                <div class="mb-3">
-                    <p>${notification.message}</p>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-sm btn-outline-primary me-2" onclick="markAsRead('${notificationId}')">Mark as Read</button>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="takeAction('${notification.type}', '${notificationId}')">Take Action</button>
-                </div>
-            </div>
-        `;
-
-        document.getElementById('notificationDetailsContent').innerHTML = content;
-        const modal = new bootstrap.Modal(document.getElementById('notificationDetailsModal'));
-        modal.show();
-    }
-}
-
-function markAsRead(notificationId) {
-    // Update notification badge count
-    const badge = document.getElementById('notificationCount');
-    let count = parseInt(badge.textContent);
-    if (count > 0) {
-        count--;
-        badge.textContent = count;
-        if (count === 0) {
-            badge.style.display = 'none';
-        }
-    }
-
-    // Close modal
-    bootstrap.Modal.getInstance(document.getElementById('notificationDetailsModal')).hide();
-
-    showToast('Notification marked as read', 'success');
-}
-
-function takeAction(type, notificationId) {
-    switch(type) {
-        case 'member_join':
-            // Navigate to members tab
-            showTab('members');
-            break;
-        case 'event_reminder':
-            // Navigate to events page
-            window.location.href = 'event/events.html';
-            break;
-        default:
-            showToast('Action taken', 'info');
-    }
-
-    // Close modal
-    bootstrap.Modal.getInstance(document.getElementById('notificationDetailsModal')).hide();
-}
-
-// Export functions for global access if needed
-window.showTab = showTab;
-window.viewMember = viewMember;
-window.changeRole = changeRole;
-window.removeMember = removeMember;
-window.joinGroup = joinGroup;
-window.viewGroup = viewGroup;
-window.showNotificationDetails = showNotificationDetails;
-window.markAsRead = markAsRead;
-window.takeAction = takeAction;
+window.reloadPage = function () {
+  window.location.reload();
+};

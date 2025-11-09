@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
     try {
-      const response = await fetch(`components/${page}.html`);
+      const response = await fetch(`/components/student/${page}.html`);
       if (!response.ok) throw new Error("Page not found");
       const html = await response.text();
       contentArea.innerHTML = html;
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Run component-specific JS manually
       if (page === "attendence") populateAttendance();
       if (page === "grade") populateGrades();
-      if (page === "profiles") loadProfile();
+      if (page === "profile") loadProfile();
       if (page === "course") loadCourses();
       // Add more components here if needed
 

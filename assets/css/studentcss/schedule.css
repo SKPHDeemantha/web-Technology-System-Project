@@ -2,15 +2,15 @@
 
 
 .main-content {
-     width: 90%;
-  max-width: 1200px;
-  margin: auto;
-  padding: 30px;
+    flex: 1;
+    
 }
 
 /* Page Styles */
 .page {
     display: none;
+    margin-left: -250px;
+    margin-top: -100px;
 }
 
 .page.active {

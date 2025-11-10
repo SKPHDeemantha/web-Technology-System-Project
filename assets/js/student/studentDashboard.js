@@ -1,16 +1,15 @@
 // main_script.js
-
 document.addEventListener("DOMContentLoaded", () => {
+
+  // ---------------- Sidebar & Navigation ----------------
   const menuItems = document.querySelectorAll(".menu li");
   const contentArea = document.getElementById("content-area");
   const dashboardContent = document.getElementById("dashboard-content");
 
-  // Get saved page from localStorage or default to dashboard
   const savedPage = localStorage.getItem("activePage") || "dashboard";
   setActive(savedPage);
   loadPage(savedPage);
 
-  // Menu click handling
   menuItems.forEach(item => {
     item.addEventListener("click", e => {
       e.preventDefault();
@@ -21,14 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Set active menu item
   function setActive(page) {
     menuItems.forEach(i => i.classList.remove("active"));
     const activeItem = [...menuItems].find(i => i.dataset.page === page);
     if (activeItem) activeItem.classList.add("active");
   }
 
-  // Load page content dynamically
+  // ---------------- Load Pages Dynamically ----------------
   async function loadPage(page) {
     if (page === "dashboard") {
       dashboardContent.style.display = "block";
@@ -39,11 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     contentArea.innerHTML = `
-            <div class="loader-container">
-                <div class="loader"></div>
-                <p>Loading ${page.charAt(0).toUpperCase() + page.slice(1)}...</p>
-            </div>
-        `;
+      <div class="loader-container">
+        <div class="loader"></div>
+        <p>Loading ${page.charAt(0).toUpperCase() + page.slice(1)}...</p>
+      </div>
+    `;
 
     try {
       const response = await fetch(`/components/student/${page}.html`);
@@ -51,26 +49,25 @@ document.addEventListener("DOMContentLoaded", () => {
       const html = await response.text();
       contentArea.innerHTML = html;
 
-      // Run component-specific JS manually
+      // Component-specific initialization
       if (page === "attendence") populateAttendance();
       if (page === "grade") populateGrades();
       if (page === "profile") loadProfile();
-      if (page === "course") loadCourses();
-       if (page === "schedule") loadCourses();
-      // Add more components here if needed
+      if (page === "course") initCourses();
+      if (page === "schedule") loadSchedule();
 
     } catch (error) {
       contentArea.innerHTML = `
-                <div class="error-message">
-                    <h3>⚠️ Error</h3>
-                    <p>Could not load <strong>${page}</strong> page.</p>
-                    <p style="color:red;">${error.message}</p>
-                </div>
-            `;
+        <div class="error-message">
+          <h3>⚠️ Error</h3>
+          <p>Could not load <strong>${page}</strong> page.</p>
+          <p style="color:red;">${error.message}</p>
+        </div>
+      `;
     }
   }
 
- 
+  // ---------------- Attendance ----------------
   function populateAttendance() {
     const data = [
       { course: "Mathematics", total: 20, attended: 18 },
@@ -95,21 +92,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const tr = document.createElement("tr");
       tr.innerHTML = `
-                <td>${item.course}</td>
-                <td>${item.total}</td>
-                <td>${item.attended}</td>
-                <td>${percent}%</td>
-                <td><span class="status ${statusClass}">${statusText}</span></td>
-            `;
+        <td>${item.course}</td>
+        <td>${item.total}</td>
+        <td>${item.attended}</td>
+        <td>${percent}%</td>
+        <td><span class="status ${statusClass}">${statusText}</span></td>
+      `;
       tbody.appendChild(tr);
     });
   }
 
-  // Grades page (example)
-  document.addEventListener("DOMContentLoaded", function () {
-    populateGrades();
-  });
-
+  // ---------------- Grades ----------------
   function populateGrades() {
     const gradesData = [
       { course: "Mathematics", assignment: "Algebra Test", grade: "A", date: "2025-10-01" },
@@ -125,73 +118,64 @@ document.addEventListener("DOMContentLoaded", () => {
 
     gradesData.forEach(item => {
       let gradeClass;
-
-      // Assign color classes based on grade
       switch (item.grade) {
         case "A":
-        case "A-":
-          gradeClass = "grade-excellent"; // green
-          break;
-        case "B+":
-        case "B":
-          gradeClass = "grade-good"; // blue
-          break;
-        case "C":
-        case "C-":
-          gradeClass = "grade-average"; // orange
-          break;
-        default:
-          gradeClass = "grade-low"; // red
+        case "A-": gradeClass = "grade-excellent"; break;
+        case "B+": case "B": gradeClass = "grade-good"; break;
+        case "C": case "C-": gradeClass = "grade-average"; break;
+        default: gradeClass = "grade-low"; break;
       }
 
       const tr = document.createElement("tr");
       tr.innerHTML = `
-            <td>${item.course}</td>
-            <td>${item.assignment}</td>
-            <td><span class="${gradeClass}">${item.grade}</span></td>
-            <td>${item.date}</td>
-        `;
+        <td>${item.course}</td>
+        <td>${item.assignment}</td>
+        <td><span class="${gradeClass}">${item.grade}</span></td>
+        <td>${item.date}</td>
+      `;
       tbody.appendChild(tr);
     });
   }
 
-
-  // Profile page example
+  // ---------------- Profile ----------------
   function loadProfile() {
     const profileName = document.getElementById("profileName");
     const profileEmail = document.getElementById("profileEmail");
-
     if (!profileName || !profileEmail) return;
 
     profileName.textContent = "Alex Johnson";
     profileEmail.textContent = "alex@example.com";
   }
 
+  // ---------------- Courses ----------------
+  function initCourses() {
+    const enrolledPanel = document.getElementById("enrolled");
+    const availablePanel = document.getElementById("available");
 
-  function loadCourses() {
-    const availableList = document.getElementById("availableCourses");
-    const enrolledList = document.getElementById("enrolledCourses");
-    if (!availableList || !enrolledList) return;
+    if (!enrolledPanel || !availablePanel) return;
+
+    const availableGrid = availablePanel.querySelector(".grid");
+    const enrolledGrid = enrolledPanel.querySelector(".grid");
 
     const courses = ["Mathematics", "Physics", "Chemistry", "History", "English"];
 
-
-    availableList.innerHTML = courses.map(c => `
-        <div class="card">
-            <h3 class="course-title">${c}</h3>
-            <div class="card-actions">
-                <button class="btn primary" data-action="enroll">Enroll</button>
-            </div>
-            <span class="badge available">Available</span>
+    // Render available courses
+    availableGrid.innerHTML = courses.map(c => `
+      <article class="card available">
+        <div class="card-head">
+          <div class="course-title">${c}</div>
+          <span class="badge available">Available</span>
         </div>
+        <div class="card-actions">
+          <button class="btn primary" data-action="enroll">Enroll</button>
+          <button class="btn outline" data-action="view">Details</button>
+        </div>
+      </article>
     `).join("");
 
-    enrolledList.innerHTML = "";
-
     updateEnrolledCount();
-  }
 
-  function setupTabs() {
+    // Tab buttons for Enrolled / Available
     const tabButtons = document.querySelectorAll(".tab-btn");
     const panels = document.querySelectorAll(".panel");
 
@@ -203,106 +187,61 @@ document.addEventListener("DOMContentLoaded", () => {
         panels.forEach(panel => panel.classList.toggle("hidden", panel.id !== target));
       });
     });
-  }
 
-  // Enroll a course
-  function enrollCourse(button) {
-    const card = button.closest(".card");
-    const enrolledList = document.getElementById("enrolledCourses");
-    if (!card || !enrolledList) return;
+    // Enroll / Drop / View functionality
+    document.addEventListener("click", e => {
+      const action = e.target.dataset.action;
+      if (!action) return;
 
-    const newCard = card.cloneNode(true);
-    newCard.querySelector(".badge").textContent = "Enrolled";
-    newCard.querySelector(".badge").classList.replace("available", "enrolled");
-    newCard.querySelector(".card-actions").innerHTML = `
-        <button class="btn primary" data-action="view">View Details</button>
-        <button class="btn outline" data-action="drop">Drop Course</button>
-    `;
-    enrolledList.appendChild(newCard);
-    card.remove();
-    updateEnrolledCount();
-  }
+      const card = e.target.closest(".card");
+      if (!card) return;
 
-  // Drop a course
-  function dropCourse(button) {
-    const card = button.closest(".card");
-    if (!card) return;
+      if (action === "enroll") {
+        card.querySelector(".badge").textContent = "Enrolled";
+        card.querySelector(".badge").classList.replace("available", "enrolled");
+        card.querySelector(".card-actions").innerHTML = `
+          <button class="btn primary" data-action="view">View Details</button>
+          <button class="btn outline" data-action="drop">Drop Course</button>
+        `;
+        enrolledGrid.appendChild(card);
+        updateEnrolledCount();
+      } else if (action === "drop") {
+        if (confirm(`Are you sure you want to drop ${card.querySelector(".course-title").textContent}?`)) {
+          card.remove();
+          updateEnrolledCount();
+        }
+      } else if (action === "view") {
+        alert(`Course: ${card.querySelector(".course-title").textContent}\nStatus: ${card.querySelector(".badge").textContent}`);
+      }
+    });
 
-    if (confirm(`Are you sure you want to drop ${card.querySelector(".course-title").textContent}?`)) {
-      card.remove();
-      updateEnrolledCount();
+    function updateEnrolledCount() {
+      const count = enrolledGrid.querySelectorAll(".card").length;
+      const enrolledTab = document.querySelector('.tab-btn[data-target="enrolled"]');
+      if (enrolledTab) enrolledTab.textContent = `Enrolled Courses (${count})`;
     }
   }
 
-  // View course details
-  function viewDetails(button) {
-    const card = button.closest(".card");
-    if (!card) return;
-
-    const courseName = card.querySelector(".course-title").textContent;
-    const status = card.querySelector(".badge").textContent;
-    alert(`Course: ${courseName}\nStatus: ${status}`);
+  // ---------------- Schedule Placeholder ----------------
+  function loadSchedule() {
+    // Add schedule JS here
   }
 
-  // Update enrolled courses count in tab
-  function updateEnrolledCount() {
-    const count = document.querySelectorAll("#enrolledCourses .card").length;
-    const enrolledTab = document.querySelector('.tab-btn[data-target="enrolled"]');
-    if (enrolledTab) enrolledTab.textContent = `Enrolled Courses (${count})`;
+  // ---------------- Mobile Sidebar ----------------
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+
+  if (menuToggle && sidebar && overlay) {
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
   }
 
-  // Event delegation for course buttons
-  document.addEventListener("click", e => {
-    const action = e.target.dataset.action;
-    if (!action) return;
-
-    if (action === "enroll") enrollCourse(e.target);
-    else if (action === "drop") dropCourse(e.target);
-    else if (action === "view") viewDetails(e.target);
-  });
-
-});
-
-
-//schedule javascript
-// Navigation functionality
-function navigateTo(page) {
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(p => {
-        p.classList.remove('active');
-    });
-    
-    // Show the selected page
-    document.getElementById(page + '-page').classList.add('active');
-    
-    // Update active navigation
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    event.target.classList.add('active');
-    
-    // Close mobile sidebar if open
-    document.getElementById('sidebar').classList.remove('active');
-    document.getElementById('overlay').classList.remove('active');
-}
-
-// Mobile menu functionality
-document.getElementById('menuToggle').addEventListener('click', function() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
-});
-
-document.getElementById('overlay').addEventListener('click', function() {
-    const sidebar = document.getElementById('sidebar');
-    sidebar.classList.remove('active');
-    this.classList.remove('active');
-});
-
-
-// Initialize the page
-document.addEventListener('DOMContentLoaded', function() {
-    // Schedule page is active by default
-    // You can add any schedule-specific initialization here
 });

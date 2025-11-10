@@ -1,3 +1,6 @@
+
+
+
 // main_script.js
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -5,10 +8,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const contentArea = document.getElementById("content-area");
   const dashboardContent = document.getElementById("dashboard-content");
 
-  // Get saved page from localStorage or default to dashboard
-  const savedPage = localStorage.getItem("activePage") || "dashboard";
-  setActive(savedPage);
-  loadPage(savedPage);
+  // Check if we're on the main dashboard page
+const isDashboardPage = window.location.pathname.includes('dashboard') || 
+                       document.getElementById('dashboard-content');
+
+// Only use saved page if we're not specifically on the dashboard page
+let savedPage;
+if (isDashboardPage) {
+  savedPage = "dashboard";
+  localStorage.setItem("activePage", "dashboard"); // Reset to dashboard
+} else {
+  savedPage = localStorage.getItem("activePage") || "dashboard";
+}
+
+setActive(savedPage);
+loadPage(savedPage);
 
   // Menu click handling
   menuItems.forEach(item => {

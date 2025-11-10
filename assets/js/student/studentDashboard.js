@@ -1,6 +1,3 @@
-
-
-
 // main_script.js
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -1,12 +1,12 @@
 // main_script.js
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ---------------- Sidebar & Navigation ----------------
+  /* ---------------- Sidebar & Navigation ---------------- */
   const menuItems = document.querySelectorAll(".menu li");
   const contentArea = document.getElementById("content-area");
   const dashboardContent = document.getElementById("dashboard-content");
-
   const savedPage = localStorage.getItem("activePage") || "dashboard";
+
   setActive(savedPage);
   loadPage(savedPage);
 
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (activeItem) activeItem.classList.add("active");
   }
 
-  // ---------------- Load Pages Dynamically ----------------
+  /* ---------------- Load Pages Dynamically ---------------- */
   async function loadPage(page) {
     if (page === "dashboard") {
       dashboardContent.style.display = "block";
@@ -49,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const html = await response.text();
       contentArea.innerHTML = html;
 
-      // Component-specific initialization
       if (page === "attendence") populateAttendance();
       if (page === "grade") populateGrades();
       if (page === "profile") loadProfile();
@@ -67,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ---------------- Attendance ----------------
+  /* ---------------- Attendance ---------------- */
   function populateAttendance() {
     const data = [
       { course: "Mathematics", total: 20, attended: 18 },
@@ -102,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ---------------- Grades ----------------
+  /* ---------------- Grades ---------------- */
   function populateGrades() {
     const gradesData = [
       { course: "Mathematics", assignment: "Algebra Test", grade: "A", date: "2025-10-01" },
@@ -137,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ---------------- Profile ----------------
+  /* ---------------- Profile ---------------- */
   function loadProfile() {
     const profileName = document.getElementById("profileName");
     const profileEmail = document.getElementById("profileEmail");
@@ -147,87 +146,128 @@ document.addEventListener("DOMContentLoaded", () => {
     profileEmail.textContent = "alex@example.com";
   }
 
-  // ---------------- Courses ----------------
+  /* ---------------- Courses ---------------- */
   function initCourses() {
-    const enrolledPanel = document.getElementById("enrolled");
-    const availablePanel = document.getElementById("available");
+  const enrolledPanel = document.getElementById("enrolled");
+  const availablePanel = document.getElementById("available");
+  if (!enrolledPanel || !availablePanel) return;
 
-    if (!enrolledPanel || !availablePanel) return;
+  const availableGrid = availablePanel.querySelector(".grid");
+  const enrolledGrid = enrolledPanel.querySelector(".grid");
 
-    const availableGrid = availablePanel.querySelector(".grid");
-    const enrolledGrid = enrolledPanel.querySelector(".grid");
+  // Load previously enrolled courses from localStorage
+  const enrolledCourses = JSON.parse(localStorage.getItem("enrolledCourses") || "[]");
 
-    const courses = ["Mathematics", "Physics", "Chemistry", "History", "English"];
+  // First reset all courses back to available
+  const allCards = [...availableGrid.children, ...enrolledGrid.children];
+  allCards.forEach(card => {
+    const badge = card.querySelector(".badge");
+    badge.textContent = "Available";
+    badge.classList.add("available");
+    badge.classList.remove("enrolled");
+    card.querySelector(".card-actions").innerHTML = `
+      <button class="btn primary" data-action="enroll">Enroll</button>
+      <button class="btn outline" data-action="view">Details</button>
+    `;
+    availableGrid.appendChild(card);
+  });
 
-    // Render available courses
-    availableGrid.innerHTML = courses.map(c => `
-      <article class="card available">
-        <div class="card-head">
-          <div class="course-title">${c}</div>
-          <span class="badge available">Available</span>
-        </div>
-        <div class="card-actions">
+  // Move enrolled ones to enrolled panel
+  enrolledCourses.forEach(courseName => {
+    const card = [...availableGrid.children].find(
+      c => c.querySelector(".course-title").textContent === courseName
+    );
+    if (card) {
+      const badge = card.querySelector(".badge");
+      badge.textContent = "Enrolled";
+      badge.classList.remove("available");
+      badge.classList.add("enrolled");
+      card.querySelector(".card-actions").innerHTML = `
+        <button class="btn primary" data-action="view">View Details</button>
+        <button class="btn outline" data-action="drop">Drop Course</button>
+      `;
+      enrolledGrid.appendChild(card);
+    }
+  });
+
+  updateEnrolledCount();
+
+  // Tab switching
+  const tabButtons = document.querySelectorAll(".tab-btn");
+  const panels = document.querySelectorAll(".panel");
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      tabButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const target = btn.dataset.target;
+      panels.forEach(panel => panel.classList.toggle("hidden", panel.id !== target));
+    });
+  });
+
+  // Enroll / Drop / View
+  document.addEventListener("click", e => {
+    const action = e.target.dataset.action;
+    if (!action) return;
+    const card = e.target.closest(".card");
+    if (!card) return;
+
+    const courseTitle = card.querySelector(".course-title").textContent;
+    let courses = JSON.parse(localStorage.getItem("enrolledCourses") || "[]");
+
+    if (action === "enroll") {
+      if (!courses.includes(courseTitle)) {
+        courses.push(courseTitle);
+        localStorage.setItem("enrolledCourses", JSON.stringify(courses));
+      }
+      const badge = card.querySelector(".badge");
+      badge.textContent = "Enrolled";
+      badge.classList.remove("available");
+      badge.classList.add("enrolled");
+      card.querySelector(".card-actions").innerHTML = `
+        <button class="btn primary" data-action="view">View Details</button>
+        <button class="btn outline" data-action="drop">Drop Course</button>
+      `;
+      enrolledGrid.appendChild(card);
+      updateEnrolledCount();
+    } 
+    
+    else if (action === "drop") {
+      if (confirm(`Are you sure you want to drop ${courseTitle}?`)) {
+        courses = courses.filter(c => c !== courseTitle);
+        localStorage.setItem("enrolledCourses", JSON.stringify(courses));
+        const badge = card.querySelector(".badge");
+        badge.textContent = "Available";
+        badge.classList.remove("enrolled");
+        badge.classList.add("available");
+        card.querySelector(".card-actions").innerHTML = `
           <button class="btn primary" data-action="enroll">Enroll</button>
           <button class="btn outline" data-action="view">Details</button>
-        </div>
-      </article>
-    `).join("");
-
-    updateEnrolledCount();
-
-    // Tab buttons for Enrolled / Available
-    const tabButtons = document.querySelectorAll(".tab-btn");
-    const panels = document.querySelectorAll(".panel");
-
-    tabButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        tabButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        const target = btn.dataset.target;
-        panels.forEach(panel => panel.classList.toggle("hidden", panel.id !== target));
-      });
-    });
-
-    // Enroll / Drop / View functionality
-    document.addEventListener("click", e => {
-      const action = e.target.dataset.action;
-      if (!action) return;
-
-      const card = e.target.closest(".card");
-      if (!card) return;
-
-      if (action === "enroll") {
-        card.querySelector(".badge").textContent = "Enrolled";
-        card.querySelector(".badge").classList.replace("available", "enrolled");
-        card.querySelector(".card-actions").innerHTML = `
-          <button class="btn primary" data-action="view">View Details</button>
-          <button class="btn outline" data-action="drop">Drop Course</button>
         `;
-        enrolledGrid.appendChild(card);
+        availableGrid.appendChild(card);
         updateEnrolledCount();
-      } else if (action === "drop") {
-        if (confirm(`Are you sure you want to drop ${card.querySelector(".course-title").textContent}?`)) {
-          card.remove();
-          updateEnrolledCount();
-        }
-      } else if (action === "view") {
-        alert(`Course: ${card.querySelector(".course-title").textContent}\nStatus: ${card.querySelector(".badge").textContent}`);
       }
-    });
-
-    function updateEnrolledCount() {
-      const count = enrolledGrid.querySelectorAll(".card").length;
-      const enrolledTab = document.querySelector('.tab-btn[data-target="enrolled"]');
-      if (enrolledTab) enrolledTab.textContent = `Enrolled Courses (${count})`;
+    } 
+    
+    else if (action === "view") {
+      alert(`Course: ${courseTitle}\nStatus: ${card.querySelector(".badge").textContent}`);
     }
-  }
+  });
 
-  // ---------------- Schedule Placeholder ----------------
+  function updateEnrolledCount() {
+    const count = enrolledGrid.querySelectorAll(".card").length;
+    const enrolledTab = document.querySelector('.tab-btn[data-target="enrolled"]');
+    if (enrolledTab) enrolledTab.textContent = `Enrolled Courses (${count})`;
+  }
+}
+
+
+  /* ---------------- Schedule ---------------- */
   function loadSchedule() {
     // Add schedule JS here
   }
 
-  // ---------------- Mobile Sidebar ----------------
+  /* ---------------- Mobile Sidebar ---------------- */
   const menuToggle = document.getElementById('menuToggle');
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');

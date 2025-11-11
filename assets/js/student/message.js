@@ -85,3 +85,18 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Messages page is active by default
         });
+
+          // Get current page name from URL
+  const currentPage = window.location.pathname.split("/").pop();
+
+  // Get all sidebar links
+  const menuItems = document.querySelectorAll(".sidebar a");
+
+  // Loop through and highlight the current page link
+  menuItems.forEach(item => {
+    if (item.getAttribute("href").includes(currentPage)) {
+      item.classList.add("active");
+    } else {
+      item.classList.remove("active");
+    }
+  });

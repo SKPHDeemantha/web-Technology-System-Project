@@ -106,7 +106,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-section="assignments">
+                            <a class="nav-link" href="../components/lecture/Assignments.html">
                                 <i class="fas fa-tasks me-2"></i> Assignments
                             </a>
                         </li>
@@ -257,7 +257,7 @@
                                         <button class="btn btn-purple mb-2 action-btn" data-bs-toggle="modal" data-bs-target="#createAnnouncementModal">
                                             <i class="fas fa-bullhorn me-2"></i> New Announcement
                                         </button>
-                                        <button class="btn btn-outline-purple mb-2 action-btn" data-action="assignment">
+                                        <button class="btn btn-outline-purple mb-2 action-btn" data-bs-toggle="modal" data-bs-target="#createAssignmentModal">
                                             <i class="fas fa-tasks me-2"></i> Create Assignment
                                         </button>
                                         <button class="btn btn-outline-purple mb-2 action-btn" data-action="material">
@@ -344,7 +344,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Create Announcement Modal -->
+<!-- Create Announcement Modal -->
     <div class="modal fade" id="createAnnouncementModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -415,7 +415,126 @@
             </div>
         </div>
     </div>
-
+<!-- Create Assignment Modal -->
+    <div class="modal fade" id="createAssignmentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-tasks me-2"></i>Create New Assignment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="assignmentForm">
+                        <div class="mb-3">
+                            <label for="assignmentTitle" class="form-label">Assignment Title</label>
+                            <input type="text" class="form-control" id="assignmentTitle" placeholder="Enter assignment title" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="assignmentDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="assignmentDescription" rows="4" placeholder="Provide detailed assignment instructions" required></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignmentCourse" class="form-label">Course</label>
+                                    <select class="form-select" id="assignmentCourse" required>
+                                        <option value="">Select Course</option>
+                                        <option value="cs101">CS101 - Introduction to Programming</option>
+                                        <option value="ds202">DS202 - Data Structures</option>
+                                        <option value="ai301">AI301 - Artificial Intelligence</option>
+                                        <option value="se401">SE401 - Software Engineering</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignmentType" class="form-label">Assignment Type</label>
+                                    <select class="form-select" id="assignmentType" required>
+                                        <option value="">Select Type</option>
+                                        <option value="homework">Homework</option>
+                                        <option value="project">Project</option>
+                                        <option value="quiz">Quiz</option>
+                                        <option value="research">Research Paper</option>
+                                        <option value="presentation">Presentation</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignmentPoints" class="form-label">Total Points</label>
+                                    <input type="number" class="form-control" id="assignmentPoints" placeholder="100" min="1" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignmentWeight" class="form-label">Weight in Course (%)</label>
+                                    <input type="number" class="form-control" id="assignmentWeight" placeholder="15" min="1" max="100" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignmentDueDate" class="form-label">Due Date</label>
+                                    <input type="datetime-local" class="form-control" id="assignmentDueDate" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignmentSubmissionType" class="form-label">Submission Type</label>
+                                    <select class="form-select" id="assignmentSubmissionType" required>
+                                        <option value="file">File Upload</option>
+                                        <option value="text">Text Entry</option>
+                                        <option value="both">Both File and Text</option>
+                                        <option value="url">URL Submission</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="assignmentFiles" class="form-label">Attached Files (Optional)</label>
+                            <input type="file" class="form-control" id="assignmentFiles" multiple>
+                            <div class="form-text">Upload assignment instructions, templates, or resources</div>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="allowLateSubmission">
+                            <label class="form-check-label" for="allowLateSubmission">Allow late submissions</label>
+                        </div>
+                        
+                        <div class="row" id="lateSubmissionFields" style="display: none;">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="lateSubmissionPenalty" class="form-label">Late Submission Penalty</label>
+                                    <input type="number" class="form-control" id="lateSubmissionPenalty" placeholder="10" min="0" max="100">
+                                    <div class="form-text">Percentage penalty per day</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="lateSubmissionDays" class="form-label">Days Allowed Late</label>
+                                    <input type="number" class="form-control" id="lateSubmissionDays" placeholder="3" min="1">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-purple" id="saveAssignment">
+                        <i class="fas fa-save me-1"></i> Create Assignment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
                 <!-- Other Sections (Hidden by default) -->
                 <div class="dashboard-section" id="announcements">
                     <!-- Announcements content will go here -->

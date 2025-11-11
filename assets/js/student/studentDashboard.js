@@ -5,10 +5,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuItems = document.querySelectorAll(".menu li");
   const contentArea = document.getElementById("content-area");
   const dashboardContent = document.getElementById("dashboard-content");
-  const savedPage = localStorage.getItem("activePage") || "dashboard";
+  // Check if we're on the main dashboard page
+const isDashboardPage = window.location.pathname.includes('dashboard') || 
+                       document.getElementById('dashboard-content');
 
-  setActive(savedPage);
-  loadPage(savedPage);
+// Only use saved page if we're not specifically on the dashboard page
+let savedPage;
+if (isDashboardPage) {
+  savedPage = "dashboard";
+  localStorage.setItem("activePage", "dashboard"); // Reset to dashboard
+} else {
+  savedPage = localStorage.getItem("activePage") || "dashboard";
+}
+
+setActive(savedPage);
+loadPage(savedPage);
 
   menuItems.forEach(item => {
     item.addEventListener("click", e => {

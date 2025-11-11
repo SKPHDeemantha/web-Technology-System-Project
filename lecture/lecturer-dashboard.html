@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lecturer Dashboard - University Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="../assets/css/lecturecss/lecturer-dashboard.css" rel="stylesheet">
+</head>
+<body data-theme="light">
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-link text-white me-3 d-md-none p-2" id="sidebarToggle" title="Toggle Sidebar">
+                        <i class="fas fa-bars fa-lg"></i>
+                    </button>
+                    <div class="logo-section d-flex align-items-center me-4">
+                        <div class="logo-icon me-2">
+                            <i class="fas fa-chalkboard-teacher fa-2x"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h1 class="mb-0 fw-bold">Lecturer Portal</h1>
+                            <small class="text-white-50">Dashboard</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-actions d-flex align-items-center">
+                    <button class="btn btn-link text-white me-3 p-2" id="darkModeToggle" title="Toggle Dark Mode">
+                        <i class="fas fa-moon fa-lg"></i>
+                    </button>
+                    <div class="dropdown me-3">
+                        <button class="btn btn-link text-white position-relative p-2" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" title="Notifications">
+                            <i class="fas fa-bell fa-lg"></i>
+                            <span class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle">3</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <li><h6 class="dropdown-header fw-bold">Notifications</h6></li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="fas fa-file-alt me-2 text-primary"></i>New assignment submission</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="fas fa-comment me-2 text-warning"></i>Student question in forum</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="fas fa-calendar me-2 text-info"></i>Meeting reminder</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-center fw-bold" href="#">View all notifications</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-link text-white d-flex align-items-center p-2" type="button" id="profileDropdown" data-bs-toggle="dropdown">
+                            <div class="user-avatar me-2">
+                                <i class="fas fa-user-circle fa-lg"></i>
+                            </div>
+                            <div class="user-info text-start d-none d-sm-block">
+                                <div class="fw-bold small">Dr. Sarah Johnson</div>
+                                <div class="text-white-50 small">s.johnson@university.edu</div>
+                            </div>
+                            <i class="fas fa-chevron-down ms-2 small"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <li><a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="fas fa-user me-2"></i>My Profile</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="fas fa-question-circle me-2"></i>Help & Support</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item d-flex align-items-center text-danger" href="#">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+                <div class="sidebar-sticky pt-3">
+                    <div class="sidebar-header p-3">
+                        <h5>Navigation Menu</h5>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../lecture/lecturer-dashboard.html">
+                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../components/lecture/announcement.html">
+                                <i class="fas fa-bullhorn me-2"></i> Announcements
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="timetable">
+                                <i class="fas fa-calendar-alt me-2"></i> Timetable
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="materials">
+                                <i class="fas fa-book me-2"></i> Course Materials
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="assignments">
+                                <i class="fas fa-tasks me-2"></i> Assignments
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="students">
+                                <i class="fas fa-user-graduate me-2"></i> Students
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="messaging">
+                                <i class="fas fa-comments me-2"></i> Messaging
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="communities">
+                                <i class="fas fa-users me-2"></i> Communities
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <!-- Dark Mode Toggle in Sidebar -->
+                    <div class="dark-mode-toggle-sidebar mt-auto p-3">
+                        <button class="btn btn-outline-purple w-100" id="darkModeToggleSidebar">
+                            <i class="fas fa-moon me-2"></i> Toggle Dark Mode
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 dashboard-main">
+                <!-- Dashboard Section -->
+                <div class="dashboard-section active" id="dashboard">
+                    <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3">
+                        <div>
+                            <h2>Dashboard Overview</h2>
+                            <p class="text-muted mb-0">Welcome back, Dr. Johnson! Here's what's happening today.</p>
+                        </div>
+                        <button class="btn btn-purple" id="refreshBtn">
+                            <i class="fas fa-sync-alt me-1"></i> Refresh Data
+                        </button>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="row mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Total Students</h5>
+                                            <span class="h2 font-weight-bold mb-0">245</span>
+                                        </div>
+                                        <div class="stat-icon">
+                                            <i class="fas fa-user-graduate"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-success">
+                                        <span class="me-2"><i class="fas fa-arrow-up"></i> 8.2%</span>
+                                        <span class="text-nowrap">Since last month</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Active Assignments</h5>
+                                            <span class="h2 font-weight-bold mb-0">12</span>
+                                        </div>
+                                        <div class="stat-icon">
+                                            <i class="fas fa-tasks"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-success">
+                                        <span class="me-2"><i class="fas fa-arrow-up"></i> 6.1%</span>
+                                        <span class="text-nowrap">Since last month</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Course Materials</h5>
+                                            <span class="h2 font-weight-bold mb-0">28</span>
+                                        </div>
+                                        <div class="stat-icon">
+                                            <i class="fas fa-book"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-warning">
+                                        <span class="me-2"><i class="fas fa-minus"></i> 0.0%</span>
+                                        <span class="text-nowrap">Since last month</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Pending Grading</h5>
+                                            <span class="h2 font-weight-bold mb-0">47</span>
+                                        </div>
+                                        <div class="stat-icon">
+                                            <i class="fas fa-clipboard-check"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-danger">
+                                        <span class="me-2"><i class="fas fa-arrow-up"></i> 12.5%</span>
+                                        <span class="text-nowrap">Since last week</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Activity Chart -->
+                        <div class="col-lg-8 mb-4">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Recent Activity</h5>
+                                    <button class="btn btn-sm btn-outline-purple">View All</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="activity-chart" id="activityChart">
+                                        <!-- Line chart will be generated here by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="col-lg-4 mb-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-purple mb-2 action-btn" data-action="announcement">
+                                            <i class="fas fa-bullhorn me-2"></i> New Announcement
+                                        </button>
+                                        <button class="btn btn-outline-purple mb-2 action-btn" data-action="assignment">
+                                            <i class="fas fa-tasks me-2"></i> Create Assignment
+                                        </button>
+                                        <button class="btn btn-outline-purple mb-2 action-btn" data-action="material">
+                                            <i class="fas fa-book me-2"></i> Upload Material
+                                        </button>
+                                        <button class="btn btn-outline-purple mb-2 action-btn" data-action="reports">
+                                            <i class="fas fa-chart-bar me-2"></i> View Reports
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Upcoming Classes -->
+                        <div class="col-lg-6 mb-4">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Upcoming Classes</h5>
+                                    <button class="btn btn-sm btn-outline-purple">View Schedule</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="upcoming-classes">
+                                        <div class="class-item d-flex justify-content-between align-items-center p-3 border rounded mb-3">
+                                            <div>
+                                                <h6 class="mb-1">CS101 - Introduction to Programming</h6>
+                                                <small class="text-muted">Room 301 | 10:00 AM - 11:30 AM</small>
+                                            </div>
+                                            <span class="badge bg-primary">Today</span>
+                                        </div>
+                                        <div class="class-item d-flex justify-content-between align-items-center p-3 border rounded mb-3">
+                                            <div>
+                                                <h6 class="mb-1">DS202 - Data Structures</h6>
+                                                <small class="text-muted">Lab B | 2:00 PM - 4:00 PM</small>
+                                            </div>
+                                            <span class="badge bg-warning">Tomorrow</span>
+                                        </div>
+                                        <div class="class-item d-flex justify-content-between align-items-center p-3 border rounded">
+                                            <div>
+                                                <h6 class="mb-1">AI301 - Artificial Intelligence</h6>
+                                                <small class="text-muted">Lecture Hall A | 9:00 AM - 10:30 AM</small>
+                                            </div>
+                                            <span class="badge bg-info">This Week</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Tasks -->
+                        <div class="col-lg-6 mb-4">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0"><i class="fas fa-exclamation-circle me-2"></i>Pending Tasks</h5>
+                                    <button class="btn btn-sm btn-outline-purple">View All</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="pending-tasks">
+                                        <div class="task-item d-flex justify-content-between align-items-center p-3 border rounded mb-3">
+                                            <div>
+                                                <h6 class="mb-1">Grade Assignment - CS101</h6>
+                                                <small class="text-muted">Due: Today, 5:00 PM</small>
+                                            </div>
+                                            <span class="badge bg-danger">Urgent</span>
+                                        </div>
+                                        <div class="task-item d-flex justify-content-between align-items-center p-3 border rounded mb-3">
+                                            <div>
+                                                <h6 class="mb-1">Prepare Lecture Notes</h6>
+                                                <small class="text-muted">Due: Tomorrow, 9:00 AM</small>
+                                            </div>
+                                            <span class="badge bg-warning">High</span>
+                                        </div>
+                                        <div class="task-item d-flex justify-content-between align-items-center p-3 border rounded">
+                                            <div>
+                                                <h6 class="mb-1">Review Student Projects</h6>
+                                                <small class="text-muted">Due: Friday, 3:00 PM</small>
+                                            </div>
+                                            <span class="badge bg-info">Medium</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Sections (Hidden by default) -->
+                <div class="dashboard-section" id="announcements">
+                    <!-- Announcements content will go here -->
+                </div>
+                <div class="dashboard-section" id="timetable">
+                    <!-- Timetable content will go here -->
+                </div>
+                <div class="dashboard-section" id="materials">
+                    <!-- Materials content will go here -->
+                </div>
+                <div class="dashboard-section" id="assignments">
+                    <!-- Assignments content will go here -->
+                </div>
+                <div class="dashboard-section" id="students">
+                    <!-- Students content will go here -->
+                </div>
+                <div class="dashboard-section" id="messaging">
+                    <!-- Messaging content will go here -->
+                </div>
+                <div class="dashboard-section" id="communities">
+                    <!-- Communities content will go here -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed top-0 end-0 p-3"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/lecture/lecture-dashboard.js"></script>
+</body>
+</html>

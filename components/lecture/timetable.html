@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable - Lecturer Dashboard</title>
+    <link rel="stylesheet" href="D:\newproject\web-Technology-System-Project\assets\css\lecturecss\lecturer-dashboard.css">
+    <link rel="stylesheet" href="D:\newproject\web-Technology-System-Project\assets\css\lecturecss\timetable.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Lecturer Dashboard</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li data-page="dashboard"><i>📊</i> Dashboard</li>
+                <li data-page="announcements"><i>📢</i> Announcements</li>
+                <li class="active" data-page="timetable"><i>📅</i> Timetable</li>
+                <li data-page="materials"><i>📚</i> Materials</li>
+                <li data-page="assignments"><i>📝</i> Assignments</li>
+                <li data-page="students"><i>👨‍🎓</i> Students</li>
+                <li data-page="messaging"><i>💬</i> Messaging</li>
+                <li data-page="communities"><i>👥</i> Communities</li>
+            </ul>
+            <div class="dark-mode-toggle" id="darkModeToggle">
+                <i>🌙</i> Dark Mode
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="welcome-message">
+                    <h1>Timetable</h1>
+                    <p>Manage your class schedule and teaching hours</p>
+                </div>
+                <div class="user-profile">
+                    <img src="https://via.placeholder.com/40" alt="User Profile">
+                    <span>Lecturer</span>
+                </div>
+            </div>
+
+            <!-- Timetable Controls -->
+            <div class="timetable-controls">
+                <div class="view-options">
+                    <button class="view-btn active" data-view="week">Week View</button>
+                    <button class="view-btn" data-view="day">Day View</button>
+                    <button class="view-btn" data-view="month">Month View</button>
+                </div>
+                <div class="date-navigation">
+                    <button class="nav-btn" id="prevWeek">
+                        <i>◀</i> Previous
+                    </button>
+                    <span class="current-week" id="currentWeek">Week of Oct 28, 2024</span>
+                    <button class="nav-btn" id="nextWeek">
+                        Next <i>▶</i>
+                    </button>
+                </div>
+                <div class="timetable-actions">
+                    <button class="btn-primary" id="addClassBtn">
+                        <i>➕</i> Add Class
+                    </button>
+                    <button class="btn-secondary" id="exportTimetable">
+                        <i>📥</i> Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Timetable Statistics -->
+            <div class="timetable-stats">
+                <div class="stat-card">
+                    <h3>Weekly Hours</h3>
+                    <div class="stat-value">18</div>
+                    <div class="stat-change up">↑ 2hrs This week</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Classes</h3>
+                    <div class="stat-value">12</div>
+                    <div class="stat-change neutral">→ Same as last week</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Students</h3>
+                    <div class="stat-value">245</div>
+                    <div class="stat-change up">↑ 8 This week</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Rooms</h3>
+                    <div class="stat-value">4</div>
+                    <div class="stat-change down">↓ 1 This week</div>
+                </div>
+            </div>
+
+            <!-- Timetable View -->
+            <div class="timetable-view">
+                <div class="timetable-header">
+                    <div class="time-column">Time</div>
+                    <div class="day-column">Monday</div>
+                    <div class="day-column">Tuesday</div>
+                    <div class="day-column">Wednesday</div>
+                    <div class="day-column">Thursday</div>
+                    <div class="day-column">Friday</div>
+                </div>
+                
+                <div class="timetable-body" id="timetableBody">
+                    <!-- Timetable content will be loaded here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Upcoming Classes -->
+            <div class="upcoming-classes">
+                <div class="section-header">
+                    <h2>Upcoming Classes Today</h2>
+                    <span class="view-all">View All</span>
+                </div>
+                <div class="classes-list" id="upcomingClasses">
+                    <!-- Upcoming classes will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Class Modal -->
+    <div class="modal" id="classModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Class</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="classForm">
+                    <div class="form-group">
+                        <label for="className">Class Name</label>
+                        <input type="text" id="className" required placeholder="Enter class name">
+                    </div>
+                    <div class="form-group">
+                        <label for="courseSelect">Course</label>
+                        <select id="courseSelect" required>
+                            <option value="">Select Course</option>
+                            <option value="cs101">CS 101 - Introduction to Programming</option>
+                            <option value="cs201">CS 201 - Data Structures</option>
+                            <option value="cs301">CS 301 - Algorithms</option>
+                            <option value="math101">MATH 101 - Calculus I</option>
+                            <option value="phy201">PHY 201 - Physics for Engineers</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="classDay">Day</label>
+                            <select id="classDay" required>
+                                <option value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="classTime">Time</label>
+                            <select id="classTime" required>
+                                <option value="8:00">8:00 AM</option>
+                                <option value="9:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="classDuration">Duration</label>
+                            <select id="classDuration" required>
+                                <option value="1">1 hour</option>
+                                <option value="2" selected>2 hours</option>
+                                <option value="3">3 hours</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="classRoom">Room</label>
+                            <input type="text" id="classRoom" required placeholder="e.g., Room 101">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="classType">Class Type</label>
+                        <select id="classType">
+                            <option value="lecture">Lecture</option>
+                            <option value="lab">Lab</option>
+                            <option value="tutorial">Tutorial</option>
+                            <option value="seminar">Seminar</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="classDescription">Description (Optional)</label>
+                        <textarea id="classDescription" placeholder="Enter class description" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelBtn">Cancel</button>
+                <button class="btn-primary" id="saveClassBtn">Save Class</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="D:\newproject\web-Technology-System-Project\assets\js\lecture\lecture-dashboard.js"></script>
+    <script src="D:\newproject\web-Technology-System-Project\assets\js\lecture\timetable.js"></script>
+</body>
+</html>

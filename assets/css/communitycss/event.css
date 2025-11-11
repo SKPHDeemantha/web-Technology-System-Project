@@ -85,6 +85,29 @@ body {
 .notification-badge {
   background-color: #dc3545 !important;
 }
+/* Header icons and labels forced white */
+.dropdown i,
+.notification-icon,
+.notification-badge,
+.header-actions .btn-link,
+#darkModeToggle,
+#darkModeToggle i,
+#darkModeToggle svg,
+.user-account,
+.user-account .user-name,
+.user-avatar,
+.logo-text h1,
+.community-hub-name {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  background-color: transparent;
+}
+
+/* Keep notification badge background but ensure text/icon is white */
+.notification-badge {
+  background-color: #dc3545 !important;
+  color: #ffffff !important;
+}
 
 .dropdown-menu {
   background-color: var(--bg-primary);
@@ -111,7 +134,7 @@ body {
   position: fixed;
   top: 80px;
   height: calc(100vh - 80px);
-  width: 282px;
+  width: 260px;
   z-index: 1000;
   overflow-y: auto;
   backdrop-filter: blur(10px);
@@ -222,6 +245,15 @@ body {
 }
 
 /* Main Content Styles */
+[data-theme="dark"] .back{
+    background-color: #1d2633;
+    /* Fill the viewport reliably when zooming/scrolling (dvh for modern mobile/desktop, vh fallback) */
+    min-height: 100dvh;
+    min-height: 100vh;
+    width: 100%;
+    height: auto;
+  }
+
 .content-area {
   background-color: var(--bg-primary);
   padding-top: 2rem;
@@ -239,7 +271,7 @@ body {
 
 /* Dark mode main content */
 [data-theme="dark"] .content-area {
-  background: linear-gradient(135deg, rgba(31, 41, 55, 0.95), rgba(17, 24, 39, 0.9));
+  background-color: linear-gradient(135deg, rgba(31, 41, 55, 0.95), rgba(17, 24, 39, 0.9));
   border-bottom: 1px solid var(--border-glow);
 }
 

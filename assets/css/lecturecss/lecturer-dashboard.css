@@ -484,7 +484,7 @@ body::before {
 }
 
 .line-chart-path {
-    fill: none;
+    fill:none;
     stroke: var(--primary-purple);
     stroke-width: 3;
     stroke-linecap: round;

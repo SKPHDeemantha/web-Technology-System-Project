@@ -254,7 +254,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="d-grid gap-2">
-                                        <button class="btn btn-purple mb-2 action-btn" data-action="announcement">
+                                        <button class="btn btn-purple mb-2 action-btn" data-bs-toggle="modal" data-bs-target="#createAnnouncementModal">
                                             <i class="fas fa-bullhorn me-2"></i> New Announcement
                                         </button>
                                         <button class="btn btn-outline-purple mb-2 action-btn" data-action="assignment">
@@ -344,6 +344,77 @@
                         </div>
                     </div>
                 </div>
+                <!-- Create Announcement Modal -->
+    <div class="modal fade" id="createAnnouncementModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-bullhorn me-2"></i>Create New Announcement</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="announcementForm">
+                        <div class="mb-3">
+                            <label for="announcementTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="announcementTitle" placeholder="Enter announcement title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="announcementContent" class="form-label">Content</label>
+                            <textarea class="form-control" id="announcementContent" rows="5" placeholder="Enter announcement content" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="announcementCourse" class="form-label">Course</label>
+                                    <select class="form-select" id="announcementCourse" required>
+                                        <option value="">Select Course</option>
+                                        <option value="cs101">CS101 - Introduction to Programming</option>
+                                        <option value="ds202">DS202 - Data Structures</option>
+                                        <option value="ai301">AI301 - Artificial Intelligence</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="announcementPriority" class="form-label">Priority</label>
+                                    <select class="form-select" id="announcementPriority">
+                                        <option value="low">Low</option>
+                                        <option value="normal" selected>Normal</option>
+                                        <option value="high">High</option>
+                                        <option value="urgent">Urgent</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="scheduleAnnouncement">
+                            <label class="form-check-label" for="scheduleAnnouncement">Schedule for later</label>
+                        </div>
+                        <div class="row" id="scheduleFields" style="display: none;">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="scheduleDate" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="scheduleDate">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="scheduleTime" class="form-label">Time</label>
+                                    <input type="time" class="form-control" id="scheduleTime">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-purple" id="saveAnnouncement">
+                        <i class="fas fa-save me-1"></i> Publish Announcement
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
                 <!-- Other Sections (Hidden by default) -->
                 <div class="dashboard-section" id="announcements">

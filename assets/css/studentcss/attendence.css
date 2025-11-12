@@ -1,21 +1,21 @@
+/* Container */
 .content {
-
-  padding: 30px;
-  margin-top: -150px;
-  margin-left: -250px;
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
 }
 
 .content h2 {
-  font-size: 32px;
-  margin-bottom: 20px;
+  font-size: 28px;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .card {
   background: #fff;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .card h3 {
@@ -24,80 +24,69 @@
   font-weight: 600;
 }
 
-/* ===== Table ===== */
+/* Table */
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th,
-td {
+th, td {
   padding: 12px 15px;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid #e5e7eb;
   text-align: left;
 }
 
 th {
-  background-color: #f8f9fa;
+  background-color: #f3f4f6;
   font-weight: 600;
 }
 
 .status {
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: 6px;
   color: white;
   font-size: 13px;
   display: inline-block;
 }
 
-.excellent {
-  background: #28a745;
-}
+.excellent { background: #28a745; }
+.good { background: #34c759; }
+.average { background: #ffc107; color: #333; }
+.low { background: #dc3545; }
 
-.good {
-  background: #34c759;
-}
-
-.average {
-  background: #ffc107;
-  color: #333;
-}
-
-.low {
-  background: #dc3545;
-}
-
-.pending {
-  background: #6c757d;
-}
-
-@media (max-width: 768px) {
+/* Responsive: stacked cards */
+@media screen and (max-width: 768px) {
   table, thead, tbody, th, td, tr {
     display: block;
+    width: 100%;
   }
 
-  thead tr {
-    display: none;
-  }
+  thead tr { display: none; }
 
   tr {
     margin-bottom: 15px;
     background: #f9f9f9;
-    padding: 10px;
+    padding: 12px;
     border-radius: 8px;
   }
 
   td {
-    padding: 10px;
+    padding-left: 50%;
     text-align: right;
     position: relative;
+    border: none;
+    border-bottom: 1px solid #e5e7eb;
   }
+
+  td:last-child { border-bottom: 0; }
 
   td::before {
     content: attr(data-label);
     position: absolute;
-    left: 10px;
-    font-weight: 600;
+    left: 12px;
+    width: 45%;
     text-align: left;
+    font-weight: 600;
+    color: #6b7280;
   }
 }

@@ -78,7 +78,7 @@ loadPage(savedPage);
   }
 
   /* ---------------- Attendance ---------------- */
- function populateAttendance() {
+function populateAttendance() {
   const data = [
     { course: "Mathematics", total: 20, attended: 18 },
     { course: "Physics", total: 75, attended: 14 },
@@ -122,6 +122,9 @@ loadPage(savedPage);
     tbody.appendChild(tr);
   });
 }
+
+document.addEventListener("DOMContentLoaded", populateAttendance);
+
 
 
   /* ---------------- Grades ---------------- */

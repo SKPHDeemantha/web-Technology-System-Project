@@ -1,17 +1,43 @@
-// Dark/Light mode toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const currentTheme = localStorage.getItem('theme') || 'dark';
+// Dark/Light mode toggle with dynamic icons
+const themeToggle = document.getElementById('themeToggle');
+const currentTheme = localStorage.getItem('theme') || 'dark';
 
-        // Set initial theme
-        document.documentElement.setAttribute('data-theme', currentTheme);
+// Set initial theme AND icon
+document.documentElement.setAttribute('data-theme', currentTheme);
+updateThemeIcon(currentTheme); // This sets the correct icon on page load
 
-        themeToggle.addEventListener('click', function() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
+themeToggle.addEventListener('click', function() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme); // This updates the icon when clicked
+});
+
+// Function to update theme toggle icon - COMBINED VERSION
+function updateThemeIcon(theme) {
+    const themeToggle = document.getElementById('themeToggle');
+    if (theme === 'dark') {
+        // Elegant sun with perfect proportions (for dark mode - click to switch to light)
+        themeToggle.innerHTML = `
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                <g stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round">
+                    <path d="M12 3v2m0 14v2M21 12h-2M5 12H3m14.14-5.14l-1.42 1.42M7.86 16.14l-1.42 1.42m10.7 0l-1.42-1.42M7.86 7.86l-1.42-1.42"/>
+                </g>
+            </svg>
+        `;
+    } else {
+        // Beautiful crescent moon (for light mode - click to switch to dark)
+        themeToggle.innerHTML = `
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.21 16.21A9 9 0 0 1 7.79 3.79 7 7 0 0 0 20.21 16.21z" 
+                      fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
+            </svg>
+        `;
+    }
+}
 
         // Navigation functionality
         function navigateTo(page) {

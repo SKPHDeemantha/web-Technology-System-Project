@@ -1,38 +1,30 @@
-
-.content
-{
-    padding: 30px;
-    margin-top: 480px;
-    margin-left: 500px;
+/* General container */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
 }
-.card {
-  background: white;
+
+.card, .card-overview {
+  background: #fff;
   padding: 20px;
   margin-top: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-.card-overview{
-  justify-content: center;
-  gap: 20px;
-  background: white;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-
-}
 .overview {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
   margin-top: 10px;
 }
 
 .overview-item {
+  flex: 1 1 150px;
   background-color: #e0e7ff;
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: bold;
 }
 
@@ -40,40 +32,62 @@
   color: #1e40af;
 }
 
+/* Table */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-top: 15px;
 }
+
 th, td {
-  padding: 10px;
+  padding: 12px;
   text-align: left;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 th {
   background-color: #f3f4f6;
 }
 
-tr.green .grade { color: #10b981; font-weight: bold; }
-tr.blue .grade { color: #3b82f6; font-weight: bold; }
-tr.yellow .grade { color: #facc15; font-weight: bold; }
+/* Grade colors */
+.grade-excellent { color: #28a745; font-weight: bold; }
+.grade-good { color: #007bff; font-weight: bold; }
+.grade-average { color: #ffc107; font-weight: bold; }
+.grade-low { color: #dc3545; font-weight: bold; }
 
-.grade-excellent {
-    color: #28a745; /* green */
-    font-weight: bold;
-}
+/* Responsive: stack table rows as cards */
+@media screen and (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
 
-.grade-good {
-    color: #007bff; /* blue */
-    font-weight: bold;
-}
+  thead tr { display: none; }
 
-.grade-average {
-    color: #ffc107; /* orange */
-    font-weight: bold;
-}
+  tr {
+    margin-bottom: 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 12px;
+  }
 
-.grade-low {
-    color: #dc3545; /* red */
-    font-weight: bold;
+  td {
+    padding-left: 50%;
+    position: relative;
+    text-align: right;
+    border: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  td:last-child { border-bottom: 0; }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 12px;
+    width: 45%;
+    text-align: left;
+    font-weight: 600;
+    color: #6b7280;
+  }
 }

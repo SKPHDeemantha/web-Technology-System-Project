@@ -125,39 +125,57 @@ loadPage(savedPage);
 
 
   /* ---------------- Grades ---------------- */
-  function populateGrades() {
-    const gradesData = [
-      { course: "Mathematics", assignment: "Algebra Test", grade: "A", date: "2025-10-01" },
-      { course: "Physics", assignment: "Mechanics Lab", grade: "B+", date: "2025-10-05" },
-      { course: "Chemistry", assignment: "Organic Chem Quiz", grade: "A-", date: "2025-10-07" },
-      { course: "History", assignment: "Essay", grade: "B", date: "2025-10-10" },
-      { course: "English", assignment: "Literature Exam", grade: "C", date: "2025-10-12" },
+function populateGrades() {
+  const gradesData = [
+    { course: "Mathematics", assignment: "Algebra Test", grade: "A", date: "2025-10-01" },
+    { course: "Physics", assignment: "Mechanics Lab", grade: "B+", date: "2025-10-05" },
+    { course: "Chemistry", assignment: " Chem Quiz", grade: "A-", date: "2025-10-07" },
+    { course: "History", assignment: "Essay", grade: "B", date: "2025-10-10" },
+    { course: "English", assignment: "Literature Exam", grade: "C", date: "2025-10-12" },
+  ];
+
+  const tbody = document.querySelector("#gradesTable tbody");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+
+  const labels = ["Course", "Assignment", "Grade", "Date"];
+
+  gradesData.forEach(item => {
+    let gradeClass;
+    switch (item.grade) {
+      case "A":
+      case "A-": gradeClass = "grade-excellent"; break;
+      case "B+": case "B": gradeClass = "grade-good"; break;
+      case "C": case "C-": gradeClass = "grade-average"; break;
+      default: gradeClass = "grade-low"; break;
+    }
+
+    const tr = document.createElement("tr");
+
+    const cells = [
+      item.course,
+      item.assignment,
+      `<span class="${gradeClass}">${item.grade}</span>`,
+      item.date
     ];
 
-    const tbody = document.querySelector("#gradesTable tbody");
-    if (!tbody) return;
-    tbody.innerHTML = "";
-
-    gradesData.forEach(item => {
-      let gradeClass;
-      switch (item.grade) {
-        case "A":
-        case "A-": gradeClass = "grade-excellent"; break;
-        case "B+": case "B": gradeClass = "grade-good"; break;
-        case "C": case "C-": gradeClass = "grade-average"; break;
-        default: gradeClass = "grade-low"; break;
-      }
-
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${item.course}</td>
-        <td>${item.assignment}</td>
-        <td><span class="${gradeClass}">${item.grade}</span></td>
-        <td>${item.date}</td>
-      `;
-      tbody.appendChild(tr);
+    cells.forEach((content, i) => {
+      const td = document.createElement("td");
+      td.setAttribute("data-label", labels[i]);
+      td.innerHTML = content;
+      tr.appendChild(td);
     });
-  }
+
+    tbody.appendChild(tr);
+  });
+}
+
+// Call after DOM loads
+document.addEventListener("DOMContentLoaded", populateGrades);
+
+
+// Call after DOM loads
+document.addEventListener("DOMContentLoaded", populateGrades);
 
   /* ---------------- Profile ---------------- */
   function loadProfile() {

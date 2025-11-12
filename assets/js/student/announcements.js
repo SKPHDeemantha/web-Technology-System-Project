@@ -1,4 +1,19 @@
- // Navigation functionality
+ // Dark/Light mode toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+
+        // Set initial theme
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Navigation functionality
         function navigateTo(page) {
             // Hide all pages
             document.querySelectorAll('.page').forEach(p => {
@@ -16,7 +31,7 @@
             
             // Close mobile sidebar if open
             document.getElementById('sidebar').classList.remove('active');
-            document.getElementById('overlay').classlist.remove('active');
+            document.getElementById('overlay').classList.remove('active');
         }
 
         // Mobile menu functionality
@@ -82,7 +97,7 @@
                 button.addEventListener('click', function() {
                     const card = this.closest('.announcement-card');
                     card.style.opacity = '0.7';
-                    card.style.backgroundColor = '#f8f9fa';
+                    card.style.backgroundColor = 'var(--bg-tertiary)';
                     this.textContent = '✓ Marked as Read';
                     this.disabled = true;
                     
@@ -125,17 +140,17 @@
             filterAnnouncements('all');
         });
 
-          // Get current page name from URL
-  const currentPage = window.location.pathname.split("/").pop();
+        // Get current page name from URL
+        const currentPage = window.location.pathname.split("/").pop();
 
-  // Get all sidebar links
-  const menuItems = document.querySelectorAll(".sidebar a");
+        // Get all sidebar links
+        const menuItems = document.querySelectorAll(".sidebar a");
 
-  // Loop through and highlight the current page link
-  menuItems.forEach(item => {
-    if (item.getAttribute("href").includes(currentPage)) {
-      item.classList.add("active");
-    } else {
-      item.classList.remove("active");
-    }
-  });
+        // Loop through and highlight the current page link
+        menuItems.forEach(item => {
+            if (item.getAttribute("href").includes(currentPage)) {
+                item.classList.add("active");
+            } else {
+                item.classList.remove("active");
+            }
+        });

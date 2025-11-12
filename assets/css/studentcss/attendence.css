@@ -1,13 +1,15 @@
 .content {
-
   padding: 30px;
-  margin-top: -150px;
+  margin-top: 0;
   margin-left: -250px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .content h2 {
   font-size: 32px;
   margin-bottom: 20px;
+  margin-top: -90px;
   font-weight: bold;
 }
 
@@ -16,6 +18,7 @@
   padding: 25px;
   border-radius: 10px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Allow horizontal scroll on small screens */
 }
 
 .card h3 {
@@ -28,6 +31,7 @@
 table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 600px; /* Minimum width before scrolling */
 }
 
 th,
@@ -48,6 +52,8 @@ th {
   color: white;
   font-size: 13px;
   display: inline-block;
+  text-align: center;
+  min-width: 80px;
 }
 
 .excellent {
@@ -71,64 +77,97 @@ th {
   background: #6c757d;
 }
 
-@media (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
-    display: block;
+/* Single merged responsive styles */
+@media screen and (max-width: 768px) {
+  .content {
+    padding: 15px;
+    margin-top: 0;
+    margin-left: 0;
   }
-
-  thead tr {
-    display: none;
-  }
-
-  tr {
+  
+  .content h2 {
+    font-size: 24px;
     margin-bottom: 15px;
-    background: #f9f9f9;
-    padding: 10px;
-    border-radius: 8px;
   }
-
-  td {
-    padding: 10px;
-    text-align: right;
-    position: relative;
+  
+  .card {
+    padding: 15px;
+    margin: 0 -15px;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #eaeaea;
   }
-
-  td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 10px;
-    font-weight: 600;
-    text-align: left;
+  
+  .card h3 {
+    font-size: 16px;
+  }
+  
+  /* Table responsive styles */
+  table {
+    min-width: 100%;
+  }
+  
+  th, td {
+    padding: 10px 8px;
+    font-size: 14px;
+  }
+  
+  .status {
+    padding: 4px 8px;
+    font-size: 12px;
+    min-width: 70px;
   }
 }
 
-
-/* Responsive: stacked cards */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 480px) {
+  .content {
+    padding: 10px;
+  }
+  
+  .content h2 {
+    font-size: 20px;
+    margin-top: -80px;
+  }
+  
+  .card {
+    padding: 12px;
+    margin: 0 -10px;
+  }
+  
+  th, td {
+    padding: 8px 6px;
+    font-size: 13px;
+  }
+  
+  /* Stacked card layout for very small screens */
   table, thead, tbody, th, td, tr {
     display: block;
-    width: 100%;
   }
-
-  thead tr { display: none; }
-
+  
+  thead tr {
+    display: none;
+  }
+  
   tr {
     margin-bottom: 15px;
     background: #f9f9f9;
     padding: 12px;
     border-radius: 8px;
+    border: 1px solid #e5e7eb;
   }
-
+  
   td {
-    padding-left: 50%;
+    padding: 10px 10px 10px 50%;
     text-align: right;
     position: relative;
     border: none;
     border-bottom: 1px solid #e5e7eb;
   }
-
-  td:last-child { border-bottom: 0; }
-
+  
+  td:last-child {
+    border-bottom: 0;
+  }
+  
   td::before {
     content: attr(data-label);
     position: absolute;
@@ -137,5 +176,6 @@ th {
     text-align: left;
     font-weight: 600;
     color: #6b7280;
+    font-size: 13px;
   }
 }

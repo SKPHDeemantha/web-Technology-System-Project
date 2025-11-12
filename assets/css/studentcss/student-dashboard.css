@@ -99,7 +99,7 @@ body {
   border-right: 1px solid #e5e7eb;
   padding: 20px;
   transition: left 0.3s ease;
-  z-index: 1002;
+  z-index: 0;
 }
 
 .sidebar .logo {
@@ -161,22 +161,24 @@ body.sidebar-open::before {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  width: 1500px;
 }
 
 .card {
   background: #fff;
   border-radius: 12px;
   padding: 20px;
-  flex: 1 1 220px;
+  flex: 1;
   text-align: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
 }
+
 
 /* ========================== Colors ========================== */
 .green {

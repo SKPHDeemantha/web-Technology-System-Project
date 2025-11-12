@@ -1,0 +1,119 @@
+main{
+    margin-top: 80px;
+    margin-left: 250px;
+}
+
+.activity-section {
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 1100px;
+}
+
+/* ========== HEADER SECTION ========== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 25px;
+}
+
+.header h2 {
+  margin: 0;
+  color: #333;
+}
+
+.header p {
+  color: #666;
+  margin: 5px 0 0;
+}
+
+/* Export Button */
+.export-btn {
+  background-color: #6f42c1;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.export-btn i {
+  margin-right: 5px;
+}
+
+.export-btn:hover {
+  background-color: #5936a3;
+}
+
+/* ========== TRACKING SECTION ========== */
+.tracking-section {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 25px 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.tracking-section h3 {
+  margin-top: 0;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Filters */
+.filter-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 20px 0 25px;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-item label {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.filter-item select,
+.filter-item input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 220px;
+}
+
+/* Table */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background-color: #f9fafb;
+  font-weight: bold;
+}
+
+tr:hover {
+  background-color: #f1f5f9;
+}

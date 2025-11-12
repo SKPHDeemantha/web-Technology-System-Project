@@ -215,13 +215,111 @@
 }
 
 /* Responsive */
-@media (max-width:900px) {
-  .app {
-    padding: 12px;
-    margin: 12px
+/* -------------------- RESPONSIVE -------------------- */
+@media (max-width: 1024px) {
+  /* Reduce container padding */
+  .container {
+    width: 95%;
+    padding: 20px 10px;
   }
 
-  .sidebar {
-    display: none
+  /* Tabs stack vertically if needed */
+  .tabs {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tab-btn {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  /* Card grid auto-fit smaller */
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+
+  /* Card padding slightly smaller */
+  .card {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .course-title {
+    font-size: 15px;
+  }
+
+  .meta {
+    font-size: 12px;
+  }
+
+  .progress {
+    height: 10px;
+  }
+
+  .progress-bar {
+    height: 100%;
+  }
+
+  .card-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Container full width */
+  .container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  /* Tabs buttons smaller */
+  .tab-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  /* Grid single column */
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Card content smaller */
+  .card {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .course-title {
+    font-size: 14px;
+  }
+
+  .meta {
+    font-size: 11px;
+  }
+
+  .progress {
+    height: 8px;
+  }
+
+  .card-actions {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .btn {
+    font-size: 12px;
+    padding: 6px 10px;
   }
 }

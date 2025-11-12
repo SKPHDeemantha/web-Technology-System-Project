@@ -78,39 +78,51 @@ loadPage(savedPage);
   }
 
   /* ---------------- Attendance ---------------- */
-  function populateAttendance() {
-    const data = [
-      { course: "Mathematics", total: 20, attended: 18 },
-      { course: "Physics", total: 75, attended: 14 },
-      { course: "Chemistry", total: 18, attended: 16 },
-      { course: "History", total: 12, attended: 10 },
-      { course: "English", total: 22, attended: 20 },
+ function populateAttendance() {
+  const data = [
+    { course: "Mathematics", total: 20, attended: 18 },
+    { course: "Physics", total: 75, attended: 14 },
+    { course: "Chemistry", total: 18, attended: 16 },
+    { course: "History", total: 12, attended: 10 },
+    { course: "English", total: 22, attended: 20 },
+  ];
+
+  const tbody = document.querySelector("#attendanceTable tbody");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+
+  const labels = ["Course", "Total Classes", "Attended", "Attendance %", "Status"];
+
+  data.forEach(item => {
+    const percent = Math.round((item.attended / item.total) * 100);
+    let statusClass, statusText;
+
+    if (percent >= 90) { statusClass = "excellent"; statusText = "Excellent"; }
+    else if (percent >= 85) { statusClass = "good"; statusText = "Good"; }
+    else if (percent >= 80) { statusClass = "average"; statusText = "Average"; }
+    else { statusClass = "low"; statusText = "Low"; }
+
+    const tr = document.createElement("tr");
+
+    const cells = [
+      item.course,
+      item.total,
+      item.attended,
+      percent + "%",
+      `<span class="status ${statusClass}">${statusText}</span>`
     ];
 
-    const tbody = document.querySelector("#attendanceTable tbody");
-    if (!tbody) return;
-    tbody.innerHTML = "";
-
-    data.forEach(item => {
-      const percent = Math.round((item.attended / item.total) * 100);
-      let statusClass, statusText;
-
-      if (percent >= 90) { statusClass = "excellent"; statusText = "Excellent"; }
-      else if (percent >= 85) { statusClass = "good"; statusText = "Good"; }
-      else if (percent >= 80) { statusClass = "average"; statusText = "Average"; }
-      else { statusClass = "low"; statusText = "Low"; }
-
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${item.course}</td>
-        <td>${item.total}</td>
-        <td>${item.attended}</td>
-        <td>${percent}%</td>
-        <td><span class="status ${statusClass}">${statusText}</span></td>
-      `;
-      tbody.appendChild(tr);
+    cells.forEach((cellContent, i) => {
+      const td = document.createElement("td");
+      td.setAttribute("data-label", labels[i]);
+      td.innerHTML = cellContent;
+      tr.appendChild(td);
     });
-  }
+
+    tbody.appendChild(tr);
+  });
+}
+
 
   /* ---------------- Grades ---------------- */
   function populateGrades() {

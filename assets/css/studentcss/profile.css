@@ -157,3 +157,54 @@
   margin: 8px 0;
   font-size: 16px;
 }
+
+@media (max-width: 992px) {
+  .profile-layout {
+    grid-template-columns: 1fr; /* Single column on tablet */
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr; /* Stack info items */
+    gap: 12px 0;
+  }
+
+  .stats-row {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .profile-header {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .profile-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .name {
+    font-size: 1.2rem;
+  }
+
+  .tag-container .tag {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .edit-btn {
+    align-self: flex-end;
+    margin-top: 5px;
+  }
+
+  .stat-box {
+    flex: 1 1 100%;
+  }
+}

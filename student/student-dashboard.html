@@ -4,13 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Student Dashboard</title>
-  <link rel="stylesheet" href="..\..\assets\css\studentcss\student-dashboard.css" />
-  <link rel="stylesheet" href="..\..\assets\css\studentcss\profile.css" />
-  <link rel="stylesheet" href="..\..\assets\css\studentcss\course.css" />
-  <link rel="stylesheet" href="..\..\assets\css\studentcss\grade.css" />
-  <link rel="stylesheet" href="..\..\assets\css\studentcss\attendence.css" />
-  <link rel="stylesheet" href="..\..\assets\css\studentcss\schedule.css" />
+  <link rel="stylesheet" href="../../assets/css/studentcss/student-dashboard.css" />
+<link rel="stylesheet" href="../../assets/css/studentcss/profile.css" />
+<link rel="stylesheet" href="../../assets/css/studentcss/course.css" />
+<link rel="stylesheet" href="../../assets/css/studentcss/grade.css" />
+<link rel="stylesheet" href="../../assets/css/studentcss/attendence.css" />
+
 
 
 </head>
@@ -19,29 +18,31 @@
 
   <!-- Top Header -->
   <header class="header">
-    <div class="welcome">
-      <h2>Welcome, Alex</h2>
-      <p>Have a great day of learning!</p>
-    </div>
-    <div class="header-icons">
-            <button class="icon-btn">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+  <div class="welcome">
+    <h2>Welcome, Alex</h2>
+    <p>Have a great day of learning!</p>
+  </div>
+  <div class="header-icons">
+    <button class="icon-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2C10.9 2 10 2.9 10 4V4.29C7.12 5.14 5 7.82 5 11V17L3 19V20H21V19L19 17V11C19 7.82 16.88 5.14 14 4.29V4C14 2.9 13.1 2 12 2ZM12 6C14.76 6 17 8.24 17 11V18H7V11C7 8.24 9.24 6 12 6ZM10 21C10 22.1 10.9 23 12 23C13.1 23 14 22.1 14 21H10Z"/>
                 </svg>
-                <span class="notification-badge">4</span>
-            </button>
-            <button class="icon-btn">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <span class="notification-badge">4</span>
+    </button>
+    <button class="icon-btn">
+       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/>
                 </svg>
-            </button>
-        </div>
-  </header>
+    </button>
+  </div>
+</header>
+
 
   <!-- Sidebar -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <h2 class="logo">Student Portal</h2>
-    <ul class="menu">
+    <ul class="menu" id="menu">
       <li data-page="dashboard" class="active"><a href="javascript:void(0)">🏠 Dashboard</a></li>
       <li data-page="communities"><a href="#">👥 Communities</a></li>
       <li data-page="profile"><a href="javascript:void(0)">👤 Profile</a></li>
@@ -154,6 +155,28 @@
         },
       });
     });
+
+
+    
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  sidebar.classList.toggle("active");
+  document.body.classList.toggle("sidebar-open");
+}
+
+// Close sidebar if clicking outside
+document.addEventListener('click', function(e) {
+  const sidebar = document.getElementById('sidebar');
+  const toggle = document.querySelector('.menu-toggle');
+
+  // only close if sidebar is open and click is outside sidebar and toggle
+  if (sidebar.classList.contains('active') && !sidebar.contains(e.target) && !toggle.contains(e.target)) {
+    sidebar.classList.remove('active');
+    document.body.classList.remove('sidebar-open');
+  }
+});
+
+
   </script>
 
   <script src="../../assets/js/student/studentDashboard.js"></script>

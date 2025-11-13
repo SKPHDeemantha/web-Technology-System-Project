@@ -1,274 +1,235 @@
-// main_script.js
+// Dark/Light mode toggle with dynamic icons
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
 
-document.addEventListener("DOMContentLoaded", () => {
-  const menuItems = document.querySelectorAll(".menu li");
-  const contentArea = document.getElementById("content-area");
-  const dashboardContent = document.getElementById("dashboard-content");
+        // Set initial theme AND icon
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme); // This sets the correct icon on page load
 
-  // Check if we're on the main dashboard page
-const isDashboardPage = window.location.pathname.includes('dashboard') || 
-                       document.getElementById('dashboard-content');
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme); // This updates the icon when clicked
+        });
 
-// Only use saved page if we're not specifically on the dashboard page
-let savedPage;
-if (isDashboardPage) {
-  savedPage = "dashboard";
-  localStorage.setItem("activePage", "dashboard"); // Reset to dashboard
-} else {
-  savedPage = localStorage.getItem("activePage") || "dashboard";
-}
+        // Function to update theme toggle icon - COMBINED VERSION
+        function updateThemeIcon(theme) {
+            const themeToggle = document.getElementById('themeToggle');
+            if (theme === 'dark') {
+                // Elegant sun with perfect proportions (for dark mode - click to switch to light)
+                themeToggle.innerHTML = `
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                        <g stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round">
+                            <path d="M12 3v2m0 14v2M21 12h-2M5 12H3m14.14-5.14l-1.42 1.42M7.86 16.14l-1.42 1.42m10.7 0l-1.42-1.42M7.86 7.86l-1.42-1.42"/>
+                        </g>
+                    </svg>
+                `;
+            } else {
+                // Beautiful crescent moon (for light mode - click to switch to dark)
+                themeToggle.innerHTML = `
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.21 16.21A9 9 0 0 1 7.79 3.79 7 7 0 0 0 20.21 16.21z" 
+                              fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
+                    </svg>
+                `;
+            }
+        }
 
-setActive(savedPage);
-loadPage(savedPage);
+        // Navigation functionality
+        function navigateTo(page) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+            });
+            
+            // Show the selected page
+            document.getElementById(page + '-page').classList.add('active');
+            
+            // Update active navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Set active navigation item
+            const activeNavItem = document.querySelector(`.nav-item[onclick*="${page}"]`);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+            
+            // Close mobile sidebar if open
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        }
 
-  // Menu click handling
-  menuItems.forEach(item => {
-    item.addEventListener("click", e => {
-      e.preventDefault();
-      const page = item.dataset.page;
-      setActive(page);
-      localStorage.setItem("activePage", page);
-      loadPage(page);
-    });
-  });
+        // Mobile menu functionality
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
 
-  // Set active menu item
-  function setActive(page) {
-    menuItems.forEach(i => i.classList.remove("active"));
-    const activeItem = [...menuItems].find(i => i.dataset.page === page);
-    if (activeItem) activeItem.classList.add("active");
-  }
+        document.getElementById('overlay').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.remove('active');
+            this.classList.remove('active');
+        });
 
-  // Load page content dynamically
-  async function loadPage(page) {
-    if (page === "dashboard") {
-      dashboardContent.style.display = "block";
-      contentArea.innerHTML = "";
-      return;
-    } else {
-      dashboardContent.style.display = "none";
-    }
+        // Dashboard Chart functionality
+        let gpaChartInstance = null;
 
-    contentArea.innerHTML = `
-            <div class="loader-container">
-                <div class="loader"></div>
-                <p>Loading ${page.charAt(0).toUpperCase() + page.slice(1)}...</p>
-            </div>
-        `;
+        function initGpaChart() {
+            const canvas = document.getElementById("gpaChart");
+            if (!canvas) return;
 
-    try {
-      const response = await fetch(`/components/student/${page}.html`);
-      if (!response.ok) throw new Error("Page not found");
-      const html = await response.text();
-      contentArea.innerHTML = html;
+            const ctx = canvas.getContext("2d");
 
-      // Run component-specific JS manually
-      if (page === "attendence") populateAttendance();
-      if (page === "grade") populateGrades();
-      if (page === "profile") loadProfile();
-      if (page === "course") loadCourses();
-      // Add more components here if needed
+            // Destroy previous chart instance if exists
+            if (gpaChartInstance) {
+                gpaChartInstance.destroy();
+            }
 
-    } catch (error) {
-      contentArea.innerHTML = `
-                <div class="error-message">
-                    <h3>⚠️ Error</h3>
-                    <p>Could not load <strong>${page}</strong> page.</p>
-                    <p style="color:red;">${error.message}</p>
-                </div>
-            `;
-    }
-  }
+            // Get colors based on current theme
+            const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-primary');
+            const gridColor = getComputedStyle(document.documentElement).getPropertyValue('--border-color');
+            const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-primary');
 
- 
-  function populateAttendance() {
-    const data = [
-      { course: "Mathematics", total: 20, attended: 18 },
-      { course: "Physics", total: 75, attended: 14 },
-      { course: "Chemistry", total: 18, attended: 16 },
-      { course: "History", total: 12, attended: 10 },
-      { course: "English", total: 22, attended: 20 },
-    ];
+            gpaChartInstance = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: ["Sem 1", "Sem 2", "Sem 3", "Sem 4", "Sem 5"],
+                    datasets: [{
+                        label: "GPA Progress",
+                        data: [3.4, 3.5, 3.6, 3.75, 3.8],
+                        borderColor: accentColor,
+                        backgroundColor: "rgba(99, 102, 241, 0.1)",
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 6,
+                        pointBackgroundColor: accentColor,
+                        pointHoverRadius: 8,
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { 
+                            display: false 
+                        },
+                        tooltip: {
+                            backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--bg-secondary'),
+                            titleColor: textColor,
+                            bodyColor: textColor,
+                            borderColor: accentColor,
+                            borderWidth: 1,
+                            padding: 10,
+                            cornerRadius: 6,
+                        },
+                    },
+                    scales: {
+                        x: { 
+                            grid: { 
+                                display: false 
+                            },
+                            ticks: {
+                                color: textColor
+                            },
+                            title: {
+                                display: true,
+                                text: "Semester",
+                                color: textColor,
+                                font: { size: 14 }
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            min: 3.0,
+                            max: 4.0,
+                            ticks: { 
+                                stepSize: 0.1,
+                                color: textColor
+                            },
+                            title: {
+                                display: true,
+                                text: "GPA",
+                                color: textColor,
+                                font: { size: 14 }
+                            },
+                            grid: { 
+                                color: gridColor
+                            },
+                        },
+                    },
+                },
+            });
+        }
 
-    const tbody = document.querySelector("#attendanceTable tbody");
-    if (!tbody) return;
-    tbody.innerHTML = "";
+        // Initialize chart when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Small delay to ensure DOM is fully ready
+            setTimeout(initGpaChart, 100);
+            
+            // Add hover animations to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+                
+                // Add click functionality to cards
+                card.addEventListener('click', function() {
+                    const cardText = this.querySelector('h4').textContent;
+                    if (cardText.includes('Courses')) navigateTo('courses');
+                    if (cardText.includes('GPA')) navigateTo('grades');
+                    if (cardText.includes('Attendance')) navigateTo('attendance');
+                    if (cardText.includes('Tasks')) navigateTo('assignments');
+                });
+            });
 
-    data.forEach(item => {
-      const percent = Math.round((item.attended / item.total) * 100);
-      let statusClass, statusText;
+            // Add click animations to buttons
+            const buttons = document.querySelectorAll('.quick-actions button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+        });
 
-      if (percent >= 90) { statusClass = "excellent"; statusText = "Excellent"; }
-      else if (percent >= 85) { statusClass = "good"; statusText = "Good"; }
-      else if (percent >= 80) { statusClass = "average"; statusText = "Average"; }
-      else { statusClass = "low"; statusText = "Low"; }
+        // Reinitialize chart on window resize
+        window.addEventListener('resize', function() {
+            if (gpaChartInstance) {
+                setTimeout(initGpaChart, 100);
+            }
+        });
 
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-                <td>${item.course}</td>
-                <td>${item.total}</td>
-                <td>${item.attended}</td>
-                <td>${percent}%</td>
-                <td><span class="status ${statusClass}">${statusText}</span></td>
-            `;
-      tbody.appendChild(tr);
-    });
-  }
+        // Reinitialize chart when theme changes
+        themeToggle.addEventListener('click', function() {
+            setTimeout(initGpaChart, 300);
+        });
 
-  // Grades page (example)
-  document.addEventListener("DOMContentLoaded", function () {
-    populateGrades();
-  });
+        // Get current page name from URL
+        const currentPage = window.location.pathname.split("/").pop();
 
-  function populateGrades() {
-    const gradesData = [
-      { course: "Mathematics", assignment: "Algebra Test", grade: "A", date: "2025-10-01" },
-      { course: "Physics", assignment: "Mechanics Lab", grade: "B+", date: "2025-10-05" },
-      { course: "Chemistry", assignment: "Organic Chem Quiz", grade: "A-", date: "2025-10-07" },
-      { course: "History", assignment: "Essay", grade: "B", date: "2025-10-10" },
-      { course: "English", assignment: "Literature Exam", grade: "C", date: "2025-10-12" },
-    ];
+        // Get all sidebar links
+        const menuItems = document.querySelectorAll(".sidebar a");
 
-    const tbody = document.querySelector("#gradesTable tbody");
-    if (!tbody) return;
-    tbody.innerHTML = "";
-
-    gradesData.forEach(item => {
-      let gradeClass;
-
-      // Assign color classes based on grade
-      switch (item.grade) {
-        case "A":
-        case "A-":
-          gradeClass = "grade-excellent"; // green
-          break;
-        case "B+":
-        case "B":
-          gradeClass = "grade-good"; // blue
-          break;
-        case "C":
-        case "C-":
-          gradeClass = "grade-average"; // orange
-          break;
-        default:
-          gradeClass = "grade-low"; // red
-      }
-
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-            <td>${item.course}</td>
-            <td>${item.assignment}</td>
-            <td><span class="${gradeClass}">${item.grade}</span></td>
-            <td>${item.date}</td>
-        `;
-      tbody.appendChild(tr);
-    });
-  }
-
-
-  // Profile page example
-  function loadProfile() {
-    const profileName = document.getElementById("profileName");
-    const profileEmail = document.getElementById("profileEmail");
-
-    if (!profileName || !profileEmail) return;
-
-    profileName.textContent = "Alex Johnson";
-    profileEmail.textContent = "alex@example.com";
-  }
-
-
-  function loadCourses() {
-    const availableList = document.getElementById("availableCourses");
-    const enrolledList = document.getElementById("enrolledCourses");
-    if (!availableList || !enrolledList) return;
-
-    const courses = ["Mathematics", "Physics", "Chemistry", "History", "English"];
-
-
-    availableList.innerHTML = courses.map(c => `
-        <div class="card">
-            <h3 class="course-title">${c}</h3>
-            <div class="card-actions">
-                <button class="btn primary" data-action="enroll">Enroll</button>
-            </div>
-            <span class="badge available">Available</span>
-        </div>
-    `).join("");
-
-    enrolledList.innerHTML = "";
-
-    updateEnrolledCount();
-  }
-
-  function setupTabs() {
-    const tabButtons = document.querySelectorAll(".tab-btn");
-    const panels = document.querySelectorAll(".panel");
-
-    tabButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        tabButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        const target = btn.dataset.target;
-        panels.forEach(panel => panel.classList.toggle("hidden", panel.id !== target));
-      });
-    });
-  }
-
-  // Enroll a course
-  function enrollCourse(button) {
-    const card = button.closest(".card");
-    const enrolledList = document.getElementById("enrolledCourses");
-    if (!card || !enrolledList) return;
-
-    const newCard = card.cloneNode(true);
-    newCard.querySelector(".badge").textContent = "Enrolled";
-    newCard.querySelector(".badge").classList.replace("available", "enrolled");
-    newCard.querySelector(".card-actions").innerHTML = `
-        <button class="btn primary" data-action="view">View Details</button>
-        <button class="btn outline" data-action="drop">Drop Course</button>
-    `;
-    enrolledList.appendChild(newCard);
-    card.remove();
-    updateEnrolledCount();
-  }
-
-  // Drop a course
-  function dropCourse(button) {
-    const card = button.closest(".card");
-    if (!card) return;
-
-    if (confirm(`Are you sure you want to drop ${card.querySelector(".course-title").textContent}?`)) {
-      card.remove();
-      updateEnrolledCount();
-    }
-  }
-
-  // View course details
-  function viewDetails(button) {
-    const card = button.closest(".card");
-    if (!card) return;
-
-    const courseName = card.querySelector(".course-title").textContent;
-    const status = card.querySelector(".badge").textContent;
-    alert(`Course: ${courseName}\nStatus: ${status}`);
-  }
-
-  // Update enrolled courses count in tab
-  function updateEnrolledCount() {
-    const count = document.querySelectorAll("#enrolledCourses .card").length;
-    const enrolledTab = document.querySelector('.tab-btn[data-target="enrolled"]');
-    if (enrolledTab) enrolledTab.textContent = `Enrolled Courses (${count})`;
-  }
-
-  // Event delegation for course buttons
-  document.addEventListener("click", e => {
-    const action = e.target.dataset.action;
-    if (!action) return;
-
-    if (action === "enroll") enrollCourse(e.target);
-    else if (action === "drop") dropCourse(e.target);
-    else if (action === "view") viewDetails(e.target);
-  });
-
-});
+        // Loop through and highlight the current page link
+        menuItems.forEach(item => {
+            if (item.getAttribute("href").includes(currentPage)) {
+                item.classList.add("active");
+            } else {
+                item.classList.remove("active");
+            }
+        });

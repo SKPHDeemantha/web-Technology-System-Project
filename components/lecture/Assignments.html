@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,14 +9,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link href="../../assets/css/lecturecss/lecturer-dashboard.css" rel="stylesheet">
     <link href="../../assets/css/lecturecss/Assignments.css" rel="stylesheet">
+     <link href="../../assets/css/footer.css" rel="stylesheet">
 </head>
+
 <body data-theme="light">
     <!-- Header -->
     <header class="dashboard-header">
         <div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
-                    <button class="btn btn-link text-white me-3 d-md-none p-2" id="sidebarToggle" title="Toggle Sidebar">
+                    <button class="btn btn-link text-white me-3 d-md-none p-2" id="sidebarToggle"
+                        title="Toggle Sidebar">
                         <i class="fas fa-bars fa-lg"></i>
                     </button>
                     <div class="logo-section d-flex align-items-center me-4">
@@ -33,22 +37,31 @@
                         <i class="fas fa-moon fa-lg"></i>
                     </button>
                     <div class="dropdown me-3">
-                        <button class="btn btn-link text-white position-relative p-2" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" title="Notifications">
+                        <button class="btn btn-link text-white position-relative p-2" type="button"
+                            id="notificationsDropdown" data-bs-toggle="dropdown" title="Notifications">
                             <i class="fas fa-bell fa-lg"></i>
-                            <span class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle">7</span>
+                            <span
+                                class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle">7</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow">
-                            <li><h6 class="dropdown-header fw-bold">Notifications</h6></li>
+                            <li>
+                                <h6 class="dropdown-header fw-bold">Notifications</h6>
+                            </li>
                             <li><a class="dropdown-item d-flex align-items-center" href="#">
-                                <i class="fas fa-file-upload me-2 text-primary"></i>New assignment submission</a></li>
+                                    <i class="fas fa-file-upload me-2 text-primary"></i>New assignment submission</a>
+                            </li>
                             <li><a class="dropdown-item d-flex align-items-center" href="#">
-                                <i class="fas fa-clock me-2 text-warning"></i>Assignment deadline approaching</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                                    <i class="fas fa-clock me-2 text-warning"></i>Assignment deadline approaching</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item text-center fw-bold" href="#">View all notifications</a></li>
                         </ul>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-link text-white d-flex align-items-center p-2" type="button" id="profileDropdown" data-bs-toggle="dropdown">
+                        <button class="btn btn-link text-white d-flex align-items-center p-2" type="button"
+                            id="profileDropdown" data-bs-toggle="dropdown">
                             <div class="user-avatar me-2">
                                 <i class="fas fa-user-circle fa-lg"></i>
                             </div>
@@ -57,13 +70,16 @@
                             <i class="fas fa-chevron-down ms-2 small"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow">
-                            <li><a class="dropdown-item d-flex align-items-center" href="../../lecture/lecturer-dashboard.html">
-                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center"
+                                    href="../../lecture/lecturer-dashboard.html">
+                                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
                             <li><a class="dropdown-item d-flex align-items-center" href="#">
-                                <i class="fas fa-cog me-2"></i>Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                                    <i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item d-flex align-items-center text-danger" href="#">
-                                <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -106,7 +122,7 @@
                             </a>
                         </li>
                     </ul>
-                    
+
                 </div>
             </nav>
 
@@ -130,7 +146,8 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <div>
-                                            <h5 class="card-title text-uppercase text-muted mb-0">Active Assignments</h5>
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Active Assignments
+                                            </h5>
                                             <span class="h2 font-weight-bold mb-0">8</span>
                                         </div>
                                         <div class="stat-icon">
@@ -211,18 +228,24 @@
                                     <h5 class="mb-0"><i class="fas fa-list me-2"></i>All Assignments</h5>
                                     <div class="d-flex gap-2">
                                         <div class="dropdown">
-                                            <button class="btn btn-sm btn-outline-purple dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                            <button class="btn btn-sm btn-outline-purple dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown">
                                                 <i class="fas fa-filter me-1"></i> Filter
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item filter-option active" href="#" data-filter="all">All Assignments</a></li>
-                                                <li><a class="dropdown-item filter-option" href="#" data-filter="active">Active</a></li>
-                                                <li><a class="dropdown-item filter-option" href="#" data-filter="grading">Needs Grading</a></li>
-                                                <li><a class="dropdown-item filter-option" href="#" data-filter="completed">Completed</a></li>
+                                                <li><a class="dropdown-item filter-option active" href="#"
+                                                        data-filter="all">All Assignments</a></li>
+                                                <li><a class="dropdown-item filter-option" href="#"
+                                                        data-filter="active">Active</a></li>
+                                                <li><a class="dropdown-item filter-option" href="#"
+                                                        data-filter="grading">Needs Grading</a></li>
+                                                <li><a class="dropdown-item filter-option" href="#"
+                                                        data-filter="completed">Completed</a></li>
                                             </ul>
                                         </div>
                                         <div class="input-group input-group-sm" style="width: 200px;">
-                                            <input type="text" class="form-control" placeholder="Search assignments..." id="searchAssignments">
+                                            <input type="text" class="form-control" placeholder="Search assignments..."
+                                                id="searchAssignments">
                                             <button class="btn btn-outline-purple" type="button">
                                                 <i class="fas fa-search"></i>
                                             </button>
@@ -246,13 +269,15 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="d-grid gap-2">
-                                        <button class="btn btn-purple mb-2" data-bs-toggle="modal" data-bs-target="#createAssignmentModal">
+                                        <button class="btn btn-purple mb-2" data-bs-toggle="modal"
+                                            data-bs-target="#createAssignmentModal">
                                             <i class="fas fa-plus-circle me-2"></i> Create Assignment
                                         </button>
                                         <button class="btn btn-outline-purple mb-2" id="gradeSubmissions">
                                             <i class="fas fa-clipboard-check me-2"></i> Grade Submissions
                                         </button>
-                                        <button class="btn btn-outline-purple mb-2" data-bs-toggle="modal" data-bs-target="#importAssignmentModal">
+                                        <button class="btn btn-outline-purple mb-2" data-bs-toggle="modal"
+                                            data-bs-target="#importAssignmentModal">
                                             <i class="fas fa-file-import me-2"></i> Import Assignment
                                         </button>
                                         <button class="btn btn-outline-purple mb-2" id="exportGrades">
@@ -276,7 +301,7 @@
                                         <div class="progress mb-3" style="height: 8px;">
                                             <div class="progress-bar bg-success" style="width: 80%"></div>
                                         </div>
-                                        
+
                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                             <small>DS202 - Project</small>
                                             <small class="text-muted">15/25 graded</small>
@@ -284,7 +309,7 @@
                                         <div class="progress mb-3" style="height: 8px;">
                                             <div class="progress-bar bg-warning" style="width: 60%"></div>
                                         </div>
-                                        
+
                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                             <small>AI301 - Research Paper</small>
                                             <small class="text-muted">8/20 graded</small>
@@ -326,14 +351,16 @@
                     <form id="assignmentForm">
                         <div class="mb-3">
                             <label for="assignmentTitle" class="form-label">Assignment Title</label>
-                            <input type="text" class="form-control" id="assignmentTitle" placeholder="Enter assignment title" required>
+                            <input type="text" class="form-control" id="assignmentTitle"
+                                placeholder="Enter assignment title" required>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="assignmentDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="assignmentDescription" rows="4" placeholder="Provide detailed assignment instructions" required></textarea>
+                            <textarea class="form-control" id="assignmentDescription" rows="4"
+                                placeholder="Provide detailed assignment instructions" required></textarea>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -361,22 +388,24 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="assignmentPoints" class="form-label">Total Points</label>
-                                    <input type="number" class="form-control" id="assignmentPoints" placeholder="100" min="1" required>
+                                    <input type="number" class="form-control" id="assignmentPoints" placeholder="100"
+                                        min="1" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="assignmentWeight" class="form-label">Weight in Course (%)</label>
-                                    <input type="number" class="form-control" id="assignmentWeight" placeholder="15" min="1" max="100" required>
+                                    <input type="number" class="form-control" id="assignmentWeight" placeholder="15"
+                                        min="1" max="100" required>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -396,30 +425,33 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="assignmentFiles" class="form-label">Attached Files (Optional)</label>
                             <input type="file" class="form-control" id="assignmentFiles" multiple>
                             <div class="form-text">Upload assignment instructions, templates, or resources</div>
                         </div>
-                        
+
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="allowLateSubmission">
                             <label class="form-check-label" for="allowLateSubmission">Allow late submissions</label>
                         </div>
-                        
+
                         <div class="row" id="lateSubmissionFields" style="display: none;">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="lateSubmissionPenalty" class="form-label">Late Submission Penalty</label>
-                                    <input type="number" class="form-control" id="lateSubmissionPenalty" placeholder="10" min="0" max="100">
+                                    <label for="lateSubmissionPenalty" class="form-label">Late Submission
+                                        Penalty</label>
+                                    <input type="number" class="form-control" id="lateSubmissionPenalty"
+                                        placeholder="10" min="0" max="100">
                                     <div class="form-text">Percentage penalty per day</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="lateSubmissionDays" class="form-label">Days Allowed Late</label>
-                                    <input type="number" class="form-control" id="lateSubmissionDays" placeholder="3" min="1">
+                                    <input type="number" class="form-control" id="lateSubmissionDays" placeholder="3"
+                                        min="1">
                                 </div>
                             </div>
                         </div>
@@ -461,8 +493,99 @@
     <!-- Toast Container -->
     <div class="toast-container position-fixed top-0 end-0 p-3"></div>
 
+    <footer id="main-footer" class="footer" role="contentinfo">
+        <!-- Main Footer Content Container -->
+        <div class="footer-container">
+            <!-- University Logo and Description Section -->
+            <div class="footer-section logo-section">
+                <div class="logo">
+                    <i class="fas fa-university"></i>
+                    <h3>University App</h3>
+                </div>
+                <p class="description">
+                    Empowering education through innovative technology. Connect, learn, and grow with our comprehensive
+                    university platform.
+                </p>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="footer-section links-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../student/student-dashboard.html"><i class="fas fa-book"></i> Courses</a></li>
+                    <li><a href="../components/lecture/announcement.html"><i class="fas fa-bullhorn"></i>
+                            Announcements</a></li>
+                    <li><a href="../community/communities.html"><i class="fas fa-users"></i> Community</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Useful Resources Section -->
+            <div class="footer-section resources-section">
+                <h4>Useful Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#help"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                    <li><a href="#terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                    <li><a href="#privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    <li><a href="#faq"><i class="fas fa-info-circle"></i> FAQ</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Subscription Section -->
+            <div class="footer-section newsletter-section">
+                <h4>Stay Updated</h4>
+                <p>Subscribe to our newsletter for the latest updates and announcements.</p>
+                <form id="newsletter-form" class="newsletter-form" novalidate>
+                    <div class="input-group">
+                        <input type="email" id="newsletter-email" placeholder="Enter your email"
+                            aria-label="Email address for newsletter" required>
+                        <button type="submit" class="subscribe-btn" aria-label="Subscribe to newsletter">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Social Media and Copyright Section -->
+        <div class="footer-bottom">
+            <!-- Social Media Icons -->
+            <div class="social-media">
+                <a href="#" class="social-link" aria-label="Follow us on Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Follow us on Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Follow us on LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Follow us on Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Follow us on YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+
+            <!-- Copyright -->
+            <div class="copyright">
+                <p>&copy; <span id="current-year"></span> University App. All rights reserved.</p>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </footer>
+
+    <script src="../assets/js/footer.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../assets/js/lecture/Assignments.js"></script>
     <script src="../../assets/js/lecture/lecture-dashboard.js"></script>
 </body>
+
 </html>

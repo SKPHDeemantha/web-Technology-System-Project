@@ -144,7 +144,7 @@
                         <div class="section-header">
                             <div class="icon"><i class="fas fa-user"></i></div>
                             <h3>Personal Information</h3>
-                            <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="edit-btn" onclick="openProfileModal()"><i class="fas fa-edit"></i> Edit</button>
                         </div>
 
                         <div class="info-grid">
@@ -294,6 +294,67 @@
             </div>
         </main>
     </div>
+
+    <!-- Profile Edit Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Edit Profile</h2>
+                <button class="close-btn" onclick="closeModal('profileModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="profileForm">
+                    <div class="form-section">
+                        <h3>Personal Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" name="fullName" value="Heshan Deemantha" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" value="heshandeemantha@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateOfBirth">Date of Birth</label>
+                                <input type="date" id="dateOfBirth" name="dateOfBirth" value="2002-03-15" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" name="phone" value="+1 (555) 123-4567" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="Male" selected>Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="nationality">Nationality</label>
+                                <input type="text" id="nationality" name="nationality" value="Sri Lankan" required>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="address">Address</label>
+                            <textarea id="address" name="address" rows="3" required>123 University Street
+Colombo, Sri Lanka</textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="emergencyContact">Emergency Contact</label>
+                            <input type="tel" id="emergencyContact" name="emergencyContact" value="+1 (555) 987-6543" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn secondary" onclick="closeModal('profileModal')">Cancel</button>
+                <button type="button" class="btn primary" onclick="saveProfile()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
     <script src="..\..\assets\js\student\profile.js"></script>
 
     <!-- Include Footer -->

@@ -286,6 +286,23 @@
 
     <link href="../../assets/css/footer.css" rel="stylesheet">
     <script src="../../assets/js/footer.js"></script>
-    <script src="..\..\assets\js\student\assignments.js"></script>   
+    <!-- Assignment Modals -->
+    <div id="assignmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Assignment Details</h2>
+                <span class="close-btn" onclick="closeModal('assignmentModal')">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="closeModal('assignmentModal')">Close</button>
+                <button class="btn primary" id="modalActionBtn">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="..\..\assets\js\student\assignments.js"></script>
 </body>
 </html>

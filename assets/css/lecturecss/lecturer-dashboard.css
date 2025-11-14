@@ -677,6 +677,69 @@ body::before {
     background-color: rgba(168, 85, 247, 0.1);
 }
 
+/* Modal Styles for Dark Mode */
+[data-theme="dark"] .modal-content {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.95), rgba(17, 24, 39, 0.9));
+    border: 1px solid var(--border-light);
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .modal-header {
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(0, 0, 0, 0.9));
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .modal-body {
+    background: rgba(31, 41, 55, 0.95);
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .modal-footer {
+    background: rgba(17, 24, 39, 0.95);
+    border-top: 1px solid var(--border-light);
+}
+
+[data-theme="dark"] .modal .form-control {
+    background-color: rgba(31, 41, 55, 0.8);
+    border-color: var(--border-light);
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .modal .form-control:focus {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 0.2rem rgba(168, 85, 247, 0.25);
+}
+
+[data-theme="dark"] .modal .form-label {
+    color: var(--text-light);
+}
+
+[data-theme="dark"] .modal .form-select {
+    background-color: rgba(31, 41, 55, 0.8);
+    border-color: var(--border-light);
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .modal .form-select:focus {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 0.2rem rgba(168, 85, 247, 0.25);
+}
+
+[data-theme="dark"] .modal .form-check-input {
+    background-color: rgba(31, 41, 55, 0.8);
+    border-color: var(--border-light);
+}
+
+[data-theme="dark"] .modal .form-check-input:checked {
+    background-color: var(--primary-purple);
+    border-color: var(--primary-purple);
+}
+
+[data-theme="dark"] .modal .btn-close {
+    filter: invert(1);
+}
+
 /* Toast Container */
 .toast-container {
     z-index: 9999;
@@ -688,22 +751,27 @@ body::before {
         position: static;
         width: 100%;
         height: auto;
+        display: none;
     }
-    
+
+    .sidebar.show {
+        display: block;
+    }
+
     .dashboard-main {
         margin-left: 0;
         width: 100%;
-        padding: 1rem;
+        padding: 6rem 1rem 1rem;
     }
-    
+
     .dashboard-header {
         padding: 1rem;
     }
-    
+
     .header-actions .btn {
         padding: 0.375rem 0.5rem;
     }
-    
+
     .user-info {
         display: none !important;
     }

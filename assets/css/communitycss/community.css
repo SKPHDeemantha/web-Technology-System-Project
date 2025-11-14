@@ -1013,6 +1013,8 @@ body::before {
 @media (max-width: 768px) {
   .dashboard-main {
     padding: 1rem;
+    margin-left: 0;
+    width: 100%;
   }
 
   .dashboard-header {

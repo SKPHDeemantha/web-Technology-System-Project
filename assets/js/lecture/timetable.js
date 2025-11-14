@@ -1,476 +1,496 @@
-// Timetable Page JavaScript
-
-// Sample timetable data
-const timetableData = [
-    {
-        id: 1,
-        name: "CS 101 - Programming",
-        course: "CS 101",
-        day: "monday",
-        time: "9:00",
-        duration: 2,
-        room: "Room 101",
-        type: "lecture",
-        color: "#3498db"
-    },
-    {
-        id: 2,
-        name: "MATH 201 - Calculus",
-        course: "MATH 201",
-        day: "monday",
-        time: "11:00",
-        duration: 1,
-        room: "Room 205",
-        type: "lecture",
-        color: "#2ecc71"
-    },
-    {
-        id: 3,
-        name: "CS 101 - Lab Session",
-        course: "CS 101",
-        day: "monday",
-        time: "14:00",
-        duration: 2,
-        room: "Lab A",
-        type: "lab",
-        color: "#3498db"
-    },
-    {
-        id: 4,
-        name: "PHY 201 - Physics",
-        course: "PHY 201",
-        day: "tuesday",
-        time: "10:00",
-        duration: 2,
-        room: "Room 302",
-        type: "lecture",
-        color: "#e74c3c"
-    },
-    {
-        id: 5,
-        name: "CS 201 - Data Structures",
-        course: "CS 201",
-        day: "tuesday",
-        time: "13:00",
-        duration: 2,
-        room: "Room 101",
-        type: "lecture",
-        color: "#9b59b6"
-    },
-    {
-        id: 6,
-        name: "MATH 201 - Tutorial",
-        course: "MATH 201",
-        day: "wednesday",
-        time: "9:00",
-        duration: 1,
-        room: "Room 205",
-        type: "tutorial",
-        color: "#2ecc71"
-    },
-    {
-        id: 7,
-        name: "CS 301 - Algorithms",
-        course: "CS 301",
-        day: "wednesday",
-        time: "11:00",
-        duration: 2,
-        room: "Room 401",
-        type: "lecture",
-        color: "#f39c12"
-    },
-    {
-        id: 8,
-        name: "PHY 201 - Lab",
-        course: "PHY 201",
-        day: "thursday",
-        time: "14:00",
-        duration: 3,
-        room: "Physics Lab",
-        type: "lab",
-        color: "#e74c3c"
-    },
-    {
-        id: 9,
-        name: "CS 201 - Seminar",
-        course: "CS 201",
-        day: "friday",
-        time: "10:00",
-        duration: 1,
-        room: "Auditorium",
-        type: "seminar",
-        color: "#9b59b6"
-    }
-];
-
-// Time slots for the timetable
-const timeSlots = [
-    '8:00', '9:00', '10:00', '11:00', '12:00', 
-    '13:00', '14:00', '15:00', '16:00', '17:00'
-];
-
-// DOM Elements
-let timetableBody, classModal, classForm, currentWeekStart;
-
-// Initialize the timetable
-function initializeTimetable() {
-    timetableBody = document.getElementById('timetableBody');
-    classModal = document.getElementById('classModal');
-    classForm = document.getElementById('classForm');
-    
-    if (timetableBody) {
-        setupEventListeners();
-        generateTimetable();
-        loadUpcomingClasses();
-        updateWeekDisplay();
-    }
-}
-
-// Set up event listeners
-function setupEventListeners() {
-    // View buttons
-    const viewButtons = document.querySelectorAll('.view-btn');
-    viewButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            viewButtons.forEach(b => b.classList.remove('active'));
-            e.target.classList.add('active');
-            switchView(e.target.dataset.view);
-        });
-    });
-    
-    // Navigation buttons
-    document.getElementById('prevWeek')?.addEventListener('click', previousWeek);
-    document.getElementById('nextWeek')?.addEventListener('click', nextWeek);
-    
-    // Action buttons
-    document.getElementById('addClassBtn')?.addEventListener('click', openClassModal);
-    document.getElementById('exportTimetable')?.addEventListener('click', exportTimetable);
-    
-    // Modal events
-    document.querySelector('.close')?.addEventListener('click', closeClassModal);
-    document.getElementById('cancelBtn')?.addEventListener('click', closeClassModal);
-    document.getElementById('saveClassBtn')?.addEventListener('click', saveClass);
-    
-    // Close modal when clicking outside
-    window.addEventListener('click', (e) => {
-        if (e.target === classModal) {
-            closeClassModal();
-        }
-    });
-}
-
-// Generate the timetable grid
-function generateTimetable() {
-    timetableBody.innerHTML = '';
-    
-    // Create time slots and day slots
-    timeSlots.forEach(time => {
-        // Time slot
-        const timeSlot = document.createElement('div');
-        timeSlot.className = 'time-slot';
-        timeSlot.textContent = formatTimeDisplay(time);
-        timetableBody.appendChild(timeSlot);
-        
-        // Day slots for this time
-        const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
-        days.forEach(day => {
-            const daySlot = document.createElement('div');
-            daySlot.className = 'day-slot';
-            daySlot.dataset.day = day;
-            daySlot.dataset.time = time;
-            
-            // Find classes for this time and day
-            const classesAtThisTime = getClassesAtTime(day, time);
-            
-            if (classesAtThisTime.length > 0) {
-                classesAtThisTime.forEach(classItem => {
-                    const classElement = createClassElement(classItem);
-                    daySlot.appendChild(classElement);
-                });
-            } else {
-                const emptySlot = document.createElement('div');
-                emptySlot.className = 'empty-slot';
-                emptySlot.innerHTML = '<i>+</i>';
-                emptySlot.addEventListener('click', () => openClassModalAt(day, time));
-                daySlot.appendChild(emptySlot);
-            }
-            
-            timetableBody.appendChild(daySlot);
-        });
-    });
-}
-
-// Get classes at specific day and time
-function getClassesAtTime(day, time) {
-    return timetableData.filter(classItem => {
-        return classItem.day === day && classItem.time === time;
-    });
-}
-
-// Create class element for timetable
-function createClassElement(classItem) {
-    const classDiv = document.createElement('div');
-    classDiv.className = `class-item ${classItem.type}`;
-    classDiv.dataset.id = classItem.id;
-    
-    classDiv.innerHTML = `
-        <div class="class-item-content">
-            <div class="class-name">${classItem.course}</div>
-            <div class="class-details">${classItem.room}</div>
-            <div class="class-details">${classItem.type}</div>
-        </div>
-        <div class="class-time">${formatTimeDisplay(classItem.time)}</div>
-    `;
-    
-    classDiv.addEventListener('click', () => editClass(classItem.id));
-    
-    return classDiv;
-}
-
-// Format time for display
-function formatTimeDisplay(time) {
-    const [hours, minutes] = time.split(':');
-    const hour = parseInt(hours);
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const displayHour = hour % 12 || 12;
-    return `${displayHour}:${minutes} ${ampm}`;
-}
-
-// Switch between different views
-function switchView(view) {
-    const timetableView = document.querySelector('.timetable-view');
-    
-    switch(view) {
-        case 'week':
-            timetableView.style.display = 'block';
-            document.querySelector('.month-view')?.style.display = 'none';
-            generateTimetable();
-            break;
-        case 'day':
-            // Implement day view
-            alert('Day view will be implemented in the next version');
-            break;
-        case 'month':
-            // Implement month view
-            alert('Month view will be implemented in the next version');
-            break;
-    }
-}
-
-// Week navigation
-function updateWeekDisplay() {
-    if (!currentWeekStart) {
-        currentWeekStart = new Date();
-        // Set to Monday of current week
-        const day = currentWeekStart.getDay();
-        const diff = currentWeekStart.getDate() - day + (day === 0 ? -6 : 1);
-        currentWeekStart.setDate(diff);
-    }
-    
-    const weekEnd = new Date(currentWeekStart);
-    weekEnd.setDate(weekEnd.getDate() + 4); // Friday
-    
-    const weekDisplay = document.getElementById('currentWeek');
-    if (weekDisplay) {
-        weekDisplay.textContent = `Week of ${formatDate(currentWeekStart)}`;
-    }
-}
-
-function previousWeek() {
-    currentWeekStart.setDate(currentWeekStart.getDate() - 7);
-    updateWeekDisplay();
-    generateTimetable();
-}
-
-function nextWeek() {
-    currentWeekStart.setDate(currentWeekStart.getDate() + 7);
-    updateWeekDisplay();
-    generateTimetable();
-}
-
-function formatDate(date) {
-    return date.toLocaleDateString('en-US', { 
-        month: 'short', 
-        day: 'numeric', 
-        year: 'numeric' 
-    });
-}
-
-// Load upcoming classes for today
-function loadUpcomingClasses() {
-    const upcomingClasses = document.getElementById('upcomingClasses');
-    if (!upcomingClasses) return;
-    
-    const today = new Date().toLocaleString('en-us', { weekday: 'long' }).toLowerCase();
-    const todayClasses = timetableData.filter(classItem => classItem.day === today);
-    
-    if (todayClasses.length === 0) {
-        upcomingClasses.innerHTML = `
-            <div class="empty-state">
-                <i>📅</i>
-                <h3>No classes today</h3>
-                <p>Enjoy your free time!</p>
-            </div>
-        `;
-        return;
-    }
-    
-    upcomingClasses.innerHTML = '';
-    todayClasses.forEach(classItem => {
-        const classElement = document.createElement('div');
-        classElement.className = 'upcoming-class-item';
-        classElement.innerHTML = `
-            <div class="upcoming-class-info">
-                <div class="upcoming-class-name">${classItem.name}</div>
-                <div class="upcoming-class-details">
-                    <span>${classItem.room}</span>
-                    <span>•</span>
-                    <span>${classItem.type}</span>
-                    <span>•</span>
-                    <span>${classItem.duration} hour${classItem.duration > 1 ? 's' : ''}</span>
-                </div>
-            </div>
-            <div class="upcoming-class-time">${formatTimeDisplay(classItem.time)}</div>
-        `;
-        upcomingClasses.appendChild(classElement);
-    });
-}
-
-// Class modal functions
-function openClassModal() {
-    if (classModal) {
-        classModal.style.display = 'block';
-        classForm.reset();
-    }
-}
-
-function openClassModalAt(day, time) {
-    openClassModal();
-    document.getElementById('classDay').value = day;
-    document.getElementById('classTime').value = time;
-}
-
-function closeClassModal() {
-    if (classModal) {
-        classModal.style.display = 'none';
-    }
-}
-
-function saveClass() {
-    const formData = {
-        name: document.getElementById('className').value,
-        course: document.getElementById('courseSelect').value,
-        day: document.getElementById('classDay').value,
-        time: document.getElementById('classTime').value,
-        duration: parseInt(document.getElementById('classDuration').value),
-        room: document.getElementById('classRoom').value,
-        type: document.getElementById('classType').value,
-        description: document.getElementById('classDescription').value
-    };
-    
-    if (validateClassForm(formData)) {
-        const newClass = {
-            id: timetableData.length + 1,
-            ...formData,
-            color: getRandomColor()
+// Timetable Management System
+class TimetableManager {
+    constructor() {
+        this.timetableData = JSON.parse(localStorage.getItem('timetableData')) || [];
+        this.settings = JSON.parse(localStorage.getItem('timetableSettings')) || {
+            workStart: '08:00',
+            workEnd: '18:00',
+            timeSlotDuration: 60,
+            showWeekends: true
         };
-        
-        timetableData.push(newClass);
-        generateTimetable();
-        loadUpcomingClasses();
-        closeClassModal();
-        
-        alert('Class added successfully!');
+        this.currentView = 'week';
+        this.initializeEventListeners();
+        this.renderTimetable();
+        this.updateStats();
+        this.updateUpcomingClasses();
     }
-}
 
-function validateClassForm(formData) {
-    if (!formData.name.trim()) {
-        alert('Please enter a class name');
-        return false;
-    }
-    
-    if (!formData.course) {
-        alert('Please select a course');
-        return false;
-    }
-    
-    if (!formData.room.trim()) {
-        alert('Please enter a room number');
-        return false;
-    }
-    
-    // Check for scheduling conflicts
-    const conflict = timetableData.find(classItem => 
-        classItem.day === formData.day && 
-        classItem.time === formData.time
-    );
-    
-    if (conflict) {
-        alert('There is already a class scheduled at this time!');
-        return false;
-    }
-    
-    return true;
-}
+    initializeEventListeners() {
+        // Modal events
+        document.getElementById('addTimetableModal').addEventListener('show.bs.modal', () => {
+            this.resetForm();
+        });
 
-function editClass(classId) {
-    const classItem = timetableData.find(c => c.id === classId);
-    if (classItem) {
-        if (confirm(`Edit ${classItem.name}?`)) {
-            openClassModal();
-            // Populate form with class data
-            document.getElementById('className').value = classItem.name;
-            document.getElementById('courseSelect').value = classItem.course;
-            document.getElementById('classDay').value = classItem.day;
-            document.getElementById('classTime').value = classItem.time;
-            document.getElementById('classDuration').value = classItem.duration;
-            document.getElementById('classRoom').value = classItem.room;
-            document.getElementById('classType').value = classItem.type;
-            document.getElementById('classDescription').value = classItem.description || '';
-            
-            // Change save button to update
-            const saveBtn = document.getElementById('saveClassBtn');
-            saveBtn.textContent = 'Update Class';
-            saveBtn.onclick = () => updateClass(classId);
+        // Form submission
+        document.getElementById('saveTimetableEntry').addEventListener('click', () => {
+            this.saveTimetableEntry();
+        });
+
+        // View toggle
+        document.getElementById('weekView').addEventListener('click', () => {
+            this.switchView('week');
+        });
+
+        document.getElementById('dayView').addEventListener('click', () => {
+            this.switchView('day');
+        });
+
+        // Quick actions
+        document.getElementById('exportTimetable').addEventListener('click', () => {
+            this.exportTimetable();
+        });
+
+        document.getElementById('clearTimetable').addEventListener('click', () => {
+            this.clearTimetable();
+        });
+
+        // Settings
+        document.getElementById('saveSettings').addEventListener('click', () => {
+            this.saveSettings();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 'n':
+                        e.preventDefault();
+                        new bootstrap.Modal(document.getElementById('addTimetableModal')).show();
+                        break;
+                    case 'e':
+                        e.preventDefault();
+                        this.exportTimetable();
+                        break;
+                }
+            }
+        });
+    }
+
+    resetForm() {
+        document.getElementById('timetableForm').reset();
+        document.getElementById('editIndex').value = '-1';
+        document.getElementById('modalTitle').innerHTML = '<i class="fas fa-calendar-plus me-2"></i>Add New Class';
+    }
+
+    saveTimetableEntry() {
+        const form = document.getElementById('timetableForm');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const entry = {
+            id: Date.now(),
+            subject: document.getElementById('subject').value,
+            courseCode: document.getElementById('courseCode').value,
+            day: document.getElementById('day').value,
+            room: document.getElementById('room').value,
+            startTime: document.getElementById('startTime').value,
+            endTime: document.getElementById('endTime').value,
+            classType: document.getElementById('classType').value,
+            notes: document.getElementById('notes').value
+        };
+
+        const editIndex = parseInt(document.getElementById('editIndex').value);
+        if (editIndex >= 0) {
+            entry.id = this.timetableData[editIndex].id;
+            this.timetableData[editIndex] = entry;
+        } else {
+            this.timetableData.push(entry);
+        }
+
+        this.saveToStorage();
+        this.renderTimetable();
+        this.updateStats();
+        this.updateUpcomingClasses();
+
+        bootstrap.Modal.getInstance(document.getElementById('addTimetableModal')).hide();
+        this.showToast(editIndex >= 0 ? 'Class updated successfully!' : 'Class added successfully!', 'success');
+    }
+
+    editTimetableEntry(index) {
+        const entry = this.timetableData[index];
+        document.getElementById('subject').value = entry.subject;
+        document.getElementById('courseCode').value = entry.courseCode;
+        document.getElementById('day').value = entry.day;
+        document.getElementById('room').value = entry.room;
+        document.getElementById('startTime').value = entry.startTime;
+        document.getElementById('endTime').value = entry.endTime;
+        document.getElementById('classType').value = entry.classType;
+        document.getElementById('notes').value = entry.notes;
+        document.getElementById('editIndex').value = index;
+        document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit me-2"></i>Edit Class';
+
+        new bootstrap.Modal(document.getElementById('addTimetableModal')).show();
+    }
+
+    deleteTimetableEntry(index) {
+        if (confirm('Are you sure you want to delete this class?')) {
+            this.timetableData.splice(index, 1);
+            this.saveToStorage();
+            this.renderTimetable();
+            this.updateStats();
+            this.updateUpcomingClasses();
+            this.showToast('Class deleted successfully!', 'danger');
         }
     }
+
+    renderTimetable() {
+        const grid = document.getElementById('timetableGrid');
+        grid.innerHTML = '';
+
+        // Create header
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        const timeSlots = this.generateTimeSlots();
+
+        // Time column header
+        const timeHeader = document.createElement('div');
+        timeHeader.className = 'time-column day-column';
+        timeHeader.textContent = 'Time';
+        grid.appendChild(timeHeader);
+
+        // Day headers
+        days.forEach(day => {
+            const dayHeader = document.createElement('div');
+            dayHeader.className = 'day-column';
+            dayHeader.textContent = day;
+            grid.appendChild(dayHeader);
+        });
+
+        // Create time slots
+        timeSlots.forEach(time => {
+            // Time column
+            const timeSlot = document.createElement('div');
+            timeSlot.className = 'time-column time-slot';
+            timeSlot.textContent = time;
+            grid.appendChild(timeSlot);
+
+            // Day slots
+            days.forEach(day => {
+                const daySlot = document.createElement('div');
+                daySlot.className = 'day-slot';
+                daySlot.dataset.day = day.toLowerCase();
+                daySlot.dataset.time = time;
+                grid.appendChild(daySlot);
+            });
+        });
+
+        // Render classes
+        this.timetableData.forEach((entry, index) => {
+            this.renderClassCard(entry, index);
+        });
+
+        // Add current time indicator
+        this.addCurrentTimeIndicator();
+    }
+
+    generateTimeSlots() {
+        const slots = [];
+        const start = this.parseTime(this.settings.workStart);
+        const end = this.parseTime(this.settings.workEnd);
+        const duration = this.settings.timeSlotDuration;
+
+        for (let time = start; time < end; time += duration * 60 * 1000) {
+            slots.push(this.formatTime(time));
+        }
+
+        return slots;
+    }
+
+    parseTime(timeString) {
+        const [hours, minutes] = timeString.split(':').map(Number);
+        return hours * 60 * 60 * 1000 + minutes * 60 * 1000;
+    }
+
+    formatTime(timeMs) {
+        const hours = Math.floor(timeMs / (60 * 60 * 1000));
+        const minutes = Math.floor((timeMs % (60 * 60 * 1000)) / (60 * 1000));
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    }
+
+    renderClassCard(entry, index) {
+        const daySlots = document.querySelectorAll(`[data-day="${entry.day}"]`);
+        const startTime = this.parseTime(entry.startTime);
+        const endTime = this.parseTime(entry.endTime);
+
+        // Find the appropriate time slot
+        const timeSlots = this.generateTimeSlots();
+        const startIndex = timeSlots.findIndex(time => this.parseTime(time) >= startTime);
+        const endIndex = timeSlots.findIndex(time => this.parseTime(time) >= endTime);
+
+        if (startIndex >= 0 && startIndex < daySlots.length) {
+            const slot = daySlots[startIndex];
+            const duration = (endTime - startTime) / (60 * 1000); // minutes
+            const slotHeight = 60; // pixels per hour
+            const height = (duration / 60) * slotHeight;
+
+            const classCard = document.createElement('div');
+            classCard.className = `class-card ${entry.classType}`;
+            classCard.style.height = `${height}px`;
+            classCard.innerHTML = `
+                <div class="class-actions">
+                    <button class="class-action-btn edit" onclick="timetableManager.editTimetableEntry(${index})">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="class-action-btn delete" onclick="timetableManager.deleteTimetableEntry(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div class="class-subject">${entry.subject}</div>
+                <div class="class-details">
+                    <div class="class-time">${entry.startTime} - ${entry.endTime}</div>
+                    <div class="class-room">${entry.room}</div>
+                </div>
+            `;
+
+            slot.appendChild(classCard);
+        }
+    }
+
+    addCurrentTimeIndicator() {
+        const now = new Date();
+        const currentTime = now.getHours() * 60 + now.getMinutes();
+        const currentDay = now.toLocaleLowerCase().split(',')[0];
+
+        const daySlots = document.querySelectorAll(`[data-day="${currentDay}"]`);
+        if (daySlots.length > 0) {
+            const timeSlots = this.generateTimeSlots();
+            const startTime = this.parseTime(this.settings.workStart);
+            const slotDuration = this.settings.timeSlotDuration;
+
+            const slotIndex = Math.floor((currentTime * 60 * 1000 - startTime) / (slotDuration * 60 * 1000));
+
+            if (slotIndex >= 0 && slotIndex < daySlots.length) {
+                const slot = daySlots[slotIndex];
+                const indicator = document.createElement('div');
+                indicator.className = 'current-time-indicator';
+                const minutesIntoSlot = (currentTime - timeSlots[slotIndex].split(':').map(Number)[0] * 60 - timeSlots[slotIndex].split(':').map(Number)[1]) * 60 * 1000;
+                const position = (minutesIntoSlot / (slotDuration * 60 * 1000)) * 60;
+                indicator.style.top = `${position}px`;
+                slot.appendChild(indicator);
+            }
+        }
+    }
+
+    updateStats() {
+        const totalClasses = this.timetableData.length;
+        const thisWeekClasses = this.getThisWeekClasses();
+        const weeklyHours = this.calculateWeeklyHours();
+
+        document.getElementById('totalClasses').textContent = totalClasses;
+        document.getElementById('thisWeekClasses').textContent = thisWeekClasses;
+        document.getElementById('weeklyHours').textContent = weeklyHours;
+
+        // Update next class
+        const nextClass = this.getNextClass();
+        if (nextClass) {
+            document.getElementById('nextClassTime').textContent = nextClass.startTime;
+            document.getElementById('nextClassSubject').textContent = nextClass.subject;
+        } else {
+            document.getElementById('nextClassTime').textContent = '--:--';
+            document.getElementById('nextClassSubject').textContent = 'No upcoming class';
+        }
+    }
+
+    getThisWeekClasses() {
+        const now = new Date();
+        const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + 1));
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+        return this.timetableData.filter(entry => {
+            // For simplicity, assuming classes repeat weekly
+            return true;
+        }).length;
+    }
+
+    calculateWeeklyHours() {
+        let totalMinutes = 0;
+        this.timetableData.forEach(entry => {
+            const start = this.parseTime(entry.startTime);
+            const end = this.parseTime(entry.endTime);
+            totalMinutes += (end - start) / (60 * 1000);
+        });
+        return Math.round(totalMinutes / 60);
+    }
+
+    getNextClass() {
+        const now = new Date();
+        const currentTime = now.getHours() * 60 + now.getMinutes();
+        const currentDay = now.getDay(); // 0 = Sunday, 1 = Monday, etc.
+
+        const todayClasses = this.timetableData.filter(entry => {
+            const dayIndex = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].indexOf(entry.day);
+            return dayIndex === currentDay;
+        }).filter(entry => {
+            const startMinutes = entry.startTime.split(':').map(Number)[0] * 60 + entry.startTime.split(':').map(Number)[1];
+            return startMinutes > currentTime;
+        }).sort((a, b) => {
+            const aMinutes = a.startTime.split(':').map(Number)[0] * 60 + a.startTime.split(':').map(Number)[1];
+            const bMinutes = b.startTime.split(':').map(Number)[0] * 60 + b.startTime.split(':').map(Number)[1];
+            return aMinutes - bMinutes;
+        });
+
+        if (todayClasses.length > 0) {
+            return todayClasses[0];
+        }
+
+        // If no classes today, find next week's first class
+        const nextWeekClasses = this.timetableData.sort((a, b) => {
+            const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+            const aDayIndex = days.indexOf(a.day);
+            const bDayIndex = days.indexOf(b.day);
+            if (aDayIndex !== bDayIndex) {
+                return aDayIndex - bDayIndex;
+            }
+            const aMinutes = a.startTime.split(':').map(Number)[0] * 60 + a.startTime.split(':').map(Number)[1];
+            const bMinutes = b.startTime.split(':').map(Number)[0] * 60 + b.startTime.split(':').map(Number)[1];
+            return aMinutes - bMinutes;
+        });
+
+        return nextWeekClasses[0];
+    }
+
+    updateUpcomingClasses() {
+        const upcomingContainer = document.getElementById('upcomingClasses');
+        upcomingContainer.innerHTML = '';
+
+        const upcoming = this.getUpcomingClasses(5);
+        if (upcoming.length === 0) {
+            upcomingContainer.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-calendar-times"></i>
+                    <h5>No Upcoming Classes</h5>
+                    <p>Add some classes to see them here.</p>
+                </div>
+            `;
+            return;
+        }
+
+        upcoming.forEach(entry => {
+            const item = document.createElement('div');
+            item.className = 'upcoming-class-item';
+            item.innerHTML = `
+                <div class="upcoming-class-icon">
+                    <i class="fas fa-${this.getClassIcon(entry.classType)}"></i>
+                </div>
+                <div class="upcoming-class-info">
+                    <h6>${entry.subject}</h6>
+                    <small>${entry.courseCode} • ${entry.room}</small>
+                </div>
+                <div class="upcoming-class-time">
+                    ${entry.startTime}<br>
+                    <small>${entry.day}</small>
+                </div>
+            `;
+            upcomingContainer.appendChild(item);
+        });
+    }
+
+    getUpcomingClasses(limit = 5) {
+        const now = new Date();
+        const currentTime = now.getHours() * 60 + now.getMinutes();
+        const currentDay = now.getDay();
+
+        return this.timetableData
+            .map(entry => {
+                const dayIndex = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].indexOf(entry.day);
+                let daysUntil = dayIndex - currentDay;
+                if (daysUntil < 0) daysUntil += 7;
+                if (daysUntil === 0) {
+                    const startMinutes = entry.startTime.split(':').map(Number)[0] * 60 + entry.startTime.split(':').map(Number)[1];
+                    if (startMinutes <= currentTime) daysUntil = 7;
+                }
+                return { ...entry, daysUntil };
+            })
+            .sort((a, b) => a.daysUntil - b.daysUntil)
+            .slice(0, limit);
+    }
+
+    getClassIcon(type) {
+        const icons = {
+            lecture: 'chalkboard-teacher',
+            tutorial: 'users',
+            lab: 'flask',
+            seminar: 'comments'
+        };
+        return icons[type] || 'calendar';
+    }
+
+    switchView(view) {
+        this.currentView = view;
+        document.getElementById('weekView').classList.toggle('active', view === 'week');
+        document.getElementById('dayView').classList.toggle('active', view === 'day');
+        // For now, both views show the same (week view). Day view can be implemented later
+        this.renderTimetable();
+    }
+
+    exportTimetable() {
+        const dataStr = JSON.stringify(this.timetableData, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+        const exportFileDefaultName = 'timetable.json';
+
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+
+        this.showToast('Timetable exported successfully!', 'success');
+    }
+
+    clearTimetable() {
+        if (confirm('Are you sure you want to clear all classes? This action cannot be undone.')) {
+            this.timetableData = [];
+            this.saveToStorage();
+            this.renderTimetable();
+            this.updateStats();
+            this.updateUpcomingClasses();
+            this.showToast('All classes cleared!', 'warning');
+        }
+    }
+
+    saveSettings() {
+        this.settings.workStart = document.getElementById('workStart').value;
+        this.settings.workEnd = document.getElementById('workEnd').value;
+        this.settings.timeSlotDuration = parseInt(document.getElementById('timeSlotDuration').value);
+        this.settings.showWeekends = document.getElementById('showWeekends').checked;
+
+        localStorage.setItem('timetableSettings', JSON.stringify(this.settings));
+        this.renderTimetable();
+        this.showToast('Settings saved successfully!', 'success');
+
+        bootstrap.Modal.getInstance(document.getElementById('settingsModal')).hide();
+    }
+
+    saveToStorage() {
+        localStorage.setItem('timetableData', JSON.stringify(this.timetableData));
+    }
+
+    showToast(message, type = 'info') {
+        const toastContainer = document.querySelector('.toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast align-items-center text-white bg-${type} border-0`;
+        toast.setAttribute('role', 'alert');
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">${message}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        `;
+        toastContainer.appendChild(toast);
+
+        const bsToast = new bootstrap.Toast(toast);
+        bsToast.show();
+
+        toast.addEventListener('hidden.bs.toast', () => {
+            toast.remove();
+        });
+    }
 }
 
-function updateClass(classId) {
-    // Implementation for updating existing class
-    alert('Update functionality will be implemented in the next version');
-    closeClassModal();
-}
-
-function exportTimetable() {
-    // Simple export functionality
-    const timetableText = timetableData.map(classItem => 
-        `${classItem.day.toUpperCase()}: ${classItem.time} - ${classItem.name} (${classItem.room})`
-    ).join('\n');
-    
-    const blob = new Blob([timetableText], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'timetable.txt';
-    a.click();
-    URL.revokeObjectURL(url);
-    
-    alert('Timetable exported successfully!');
-}
-
-function getRandomColor() {
-    const colors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6', '#1abc9c'];
-    return colors[Math.floor(Math.random() * colors.length)];
-}
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initializeTimetable();
+// Initialize the timetable manager when the page loads
+let timetableManager;
+document.addEventListener('DOMContentLoaded', () => {
+    timetableManager = new TimetableManager();
 });
-
-// For integration with main navigation
-if (typeof initializeTimetable === 'function') {
-    initializeTimetable();
-}

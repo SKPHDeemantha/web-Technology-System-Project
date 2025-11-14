@@ -2,6 +2,7 @@
 (function () {
   // Initialize dashboard when DOM is loaded
   document.addEventListener("DOMContentLoaded", function () {
+    loadFooter();
     initializeDashboard();
     setupNavigation();
     applyRoleBasedVisibility();
@@ -41,6 +42,27 @@
       });
     }
   });
+
+  function loadFooter() {
+    fetch('../../../components/footer.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('main-footer').innerHTML = html;
+        // Now load footer.js as a script tag
+        const script = document.createElement('script');
+        script.src = '../../../assets/js/footer.js';
+        script.onload = function() {
+          // Now initialize footer
+          if (typeof initializeFooter === 'function') {
+            initializeFooter();
+          }
+        };
+        document.head.appendChild(script);
+      })
+      .catch(error => {
+        console.error('Error loading footer:', error);
+      });
+  }
 
   function initializeDashboard() {
     // Set up section switching

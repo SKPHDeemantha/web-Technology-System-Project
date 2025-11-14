@@ -116,38 +116,57 @@ function initializeAnimations() {
 function initializeNavigation() {
     const navLinks = document.querySelectorAll('.nav-link[data-section]');
     const dashboardSections = document.querySelectorAll('.dashboard-section');
-    
+    const sidebarToggle = document.getElementById('sidebarToggle');
+
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             // Remove active class from all links and sections
             navLinks.forEach(nav => nav.classList.remove('active'));
             dashboardSections.forEach(section => section.classList.remove('active'));
-            
+
             // Add active class to clicked link
             this.classList.add('active');
-            
+
             // Show corresponding section with animation
             const sectionId = this.getAttribute('data-section');
             const targetSection = document.getElementById(sectionId);
-            
+
             if (targetSection) {
                 targetSection.classList.add('active');
                 targetSection.classList.add('fade-in');
-                
+
                 // Remove animation class after animation completes
                 setTimeout(() => {
                     targetSection.classList.remove('fade-in');
                 }, 500);
             }
-            
+
+            // Hide sidebar on mobile after navigation
+            if (window.innerWidth <= 768) {
+                const sidebar = document.getElementById('sidebar');
+                if (sidebar) {
+                    sidebar.classList.remove('show');
+                }
+            }
+
             // Show toast for navigation
             if (sectionId !== 'dashboard') {
                 showToast(`Navigated to ${this.textContent.trim()}`, 'info');
             }
         });
     });
+
+    // Sidebar toggle for mobile
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('show');
+            }
+        });
+    }
 }
 
 // Quick Actions Functionality

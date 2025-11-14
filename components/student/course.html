@@ -327,6 +327,105 @@
             </div>
         </main>
     </div>
+
+    <!-- Course Details Modal -->
+    <div id="courseModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalCourseTitle">Course Details</h2>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="course-info-grid">
+                    <div class="info-section">
+                        <h3>Course Information</h3>
+                        <div class="info-item">
+                            <span class="info-label">Instructor:</span>
+                            <span id="modalInstructor">Dr. Smith</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Schedule:</span>
+                            <span id="modalSchedule">Mon/Wed 10:00 AM</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Room:</span>
+                            <span id="modalRoom">MATH-101</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Credits:</span>
+                            <span id="modalCredits">3</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Status:</span>
+                            <span id="modalStatus" class="status-badge enrolled">Enrolled</span>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h3>Course Progress</h3>
+                        <div class="progress-container">
+                            <div class="progress-bar-modal" id="modalProgressBar">
+                                <span class="progress-text" id="modalProgressText">65% Complete</span>
+                            </div>
+                        </div>
+                        <div class="progress-details">
+                            <div class="detail-item">
+                                <span>Assignments Completed:</span>
+                                <span id="modalAssignments">13/20</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>Attendance:</span>
+                                <span id="modalAttendance">85%</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>Current Grade:</span>
+                                <span id="modalGrade">B+</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-description">
+                    <h3>Course Description</h3>
+                    <p id="modalDescription">This course provides a comprehensive introduction to software engineering principles and practices. Students will learn about software development methodologies, project management, quality assurance, and team collaboration techniques.</p>
+                </div>
+
+                <div class="course-details">
+                    <h3>Course Details</h3>
+                    <div class="details-grid">
+                        <div class="detail-section">
+                            <h4>Prerequisites</h4>
+                            <p id="modalPrerequisites">Basic programming knowledge, Data Structures</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Learning Objectives</h4>
+                            <ul id="modalObjectives">
+                                <li>Understand software development lifecycle</li>
+                                <li>Apply agile methodologies</li>
+                                <li>Implement quality assurance practices</li>
+                                <li>Work effectively in development teams</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Course Materials</h4>
+                            <ul id="modalMaterials">
+                                <li>Textbook: Software Engineering by Ian Sommerville</li>
+                                <li>Online resources and tutorials</li>
+                                <li>Development tools and IDEs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-actions-modal">
+                    <button class="btn-modal secondary" id="modalDropBtn">Drop Course</button>
+                    <button class="btn-modal primary" id="modalEnrollBtn">Enroll Now</button>
+                    <button class="btn-modal outline" id="modalSyllabusBtn">View Syllabus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="..\..\assets\js\student\course.js"></script>
 
     <!-- Include Footer -->

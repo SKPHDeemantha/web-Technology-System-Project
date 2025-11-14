@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Details - Learning Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="../../assets/css/styles.css" rel="stylesheet">
+    <link href="../../assets/css/communitycss/community.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <div class="logo me-3">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h1>Community Details</h1>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-outline-light me-2" id="darkModeToggle" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="dropdown me-2">
+                    <button class="btn btn-outline-light dropdown-toggle position-relative" type="button" id="notificationsDropdown" data-bs-toggle="dropdown">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge bg-danger notification-badge" id="notificationCount">2</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="notificationsMenu">
+                        <li><h6 class="dropdown-header">Notifications</h6></li>
+                        <li><a class="dropdown-item notification-item" href="#" data-id="1">New community joined</a></li>
+                        <li><a class="dropdown-item notification-item" href="#" data-id="2">Event reminder</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-center" href="#">View all</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i> Student User
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>My Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-block sidebar">
+                <div class="sidebar-header p-3">
+                    <h5>Navigation Menu</h5>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../community/communities.html">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Back to Communities
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#overview" onclick="showSection('overview')">
+                            <i class="fas fa-home me-2"></i>
+                            Overview
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="window.location.href='../../components/community/discussion/discussions.html'">
+                            <i class="fas fa-comments me-2"></i>
+                            Discussions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="window.location.href='../../components/community/event/events.html'">
+                            <i class="fas fa-calendar-alt me-2"></i>
+                            Events
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="window.location.href='../../components/community/file-management/file-manager.html'">
+                            <i class="fas fa-folder me-2"></i>
+                            Files
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="window.location.href='../../components/community/members.html'">
+                            <i class="fas fa-users me-2"></i>
+                            Members
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 dashboard-main">
+                <!-- Global Search -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="text" id="globalSearch" class="form-control" placeholder="Search across community..." style="width: 300px;">
+                        <button class="btn btn-outline-secondary" onclick="document.getElementById('globalSearch').value='';">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-primary" onclick="window.communityDetails.inviteMembers()">
+                            <i class="fas fa-user-plus me-1"></i>Invite
+                        </button>
+                        <button class="btn btn-outline-secondary" onclick="window.communityDetails.editCommunity()">
+                            <i class="fas fa-edit me-1"></i>Edit
+                        </button>
+                    </div>
+                </div>
+
+                <div id="communityHeader">
+                    <!-- Community header will be loaded here -->
+                </div>
+
+                <div id="communityStats" class="mb-4">
+                    <!-- Stats will be loaded here -->
+                </div>
+
+                <!-- Overview Section -->
+                <div id="overview" class="community-section">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Recent Activity</h5>
+                                    <div class="activity-list">
+                                        <div class="activity-item">
+                                            <i class="fas fa-comment text-primary"></i>
+                                            <span>New discussion started</span>
+                                            <small class="text-muted">2 hours ago</small>
+                                        </div>
+                                        <div class="activity-item">
+                                            <i class="fas fa-calendar text-success"></i>
+                                            <span>New event scheduled</span>
+                                            <small class="text-muted">1 day ago</small>
+                                        </div>
+                                        <div class="activity-item">
+                                            <i class="fas fa-file-upload text-info"></i>
+                                            <span>New file uploaded</span>
+                                            <small class="text-muted">2 days ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Quick Actions</h5>
+                                    <div class="d-grid gap-2">
+                                        <!-- <button class="btn btn-outline-primary" onclick="showSection('discussions')">
+                                            Start Discussion
+                                        </button>
+                                        <button class="btn btn-outline-success" onclick="showSection('events')">
+                                            Create Event
+                                        </button>
+                                        <button class="btn btn-outline-info" onclick="showSection('files')">
+                                            Upload File
+                                        </button> -->
+                                        <button class="btn btn-outline-warning" onclick="showSection('members')">
+                                            Manage Members
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discussions Section -->
+                <div id="discussions" class="community-section" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4>Discussions</h4>
+                        <div class="d-flex gap-2">
+                            <input type="text" id="discussionsSearch" class="form-control form-control-sm" placeholder="Search discussions..." style="width: 200px;">
+                            <select id="discussionsFilter" class="form-select form-select-sm" style="width: 120px;">
+                                <option value="">All Categories</option>
+                                <option value="general">General</option>
+                                <option value="academic">Academic</option>
+                                <option value="technical">Technical</option>
+                            </select>
+                            <select id="discussionsSort" class="form-select form-select-sm" style="width: 120px;">
+                                <option value="newest">Newest</option>
+                                <option value="oldest">Oldest</option>
+                                <option value="popular">Most Replies</option>
+                            </select>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createDiscussionModal">
+                                <i class="fas fa-plus"></i> Start Discussion
+                            </button>
+                        </div>
+                    </div>
+                    <div id="discussionsContainer">
+                        <!-- Discussions will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Events Section -->
+                <div id="events" class="community-section" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4>Events</h4>
+                        <div class="d-flex gap-2">
+                            <input type="text" id="eventsSearch" class="form-control form-control-sm" placeholder="Search events..." style="width: 200px;">
+                            <select id="eventsFilter" class="form-select form-select-sm" style="width: 120px;">
+                                <option value="">All Types</option>
+                                <option value="meetup">Meetup</option>
+                                <option value="workshop">Workshop</option>
+                                <option value="seminar">Seminar</option>
+                            </select>
+                            <select id="eventsSort" class="form-select form-select-sm" style="width: 120px;">
+                                <option value="upcoming">Upcoming</option>
+                                <option value="recent">Recent</option>
+                                <option value="popular">Most Attendees</option>
+                            </select>
+                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#createEventModal">
+                                <i class="fas fa-plus"></i> Create Event
+                            </button>
+                        </div>
+                    </div>
+                    <div id="eventsContainer">
+                        <!-- Events will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Files Section -->
+                <div id="files" class="community-section" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4>Files</h4>
+                        <div class="d-flex gap-2">
+                            <input type="text" id="filesSearch" class="form-control form-control-sm" placeholder="Search files..." style="width: 200px;">
+                            <select id="filesFilter" class="form-select form-select-sm" style="width: 120px;">
+                                <option value="">All Types</option>
+                                <option value="document">Documents</option>
+                                <option value="image">Images</option>
+                                <option value="video">Videos</option>
+                            </select>
+                            <select id="filesSort" class="form-select form-select-sm" style="width: 120px;">
+                                <option value="newest">Newest</option>
+                                <option value="oldest">Oldest</option>
+                                <option value="name">Name</option>
+                                <option value="size">Size</option>
+                            </select>
+                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#uploadFileModal">
+                                <i class="fas fa-plus"></i> Upload File
+                            </button>
+                        </div>
+                    </div>
+                    <div id="filesContainer">
+                        <!-- Files will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Members Section -->
+                <div id="members" class="community-section" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4>Members</h4>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+                            <i class="fas fa-plus"></i> Add Member
+                        </button>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="membersList">
+                                <!-- Members will be listed here -->
+                                <div class="member-list-item">
+                                    <img src="https://via.placeholder.com/40" alt="User" class="member-avatar">
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="mb-0">Admin User</h6>
+                                        <small class="text-muted">admin@example.com</small>
+                                    </div>
+                                    <span class="role-badge role-admin">Admin</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Member Modal -->
+    <div class="modal fade" id="addMemberModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Member</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addMemberForm">
+                        <div class="mb-3">
+                            <label for="memberUserId" class="form-label">User ID</label>
+                            <input type="text" class="form-control" id="memberUserId" required>
+                            <div class="form-text">Enter the user ID of the person you want to add</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="addMemberForm" class="btn btn-primary">Add Member</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Discussion Modal -->
+    <div class="modal fade" id="createDiscussionModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Start New Discussion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createDiscussionForm">
+                        <div class="mb-3">
+                            <label for="discussionTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="discussionTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="discussionContent" class="form-label">Content</label>
+                            <textarea class="form-control" id="discussionContent" rows="4" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="discussionCategory" class="form-label">Category</label>
+                            <select class="form-select" id="discussionCategory" required>
+                                <option value="general">General</option>
+                                <option value="academic">Academic</option>
+                                <option value="technical">Technical</option>
+                                <option value="cultural">Cultural</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="createDiscussionForm" class="btn btn-primary">Start Discussion</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Event Modal -->
+    <div class="modal fade" id="createEventModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createEventForm">
+                        <div class="mb-3">
+                            <label for="eventTitle" class="form-label">Event Title</label>
+                            <input type="text" class="form-control" id="eventTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="eventDescription" rows="3" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="eventDate" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="eventDate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="eventTime" class="form-label">Time</label>
+                                <input type="time" class="form-control" id="eventTime" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventLocation" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="eventLocation" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventType" class="form-label">Event Type</label>
+                            <select class="form-select" id="eventType" required>
+                                <option value="meetup">Meetup</option>
+                                <option value="workshop">Workshop</option>
+                                <option value="seminar">Seminar</option>
+                                <option value="social">Social Event</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="createEventForm" class="btn btn-success">Create Event</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload File Modal -->
+    <div class="modal fade" id="uploadFileModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload File</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="uploadFileForm">
+                        <div class="mb-3">
+                            <label for="fileInput" class="form-label">Select File</label>
+                            <input type="file" class="form-control" id="fileInput" required>
+                            <div class="form-text">Supported formats: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, JPG, PNG, GIF, MP4, AVI</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="uploadFileForm" class="btn btn-info">Upload File</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results Modal -->
+    <div class="modal fade" id="searchResultsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Search Results</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="searchResultsContainer">
+                        <!-- Search results will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="../../assets/js/community/dataManager.js"></script> -->
+    <script src="../../assets/js/community/community-details.js"></script>
+    <script>
+        // Global search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const globalSearch = document.getElementById('globalSearch');
+            if (globalSearch) {
+                globalSearch.addEventListener('input', function() {
+                    const query = this.value.trim();
+                    if (query.length > 2) {
+                        window.communityDetails.performGlobalSearch(query);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

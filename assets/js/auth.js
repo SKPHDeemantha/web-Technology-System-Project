@@ -105,7 +105,7 @@ document.getElementById('role').addEventListener('change', () => {
 
 // Password toggle
 document.querySelector('.toggle-password').addEventListener('click', function() {
-  const passwordInput = document.getElementById('password');
+  const passwordInput = document.getElementById('signupPassword');
   const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
   passwordInput.setAttribute('type', type);
   this.classList.toggle('fa-eye');

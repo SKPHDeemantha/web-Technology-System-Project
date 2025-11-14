@@ -207,6 +207,8 @@ function initializeActivityChart() {
     svg.setAttribute('class', 'line-chart-container');
     svg.setAttribute('viewBox', '0 0 400 200');
     svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
 
     // Create gradient for area fill
     const defs = document.createElementNS(svgNS, "defs");

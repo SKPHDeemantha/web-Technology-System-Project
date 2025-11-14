@@ -472,9 +472,10 @@ body::before {
 }
 /* Line Chart Styles */
 .line-chart {
-    height: 200px;
+    height: 100%;
     position: relative;
-    padding: 20px 0;
+    padding: 15px 0;
+    width: 100%;
 }
 
 .line-chart-container {
@@ -484,7 +485,7 @@ body::before {
 }
 
 .line-chart-path {
-    fill: none;
+    fill:none;
     stroke: var(--primary-purple);
     stroke-width: 3;
     stroke-linecap: round;

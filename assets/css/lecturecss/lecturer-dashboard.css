@@ -687,22 +687,27 @@ body::before {
         position: static;
         width: 100%;
         height: auto;
+        display: none;
     }
-    
+
+    .sidebar.show {
+        display: block;
+    }
+
     .dashboard-main {
         margin-left: 0;
         width: 100%;
-        padding: 1rem;
+        padding: 6rem 1rem 1rem;
     }
-    
+
     .dashboard-header {
         padding: 1rem;
     }
-    
+
     .header-actions .btn {
         padding: 0.375rem 0.5rem;
     }
-    
+
     .user-info {
         display: none !important;
     }

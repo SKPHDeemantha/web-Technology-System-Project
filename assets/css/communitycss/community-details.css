@@ -437,6 +437,10 @@
   line-height: 1.2;
 }
 
+.create-button{
+    margin-bottom: 10px;
+}
+
 .user-info .fw-bold {
   font-size: 0.875rem;
   font-weight: 600;

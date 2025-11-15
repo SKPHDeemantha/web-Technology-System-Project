@@ -10,6 +10,7 @@
     <link href="../../../assets/css/styles.css" rel="stylesheet">
     <link href="../../../assets/css/communitycss/community.css" rel="stylesheet">
     <link href="../../../assets/css/communitycss/community-details.css" rel="stylesheet">
+    <link href="../../../assets/css/footer.css" rel="stylesheet">
 </head>
 
 <body class="community-details-page">
@@ -33,6 +34,9 @@
                     </div>
                 </div>
                 <div class="header-actions d-flex align-items-center">
+                    <!-- <a href="create-community.html" class="btn btn-purple me-3">
+                        <i class="fas fa-plus me-1"></i> Create Community
+                    </a> -->
                     <button class="btn btn-link text-white me-3 p-2" id="darkModeToggle" title="Toggle Dark Mode">
                         <i class="fas fa-moon fa-lg"></i>
                     </button>
@@ -65,10 +69,7 @@
                                 <i class="fas fa-user-circle fa-lg"></i>
                             </div>
                             <div class="user-info text-start d-none d-sm-block">
-                                <div class="fw-bold small">Student User</div>
-                                <div class="text-white-50 small">student@university.edu</div>
                             </div>
-                            <i class="fas fa-chevron-down ms-2 small"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow">
                             <li><a class="dropdown-item d-flex align-items-center" href="#">
@@ -128,6 +129,7 @@
                                 Files
                             </a>
                         </li>
+                        <div>Category</div>
                         <li class="nav-item">
                             <a class="nav-link" href="#" onclick="showTab('members')">
                                 <i class="fas fa-user-friends"></i>
@@ -154,6 +156,12 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="margin-top: 6rem;">
                 <!-- Community Stats -->
                 <div class="row mt-4 mb-5 justify-content-center">
+                    <div class="create-button">
+                    <a href="create-community.html" class="btn btn-purple me-3">
+                        <i class="fas fa-plus me-1"></i> Create Community
+                    </a>
+                </div>
+
                     <div class="col-md-3">
                         <div class="card stat-card">
                             <div class="card-body">
@@ -445,9 +453,14 @@
     <!-- Toast Container -->
     <div class="toast-container"></div>
 
+    
+  <!-- Include Footer -->
+<footer id="main-footer"></footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../../assets/js/community/community-details.js"></script>
     <script src="../../../assets/js/community/communityDashboard.js"></script>
+    <script src="../../../assets/js/footer.js"></script>
 </body>
 
 </html>

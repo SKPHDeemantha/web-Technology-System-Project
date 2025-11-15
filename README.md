@@ -103,9 +103,6 @@ The system supports communication, academic operations, content management, and 
 
 ---
 
-## 👨‍💻 Author
 
-**Heshan Deemantha**
-*Web Technology System Developer*
 
 

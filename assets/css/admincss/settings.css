@@ -1,0 +1,16 @@
+/* ---------- PAGINATION ---------- */
+.page-link {
+  color: var(--primary-purple);
+  border: 1px solid var(--border-light);
+}
+
+.page-link:hover {
+  color: var(--dark-purple);
+  background-color: var(--light-purple);
+  border-color: var(--border-light);
+}
+
+.page-item.active .page-link {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}

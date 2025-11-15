@@ -87,25 +87,260 @@
                 });
             });
 
-            // Edit button functionality
-            const editBtn = document.querySelector('.edit-btn');
-            editBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                alert('Edit profile functionality would open here');
-            });
-
             // Add animation to stat boxes on page load
             const statBoxes = document.querySelectorAll('.stat-box');
             statBoxes.forEach((box, index) => {
                 box.style.opacity = '0';
                 box.style.transform = 'translateY(20px)';
-                
+
                 setTimeout(() => {
                     box.style.transition = 'all 0.5s ease';
                     box.style.opacity = '1';
                     box.style.transform = 'translateY(0)';
                 }, index * 200);
             });
+        });
+
+        // Modal functionality
+        function openProfileModal() {
+            const modal = document.getElementById('profileModal');
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+
+            // Populate form with current values
+            populateForm();
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function populateForm() {
+            // Get current profile data from the page
+            const fullName = document.querySelector('.info-grid p').textContent;
+            const email = document.querySelector('.info-grid p:nth-child(2)').textContent;
+            const dateOfBirth = document.querySelector('.info-grid p:nth-child(3)').textContent;
+            const phone = document.querySelector('.info-grid p:nth-child(4)').textContent;
+            const gender = document.querySelector('.info-grid p:nth-child(5)').textContent;
+            const address = document.querySelector('.info-grid p:nth-child(6)').textContent.replace('<br>', '\n');
+            const nationality = document.querySelector('.info-grid p:nth-child(7)').textContent;
+            const emergencyContact = document.querySelector('.info-grid p:nth-child(8)').textContent;
+
+            // Populate form fields
+            document.getElementById('fullName').value = fullName;
+            document.getElementById('email').value = email;
+            document.getElementById('phone').value = phone;
+            document.getElementById('nationality').value = nationality;
+            document.getElementById('emergencyContact').value = emergencyContact;
+            document.getElementById('address').value = address;
+
+            // Handle date conversion (assuming format is "Month DD, YYYY")
+            const dateParts = dateOfBirth.split(' ');
+            if (dateParts.length === 3) {
+                const monthNames = {
+                    'January': '01', 'February': '02', 'March': '03', 'April': '04',
+                    'May': '05', 'June': '06', 'July': '07', 'August': '08',
+                    'September': '09', 'October': '10', 'November': '11', 'December': '12'
+                };
+                const month = monthNames[dateParts[0]];
+                const day = dateParts[1].replace(',', '').padStart(2, '0');
+                const year = dateParts[2];
+                document.getElementById('dateOfBirth').value = `${year}-${month}-${day}`;
+            }
+
+            // Set gender
+            document.getElementById('gender').value = gender;
+        }
+
+        function saveProfile() {
+            // Get form data
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                dateOfBirth: document.getElementById('dateOfBirth').value,
+                phone: document.getElementById('phone').value,
+                gender: document.getElementById('gender').value,
+                address: document.getElementById('address').value,
+                nationality: document.getElementById('nationality').value,
+                emergencyContact: document.getElementById('emergencyContact').value
+            };
+
+            // Validate form
+            if (!validateForm(formData)) {
+                return;
+            }
+
+            // Update profile display
+            updateProfileDisplay(formData);
+
+            // Close modal
+            closeModal('profileModal');
+
+            // Show success message
+            showNotification('Profile updated successfully!', 'success');
+        }
+
+        function validateForm(data) {
+            const requiredFields = ['fullName', 'email', 'dateOfBirth', 'phone', 'gender', 'address', 'nationality', 'emergencyContact'];
+
+            for (const field of requiredFields) {
+                if (!data[field] || data[field].trim() === '') {
+                    showNotification(`Please fill in all required fields.`, 'error');
+                    return false;
+                }
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(data.email)) {
+                showNotification('Please enter a valid email address.', 'error');
+                return false;
+            }
+
+            // Phone validation (basic)
+            const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+            if (!phoneRegex.test(data.phone.replace(/[\s\-\(\)]/g, ''))) {
+                showNotification('Please enter a valid phone number.', 'error');
+                return false;
+            }
+
+            return true;
+        }
+
+        function updateProfileDisplay(data) {
+            // Update the profile information display
+            const infoGrid = document.querySelector('.info-grid');
+
+            // Format date for display
+            const dateObj = new Date(data.dateOfBirth);
+            const formattedDate = dateObj.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Format address for display
+            const formattedAddress = data.address.replace(/\n/g, '<br>');
+
+            infoGrid.innerHTML = `
+                <div>
+                    <h4>Full Name</h4>
+                    <p>${data.fullName}</p>
+                </div>
+                <div>
+                    <h4>Email</h4>
+                    <p>${data.email}</p>
+                </div>
+                <div>
+                    <h4>Date of Birth</h4>
+                    <p>${formattedDate}</p>
+                </div>
+                <div>
+                    <h4>Phone</h4>
+                    <p>${data.phone}</p>
+                </div>
+                <div>
+                    <h4>Gender</h4>
+                    <p>${data.gender}</p>
+                </div>
+                <div>
+                    <h4>Address</h4>
+                    <p>${formattedAddress}</p>
+                </div>
+                <div>
+                    <h4>Nationality</h4>
+                    <p>${data.nationality}</p>
+                </div>
+                <div>
+                    <h4>Emergency Contact</h4>
+                    <p>${data.emergencyContact}</p>
+                </div>
+            `;
+        }
+
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+
+            // Style the notification
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            `;
+
+            if (type === 'success') {
+                notification.style.backgroundColor = '#10b981';
+            } else {
+                notification.style.backgroundColor = '#ef4444';
+            }
+
+            // Add animation keyframes
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Add to page
+            document.body.appendChild(notification);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+
+            // Add slideOut animation
+            style.textContent += `
+                @keyframes slideOut {
+                    from {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                }
+            `;
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('profileModal');
+            if (event.target === modal) {
+                closeModal('profileModal');
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal('profileModal');
+            }
         });
 
         // Get current page name from URL

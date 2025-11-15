@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Portal - Assignments</title>
-    <link rel="stylesheet" href="..\..\assets\css\studentcss\assignments.css">
+    <title>Student Portal - Settings</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="..\..\assets\css\studentcss\profile.css">
 </head>
 <body>
+    <!-- Header -->
     <div class="header">
         <div style="display: flex; align-items: center; gap: 15px;">
             <button class="mobile-menu-btn" id="menuToggle">☰</button>
@@ -39,6 +40,7 @@
     <div class="overlay" id="overlay"></div>
 
     <div class="container">
+        <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">Student Portal</div>
             <a href="../../student/student-dashboard.html" class="nav-item" onclick="navigateTo('dashboard')">
@@ -83,7 +85,7 @@
                 </svg>
                 Schedule
             </a>
-            <a href="assignments.html" class="nav-item active" onclick="navigateTo('assignments')">
+            <a href="assignments.html" class="nav-item" onclick="navigateTo('assignments')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
                 </svg>
@@ -107,7 +109,7 @@
                 </svg>
                 Resources
             </a>
-            <a href="setting.html" class="nav-item" onclick="navigateTo('settings')">
+            <a href="setting.html" class="nav-item active" onclick="navigateTo('settings')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
                 </svg>
@@ -115,89 +117,294 @@
             </a>
         </aside>
 
+        <!-- Main Content -->
         <main class="main-content">
-            <!-- Assignments Page -->
-            <div id="assignments-page" class="page active">
-                <div class="page-content">
-                    <h1>Assignments</h1>
-                    <p>View and manage your course assignments.</p>
-                    
-                    <div class="assignment-filters">
-                        <button class="filter-btn active">All</button>
-                        <button class="filter-btn">Pending</button>
-                        <button class="filter-btn">Submitted</button>
-                        <button class="filter-btn">Graded</button>
+            <!-- Settings Page -->
+            <div id="settings-page" class="page active">
+                <div class="profile-header">Settings</div>
+
+                <div class="settings-layout">
+                    <!-- Account Settings -->
+                    <div class="card">
+                        <div class="section-header">
+                            <div class="icon"><i class="fas fa-user-cog"></i></div>
+                            <h3>Account Settings</h3>
+                        </div>
+                        <div class="settings-grid">
+                            <div class="setting-item">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" value="Alex" readonly>
+                            </div>
+                            <div class="setting-item">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="heshandeemantha@example.com">
+                            </div>
+                            <div class="setting-item">
+                                <label for="password">Change Password</label>
+                                <button class="btn-secondary">Change Password</button>
+                            </div>
+                            <div class="setting-item">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" value="+1 (555) 123-4567">
+                            </div>
+                        </div>
+                        <button class="btn-primary save-btn">Save Changes</button>
                     </div>
-                    
-                    <div class="assignment-list">
-                        <div class="assignment-item">
-                            <div class="assignment-header">
-                                <h3>Mathematics Homework - Calculus</h3>
-                                <span class="status-badge submitted">Submitted</span>
+
+                    <!-- Privacy Settings -->
+                    <div class="card">
+                        <div class="section-header">
+                            <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                            <h3>Privacy Settings</h3>
+                        </div>
+                        <div class="settings-list">
+                            <div class="toggle-item">
+                                <span>Profile Visibility</span>
+                                <label class="switch">
+                                    <input type="checkbox" name="profileVisibility" checked>
+                                    <span class="slider"></span>
+                                </label>
                             </div>
-                            <div class="assignment-details">
-                                <p><strong>Course:</strong> Mathematics 101</p>
-                                <p><strong>Due:</strong> January 15, 2024</p>
-                                <p><strong>Grade:</strong> 88%</p>
+                            <div class="toggle-item">
+                                <span>Show Email to Others</span>
+                                <label class="switch">
+                                    <input type="checkbox" name="showEmail">
+                                    <span class="slider"></span>
+                                </label>
                             </div>
-                            <div class="assignment-actions">
-                                <button class="action-btn view">View Feedback</button>
-                                <button class="action-btn download">Download</button>
+                            <div class="toggle-item">
+                                <span>Allow Messages from Strangers</span>
+                                <label class="switch">
+                                    <input type="checkbox" name="allowMessages">
+                                    <span class="slider"></span>
+                                </label>
                             </div>
                         </div>
-                        
-                        <div class="assignment-item">
-                            <div class="assignment-header">
-                                <h3>Physics Lab Report - Optics</h3>
-                                <span class="status-badge in-progress">In Progress</span>
+                    </div>
+
+                    <!-- Notification Settings -->
+                    <div class="card">
+                        <div class="section-header">
+                            <div class="icon"><i class="fas fa-bell"></i></div>
+                            <h3>Notification Settings</h3>
+                        </div>
+                        <div class="settings-list">
+                            <div class="toggle-item">
+                                <span>Email Notifications</span>
+                                <label class="switch">
+                                    <input type="checkbox" name="emailNotifications" checked>
+                                    <span class="slider"></span>
+                                </label>
                             </div>
-                            <div class="assignment-details">
-                                <p><strong>Course:</strong> Physics 201</p>
-                                <p><strong>Due:</strong> January 18, 2024</p>
-                                <p><strong>Progress:</strong> 60% complete</p>
+                            <div class="toggle-item">
+                                <span>Push Notifications</span>
+                                <label class="switch">
+                                    <input type="checkbox" name="pushNotifications" checked>
+                                    <span class="slider"></span>
+                                </label>
                             </div>
-                            <div class="assignment-actions">
-                                <button class="action-btn primary">Continue Working</button>
-                                <button class="action-btn">Save Draft</button>
+                            <div class="toggle-item">
+                                <span>Assignment Reminders</span>
+                                <label class="switch">
+                                    <input type="checkbox" name="assignmentReminders" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-item">
+                                <span>Announcement Alerts</span>
+                                <label class="switch">
+                                    <input type="checkbox" name="announcementAlerts" checked>
+                                    <span class="slider"></span>
+                                </label>
                             </div>
                         </div>
-                        
-                        <div class="assignment-item">
-                            <div class="assignment-header">
-                                <h3>English Essay - Shakespeare</h3>
-                                <span class="status-badge not-started">Not Started</span>
+                    </div>
+
+                    <!-- Appearance Settings -->
+                    <div class="card">
+                        <div class="section-header">
+                            <div class="icon"><i class="fas fa-palette"></i></div>
+                            <h3>Appearance</h3>
+                        </div>
+                        <div class="settings-list">
+                            <div class="toggle-item">
+                                <span>Dark Mode</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="darkModeToggle">
+                                    <span class="slider"></span>
+                                </label>
                             </div>
-                            <div class="assignment-details">
-                                <p><strong>Course:</strong> English Literature</p>
-                                <p><strong>Due:</strong> January 22, 2024</p>
-                                <p><strong>Word Count:</strong> 1500 words</p>
-                            </div>
-                            <div class="assignment-actions">
-                                <button class="action-btn primary">Start Assignment</button>
-                                <button class="action-btn">View Requirements</button>
+                            <div class="setting-item">
+                                <label for="language">Language</label>
+                                <select id="language">
+                                    <option value="en">English</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="fr">French</option>
+                                </select>
                             </div>
                         </div>
-                        
-                        <div class="assignment-item">
-                            <div class="assignment-header">
-                                <h3>Chemistry Research Paper</h3>
-                                <span class="status-badge in-progress">In Progress</span>
-                            </div>
-                            <div class="assignment-details">
-                                <p><strong>Course:</strong> Chemistry 301</p>
-                                <p><strong>Due:</strong> January 25, 2024</p>
-                                <p><strong>Progress:</strong> 40% complete</p>
-                            </div>
-                            <div class="assignment-actions">
-                                <button class="action-btn primary">Continue Working</button>
-                                <button class="action-btn">View Resources</button>
-                            </div>
+                    </div>
+
+                    <!-- Danger Zone -->
+                    <div class="card danger-card">
+                        <div class="section-header">
+                            <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
+                            <h3>Danger Zone</h3>
                         </div>
+                        <p>These actions are irreversible. Please be certain.</p>
+                        <button class="btn-danger">Delete Account</button>
                     </div>
                 </div>
             </div>
         </main>
     </div>
+
+    <style>
+        .settings-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .setting-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .setting-item label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-secondary);
+        }
+
+        .setting-item input, .setting-item select {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .settings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .toggle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-color);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .btn-primary, .btn-secondary, .btn-danger {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-secondary);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--hover-bg);
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .danger-card {
+            border: 1px solid #e74c3c;
+        }
+
+        .danger-card .section-header .icon {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .settings-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
      <!-- Include Footer -->
     <footer id="main-footer" class="footer" role="contentinfo">
         <!-- Main Footer Content Container -->
@@ -286,23 +493,7 @@
 
     <link href="../../assets/css/footer.css" rel="stylesheet">
     <script src="../../assets/js/footer.js"></script>
-    <!-- Assignment Modals -->
-    <div id="assignmentModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle">Assignment Details</h2>
-                <span class="close-btn" onclick="closeModal('assignmentModal')">&times;</span>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Content will be populated by JavaScript -->
-            </div>
-            <div class="modal-footer">
-                <button class="btn secondary" onclick="closeModal('assignmentModal')">Close</button>
-                <button class="btn primary" id="modalActionBtn">Submit</button>
-            </div>
-        </div>
-    </div>
 
-    <script src="..\..\assets\js\student\assignments.js"></script>
+    <script src="..\..\assets\js\student\setting.js"></script>
 </body>
 </html>

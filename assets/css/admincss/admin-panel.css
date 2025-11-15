@@ -1,0 +1,93 @@
+:root {
+  --primary-purple: #6a11cb;
+  --secondary-purple: #7e22ce;
+  --accent-purple: #a855f7;
+  --light-purple: #f3e8ff;
+  --dark-purple: #4c1d95;
+  --text-dark: #1f2937;
+  --text-light: #6b7280;
+  --bg-light: #f8fafc;
+  --border-light: #e5e7eb;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+}
+
+/* Dark mode variables */
+[data-theme="dark"] {
+  --primary-purple: #a855f7;
+  --secondary-purple: #7e22ce;
+  --accent-purple: #c084fc;
+  --dark-purple: #3b0764;
+  --text-light: #d1d5db;
+  --text-muted: #9ca3af;
+  --bg-main: #000000; /* Pure black */
+  --bg-panel: #0a0a0a; /* Slightly lifted black for contrast */
+  --border-glow: rgba(168, 85, 247, 0.4);
+  --glow-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+}
+
+/* ---------- GENERAL STYLES ---------- */
+body {
+  background: linear-gradient(135deg, var(--bg-light), rgba(248, 250, 252, 0.95));
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-dark);
+  overflow-x: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(168, 85, 247, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.5s ease;
+}
+
+/* Dark mode body */
+[data-theme="dark"] body {
+  background: linear-gradient(135deg, var(--bg-main), rgba(0, 0, 0, 0.98));
+  color: var(--text-light);
+}
+
+[data-theme="dark"] body::before {
+  background:
+    radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
+}
+
+/* ---------- RESPONSIVE ADJUSTMENTS ---------- */
+@media (max-width: 768px) {
+  .dashboard-main {
+    margin-left: 0;
+    margin-top: 76px;
+    padding: 1rem;
+  }
+
+  .dashboard-header {
+    padding: 1rem;
+  }
+
+  #sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    margin-top: 76px;
+  }
+
+  .stat-card .card-body {
+    padding: 1rem;
+  }
+}

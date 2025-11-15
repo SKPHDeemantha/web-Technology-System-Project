@@ -1,130 +1,246 @@
-main{
-    margin-top: 80px;
-    margin-left: 250px;
+/* ---------- CARDS ---------- */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  margin-bottom: 1.5rem;
+  background-color: white;
+  border: 1px solid var(--border-light);
 }
 
-.main-content {
-    padding: 30px;
-    background: #f8f9fc;
-    min-height: 100vh;
-  }
-  .header-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .add-course-btn {
-    background-color: #6f42c1;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  .add-course-btn:hover {
-    background-color: #5a32a3;
-  }
-  .table-container {
-    background: white;
-    border-radius: 8px;
-    margin-top: 20px;
-    padding: 15px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-  .filter-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-    position: relative;
-  }
-  #searchInput {
-    padding: 6px 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  .search-icon {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    color: #666;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th, td {
-    text-align: left;
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-  }
-  th {
-    background: #f4f6fb;
-  }
-  .edit-btn, .delete-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  .edit-btn i {
-    color: #4e73df;
-  }
-  .delete-btn i {
-    color: #e74a3b;
+[data-theme="dark"] .card {
+  background-color: var(--bg-panel);
+  border-color: var(--border-light);
+  box-shadow: var(--glow-shadow);
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+[data-theme="dark"] .card:hover {
+  box-shadow: 0 10px 20px rgba(168, 85, 247, 0.15);
+  transform: translateY(-2px);
+  border-color: var(--border-glow);
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid var(--border-light);
+  padding: 1rem 1.5rem;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+[data-theme="dark"] .card-header {
+  background-color: var(--dark-purple);
+  border-bottom-color: var(--border-light);
+}
+
+.card-header h5 {
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .card-header h5 {
+  color: var(--text-dark);
+}
+
+.card-body {
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 0 0 12px 12px;
+}
+
+[data-theme="dark"] .card-body {
+  background-color: var(--bg-panel);
+  color: var(--text-dark);
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid var(--border-light);
+  padding: 1rem 1.5rem;
+  border-radius: 0 0 12px 12px;
+}
+
+[data-theme="dark"] .card-footer {
+  background-color: var(--dark-purple);
+  border-top-color: var(--border-light);
+}
+
+/* Card variants */
+.card-primary {
+  border-left: 4px solid var(--primary-purple);
+}
+
+[data-theme="dark"] .card-primary {
+  border-left-color: var(--accent-purple);
+}
+
+.card-success {
+  border-left: 4px solid var(--success);
+}
+
+.card-warning {
+  border-left: 4px solid var(--warning);
+}
+
+.card-danger {
+  border-left: 4px solid var(--danger);
+}
+
+/* Stats cards */
+.card-stat {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.card-stat .stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-purple);
+  margin-bottom: 0.5rem;
+}
+
+[data-theme="dark"] .card-stat .stat-value {
+  color: var(--accent-purple);
+}
+
+.card-stat .stat-label {
+  color: var(--text-light);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+[data-theme="dark"] .card-stat .stat-label {
+  color: var(--text-muted);
+}
+
+/* Profile cards */
+.card-profile {
+  text-align: center;
+}
+
+.card-profile .profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: -40px auto 1rem;
+  border: 4px solid white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .card-profile .profile-img {
+  border-color: var(--bg-panel);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Interactive cards */
+.card-clickable {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-clickable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .card-clickable:hover {
+  box-shadow: 0 15px 30px rgba(168, 85, 247, 0.2);
+}
+
+/* Card with gradient background */
+.card-gradient {
+  background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+  color: white;
+}
+
+.card-gradient .card-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.card-gradient .card-body {
+  background: transparent;
+  color: white;
+}
+
+[data-theme="dark"] .card-gradient {
+  background: linear-gradient(135deg, var(--dark-purple), var(--primary-purple));
+}
+
+/* Compact cards */
+.card-compact .card-header {
+  padding: 0.75rem 1rem;
+}
+
+.card-compact .card-body {
+  padding: 1rem;
+}
+
+/* Card groups */
+.card-group {
+  gap: 1.5rem;
+}
+
+.card-group .card {
+  margin-bottom: 0;
+}
+
+/* ---------- TABLES ---------- */
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  font-weight: 600;
+  color: var(--text-dark);
+  border-top: none;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  vertical-align: middle;
+  padding: 1rem 0.75rem;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(106, 17, 203, 0.05);
+}
+
+/* Dark mode tables */
+[data-theme="dark"] .table th,
+[data-theme="dark"] .table td {
+  color: var(--text-light);
+}
+
+[data-theme="dark"] .table-hover tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .table-light {
+  background-color: var(--dark-purple);
+  color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 1rem;
   }
 
-  /* Popup Form */
-  .popup-form {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    justify-content: center;
-    align-items: center;
+  .card-header {
+    padding: 0.75rem 1rem;
   }
-  .form-content {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    width: 350px;
-    position: relative;
+
+  .card-body {
+    padding: 1rem;
   }
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 22px;
-    cursor: pointer;
-  }
-  .form-content h3 {
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  .form-content label {
-    font-weight: 600;
-    display: block;
-    margin-top: 10px;
-  }
-  .form-content input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: 5px;
-  }
-  #saveCourseBtn {
-    background-color: #6f42c1;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 6px;
-    margin-top: 15px;
-    width: 100%;
-    cursor: pointer;
-  }
-  #saveCourseBtn:hover {
-    background-color: #5a32a3;
-  }
+}

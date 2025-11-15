@@ -2,8 +2,10 @@
 (function () {
   // Initialize dashboard when DOM is loaded
   document.addEventListener("DOMContentLoaded", function () {
+    loadFooter();
     initializeDashboard();
     setupNavigation();
+    applyRoleBasedVisibility();
     setupDarkMode();
     setupCardClickHandlers();
     setupModalHandlers();
@@ -20,7 +22,47 @@
         }
       });
     }
+
+    // Setup notifications dropdown
+    const notificationsDropdown = document.getElementById('notificationsDropdown');
+    if (notificationsDropdown) {
+      notificationsDropdown.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Prevent default dropdown behavior to handle custom logic
+      });
+
+      // Handle notification item clicks
+      const notificationItems = document.querySelectorAll('#notificationsMenu .dropdown-item[data-id]');
+      notificationItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          const notificationId = this.getAttribute('data-id');
+          showNotificationDetails(notificationId);
+        });
+      });
+    }
   });
+
+  function loadFooter() {
+    fetch('../../../components/footer.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('main-footer').innerHTML = html;
+        // Now load footer.js as a script tag
+        const script = document.createElement('script');
+        script.src = '../../../assets/js/footer.js';
+        script.onload = function() {
+          // Now initialize footer
+          if (typeof initializeFooter === 'function') {
+            initializeFooter();
+          }
+        };
+        document.head.appendChild(script);
+      })
+      .catch(error => {
+        console.error('Error loading footer:', error);
+      });
+  }
 
   function initializeDashboard() {
     // Set up section switching
@@ -55,6 +97,64 @@
 
   function setupNavigation() {
     // Additional navigation setup if needed
+  }
+
+  function getCurrentUserRole() {
+    const user = JSON.parse(localStorage.getItem('auth.user'));
+    return user ? user.role : 'student'; // default to student if no user
+  }
+
+  function applyRoleBasedVisibility() {
+    const role = getCurrentUserRole();
+
+    // Sidebar modifications
+    const sidebar = document.getElementById('sidebar');
+    const navUl = sidebar.querySelector('.nav');
+
+    if (role === 'admin') {
+      // Add Admin Panel
+      const adminLi = document.createElement('li');
+      adminLi.className = 'nav-item';
+      adminLi.innerHTML = `<button class="nav-link" data-section="AdminPanel" onclick="window.location.href='../admin/admin-panel.html'"><i class="fas fa-cog me-2"></i> Admin Panel</button>`;
+      navUl.appendChild(adminLi);
+    }
+
+    if (role === 'lecturer' || role === 'admin') {
+      // Add My Communities
+      const myCommLi = document.createElement('li');
+      myCommLi.className = 'nav-item';
+      myCommLi.innerHTML = `<button class="nav-link" data-section="MyCommunities"><i class="fas fa-users-cog me-2"></i> My Communities</button>`;
+      navUl.appendChild(myCommLi);
+    }
+
+    // Quick Actions visibility
+    const quickActions = document.querySelector('.card-body .d-grid');
+    if (quickActions) {
+      const buttons = quickActions.querySelectorAll('.btn');
+      buttons.forEach(btn => {
+        const text = btn.textContent.trim();
+        if (text.includes('Create Community')) {
+          if (role !== 'admin' && role !== 'lecturer') btn.style.display = 'none';
+        } else if (text.includes('Join Community')) {
+          if (role !== 'student') btn.style.display = 'none';
+        } else if (text.includes('Create Event')) {
+          if (role !== 'admin' && role !== 'lecturer') btn.style.display = 'none';
+        } else if (text.includes('Start Discussion')) {
+          if (role !== 'student') btn.style.display = 'none';
+        }
+      });
+    }
+
+    // Update user info in header based on role
+    const userInfo = document.querySelector('.user-info .fw-bold');
+    if (userInfo) {
+      const user = JSON.parse(localStorage.getItem('auth.user'));
+      if (user) {
+        userInfo.textContent = user.name;
+        const emailEl = document.querySelector('.user-info .text-white-50');
+        if (emailEl) emailEl.textContent = user.email;
+      }
+    }
   }
 
   function loadDashboardData() {
@@ -216,7 +316,7 @@
                                         <small class="text-muted">
                                             <i class="fas fa-calendar me-1"></i>${new Date(
                                               event.date
-                                            ).toLocaleDateString()} 
+                                            ).toLocaleDateString()}
                                             at ${event.time}
                                         </small>
                                     </p>
@@ -648,3 +748,7 @@
     });
   }
 })();
+
+window.reloadPage = function () {
+  window.location.reload();
+};

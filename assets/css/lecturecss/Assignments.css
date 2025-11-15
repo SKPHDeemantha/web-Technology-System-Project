@@ -1,0 +1,131 @@
+/* Assignments Specific Styles */
+.assignments-list {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.assignment-item {
+    border-left: 4px solid var(--primary-purple);
+    transition: all 0.3s ease;
+}
+
+.assignment-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+}
+
+.assignment-item.grading {
+    border-left-color: var(--warning);
+}
+
+.assignment-item.completed {
+    border-left-color: var(--success);
+}
+
+.assignment-meta {
+    font-size: 0.875rem;
+}
+
+.assignment-details {
+    font-size: 0.875rem;
+}
+
+/* Grading Progress */
+.grading-progress .progress {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.grading-progress .progress-bar {
+    transition: width 0.3s ease;
+}
+
+/* Deadlines List */
+.deadline-item {
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-light) !important;
+}
+
+.deadline-item:hover {
+    background-color: var(--light-purple);
+    transform: translateX(5px);
+}
+
+.deadline-item:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Grading Interface */
+.grading-interface .submission-content {
+    background: var(--bg-light);
+    border-radius: 8px;
+    min-height: 100px;
+}
+
+/* Assignment Type Badges */
+.badge.bg-secondary {
+    background-color: var(--text-light) !important;
+}
+
+/* Form enhancements */
+.form-check-input:checked {
+    background-color: var(--primary-purple);
+    border-color: var(--primary-purple);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-purple);
+    box-shadow: 0 0 0 0.2rem rgba(168, 85, 247, 0.25);
+}
+
+/* DateTime input styling */
+input[type="datetime-local"] {
+    border-radius: 8px;
+}
+
+/* Progress bar colors */
+.progress-bar.bg-success {
+    background-color: var(--success) !important;
+}
+
+.progress-bar.bg-warning {
+    background-color: var(--warning) !important;
+}
+
+.progress-bar.bg-danger {
+    background-color: var(--danger) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .assignment-item .row {
+        flex-direction: column;
+    }
+    
+    .assignment-details {
+        text-align: left !important;
+        margin-top: 1rem;
+    }
+    
+    .card-header .d-flex {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .input-group {
+        width: 100% !important;
+    }
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .grading-interface .submission-content {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .deadline-item {
+    border-color: var(--border-light) !important;
+}
+
+[data-theme="dark"] .deadline-item:hover {
+    background-color: rgba(168, 85, 247, 0.1);
+}

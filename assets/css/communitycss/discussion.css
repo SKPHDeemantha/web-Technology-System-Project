@@ -29,9 +29,51 @@
 }
 
 body {
-  background-color: #f8f9fc;
-  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, var(--bg-light), rgba(248, 250, 252, 0.95));
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-dark);
   overflow-x: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(168, 85, 247, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.5s ease;
+}
+
+/* Dark mode body */
+[data-theme="dark"] body {
+  background: linear-gradient(135deg, var(--bg-light), rgba(0, 0, 0, 0.98));
+  color: var(--text-light);
+}
+
+[data-theme="dark"] .back {
+  background: linear-gradient(135deg, #1f2937, #374151);
+}
+
+/* [data-theme="dark"]  .card-body {
+background-color: #788495;
+} */
+
+
+[data-theme="dark"] body::before {
+  background:
+    radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
 }
 
 /* ---------- HEADER ---------- */
@@ -40,6 +82,12 @@ body {
   color: white;
   padding: 1rem 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: visible;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
 }
 
 .dashboard-header h1 {
@@ -75,6 +123,24 @@ body {
   font-size: 0.7rem;
 }
 
+/* ---------- DASHBOARD SECTION ---------- */
+.dashboard-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .dashboard-section {
+  background: var(--bg-light);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .text-muted {
+  color: var(--text-light) !important;
+}
+
 /* ---------- SIDEBAR ---------- */
 #sidebar {
   background: white;
@@ -83,11 +149,17 @@ body {
   padding-top: 1rem;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
   overflow-y: auto;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 260px;
+  height: calc(100vh - 80px);
 }
 
 [data-theme="dark"] #sidebar {
   background: #1f2937;
   border-right: 1px solid var(--border-light);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-header {
@@ -99,6 +171,10 @@ body {
 .sidebar-header h5 {
   color: var(--text-dark);
   font-weight: 600;
+}
+
+[data-theme="dark"] .sidebar-header h5 {
+  color: var(--text-dark);
 }
 
 #sidebar .nav-link {
@@ -114,6 +190,10 @@ body {
   background: transparent;
   width: calc(100% - 1.6rem);
   text-align: left;
+}
+
+[data-theme="dark"] #sidebar .nav-link {
+  color: var(--text-light);
 }
 
 #sidebar .nav-link i {
@@ -147,6 +227,10 @@ body {
   }
 }
 
+main {
+  padding-top: 120px;
+}
+
 /* ---------- BUTTON ---------- */
 .btn-purple {
   background-color: #6f42c1;
@@ -166,6 +250,16 @@ body {
   transition: box-shadow 0.3s ease;
 }
 
+[data-theme="dark"] .card {
+  background: linear-gradient(135deg, #374151, #1f2937);
+  border: 1px solid var(--border-light);
+  color: var(--text-light);
+}
+
+[data-theme="dark"] .table :hover {
+ box-shadow: 0 4px 15px #5a32a3;
+}
+
 .card:hover {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
@@ -174,6 +268,21 @@ body {
   border-bottom: 1px solid var(--border-light);
   background-color: var(--bg-light);
   border-radius: 12px 12px 0 0 !important;
+}
+
+[data-theme="dark"] .card-header {
+  background-color: #4b5563;
+  color: var(--text-dark);
+  border-bottom-color: var(--border-light);
+}
+
+.card-body {
+  background-color: inherit;
+}
+
+[data-theme="dark"] .card-body {
+  background-color: inherit;
+  color: var(--text-light);
 }
 
 .table {
@@ -219,7 +328,7 @@ body {
   overflow: hidden;
   background: linear-gradient(135deg, #ffffff, #f8fafc);
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 15px #7140b6;
   border-radius: 12px;
 }
 
@@ -238,7 +347,7 @@ body {
 
 .stat-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(106, 17, 203, 0.15);
+  box-shadow: 0 8px 25px rgba(110, 28, 197);
 }
 
 .stat-card .card-body {
@@ -569,4 +678,136 @@ body {
 
 [data-theme="dark"] .discussion-empty p {
   color: var(--text-light);
+}
+
+/* ---------- FORM ELEMENTS DARK MODE ---------- */
+[data-theme="dark"] .form-label {
+  color: var(--text-light);
+}
+
+[data-theme="dark"] .form-select {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  border-color: var(--border-light);
+}
+
+[data-theme="dark"] .form-select option {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .form-control {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  border-color: var(--border-light);
+}
+
+[data-theme="dark"] .form-control::placeholder {
+  color: var(--text-light);
+}
+
+[data-theme="dark"] .btn-outline-secondary {
+  color: var(--text-light);
+  border-color: var(--border-light);
+  background-color: transparent;
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+  background-color: var(--border-light);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .modal-content {
+  background-color: var(--bg-light);
+  border-color: var(--border-light);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .modal-header {
+  background-color: var(--light-purple);
+  border-bottom-color: var(--border-light);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .modal-title {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+[data-theme="dark"] #viewDiscussionModal .modal-body {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal hr {
+  border-color: var(--border-light);
+  opacity: 0.7;
+}
+
+[data-theme="dark"] #viewDiscussionModal h6 {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .form-label {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .form-control {
+  background-color: var(--light-purple);
+  border-color: var(--border-light);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .form-control:focus {
+  background-color: var(--light-purple);
+  border-color: var(--primary-purple);
+  color: var(--text-dark);
+  box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.25);
+}
+
+[data-theme="dark"] #viewDiscussionModal .btn-purple {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+  color: white;
+}
+
+[data-theme="dark"] #viewDiscussionModal .btn-purple:hover {
+  background-color: var(--secondary-purple);
+  border-color: var(--secondary-purple);
+  color: white;
+}
+
+[data-theme="dark"] #repliesContainer {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionContent {
+  color: var(--text-dark);
+}
+
+/* Optional: Style for individual reply items if they have a specific class */
+[data-theme="dark"] .reply-item {
+  background-color: var(--light-purple);
+  border: 1px solid var(--border-light);
+  border-radius: 0.375rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+[data-theme="dark"] .reply-author {
+  color: var(--accent-purple);
+  font-weight: bold;
+}
+
+[data-theme="dark"] .reply-date {
+  color: var(--text-light);
+  font-size: 0.875rem;
+}
+
+[data-theme="dark"] .reply-content {
+  color: var(--text-dark);
+  margin-top: 0.5rem;
 }

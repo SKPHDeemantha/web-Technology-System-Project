@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #e6e9ff, #f6f7ff);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.auth-card {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 950px;
+}
+
+.auth-left, .auth-right {
+  flex: 1;
+  padding: 3rem;
+}
+
+.auth-right {
+  background: linear-gradient(135deg, #0283fe, #18bfe7);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  animation: float 3s ease-in-out infinite;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.subtitle {
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.form-control {
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #8f46ef;
+  box-shadow: 0 0 0 3px rgba(143, 70, 239, 0.2);
+}
+
+.password-group {
+  position: relative;
+}
+
+.password-group i {
+  position: absolute;
+  top: 42px;
+  right: 15px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, #0283fe, #18bfe7);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+
+.password-rules {
+  font-size: 0.85rem;
+  color: #777;
+  margin: 10px 0 20px 15px;
+  list-style: disc;
+}
+
+.image-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  /* margin-bottom: 1rem; */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .auth-card {
+    flex-direction: column;
+  }
+  /* .auth-right {
+    padding: 2rem;
+  } */
+  .image-container {
+    height: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .auth-left, .auth-right {
+    padding: 1.5rem;
+  }
+  .title {
+    font-size: 1.5rem;
+  }
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  .form-group {
+    margin-bottom: 0.8rem;
+  }
+  .form-control {
+    padding: 10px;
+  }
+  .password-group i {
+    top: 38px;
+  }
+  .btn-gradient {
+    padding: 10px;
+  }
+  .password-rules {
+    font-size: 0.8rem;
+    margin: 8px 0 15px 15px;
+  }
+  .image-container {
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 10px;
+  }
+  .auth-card {
+    border-radius: 15px;
+  }
+  .auth-left, .auth-right {
+    padding: 1rem;
+  }
+  .title {
+    font-size: 1.3rem;
+  }
+  .subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .form-group {
+    margin-bottom: 0.7rem;
+  }
+  .form-control {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+  .password-group i {
+    top: 34px;
+    right: 12px;
+  }
+  .btn-gradient {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+  .password-rules {
+    font-size: 0.75rem;
+    margin: 6px 0 12px 12px;
+  }
+  .image-container {
+    height: 120px;
+  }
+}
+
+/* Background setup */
+body {
+  background: url('https://xvuxswvxdsxzfjtsdorn.supabase.co/storage/v1/object/public/images/vision5.jpg') 
+              no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add a semi-transparent overlay for opacity effect */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55); /* adjust opacity here (0.55 = 55%) */
+  z-index: 0;
+}
+
+/* Ensure login card appears above the overlay */
+.auth-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Optional fade-in animation */
+.fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

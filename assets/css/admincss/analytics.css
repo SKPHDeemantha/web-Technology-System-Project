@@ -1,0 +1,34 @@
+/* ---------- AVATARS ---------- */
+.avatar-sm {
+  width: 36px;
+  height: 36px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.bg-purple {
+  background-color: var(--primary-purple) !important;
+}
+
+/* ---------- BADGES ---------- */
+.badge {
+  font-weight: 500;
+  padding: 0.35em 0.65em;
+}
+
+.badge.bg-purple {
+  background-color: var(--primary-purple) !important;
+}
+
+/* ---------- LIST GROUP (for top communities) ---------- */
+.list-group-item {
+  background-color: white;
+  color: var(--text-dark);
+  border: 1px solid var(--border-light);
+}
+
+[data-theme="dark"] .list-group-item {
+  background-color: var(--bg-panel);
+  color: var(--text-light);
+  border-color: var(--border-light);
+}

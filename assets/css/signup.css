@@ -70,6 +70,10 @@ body {
   box-shadow: 0 0 0 3px rgba(143, 70, 239, 0.2);
 }
 
+.password-group {
+  position: relative;
+}
+
 .password-group i {
   position: absolute;
   top: 42px;

@@ -292,14 +292,14 @@ body {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  box-shadow: 0 4px 15px var(--shadow);
+  /* box-shadow: 0 4px 15px var(--shadow); */
   transition: all 0.3s ease;
   overflow: hidden;
 }
 
 .stat-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px var(--shadow-hover);
+  /* box-shadow: 0 8px 25px var(--shadow-hover); */
 }
 
 .stat-card .card-body {
@@ -346,11 +346,11 @@ body {
 [data-theme="dark"] .stat-card {
   background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(0, 0, 0, 0.95));
   border-left-color: var(--accent-purple);
-  box-shadow: 0 8px 32px rgba(168, 85, 247, 0.2);
+  /* box-shadow: 0 8px 32px rgba(168, 85, 247, 0.2); */
 }
 
 [data-theme="dark"] .stat-card:hover {
-  box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
+  box-shadow: none;
 }
 
 [data-theme="dark"] .stat-card .h2 {
@@ -417,7 +417,7 @@ body {
 }
 
 [data-theme="dark"] .card-header {
-  background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+  background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
   border-bottom: 2px solid var(--border-glow);
   color: var(--text-light);
 }

@@ -2,7 +2,7 @@
 (function () {
   // Initialize dashboard when DOM is loaded
   document.addEventListener("DOMContentLoaded", function () {
-    loadFooter();
+    
     initializeDashboard();
     setupNavigation();
     applyRoleBasedVisibility();
@@ -11,6 +11,7 @@
     setupModalHandlers();
     setupNotifications();
     loadDashboardData();
+    loadFooter();
 
     // Setup logout functionality
     const logoutBtn = document.getElementById("logoutBtn");
@@ -44,10 +45,16 @@
   });
 
   function loadFooter() {
+    const footerElement = document.getElementById('main-footer');
+    if (!footerElement || footerElement.innerHTML.trim() !== '') {
+      // Footer is already loaded or element doesn't exist
+      return;
+    }
+
     fetch('../../../components/footer.html')
       .then(response => response.text())
       .then(html => {
-        document.getElementById('main-footer').innerHTML = html;
+        footerElement.innerHTML = html;
         // Now load footer.js as a script tag
         const script = document.createElement('script');
         script.src = '../../../assets/js/footer.js';

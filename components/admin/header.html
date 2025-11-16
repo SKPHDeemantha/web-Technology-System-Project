@@ -1,0 +1,72 @@
+<!-- Header -->
+<link rel="stylesheet" href="../assets/css/admincss/header.css">
+<header class="dashboard-header">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-link text-white me-3 d-md-none p-2" id="sidebarToggle" title="Toggle Sidebar">
+            <i class="fas fa-bars fa-lg"></i>
+          </button>
+          <div class="logo-section d-flex align-items-center me-4">
+            <div class="logo-icon me-2">
+              <i class="fas fa-graduation-cap fa-2x"></i>
+            </div>
+            <div class="logo-text">
+              <h1 class="mb-0 fw-bold">Admin Panel</h1>
+              <small class="text-white-50"></small>
+            </div>
+          </div>
+        </div>
+        <div class="header-actions d-flex align-items-center">
+          <button class="btn btn-link text-white me-3 p-2" id="darkModeToggle" title="Toggle Dark Mode">
+            <i class="fas fa-moon fa-lg"></i>
+          </button>
+          <div class="dropdown me-3">
+            <button class="btn btn-link text-white position-relative p-2" type="button" id="notificationsDropdown"
+              data-bs-toggle="dropdown" title="Notifications">
+              <i class="fas fa-bell fa-lg"></i>
+              <span class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle"
+                id="notificationCount">2</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow" id="notificationsMenu">
+              <li>
+                <h6 class="dropdown-header fw-bold">Notifications</h6>
+              </li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#" data-id="1">
+                  <i class="fas fa-users me-2 text-primary"></i>New community joined</a></li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#" data-id="2">
+                  <i class="fas fa-calendar me-2 text-warning"></i>Event reminder</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-center fw-bold" href="#">View all notifications</a></li>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <button class="btn btn-link text-white d-flex align-items-center p-2" type="button" id="profileDropdown"
+              data-bs-toggle="dropdown">
+              <div class="user-avatar me-2">
+                <i class="fas fa-user-circle fa-lg"></i>
+              </div>
+              <div class="user-info text-start d-none d-sm-block">
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+              <li><a class="dropdown-item d-flex align-items-center" href="#">
+                  <i class="fas fa-user me-2"></i>My Profile</a></li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#">
+                  <i class="fas fa-cog me-2"></i>Settings</a></li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#">
+                  <i class="fas fa-question-circle me-2"></i>Help & Support</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item d-flex align-items-center text-danger" href="#" id="logoutBtn">
+                  <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+<script src="../assets/js/admin/header.js"></script>

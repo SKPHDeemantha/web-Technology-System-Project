@@ -82,34 +82,57 @@
 
 <!-- Add Course Modal -->
 <div class="modal fade" id="addCourseModal" tabindex="-1">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add New Course</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="courseCode" class="form-label">Course Code</label>
-            <input type="text" class="form-control" id="courseCode" required>
+        <form id="addCourseForm">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="courseCode" class="form-label">Course Code</label>
+              <input type="text" class="form-control" id="courseCode" required>
+            </div>
+            <div class="col-md-6">
+              <label for="courseName" class="form-label">Course Name</label>
+              <input type="text" class="form-control" id="courseName" required>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="courseName" class="form-label">Course Name</label>
-            <input type="text" class="form-control" id="courseName" required>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="courseInstructor" class="form-label">Instructor</label>
+              <select class="form-select" id="courseInstructor" required>
+                <option value="">Select Instructor</option>
+                <option value="2">Dr. Jane Smith</option>
+                <option value="3">Prof. Robert Brown</option>
+                <option value="4">Dr. Alice Johnson</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="courseYear" class="form-label">Year</label>
+              <select class="form-select" id="courseYear" required>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+              </select>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="courseInstructor" class="form-label">Instructor</label>
-            <select class="form-select" id="courseInstructor" required>
-              <option value="">Select Instructor</option>
-              <option value="1">Dr. Jane Smith</option>
-              <option value="2">Prof. Robert Brown</option>
-              <option value="3">Dr. Alice Johnson</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="courseCredits" class="form-label">Credits</label>
-            <input type="number" class="form-control" id="courseCredits" min="1" max="5" value="3">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="courseSemester" class="form-label">Semester</label>
+              <select class="form-select" id="courseSemester" required>
+                <option value="Fall">Fall</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="courseCredits" class="form-label">Credits</label>
+              <input type="number" class="form-control" id="courseCredits" min="1" max="5" value="3" required>
+            </div>
           </div>
           <div class="d-grid">
             <button type="submit" class="btn btn-purple">Add Course</button>

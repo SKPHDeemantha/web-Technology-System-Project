@@ -238,6 +238,35 @@ CREATE TABLE events (
   INDEX idx_target_year (target_year_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Communities
+CREATE TABLE communities (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL UNIQUE,
+  description TEXT,
+  category VARCHAR(64) NOT NULL,
+  created_by BIGINT UNSIGNED NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  INDEX idx_category (category),
+  INDEX idx_created_by (created_by)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Community Members
+CREATE TABLE community_members (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  community_id BIGINT UNSIGNED NOT NULL,
+  user_id BIGINT UNSIGNED NOT NULL,
+  joined_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  role ENUM('member','moderator','admin') NOT NULL DEFAULT 'member',
+  UNIQUE KEY unique_membership (community_id, user_id),
+  FOREIGN KEY (community_id) REFERENCES communities(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  INDEX idx_community (community_id),
+  INDEX idx_user (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Audit logs (admin)
 CREATE TABLE audit_logs (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -289,4 +318,213 @@ VALUES
 INSERT INTO announcements (author_id, title, body, target_year_id, is_pinned)
 VALUES
   (2, 'Welcome to Semester', 'Semester starts Monday. Check your timetable.', NULL, 0);
+
+-- Additional sample users (more students, lecturers, admins)
+INSERT INTO users (email, password_hash, first_name, last_name, display_name, role_id, year_id, is_active)
+VALUES
+  ('bob@uni.edu', 'password', 'Bob', 'Johnson', 'Dr. Bob Johnson', 2, NULL, 1),  -- Lecturer
+  ('charlie@uni.edu', 'password', 'Charlie', 'Williams', 'Dr. Charlie Williams', 2, NULL, 1),  -- Lecturer
+  ('admin2@example.edu', 'password', 'Super', 'Admin', 'Super Admin', 3, NULL, 1),  -- Admin
+  ('student1@uni.edu', 'password', 'Alice', 'Brown', 'Alice Brown', 1, 1, 1),  -- Student Year 1
+  ('student2@uni.edu', 'password', 'David', 'Lee', 'David Lee', 1, 1, 1),  -- Student Year 1
+  ('student3@uni.edu', 'password', 'Emma', 'Garcia', 'Emma Garcia', 1, 2, 1),  -- Student Year 2
+  ('student4@uni.edu', 'password', 'Frank', 'Miller', 'Frank Miller', 1, 2, 1),  -- Student Year 2
+  ('student5@uni.edu', 'password', 'Grace', 'Davis', 'Grace Davis', 1, 3, 1),  -- Student Year 3
+  ('student6@uni.edu', 'password', 'Henry', 'Rodriguez', 'Henry Rodriguez', 1, 3, 1),  -- Student Year 3
+  ('student7@uni.edu', 'password', 'Ivy', 'Martinez', 'Ivy Martinez', 1, 4, 1),  -- Student Year 4
+  ('student8@uni.edu', 'password', 'Jack', 'Hernandez', 'Jack Hernandez', 1, 4, 1);  -- Student Year 4
+
+-- Additional courses
+INSERT INTO courses (course_code, course_name, description, lecturer_id, year_id, semester, credits, is_active)
+VALUES
+  ('CS102', 'Data Structures', 'Advanced programming concepts', 3, 2, 'fall', 4, 1),  -- Lecturer Bob
+  ('MATH101', 'Calculus I', 'Introduction to calculus', 4, 1, 'fall', 3, 1),  -- Lecturer Charlie
+  ('ENG201', 'English Literature', 'Study of classic literature', 4, 2, 'spring', 3, 1),  -- Lecturer Charlie
+  ('PHY101', 'Physics I', 'Basic physics principles', 3, 1, 'spring', 4, 1),  -- Lecturer Bob
+  ('CS201', 'Algorithms', 'Algorithm design and analysis', 3, 3, 'fall', 4, 1),  -- Lecturer Bob
+  ('BIO101', 'Biology I', 'Introduction to biology', 4, 1, 'summer', 3, 1),  -- Lecturer Charlie
+  ('CHEM101', 'Chemistry I', 'Basic chemistry', 3, 2, 'summer', 4, 1),  -- Lecturer Bob
+  ('HIST101', 'World History', 'Overview of world history', 4, 3, 'fall', 3, 1);  -- Lecturer Charlie
+
+-- Enrollments (students in courses based on year)
+INSERT INTO enrollments (student_id, course_id, status)
+VALUES
+  (5, 1, 'enrolled'), (6, 1, 'enrolled'),  -- Year 1 students in CS101
+  (7, 2, 'enrolled'), (8, 2, 'enrolled'),  -- Year 2 in CS102
+  (9, 3, 'enrolled'), (10, 3, 'enrolled'),  -- Year 3 in MATH101
+  (11, 4, 'enrolled'), (12, 4, 'enrolled'),  -- Year 4 in ENG201
+  (5, 4, 'enrolled'), (6, 5, 'enrolled'),  -- Cross-enrollments
+  (7, 6, 'enrolled'), (8, 7, 'enrolled'),
+  (9, 8, 'enrolled'), (10, 9, 'enrolled'),
+  (11, 10, 'enrolled'), (12, 11, 'enrolled');
+
+-- Assignments
+INSERT INTO assignments (course_id, title, description, due_date, max_points, created_by)
+VALUES
+  (1, 'Programming Assignment 1', 'Basic loops and arrays', '2023-10-15 23:59:59', 100.00, 2),
+  (1, 'Midterm Project', 'Build a simple app', '2023-11-01 23:59:59', 150.00, 2),
+  (2, 'Data Structures Quiz', 'Quiz on stacks and queues', '2023-10-20 23:59:59', 50.00, 3),
+  (3, 'Calculus Homework 1', 'Derivatives and integrals', '2023-10-10 23:59:59', 75.00, 4),
+  (4, 'Literature Essay', 'Essay on Shakespeare', '2023-11-15 23:59:59', 100.00, 4),
+  (5, 'Physics Lab Report', 'Mechanics experiment', '2023-10-25 23:59:59', 80.00, 3),
+  (6, 'Algorithm Analysis', 'Time complexity problems', '2023-11-05 23:59:59', 120.00, 3),
+  (7, 'Biology Presentation', 'Cell structure presentation', '2023-10-30 23:59:59', 90.00, 4),
+  (8, 'Chemistry Lab', 'Acid-base reactions', '2023-11-10 23:59:59', 100.00, 3),
+  (9, 'History Research Paper', '20th Century Events', '2023-11-20 23:59:59', 150.00, 4);
+
+-- Grades (sample for some assignments)
+INSERT INTO grades (assignment_id, student_id, points_earned, feedback, graded_by)
+VALUES
+  (1, 5, 95.00, 'Good work on loops.', 2),
+  (1, 6, 88.00, 'Needs improvement on arrays.', 2),
+  (2, 7, 120.00, 'Excellent project.', 3),
+  (3, 9, 70.00, 'Solid effort.', 4),
+  (4, 11, 85.00, 'Well-written essay.', 4),
+  (5, 5, 78.00, 'Good lab work.', 3),
+  (6, 9, 110.00, 'Strong analysis.', 3),
+  (7, 7, 92.00, 'Informative presentation.', 4),
+  (8, 8, 95.00, 'Accurate results.', 3),
+  (9, 10, 140.00, 'Thorough research.', 4);
+
+-- Attendance (sample records)
+INSERT INTO attendance (course_id, student_id, date, status, marked_by, notes)
+VALUES
+  (1, 5, '2023-09-01', 'present', 2, NULL),
+  (1, 6, '2023-09-01', 'late', 2, 'Arrived 10 min late'),
+  (2, 7, '2023-09-02', 'present', 3, NULL),
+  (3, 9, '2023-09-03', 'absent', 4, 'Sick leave'),
+  (4, 11, '2023-09-04', 'excused', 4, 'Medical appointment'),
+  (5, 5, '2023-09-05', 'present', 3, NULL),
+  (6, 9, '2023-09-06', 'present', 3, NULL),
+  (7, 7, '2023-09-07', 'late', 4, 'Traffic delay'),
+  (8, 8, '2023-09-08', 'present', 3, NULL),
+  (9, 10, '2023-09-09', 'present', 4, NULL);
+
+-- Study Materials
+INSERT INTO study_materials (course_id, title, description, file_url, file_type, uploaded_by)
+VALUES
+  (1, 'Programming Slides', 'Lecture slides on basics', 'files/cs101/slides1.pdf', 'pdf', 2),
+  (2, 'Data Structures Notes', 'Handwritten notes', 'files/cs102/notes.pdf', 'pdf', 3),
+  (3, 'Calculus Textbook', 'Chapter 1 excerpt', 'files/math101/text.pdf', 'pdf', 4),
+  (4, 'Literature Reading', 'Shakespeare play', 'files/eng201/play.pdf', 'pdf', 4),
+  (5, 'Physics Formulas', 'Formula sheet', 'files/phy101/formulas.pdf', 'pdf', 3),
+  (6, 'Algorithm Examples', 'Code samples', 'files/cs201/examples.zip', 'zip', 3),
+  (7, 'Biology Diagrams', 'Cell diagrams', 'files/bio101/diagrams.jpg', 'jpg', 4),
+  (8, 'Chemistry Lab Manual', 'Lab instructions', 'files/chem101/manual.pdf', 'pdf', 3),
+  (9, 'History Timeline', 'World events timeline', 'files/hist101/timeline.pdf', 'pdf', 4);
+
+-- Additional Timetables
+INSERT INTO timetables (course_id, day_of_week, start_time, end_time, room)
+VALUES
+  (2, 'tuesday', '10:00:00', '12:00:00', 'Room B1'),
+  (3, 'wednesday', '09:00:00', '11:00:00', 'Room C1'),
+  (4, 'thursday', '14:00:00', '16:00:00', 'Room D1'),
+  (5, 'friday', '13:00:00', '15:00:00', 'Room E1'),
+  (6, 'monday', '15:00:00', '17:00:00', 'Room F1'),
+  (7, 'tuesday', '16:00:00', '18:00:00', 'Room G1'),
+  (8, 'wednesday', '11:00:00', '13:00:00', 'Room H1'),
+  (9, 'thursday', '12:00:00', '14:00:00', 'Room I1');
+
+-- Additional Announcements
+INSERT INTO announcements (author_id, title, body, target_year_id, is_pinned)
+VALUES
+  (3, 'Assignment Deadline Extended', 'CS102 assignment due date moved to next week.', 2, 0),
+  (4, 'Exam Schedule Released', 'Check the portal for final exam dates.', NULL, 1),  -- Pinned, all years
+  (2, 'Guest Lecture Tomorrow', 'Dr. Smith will speak on AI.', 3, 0),
+  (3, 'Lab Safety Reminder', 'Wear protective gear in chemistry lab.', 2, 0),
+  (4, 'Library Hours Extended', 'Open until midnight during finals.', NULL, 0),
+  (2, 'Welcome New Students', 'Orientation on Friday.', 1, 1),  -- Pinned for Year 1
+  (3, 'Project Submission', 'Submit group projects by end of week.', 4, 0),
+  (4, 'Holiday Notice', 'No classes on Monday.', NULL, 1);  -- Pinned
+
+-- Events
+INSERT INTO events (title, description, event_date, start_time, end_time, location, organizer_id, target_year_id, is_public)
+VALUES
+  ('Orientation Day', 'Welcome event for new students', '2023-09-01', '09:00:00', '17:00:00', 'Auditorium', 2, 1, 1),
+  ('Career Fair', 'Meet potential employers', '2023-10-15', '10:00:00', '16:00:00', 'Gym', 3, NULL, 1),  -- All years
+  ('Science Fair', 'Showcase student projects', '2023-11-05', '12:00:00', '18:00:00', 'Science Building', 4, 2, 1),
+  ('Sports Day', 'Inter-year competitions', '2023-11-20', '08:00:00', '20:00:00', 'Stadium', 2, NULL, 1),
+  ('Graduation Ceremony', 'For Year 4 students', '2023-12-15', '14:00:00', '18:00:00', 'Main Hall', 4, 4, 1),
+  ('Workshop on Coding', 'Hands-on session', '2023-10-10', '13:00:00', '16:00:00', 'Lab 101', 3, 1, 1),
+  ('Art Exhibition', 'Student art display', '2023-11-10', '11:00:00', '15:00:00', 'Art Gallery', 4, NULL, 1),
+  ('Mental Health Seminar', 'Stress management talk', '2023-10-25', '15:00:00', '17:00:00', 'Conference Room', 2, NULL, 1);
+
+-- Chat Rooms
+INSERT INTO chat_rooms (room_type, name, year_id, created_by)
+VALUES
+  ('year', '1st Year Channel', 1, 2),
+  ('year', '2nd Year Channel', 2, 3),
+  ('year', '3rd Year Channel', 3, 4),
+  ('year', '4th Year Channel', 4, 2),
+  ('private', 'Alice and Bob Chat', NULL, 5),  -- Private between student and lecturer
+  ('group', 'Study Group CS101', NULL, 5),
+  ('group', 'Project Team Alpha', NULL, 7);
+
+-- Messages
+INSERT INTO messages (room_id, sender_id, sender_display, is_anonymous, content, edited_at, is_deleted)
+VALUES
+  (1, 5, 'Alice Brown', 0, 'Hi everyone, excited for the semester!', NULL, 0),
+  (1, 6, 'David Lee', 0, 'Me too! When is the first class?', NULL, 0),
+  (2, 7, 'Emma Garcia', 0, 'Anyone up for study group?', NULL, 0),
+  (3, 9, 'Grace Davis', 0, 'Assignment is tough, need help.', NULL, 0),
+  (4, 11, 'Ivy Martinez', 0, 'Graduation plans?', NULL, 0),
+  (5, 5, 'Alice Brown', 0, 'Dr. Johnson, question about assignment.', NULL, 0),
+  (5, 3, 'Dr. Bob Johnson', 0, 'Sure, what is it?', NULL, 0),
+  (6, 5, 'Alice Brown', 0, 'Let\'s meet tomorrow for CS101.', NULL, 0),
+  (7, 7, 'Emma Garcia', 0, 'Project deadline approaching.', NULL, 0),
+  (1, NULL, 'Anonymous', 1, 'Campus event info needed.', NULL, 0);  -- Anonymous message
+
+-- Message Attachments
+INSERT INTO message_attachments (message_id, filename, file_url)
+VALUES
+  (1, 'schedule.pdf', 'files/messages/schedule.pdf'),
+  (3, 'notes.txt', 'files/messages/notes.txt'),
+  (7, 'assignment.pdf', 'files/messages/assignment.pdf');
+
+-- Sample Communities
+INSERT INTO communities (name, description, category, created_by, is_active)
+VALUES
+  ('Computer Science Club', 'A community for computer science students to share knowledge and collaborate on projects.', 'Technical', 2, 1),
+  ('Math Study Group', 'Group for mathematics students to discuss problems and study together.', 'Academic', 4, 1),
+  ('Art & Design Society', 'Creative community for art and design enthusiasts.', 'Cultural', 4, 1),
+  ('Business Leaders Forum', 'Forum for aspiring business leaders to network and learn.', 'Social', 3, 1),
+  ('Environmental Club', 'Community focused on environmental awareness and sustainability.', 'Social', 2, 1),
+  ('Sports & Fitness Club', 'For students interested in sports and maintaining fitness.', 'Sports', 3, 1),
+  ('Music Society', 'Community for music lovers and musicians.', 'Cultural', 4, 1),
+  ('Debate Club', 'Platform for intellectual discussions and debate practice.', 'Academic', 2, 1);
+
+-- Community Members (sample memberships)
+INSERT INTO community_members (community_id, user_id, role, joined_at)
+VALUES
+  (1, 5, 'member', '2023-09-01 10:00:00'),  -- Alice in CS Club
+  (1, 6, 'member', '2023-09-01 10:00:00'),  -- David in CS Club
+  (1, 7, 'moderator', '2023-09-01 10:00:00'),  -- Emma as moderator in CS Club
+  (2, 9, 'member', '2023-09-02 10:00:00'),  -- Grace in Math Group
+  (2, 10, 'member', '2023-09-02 10:00:00'),  -- Henry in Math Group
+  (3, 11, 'member', '2023-09-03 10:00:00'),  -- Ivy in Art Society
+  (3, 12, 'member', '2023-09-03 10:00:00'),  -- Jack in Art Society
+  (4, 5, 'member', '2023-09-04 10:00:00'),  -- Alice in Business Forum
+  (4, 7, 'member', '2023-09-04 10:00:00'),  -- Emma in Business Forum
+  (5, 9, 'member', '2023-09-05 10:00:00'),  -- Grace in Environmental Club
+  (5, 11, 'moderator', '2023-09-05 10:00:00'),  -- Ivy as moderator in Environmental Club
+  (6, 6, 'member', '2023-09-06 10:00:00'),  -- David in Sports Club
+  (6, 8, 'member', '2023-09-06 10:00:00'),  -- Frank in Sports Club
+  (7, 10, 'member', '2023-09-07 10:00:00'),  -- Henry in Music Society
+  (7, 12, 'member', '2023-09-07 10:00:00'),  -- Jack in Music Society
+  (8, 5, 'member', '2023-09-08 10:00:00'),  -- Alice in Debate Club
+  (8, 7, 'member', '2023-09-08 10:00:00');  -- Emma in Debate Club
+
+-- Audit Logs
+INSERT INTO audit_logs (admin_id, action_type, target_type, target_id, notes)
+VALUES
+  (1, 'user_created', 'user', '5', 'Created student Alice Brown'),
+  (1, 'course_added', 'course', '2', 'Added Data Structures course'),
+  (13, 'announcement_pinned', 'announcement', '12', 'Pinned exam schedule'),
+  (1, 'user_deleted', 'user', '14', 'Removed inactive user'),  -- Assuming ID 14 exists or placeholder
+  (13, 'event_created', 'event', '5', 'Created graduation event'),
+  (1, 'community_created', 'community', '1', 'Created Computer Science Club'),
+  (1, 'community_created', 'community', '2', 'Created Math Study Group'),
+  (1, 'community_created', 'community', '3', 'Created Art & Design Society'),
+  (1, 'community_created', 'community', '4', 'Created Business Leaders Forum'),
+  (1, 'community_created', 'community', '5', 'Created Environmental Club');
 

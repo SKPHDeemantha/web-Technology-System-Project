@@ -1,510 +1,765 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Timetable - Lecturer Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link href="../../assets/css/lecturecss/timetable.css" rel="stylesheet">
-    <link href="../../assets/css/lecturecss/lecturer-dashboard.css" rel="stylesheet">
-     <link href="../../assets/css/footer.css" rel="stylesheet">
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../assets/css/lecturecss/timetable.css" rel="stylesheet" />
+    <link
+      href="../../assets/css/lecturecss/lecturer-dashboard.css"
+      rel="stylesheet"
+    />
+    <link href="../../assets/css/footer.css" rel="stylesheet" />
+  </head>
 
-<body data-theme="light">
+  <body data-theme="light">
     <!-- Header -->
     <header class="dashboard-header">
-        <div class="container-fluid">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-link text-white me-3 d-md-none p-2" id="sidebarToggle"
-                        title="Toggle Sidebar">
-                        <i class="fas fa-bars fa-lg"></i>
-                    </button>
-                    <div class="logo-section d-flex align-items-center me-4">
-                        <div class="logo-icon me-2">
-                            <i class="fas fa-chalkboard-teacher fa-2x"></i>
-                        </div>
-                        <div class="logo-text">
-                            <h1 class="mb-0 fw-bold">Lecturer Portal</h1>
-                            <small class="text-white-50">Timetable</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-actions d-flex align-items-center">
-                    <button class="btn btn-link text-white me-3 p-2" id="darkModeToggle" title="Toggle Dark Mode">
-                        <i class="fas fa-moon fa-lg"></i>
-                    </button>
-                    <div class="dropdown me-3">
-                        <button class="btn btn-link text-white position-relative p-2" type="button"
-                            id="notificationsDropdown" data-bs-toggle="dropdown" title="Notifications">
-                            <i class="fas fa-bell fa-lg"></i>
-                            <span
-                                class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle">3</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow">
-                            <li>
-                                <h6 class="dropdown-header fw-bold">Notifications</h6>
-                            </li>
-                            <li><a class="dropdown-item d-flex align-items-center" href="#">
-                                    <i class="fas fa-calendar-plus me-2 text-primary"></i>New timetable entry added</a>
-                            </li>
-                            <li><a class="dropdown-item d-flex align-items-center" href="#">
-                                    <i class="fas fa-clock me-2 text-warning"></i>Class starting in 15 minutes</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item text-center fw-bold" href="#">View all notifications</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown">
-                        <button class="btn btn-link text-white d-flex align-items-center p-2" type="button"
-                            id="profileDropdown" data-bs-toggle="dropdown">
-                            <div class="user-avatar me-2">
-                                <i class="fas fa-user-circle fa-lg"></i>
-                            </div>
-                            <div class="user-info text-start d-none d-sm-block">
-                                <!-- <div class="fw-bold small">Dr. Sarah Johnson</div> -->
-                                <!-- <div class="text-white-50 small">s.johnson@university.edu</div> -->
-                            </div>
-                            <i class="fas fa-chevron-down ms-2 small"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow">
-                            <li><a class="dropdown-item d-flex align-items-center" href="../lecturer-dashboard.html">
-                                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center" href="#">
-                                    <i class="fas fa-cog me-2"></i>Settings</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item d-flex align-items-center text-danger" href="#">
-                                    <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                        </ul>
-                    </div>
-                </div>
+      <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center">
+            <button
+              class="btn btn-link text-white me-3 d-md-none p-2"
+              id="sidebarToggle"
+              title="Toggle Sidebar"
+            >
+              <i class="fas fa-bars fa-lg"></i>
+            </button>
+            <div class="logo-section d-flex align-items-center me-4">
+              <div class="logo-icon me-2">
+                <i class="fas fa-chalkboard-teacher fa-2x"></i>
+              </div>
+              <div class="logo-text">
+                <h1 class="mb-0 fw-bold">Lecturer Portal</h1>
+                <small class="text-white-50">Timetable</small>
+              </div>
             </div>
+          </div>
+          <div class="header-actions d-flex align-items-center">
+            <button
+              class="btn btn-link text-white me-3 p-2"
+              id="darkModeToggle"
+              title="Toggle Dark Mode"
+            >
+              <i class="fas fa-moon fa-lg"></i>
+            </button>
+            <div class="dropdown me-3">
+              <button
+                class="btn btn-link text-white position-relative p-2"
+                type="button"
+                id="notificationsDropdown"
+                data-bs-toggle="dropdown"
+                title="Notifications"
+              >
+                <i class="fas fa-bell fa-lg"></i>
+                <span
+                  class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle"
+                  >3</span
+                >
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow">
+                <li>
+                  <h6 class="dropdown-header fw-bold">Notifications</h6>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <i class="fas fa-calendar-plus me-2 text-primary"></i>New
+                    timetable entry added</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <i class="fas fa-clock me-2 text-warning"></i>Class starting
+                    in 15 minutes</a
+                  >
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a class="dropdown-item text-center fw-bold" href="#"
+                    >View all notifications</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="dropdown">
+              <button
+                class="btn btn-link text-white d-flex align-items-center p-2"
+                type="button"
+                id="profileDropdown"
+                data-bs-toggle="dropdown"
+              >
+                <div class="user-avatar me-2">
+                  <i class="fas fa-user-circle fa-lg"></i>
+                </div>
+                <div class="user-info text-start d-none d-sm-block">
+                  <!-- <div class="fw-bold small">Dr. Sarah Johnson</div> -->
+                  <!-- <div class="text-white-50 small">s.johnson@university.edu</div> -->
+                </div>
+                <i class="fas fa-chevron-down ms-2 small"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow">
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center"
+                    href="../lecturer-dashboard.html"
+                  >
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <i class="fas fa-cog me-2"></i>Settings</a
+                  >
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center text-danger"
+                    href="#"
+                  >
+                    <i class="fas fa-sign-out-alt me-2"></i>Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
+      </div>
     </header>
 
     <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
-                <div class="sidebar-sticky pt-3">
-                    <div class="sidebar-header p-3">
-                        <h5>Navigation Menu</h5>
+      <div class="row">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+          <div class="sidebar-sticky pt-3">
+            <div class="sidebar-header p-3">
+              <h5>Navigation Menu</h5>
+            </div>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="../../lecture/lecturer-dashboard.html"
+                >
+                  <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="../../components/lecture/announcement.html"
+                >
+                  <i class="fas fa-bullhorn me-2"></i> Announcements
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="../../components/lecture/timetable.html"
+                >
+                  <i class="fas fa-calendar-alt me-2"></i> Timetable
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="../../components/lecture/CourseMaterials.html"
+                >
+                  <i class="fas fa-book me-2"></i> Course Materials
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="../../components/lecture/Assignments.html"
+                >
+                  <i class="fas fa-tasks me-2"></i> Assignments
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 dashboard-main">
+          <div class="dashboard-section active" id="timetable">
+            <div
+              class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3"
+            >
+              <div>
+                <h2>Timetable Management</h2>
+                <p class="text-muted mb-0">
+                  Manage your weekly class schedule and appointments
+                </p>
+              </div>
+              <button
+                class="btn btn-purple"
+                data-bs-toggle="modal"
+                data-bs-target="#addTimetableModal"
+              >
+                <i class="fas fa-plus-circle me-1"></i> Add Class
+              </button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5 class="card-title text-uppercase text-muted mb-0">
+                          Total Classes
+                        </h5>
+                        <span class="h2 font-weight-bold mb-0" id="totalClasses"
+                          >0</span
+                        >
+                      </div>
+                      <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                      </div>
                     </div>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../../lecture/lecturer-dashboard.html">
-                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../../components/lecture/announcement.html">
-                                <i class="fas fa-bullhorn me-2"></i> Announcements
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="../../components/lecture/timetable.html">
-                                <i class="fas fa-calendar-alt me-2"></i> Timetable
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../../components/lecture/CourseMaterials.html">
-                                <i class="fas fa-book me-2"></i> Course Materials
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../../components/lecture/Assignments.html">
-                                <i class="fas fa-tasks me-2"></i> Assignments
-                            </a>
-                        </li>
-                    </ul>
+                    <p class="mt-3 mb-0 text-success">
+                      <span class="me-2"
+                        ><i class="fas fa-arrow-up"></i> 5%</span
+                      >
+                      <span class="text-nowrap">This week</span>
+                    </p>
+                  </div>
                 </div>
-            </nav>
-
-            <!-- Main Content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 dashboard-main">
-                <div class="dashboard-section active" id="timetable">
-                    <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3">
-                        <div>
-                            <h2>Timetable Management</h2>
-                            <p class="text-muted mb-0">Manage your weekly class schedule and appointments</p>
-                        </div>
-                        <button class="btn btn-purple" data-bs-toggle="modal" data-bs-target="#addTimetableModal">
-                            <i class="fas fa-plus-circle me-1"></i> Add Class
-                        </button>
+              </div>
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5 class="card-title text-uppercase text-muted mb-0">
+                          This Week
+                        </h5>
+                        <span
+                          class="h2 font-weight-bold mb-0"
+                          id="thisWeekClasses"
+                          >0</span
+                        >
+                      </div>
+                      <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                      </div>
                     </div>
-
-                    <!-- Stats Cards -->
-                    <div class="row mb-4">
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card stat-card">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <h5 class="card-title text-uppercase text-muted mb-0">Total Classes</h5>
-                                            <span class="h2 font-weight-bold mb-0" id="totalClasses">0</span>
-                                        </div>
-                                        <div class="stat-icon">
-                                            <i class="fas fa-calendar-check"></i>
-                                        </div>
-                                    </div>
-                                    <p class="mt-3 mb-0 text-success">
-                                        <span class="me-2"><i class="fas fa-arrow-up"></i> 5%</span>
-                                        <span class="text-nowrap">This week</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card stat-card">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <h5 class="card-title text-uppercase text-muted mb-0">This Week</h5>
-                                            <span class="h2 font-weight-bold mb-0" id="thisWeekClasses">0</span>
-                                        </div>
-                                        <div class="stat-icon">
-                                            <i class="fas fa-clock"></i>
-                                        </div>
-                                    </div>
-                                    <p class="mt-3 mb-0 text-info">
-                                        <span class="me-2"><i class="fas fa-calendar-week"></i></span>
-                                        <span class="text-nowrap">Active schedule</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card stat-card">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <h5 class="card-title text-uppercase text-muted mb-0">Hours/Week</h5>
-                                            <span class="h2 font-weight-bold mb-0" id="weeklyHours">0</span>
-                                        </div>
-                                        <div class="stat-icon">
-                                            <i class="fas fa-hourglass-half"></i>
-                                        </div>
-                                    </div>
-                                    <p class="mt-3 mb-0 text-warning">
-                                        <span class="me-2"><i class="fas fa-chart-line"></i></span>
-                                        <span class="text-nowrap">Teaching load</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card stat-card">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <h5 class="card-title text-uppercase text-muted mb-0">Next Class</h5>
-                                            <span class="h2 font-weight-bold mb-0" id="nextClassTime">--:--</span>
-                                        </div>
-                                        <div class="stat-icon">
-                                            <i class="fas fa-play-circle"></i>
-                                        </div>
-                                    </div>
-                                    <p class="mt-3 mb-0 text-primary">
-                                        <span class="me-2"><i class="fas fa-location-arrow"></i></span>
-                                        <span class="text-nowrap" id="nextClassSubject">No upcoming class</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Timetable Grid -->
-                        <div class="col-lg-9 mb-4">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0"><i class="fas fa-calendar-week me-2"></i>Weekly Timetable</h5>
-                                    <div class="btn-group">
-                                        <button class="btn btn-sm btn-outline-purple active" id="weekView">Week</button>
-                                        <button class="btn btn-sm btn-outline-purple" id="dayView">Day</button>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="timetable-container">
-                                        <div class="timetable-grid" id="timetableGrid">
-                                            <!-- Timetable will be rendered here -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Quick Actions & Upcoming -->
-                        <div class="col-lg-3 mb-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-purple mb-2" data-bs-toggle="modal"
-                                            data-bs-target="#addTimetableModal">
-                                            <i class="fas fa-plus-circle me-2"></i> Add Class
-                                        </button>
-                                        <button class="btn btn-outline-purple mb-2" id="exportTimetable">
-                                            <i class="fas fa-download me-2"></i> Export Schedule
-                                        </button>
-                                        <button class="btn btn-outline-purple mb-2" id="clearTimetable">
-                                            <i class="fas fa-trash me-2"></i> Clear All
-                                        </button>
-                                        <button class="btn btn-outline-purple mb-2" data-bs-toggle="modal"
-                                            data-bs-target="#settingsModal">
-                                            <i class="fas fa-cog me-2"></i> Settings
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Upcoming Classes -->
-                            <div class="card mt-4">
-                                <div class="card-header">
-                                    <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Upcoming Classes</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="upcoming-classes" id="upcomingClasses">
-                                        <!-- Upcoming classes will be loaded here -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <p class="mt-3 mb-0 text-info">
+                      <span class="me-2"
+                        ><i class="fas fa-calendar-week"></i
+                      ></span>
+                      <span class="text-nowrap">Active schedule</span>
+                    </p>
+                  </div>
                 </div>
-            </main>
-        </div>
+              </div>
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5 class="card-title text-uppercase text-muted mb-0">
+                          Hours/Week
+                        </h5>
+                        <span class="h2 font-weight-bold mb-0" id="weeklyHours"
+                          >0</span
+                        >
+                      </div>
+                      <div class="stat-icon">
+                        <i class="fas fa-hourglass-half"></i>
+                      </div>
+                    </div>
+                    <p class="mt-3 mb-0 text-warning">
+                      <span class="me-2"
+                        ><i class="fas fa-chart-line"></i
+                      ></span>
+                      <span class="text-nowrap">Teaching load</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5 class="card-title text-uppercase text-muted mb-0">
+                          Next Class
+                        </h5>
+                        <span
+                          class="h2 font-weight-bold mb-0"
+                          id="nextClassTime"
+                          >--:--</span
+                        >
+                      </div>
+                      <div class="stat-icon">
+                        <i class="fas fa-play-circle"></i>
+                      </div>
+                    </div>
+                    <p class="mt-3 mb-0 text-primary">
+                      <span class="me-2"
+                        ><i class="fas fa-location-arrow"></i
+                      ></span>
+                      <span class="text-nowrap" id="nextClassSubject"
+                        >No upcoming class</span
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- Timetable Grid -->
+              <div class="col-lg-9 mb-4">
+                <div class="card">
+                  <div
+                    class="card-header d-flex justify-content-between align-items-center"
+                  >
+                    <h5 class="mb-0">
+                      <i class="fas fa-calendar-week me-2"></i>Weekly Timetable
+                    </h5>
+                    <div class="btn-group">
+                      <button
+                        class="btn btn-sm btn-outline-purple active"
+                        id="weekView"
+                      >
+                        Week
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-purple"
+                        id="dayView"
+                      >
+                        Day
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="timetable-container">
+                      <div class="timetable-grid" id="timetableGrid">
+                        <!-- Timetable will be rendered here -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Actions & Upcoming -->
+              <div class="col-lg-3 mb-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="mb-0">
+                      <i class="fas fa-bolt me-2"></i>Quick Actions
+                    </h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="d-grid gap-2">
+                      <button
+                        class="btn btn-purple mb-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addTimetableModal"
+                      >
+                        <i class="fas fa-plus-circle me-2"></i> Add Class
+                      </button>
+                      <button
+                        class="btn btn-outline-purple mb-2"
+                        id="exportTimetable"
+                      >
+                        <i class="fas fa-download me-2"></i> Export Schedule
+                      </button>
+                      <button
+                        class="btn btn-outline-purple mb-2"
+                        id="clearTimetable"
+                      >
+                        <i class="fas fa-trash me-2"></i> Clear All
+                      </button>
+                      <button
+                        class="btn btn-outline-purple mb-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#settingsModal"
+                      >
+                        <i class="fas fa-cog me-2"></i> Settings
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Upcoming Classes -->
+                <div class="card mt-4">
+                  <div class="card-header">
+                    <h5 class="mb-0">
+                      <i class="fas fa-clock me-2"></i>Upcoming Classes
+                    </h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="upcoming-classes" id="upcomingClasses">
+                      <!-- Upcoming classes will be loaded here -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
 
     <!-- Add/Edit Timetable Modal -->
     <div class="modal fade" id="addTimetableModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle"><i class="fas fa-calendar-plus me-2"></i>Add New Class</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">
+              <i class="fas fa-calendar-plus me-2"></i>Add New Class
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="timetableForm">
+              <input type="hidden" id="editIndex" value="-1" />
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="subject"
+                      placeholder="e.g., Computer Science 101"
+                      required
+                    />
+                  </div>
                 </div>
-                <div class="modal-body">
-                    <form id="timetableForm">
-                        <input type="hidden" id="editIndex" value="-1">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="subject" class="form-label">Subject</label>
-                                    <input type="text" class="form-control" id="subject"
-                                        placeholder="e.g., Computer Science 101" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="courseCode" class="form-label">Course Code</label>
-                                    <input type="text" class="form-control" id="courseCode" placeholder="e.g., CS101"
-                                        required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="day" class="form-label">Day</label>
-                                    <select class="form-select" id="day" required>
-                                        <option value="">Select Day</option>
-                                        <option value="monday">Monday</option>
-                                        <option value="tuesday">Tuesday</option>
-                                        <option value="wednesday">Wednesday</option>
-                                        <option value="thursday">Thursday</option>
-                                        <option value="friday">Friday</option>
-                                        <option value="saturday">Saturday</option>
-                                        <option value="sunday">Sunday</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="room" class="form-label">Room</label>
-                                    <input type="text" class="form-control" id="room" placeholder="e.g., Room 101"
-                                        required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="startTime" class="form-label">Start Time</label>
-                                    <input type="time" class="form-control" id="startTime" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="endTime" class="form-label">End Time</label>
-                                    <input type="time" class="form-control" id="endTime" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="classType" class="form-label">Class Type</label>
-                            <select class="form-select" id="classType">
-                                <option value="lecture">Lecture</option>
-                                <option value="tutorial">Tutorial</option>
-                                <option value="lab">Lab</option>
-                                <option value="seminar">Seminar</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="notes" class="form-label">Notes (Optional)</label>
-                            <textarea class="form-control" id="notes" rows="3"
-                                placeholder="Additional notes or requirements"></textarea>
-                        </div>
-                    </form>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="courseCode" class="form-label"
+                      >Course Code</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="courseCode"
+                      placeholder="e.g., CS101"
+                      required
+                    />
+                  </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-purple" id="saveTimetableEntry">
-                        <i class="fas fa-save me-1"></i> Save Class
-                    </button>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="day" class="form-label">Day</label>
+                    <select class="form-select" id="day" required>
+                      <option value="">Select Day</option>
+                      <option value="monday">Monday</option>
+                      <option value="tuesday">Tuesday</option>
+                      <option value="wednesday">Wednesday</option>
+                      <option value="thursday">Thursday</option>
+                      <option value="friday">Friday</option>
+                      <option value="saturday">Saturday</option>
+                      <option value="sunday">Sunday</option>
+                    </select>
+                  </div>
                 </div>
-            </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="room" class="form-label">Room</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="room"
+                      placeholder="e.g., Room 101"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="startTime" class="form-label">Start Time</label>
+                    <input
+                      type="time"
+                      class="form-control"
+                      id="startTime"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="endTime" class="form-label">End Time</label>
+                    <input
+                      type="time"
+                      class="form-control"
+                      id="endTime"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="classType" class="form-label">Class Type</label>
+                <select class="form-select" id="classType">
+                  <option value="lecture">Lecture</option>
+                  <option value="tutorial">Tutorial</option>
+                  <option value="lab">Lab</option>
+                  <option value="seminar">Seminar</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="notes" class="form-label">Notes (Optional)</label>
+                <textarea
+                  class="form-control"
+                  id="notes"
+                  rows="3"
+                  placeholder="Additional notes or requirements"
+                ></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-purple"
+              id="saveTimetableEntry"
+            >
+              <i class="fas fa-save me-1"></i> Save Class
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Settings Modal -->
     <div class="modal fade" id="settingsModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><i class="fas fa-cog me-2"></i>Timetable Settings</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="fas fa-cog me-2"></i>Timetable Settings
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Working Hours</label>
+              <div class="row">
+                <div class="col-6">
+                  <input
+                    type="time"
+                    class="form-control"
+                    id="workStart"
+                    value="08:00"
+                  />
                 </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">Working Hours</label>
-                        <div class="row">
-                            <div class="col-6">
-                                <input type="time" class="form-control" id="workStart" value="08:00">
-                            </div>
-                            <div class="col-6">
-                                <input type="time" class="form-control" id="workEnd" value="18:00">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Time Slot Duration</label>
-                        <select class="form-select" id="timeSlotDuration">
-                            <option value="30">30 minutes</option>
-                            <option value="60" selected>1 hour</option>
-                            <option value="90">1.5 hours</option>
-                        </select>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="showWeekends" checked>
-                        <label class="form-check-label" for="showWeekends">
-                            Show weekends
-                        </label>
-                    </div>
+                <div class="col-6">
+                  <input
+                    type="time"
+                    class="form-control"
+                    id="workEnd"
+                    value="18:00"
+                  />
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-purple" id="saveSettings">Save Settings</button>
-                </div>
+              </div>
             </div>
+            <div class="mb-3">
+              <label class="form-label">Time Slot Duration</label>
+              <select class="form-select" id="timeSlotDuration">
+                <option value="30">30 minutes</option>
+                <option value="60" selected>1 hour</option>
+                <option value="90">1.5 hours</option>
+              </select>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="showWeekends"
+                checked
+              />
+              <label class="form-check-label" for="showWeekends">
+                Show weekends
+              </label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-purple" id="saveSettings">
+              Save Settings
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Toast Container -->
     <div class="toast-container position-fixed top-0 end-0 p-3"></div>
     <footer id="main-footer" class="footer" role="contentinfo">
-        <!-- Main Footer Content Container -->
-        <div class="footer-container">
-            <!-- University Logo and Description Section -->
-            <div class="footer-section logo-section">
-                <div class="logo">
-                    <i class="fas fa-university"></i>
-                    <h3>University App</h3>
-                </div>
-                <p class="description">
-                    Empowering education through innovative technology. Connect, learn, and grow with our comprehensive
-                    university platform.
-                </p>
-            </div>
-
-            <!-- Quick Links Section -->
-            <div class="footer-section links-section">
-                <h4>Quick Links</h4>
-                <ul class="footer-links">
-                    <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="../student/student-dashboard.html"><i class="fas fa-book"></i> Courses</a></li>
-                    <li><a href="../components/lecture/announcement.html"><i class="fas fa-bullhorn"></i>
-                            Announcements</a></li>
-                    <li><a href="../community/communities.html"><i class="fas fa-users"></i> Community</a></li>
-                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-                </ul>
-            </div>
-
-            <!-- Useful Resources Section -->
-            <div class="footer-section resources-section">
-                <h4>Useful Resources</h4>
-                <ul class="footer-links">
-                    <li><a href="#help"><i class="fas fa-question-circle"></i> Help Center</a></li>
-                    <li><a href="#terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
-                    <li><a href="#privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
-                    <li><a href="#faq"><i class="fas fa-info-circle"></i> FAQ</a></li>
-                </ul>
-            </div>
-
-            <!-- Newsletter Subscription Section -->
-            <div class="footer-section newsletter-section">
-                <h4>Stay Updated</h4>
-                <p>Subscribe to our newsletter for the latest updates and announcements.</p>
-                <form id="newsletter-form" class="newsletter-form" novalidate>
-                    <div class="input-group">
-                        <input type="email" id="newsletter-email" placeholder="Enter your email"
-                            aria-label="Email address for newsletter" required>
-                        <button type="submit" class="subscribe-btn" aria-label="Subscribe to newsletter">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
+      <!-- Main Footer Content Container -->
+      <div class="footer-container">
+        <!-- University Logo and Description Section -->
+        <div class="footer-section logo-section">
+          <div class="logo">
+            <i class="fas fa-university"></i>
+            <h3>University App</h3>
+          </div>
+          <p class="description">
+            Empowering education through innovative technology. Connect, learn,
+            and grow with our comprehensive university platform.
+          </p>
         </div>
 
-        <!-- Social Media and Copyright Section -->
-        <div class="footer-bottom">
-            <!-- Social Media Icons -->
-            <div class="social-media">
-                <a href="#" class="social-link" aria-label="Follow us on Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" class="social-link" aria-label="Follow us on Twitter">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="social-link" aria-label="Follow us on LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="#" class="social-link" aria-label="Follow us on Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-link" aria-label="Follow us on YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
-            </div>
-
-            <!-- Copyright -->
-            <div class="copyright">
-                <p>&copy; <span id="current-year"></span> University App. All rights reserved.</p>
-            </div>
+        <!-- Quick Links Section -->
+        <div class="footer-section links-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li>
+              <a href="../student/student-dashboard.html"
+                ><i class="fas fa-book"></i> Courses</a
+              >
+            </li>
+            <li>
+              <a href="../components/lecture/announcement.html"
+                ><i class="fas fa-bullhorn"></i> Announcements</a
+              >
+            </li>
+            <li>
+              <a href="../community/communities.html"
+                ><i class="fas fa-users"></i> Community</a
+              >
+            </li>
+            <li>
+              <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </li>
+          </ul>
         </div>
 
-        <!-- Back to Top Button -->
-        <button id="back-to-top" class="back-to-top" aria-label="Back to top">
-            <i class="fas fa-arrow-up"></i>
-        </button>
+        <!-- Useful Resources Section -->
+        <div class="footer-section resources-section">
+          <h4>Useful Resources</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="#help"
+                ><i class="fas fa-question-circle"></i> Help Center</a
+              >
+            </li>
+            <li>
+              <a href="#terms"
+                ><i class="fas fa-file-contract"></i> Terms of Service</a
+              >
+            </li>
+            <li>
+              <a href="#privacy"
+                ><i class="fas fa-shield-alt"></i> Privacy Policy</a
+              >
+            </li>
+            <li>
+              <a href="#faq"><i class="fas fa-info-circle"></i> FAQ</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Newsletter Subscription Section -->
+        <div class="footer-section newsletter-section">
+          <h4>Stay Updated</h4>
+          <p>
+            Subscribe to our newsletter for the latest updates and
+            announcements.
+          </p>
+          <form id="newsletter-form" class="newsletter-form" novalidate>
+            <div class="input-group">
+              <input
+                type="email"
+                id="newsletter-email"
+                placeholder="Enter your email"
+                aria-label="Email address for newsletter"
+                required
+              />
+              <button
+                type="submit"
+                class="subscribe-btn"
+                aria-label="Subscribe to newsletter"
+              >
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Social Media and Copyright Section -->
+      <div class="footer-bottom">
+        <!-- Social Media Icons -->
+        <div class="social-media">
+          <a href="#" class="social-link" aria-label="Follow us on Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Follow us on Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Follow us on LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Follow us on Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Follow us on YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+          <p>
+            &copy; <span id="current-year"></span> University App. All rights
+            reserved.
+          </p>
+        </div>
+      </div>
+
+      <!-- Back to Top Button -->
+      <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+      </button>
     </footer>
 
     <script src="../assets/js/footer.js"></script>
@@ -512,6 +767,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../assets/js/lecture/timetable.js"></script>
     <script src="../../assets/js/lecture/lecture-dashboard.js"></script>
-</body>
-
+  </body>
 </html>

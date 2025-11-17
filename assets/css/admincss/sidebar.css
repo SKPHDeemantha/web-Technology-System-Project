@@ -19,7 +19,8 @@
   #sidebar {
     width: 250px;
     left: -250px;
-    z-index: 1040; /* Above header */
+    z-index: 1040;
+    /* Above header */
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   }
 

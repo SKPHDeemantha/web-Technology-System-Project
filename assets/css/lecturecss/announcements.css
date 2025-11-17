@@ -1,124 +1,134 @@
 /* Announcements Specific Styles */
 .announcement-item {
-    border-left: 4px solid var(--primary-purple);
-    transition: all 0.3s ease;
+  border-left: 4px solid var(--primary-purple);
+  transition: all 0.3s ease;
 }
 
 .announcement-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
 }
 
 .announcement-item.scheduled {
-    border-left-color: var(--warning);
+  border-left-color: var(--warning);
 }
 
 .announcement-item .card-title {
-    color: var(--text-dark);
-    font-weight: 600;
+  color: var(--text-dark);
+  font-weight: 600;
 }
 
 .announcement-meta {
-    color: var(--text-light);
+  color: var(--text-light);
 }
 
 .announcement-actions .btn {
-    border-radius: 8px;
-    padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  padding: 0.25rem 0.5rem;
 }
 
 /* Priority badge colors */
 .bg-purple {
-    background-color: var(--primary-purple) !important;
+  background-color: var(--primary-purple) !important;
 }
 
 /* Activity timeline */
 .activity-timeline {
-    max-height: 300px;
-    overflow-y: auto;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .activity-item {
-    padding: 0.5rem;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
 .activity-item:hover {
-    background-color: var(--light-purple);
+  background-color: var(--light-purple);
 }
 
 .activity-icon {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(168, 85, 247, 0.1);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(168, 85, 247, 0.1);
 }
 
 /* Modal enhancements */
 .modal-content {
-    border: none;
-    border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .modal-header {
-    border-bottom: 1px solid var(--border-light);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+  border-bottom: 1px solid var(--border-light);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.9)
+  );
 }
 
 .modal-body {
-    background: var(--bg-light);
+  background: var(--bg-light);
 }
 
 [data-theme="dark"] .modal-header {
-    background: linear-gradient(135deg, rgba(31, 41, 55, 0.95), rgba(17, 24, 39, 0.9));
-    border-bottom-color: var(--border-light);
+  background: linear-gradient(
+    135deg,
+    rgba(31, 41, 55, 0.95),
+    rgba(17, 24, 39, 0.9)
+  );
+  border-bottom-color: var(--border-light);
 }
 
 [data-theme="dark"] .modal-body {
-    background: var(--bg-main);
+  background: var(--bg-main);
 }
 
 /* Filter buttons */
 .btn-group .btn {
-    border-radius: 8px;
-    margin: 0 2px;
+  border-radius: 8px;
+  margin: 0 2px;
 }
 
 .btn-group .btn.active {
-    background-color: var(--primary-purple);
-    border-color: var(--primary-purple);
-    color: white;
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+  color: white;
 }
 
 /* Analytics chart */
 .analytics-chart .bg-purple {
-    background-color: var(--primary-purple) !important;
-    transition: all 0.3s ease;
+  background-color: var(--primary-purple) !important;
+  transition: all 0.3s ease;
 }
 
 .analytics-chart .bg-purple:hover {
-    opacity: 0.8;
-    transform: scaleY(1.1);
+  opacity: 0.8;
+  transform: scaleY(1.1);
 }
 
 /* Form controls */
-.form-control, .form-select {
-    border-radius: 8px;
-    border: 1px solid var(--border-light);
-    transition: all 0.3s ease;
+.form-control,
+.form-select {
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
 }
 
-.form-control:focus, .form-select:focus {
-    border-color: var(--primary-purple);
-    box-shadow: 0 0 0 0.2rem rgba(168, 85, 247, 0.25);
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 0.2rem rgba(168, 85, 247, 0.25);
 }
 
 .form-check-input:checked {
-    background-color: var(--primary-purple);
-    border-color: var(--primary-purple);
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
 }

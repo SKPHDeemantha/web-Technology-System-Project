@@ -1,5 +1,5 @@
 // Component Loader for Admin Panel
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   loadComponents();
 });
 
@@ -96,7 +96,7 @@ async function setInitialActiveSection(sectionId) {
   try {
     // Load section content first
     await loadSectionContent(sectionId);
-    
+
     // Update navigation
     const navLinks = document.querySelectorAll('#sidebar .nav-link');
     const sections = document.querySelectorAll('.dashboard-section');
@@ -132,7 +132,7 @@ async function setInitialActiveSection(sectionId) {
 async function loadSectionContent(sectionName) {
   const contentId = `${sectionName}-content`;
   const contentElement = document.getElementById(contentId);
-  
+
   if (!contentElement) {
     console.error(`Content element with id ${contentId} not found`);
     return;
@@ -161,7 +161,7 @@ function initializeNavigation() {
   const sections = document.querySelectorAll('.dashboard-section');
 
   navLinks.forEach(link => {
-    link.addEventListener('click', async function(e) {
+    link.addEventListener('click', async function (e) {
       e.preventDefault();
       const sectionId = this.getAttribute('data-section');
 
@@ -199,7 +199,7 @@ function initializeNavigation() {
   });
 
   // Handle hash changes
-  window.addEventListener('hashchange', function() {
+  window.addEventListener('hashchange', function () {
     const sectionId = getActiveSectionFromHash();
     const link = document.querySelector(`#sidebar .nav-link[data-section="${sectionId}"]`);
     if (link) {
@@ -211,7 +211,7 @@ function initializeNavigation() {
 function initializeSection(sectionId) {
   // Small delay to ensure DOM is fully rendered
   setTimeout(() => {
-    switch(sectionId) {
+    switch (sectionId) {
       case 'dashboard':
         initDashboard();
         break;
@@ -243,12 +243,12 @@ function initializeSidebarToggle() {
   const sidebar = document.getElementById('sidebar');
 
   if (sidebarToggle && sidebar) {
-    sidebarToggle.addEventListener('click', function() {
+    sidebarToggle.addEventListener('click', function () {
       sidebar.classList.toggle('sidebar-open');
     });
 
     // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
       if (window.innerWidth <= 768 && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
         sidebar.classList.remove('sidebar-open');
       }

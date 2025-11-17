@@ -44,7 +44,7 @@ function renderCommunitiesTable() {
 }
 
 // Global function for delete operations
-window.deleteCommunity = function(id) {
+window.deleteCommunity = function (id) {
   if (confirm('Are you sure you want to delete this community?')) {
     const communities = JSON.parse(localStorage.getItem('adminCommunities')) || [];
     const updatedCommunities = communities.filter(community => community.id !== id);

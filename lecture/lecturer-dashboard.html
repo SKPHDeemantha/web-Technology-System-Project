@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link href="../assets/css/lecturecss/lecturer-dashboard.css" rel="stylesheet">
+    <link href="../assets/css/footer.css" rel="stylesheet">
 </head>
 <body data-theme="light">
     <!-- Header -->
@@ -54,8 +55,6 @@
                                 <i class="fas fa-user-circle fa-lg"></i>
                             </div>
                             <div class="user-info text-start d-none d-sm-block">
-                                <div class="fw-bold small">Dr. Sarah Johnson</div>
-                                <div class="text-white-50 small">s.johnson@university.edu</div>
                             </div>
                             <i class="fas fa-chevron-down ms-2 small"></i>
                         </button>
@@ -96,17 +95,17 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-section="timetable">
+                            <a class="nav-link" href="../components/lecture/timetable.html" >
                                 <i class="fas fa-calendar-alt me-2"></i> Timetable
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-section="materials">
+                            <a class="nav-link" href="../components/lecture/CourseMaterials.html">
                                 <i class="fas fa-book me-2"></i> Course Materials
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-section="assignments">
+                            <a class="nav-link" href="../components/lecture/Assignments.html">
                                 <i class="fas fa-tasks me-2"></i> Assignments
                             </a>
                         </li>
@@ -121,18 +120,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-section="communities">
+                            <a class="nav-link" href="../community/communities.html" >
                                 <i class="fas fa-users me-2"></i> Communities
                             </a>
                         </li>
                     </ul>
-                    
-                    <!-- Dark Mode Toggle in Sidebar -->
-                    <div class="dark-mode-toggle-sidebar mt-auto p-3">
-                        <button class="btn btn-outline-purple w-100" id="darkModeToggleSidebar">
-                            <i class="fas fa-moon me-2"></i> Toggle Dark Mode
-                        </button>
-                    </div>
                 </div>
             </nav>
 
@@ -254,10 +246,10 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="d-grid gap-2">
-                                        <button class="btn btn-purple mb-2 action-btn" data-action="announcement">
+                                        <button class="btn btn-purple mb-2 action-btn" data-bs-toggle="modal" data-bs-target="#createAnnouncementModal">
                                             <i class="fas fa-bullhorn me-2"></i> New Announcement
                                         </button>
-                                        <button class="btn btn-outline-purple mb-2 action-btn" data-action="assignment">
+                                        <button class="btn btn-outline-purple mb-2 action-btn" data-bs-toggle="modal" data-bs-target="#createAssignmentModal">
                                             <i class="fas fa-tasks me-2"></i> Create Assignment
                                         </button>
                                         <button class="btn btn-outline-purple mb-2 action-btn" data-action="material">
@@ -344,28 +336,586 @@
                         </div>
                     </div>
                 </div>
-
+<!-- Create Announcement Modal -->
+    <div class="modal fade" id="createAnnouncementModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-bullhorn me-2"></i>Create New Announcement</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="announcementForm">
+                        <div class="mb-3">
+                            <label for="announcementTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="announcementTitle" placeholder="Enter announcement title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="announcementContent" class="form-label">Content</label>
+                            <textarea class="form-control" id="announcementContent" rows="5" placeholder="Enter announcement content" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="announcementCourse" class="form-label">Course</label>
+                                    <select class="form-select" id="announcementCourse" required>
+                                        <option value="">Select Course</option>
+                                        <option value="cs101">CS101 - Introduction to Programming</option>
+                                        <option value="ds202">DS202 - Data Structures</option>
+                                        <option value="ai301">AI301 - Artificial Intelligence</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="announcementPriority" class="form-label">Priority</label>
+                                    <select class="form-select" id="announcementPriority">
+                                        <option value="low">Low</option>
+                                        <option value="normal" selected>Normal</option>
+                                        <option value="high">High</option>
+                                        <option value="urgent">Urgent</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="scheduleAnnouncement">
+                            <label class="form-check-label" for="scheduleAnnouncement">Schedule for later</label>
+                        </div>
+                        <div class="row" id="scheduleFields" style="display: none;">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="scheduleDate" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="scheduleDate">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="scheduleTime" class="form-label">Time</label>
+                                    <input type="time" class="form-control" id="scheduleTime">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-purple" id="saveAnnouncement">
+                        <i class="fas fa-save me-1"></i> Publish Announcement
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Create Assignment Modal -->
+    <div class="modal fade" id="createAssignmentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-tasks me-2"></i>Create New Assignment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="assignmentForm">
+                        <div class="mb-3">
+                            <label for="assignmentTitle" class="form-label">Assignment Title</label>
+                            <input type="text" class="form-control" id="assignmentTitle" placeholder="Enter assignment title" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="assignmentDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="assignmentDescription" rows="4" placeholder="Provide detailed assignment instructions" required></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignmentCourse" class="form-label">Course</label>
+                                    <select class="form-select" id="assignmentCourse" required>
+                                        <option value="">Select Course</option>
+                                        <option value="cs101">CS101 - Introduction to Programming</option>
+                                        <option value="ds202">DS202 - Data Structures</option>
+                                        <option value="ai301">AI301 - Artificial Intelligence</option>
+                                        <option value="se401">SE401 - Software Engineering</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignmentType" class="form-label">Assignment Type</label>
+                                    <select class="form-select" id="assignmentType" required>
+                                        <option value="">Select Type</option>
+                                        <option value="homework">Homework</option>
+                                        <option value="project">Project</option>
+                                        <option value="quiz">Quiz</option>
+                                        <option value="research">Research Paper</option>
+                                        <option value="presentation">Presentation</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignmentPoints" class="form-label">Total Points</label>
+                                    <input type="number" class="form-control" id="assignmentPoints" placeholder="100" min="1" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignmentWeight" class="form-label">Weight in Course (%)</label>
+                                    <input type="number" class="form-control" id="assignmentWeight" placeholder="15" min="1" max="100" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignmentDueDate" class="form-label">Due Date</label>
+                                    <input type="datetime-local" class="form-control" id="assignmentDueDate" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="assignmentSubmissionType" class="form-label">Submission Type</label>
+                                    <select class="form-select" id="assignmentSubmissionType" required>
+                                        <option value="file">File Upload</option>
+                                        <option value="text">Text Entry</option>
+                                        <option value="both">Both File and Text</option>
+                                        <option value="url">URL Submission</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="assignmentFiles" class="form-label">Attached Files (Optional)</label>
+                            <input type="file" class="form-control" id="assignmentFiles" multiple>
+                            <div class="form-text">Upload assignment instructions, templates, or resources</div>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="allowLateSubmission">
+                            <label class="form-check-label" for="allowLateSubmission">Allow late submissions</label>
+                        </div>
+                        
+                        <div class="row" id="lateSubmissionFields" style="display: none;">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="lateSubmissionPenalty" class="form-label">Late Submission Penalty</label>
+                                    <input type="number" class="form-control" id="lateSubmissionPenalty" placeholder="10" min="0" max="100">
+                                    <div class="form-text">Percentage penalty per day</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="lateSubmissionDays" class="form-label">Days Allowed Late</label>
+                                    <input type="number" class="form-control" id="lateSubmissionDays" placeholder="3" min="1">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-purple" id="saveAssignment">
+                        <i class="fas fa-save me-1"></i> Create Assignment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
                 <!-- Other Sections (Hidden by default) -->
-                <div class="dashboard-section" id="announcements">
-                    <!-- Announcements content will go here -->
-                </div>
-                <div class="dashboard-section" id="timetable">
-                    <!-- Timetable content will go here -->
-                </div>
-                <div class="dashboard-section" id="materials">
-                    <!-- Materials content will go here -->
-                </div>
-                <div class="dashboard-section" id="assignments">
-                    <!-- Assignments content will go here -->
-                </div>
+
                 <div class="dashboard-section" id="students">
-                    <!-- Students content will go here -->
+                    <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3">
+                        <div>
+                            <h2>Students Management</h2>
+                            <p class="text-muted mb-0">Manage your students and their progress.</p>
+                        </div>
+                        <button class="btn btn-purple" id="addStudentBtn">
+                            <i class="fas fa-user-plus me-1"></i> Add Student
+                        </button>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="row mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Total Students</h5>
+                                            <span class="h2 font-weight-bold mb-0">245</span>
+                                        </div>
+                                        <div class="stat-icon">
+                                            <i class="fas fa-user-graduate"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-success">
+                                        <span class="me-2"><i class="fas fa-arrow-up"></i> 8.2%</span>
+                                        <span class="text-nowrap">Since last month</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Active Enrollments</h5>
+                                            <span class="h2 font-weight-bold mb-0">189</span>
+                                        </div>
+                                        <div class="stat-icon">
+                                            <i class="fas fa-graduation-cap"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-success">
+                                        <span class="me-2"><i class="fas fa-arrow-up"></i> 12.5%</span>
+                                        <span class="text-nowrap">This semester</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Average Grade</h5>
+                                            <span class="h2 font-weight-bold mb-0">B+</span>
+                                        </div>
+                                        <div class="stat-icon">
+                                            <i class="fas fa-chart-line"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-warning">
+                                        <span class="me-2"><i class="fas fa-minus"></i> 2.1%</span>
+                                        <span class="text-nowrap">From last semester</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h5 class="card-title text-uppercase text-muted mb-0">At Risk Students</h5>
+                                            <span class="h2 font-weight-bold mb-0">23</span>
+                                        </div>
+                                        <div class="stat-icon">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-danger">
+                                        <span class="me-2"><i class="fas fa-arrow-up"></i> 15.3%</span>
+                                        <span class="text-nowrap">Need attention</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student List -->
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0"><i class="fas fa-users me-2"></i>Student List</h5>
+                            <div class="d-flex">
+                                <input type="text" class="form-control me-2" placeholder="Search students..." id="studentSearch">
+                                <select class="form-select" id="courseFilter">
+                                    <option>All Courses</option>
+                                    <option>CS101 - Introduction to Programming</option>
+                                    <option>DS202 - Data Structures</option>
+                                    <option>AI301 - Artificial Intelligence</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>ID</th>
+                                            <th>Course</th>
+                                            <th>Grade</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="studentTableBody">
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="user-avatar me-2">
+                                                        <i class="fas fa-user-circle"></i>
+                                                    </div>
+                                                    <div>
+                                                        <div class="fw-bold">John Smith</div>
+                                                        <small class="text-muted">john.smith@email.com</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>STU001</td>
+                                            <td>CS101</td>
+                                            <td><span class="badge bg-success">A-</span></td>
+                                            <td><span class="badge bg-success">Active</span></td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-sm btn-outline-primary" title="View Profile">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-warning" title="Grade Student">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-info" title="Send Message">
+                                                        <i class="fas fa-envelope"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="user-avatar me-2">
+                                                        <i class="fas fa-user-circle"></i>
+                                                    </div>
+                                                    <div>
+                                                        <div class="fw-bold">Sarah Johnson</div>
+                                                        <small class="text-muted">sarah.j@email.com</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>STU002</td>
+                                            <td>DS202</td>
+                                            <td><span class="badge bg-warning">B+</span></td>
+                                            <td><span class="badge bg-success">Active</span></td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-sm btn-outline-primary" title="View Profile">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-warning" title="Grade Student">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-info" title="Send Message">
+                                                        <i class="fas fa-envelope"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="user-avatar me-2">
+                                                        <i class="fas fa-user-circle"></i>
+                                                    </div>
+                                                    <div>
+                                                        <div class="fw-bold">Mike Davis</div>
+                                                        <small class="text-muted">mike.davis@email.com</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>STU003</td>
+                                            <td>AI301</td>
+                                            <td><span class="badge bg-danger">C</span></td>
+                                            <td><span class="badge bg-warning">At Risk</span></td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-sm btn-outline-primary" title="View Profile">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-warning" title="Grade Student">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-info" title="Send Message">
+                                                        <i class="fas fa-envelope"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="dashboard-section" id="messaging">
-                    <!-- Messaging content will go here -->
+                    <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3">
+                        <div>
+                            <h2>Messaging Center</h2>
+                            <p class="text-muted mb-0">Communicate with your students and colleagues.</p>
+                        </div>
+                        <button class="btn btn-purple" id="composeMessageBtn" data-bs-toggle="modal" data-bs-target="#composeMessageModal">
+                            <i class="fas fa-edit me-1"></i> Compose Message
+                        </button>
+                    </div>
+
+                    <!-- Message Tabs -->
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="messageTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="inbox-tab" data-bs-toggle="tab" data-bs-target="#inbox" type="button" role="tab">Inbox (5)</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="sent-tab" data-bs-toggle="tab" data-bs-target="#sent" type="button" role="tab">Sent (12)</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content" id="messageTabContent">
+                                <div class="tab-pane fade show active" id="inbox" role="tabpanel">
+                                    <div class="message-list">
+                                        <div class="message-item d-flex align-items-center p-3 border rounded mb-3">
+                                            <div class="user-avatar me-3">
+                                                <i class="fas fa-user-circle fa-2x"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex justify-content-between align-items-start">
+                                                    <div>
+                                                        <h6 class="mb-1">John Smith</h6>
+                                                        <p class="mb-1 text-muted">Question about Assignment 3</p>
+                                                        <small class="text-muted">Hi Dr. Johnson, I have a question about the requirements for Assignment 3...</small>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <small class="text-muted">2 hours ago</small>
+                                                        <div class="mt-2">
+                                                            <span class="badge bg-primary me-1">Unread</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ms-3">
+                                                <button class="btn btn-sm btn-outline-primary me-1" title="Reply">
+                                                    <i class="fas fa-reply"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="message-item d-flex align-items-center p-3 border rounded mb-3">
+                                            <div class="user-avatar me-3">
+                                                <i class="fas fa-user-circle fa-2x"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex justify-content-between align-items-start">
+                                                    <div>
+                                                        <h6 class="mb-1">Sarah Johnson</h6>
+                                                        <p class="mb-1 text-muted">Extension Request</p>
+                                                        <small class="text-muted">Dear Professor, I'm experiencing some personal issues and would like to request...</small>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <small class="text-muted">1 day ago</small>
+                                                        <div class="mt-2">
+                                                            <span class="badge bg-primary me-1">Unread</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ms-3">
+                                                <button class="btn btn-sm btn-outline-primary me-1" title="Reply">
+                                                    <i class="fas fa-reply"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="message-item d-flex align-items-center p-3 border rounded mb-3">
+                                            <div class="user-avatar me-3">
+                                                <i class="fas fa-user-circle fa-2x"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex justify-content-between align-items-start">
+                                                    <div>
+                                                        <h6 class="mb-1">Mike Davis</h6>
+                                                        <p class="mb-1 text-muted">Grade Inquiry</p>
+                                                        <small class="text-muted">Professor, I was wondering about my grade on the midterm exam...</small>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <small class="text-muted">2 days ago</small>
+                                                        <div class="mt-2">
+                                                            <span class="badge bg-secondary">Read</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ms-3">
+                                                <button class="btn btn-sm btn-outline-primary me-1" title="Reply">
+                                                    <i class="fas fa-reply"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="sent" role="tabpanel">
+                                    <div class="message-list">
+                                        <div class="message-item d-flex align-items-center p-3 border rounded mb-3">
+                                            <div class="user-avatar me-3">
+                                                <i class="fas fa-user-circle fa-2x"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex justify-content-between align-items-start">
+                                                    <div>
+                                                        <h6 class="mb-1">To: CS101 Class</h6>
+                                                        <p class="mb-1 text-muted">Assignment 3 Posted</p>
+                                                        <small class="text-muted">I've posted Assignment 3 on the course materials page. Please review...</small>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <small class="text-muted">3 days ago</small>
+                                                        <div class="mt-2">
+                                                            <span class="badge bg-success">Sent</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ms-3">
+                                                <button class="btn btn-sm btn-outline-info" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="message-item d-flex align-items-center p-3 border rounded mb-3">
+                                            <div class="user-avatar me-3">
+                                                <i class="fas fa-user-circle fa-2x"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex justify-content-between align-items-start">
+                                                    <div>
+                                                        <h6 class="mb-1">To: Sarah Johnson</h6>
+                                                        <p class="mb-1 text-muted">Extension Approved</p>
+                                                        <small class="text-muted">Hi Sarah, I've approved your extension request for Assignment 2...</small>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <small class="text-muted">1 week ago</small>
+                                                        <div class="mt-2">
+                                                            <span class="badge bg-success">Sent</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ms-3">
+                                                <button class="btn btn-sm btn-outline-info" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="dashboard-section" id="communities">
-                    <!-- Communities content will go here -->
+
                 </div>
             </main>
         </div>
@@ -376,5 +926,93 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/lecture/lecture-dashboard.js"></script>
+
+    <!-- Include Footer -->
+<footer id="main-footer" class="footer" role="contentinfo">
+    <!-- Main Footer Content Container -->
+    <div class="footer-container">
+        <!-- University Logo and Description Section -->
+        <div class="footer-section logo-section">
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                <h3>University App</h3>
+            </div>
+            <p class="description">
+                Empowering education through innovative technology. Connect, learn, and grow with our comprehensive university platform.
+            </p>
+        </div>
+
+        <!-- Quick Links Section -->
+        <div class="footer-section links-section">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+                <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="../student/student-dashboard.html"><i class="fas fa-book"></i> Courses</a></li>
+                <li><a href="../components/lecture/announcement.html"><i class="fas fa-bullhorn"></i> Announcements</a></li>
+                <li><a href="../community/communities.html"><i class="fas fa-users"></i> Community</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Useful Resources Section -->
+        <div class="footer-section resources-section">
+            <h4>Useful Resources</h4>
+            <ul class="footer-links">
+                <li><a href="#help"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                <li><a href="#terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                <li><a href="#privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                <li><a href="#faq"><i class="fas fa-info-circle"></i> FAQ</a></li>
+            </ul>
+        </div>
+
+        <!-- Newsletter Subscription Section -->
+        <div class="footer-section newsletter-section">
+            <h4>Stay Updated</h4>
+            <p>Subscribe to our newsletter for the latest updates and announcements.</p>
+            <form id="newsletter-form" class="newsletter-form" novalidate>
+                <div class="input-group">
+                    <input type="email" id="newsletter-email" placeholder="Enter your email" aria-label="Email address for newsletter" required>
+                    <button type="submit" class="subscribe-btn" aria-label="Subscribe to newsletter">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Social Media and Copyright Section -->
+    <div class="footer-bottom">
+        <!-- Social Media Icons -->
+        <div class="social-media">
+            <a href="#" class="social-link" aria-label="Follow us on Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="Follow us on Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="Follow us on LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="Follow us on Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="Follow us on YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+            <p>&copy; <span id="current-year"></span> University App. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</footer>
+
+    <script src="../assets/js/footer.js"></script>
 </body>
 </html>

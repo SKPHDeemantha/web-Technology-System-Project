@@ -1,4 +1,45 @@
-// Navigation functionality
+// Dark/Light mode toggle with dynamic icons
+const themeToggle = document.getElementById('themeToggle');
+const currentTheme = localStorage.getItem('theme') || 'dark';
+
+// Set initial theme AND icon
+document.documentElement.setAttribute('data-theme', currentTheme);
+updateThemeIcon(currentTheme); // This sets the correct icon on page load
+
+themeToggle.addEventListener('click', function() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme); // This updates the icon when clicked
+});
+
+// Function to update theme toggle icon - COMBINED VERSION
+function updateThemeIcon(theme) {
+    const themeToggle = document.getElementById('themeToggle');
+    if (theme === 'dark') {
+        // Elegant sun with perfect proportions (for dark mode - click to switch to light)
+        themeToggle.innerHTML = `
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                <g stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round">
+                    <path d="M12 3v2m0 14v2M21 12h-2M5 12H3m14.14-5.14l-1.42 1.42M7.86 16.14l-1.42 1.42m10.7 0l-1.42-1.42M7.86 7.86l-1.42-1.42"/>
+                </g>
+            </svg>
+        `;
+    } else {
+        // Beautiful crescent moon (for light mode - click to switch to dark)
+        themeToggle.innerHTML = `
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.21 16.21A9 9 0 0 1 7.79 3.79 7 7 0 0 0 20.21 16.21z" 
+                      fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
+            </svg>
+        `;
+    }
+}
+
+        // Navigation functionality
         function navigateTo(page) {
             // Hide all pages
             document.querySelectorAll('.page').forEach(p => {
@@ -31,6 +72,159 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.remove('active');
             this.classList.remove('active');
+        });
+
+        // Compose Modal functionality
+        const composeModal = document.getElementById('composeModal');
+        const composeBtn = document.getElementById('composeBtn');
+        const closeComposeModal = document.getElementById('closeComposeModal');
+        const composeForm = document.getElementById('composeForm');
+        const sendMessageBtn = document.getElementById('sendMessage');
+        const saveDraftBtn = document.getElementById('saveDraft');
+        const attachFileBtn = document.getElementById('attachFile');
+        const recipientInput = document.getElementById('recipientInput');
+        const recipientTags = document.getElementById('recipientTags');
+        const messageSubject = document.getElementById('messageSubject');
+        const messageBody = document.getElementById('messageBody');
+
+        let recipients = [];
+
+        // Open compose modal
+        composeBtn.addEventListener('click', function() {
+            composeModal.classList.add('active');
+            recipientInput.focus();
+        });
+
+        // Close compose modal
+        function closeCompose() {
+            composeModal.classList.remove('active');
+            // Clear form
+            composeForm.reset();
+            recipients = [];
+            updateRecipientTags();
+        }
+
+        closeComposeModal.addEventListener('click', closeCompose);
+
+        // Close modal when clicking outside
+        composeModal.addEventListener('click', function(e) {
+            if (e.target === composeModal) {
+                closeCompose();
+            }
+        });
+
+        // Add recipient
+        recipientInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ',') {
+                e.preventDefault();
+                const email = this.value.trim();
+                if (email && isValidEmail(email)) {
+                    if (!recipients.includes(email)) {
+                        recipients.push(email);
+                        updateRecipientTags();
+                    }
+                    this.value = '';
+                }
+            }
+        });
+
+        // Remove recipient
+        function removeRecipient(email) {
+            recipients = recipients.filter(recipient => recipient !== email);
+            updateRecipientTags();
+        }
+
+        // Update recipient tags display
+        function updateRecipientTags() {
+            recipientTags.innerHTML = '';
+            recipients.forEach(email => {
+                const tag = document.createElement('div');
+                tag.className = 'recipient-tag';
+                tag.innerHTML = `
+                    ${email}
+                    <button type="button" class="remove-recipient" onclick="removeRecipient('${email}')">&times;</button>
+                `;
+                recipientTags.appendChild(tag);
+            });
+            recipientTags.style.display = recipients.length > 0 ? 'flex' : 'none';
+        }
+
+        // Email validation
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Send message
+        sendMessageBtn.addEventListener('click', function() {
+            const subject = messageSubject.value.trim();
+            const body = messageBody.value.trim();
+
+            if (recipients.length === 0) {
+                alert('Please add at least one recipient');
+                return;
+            }
+
+            if (!subject) {
+                alert('Please enter a subject');
+                return;
+            }
+
+            if (!body) {
+                alert('Please enter a message');
+                return;
+            }
+
+            // Simulate sending message
+            const messageData = {
+                recipients: recipients,
+                subject: subject,
+                body: body,
+                priority: document.getElementById('messagePriority').value,
+                timestamp: new Date().toISOString()
+            };
+
+            console.log('Sending message:', messageData);
+            alert(`Message sent to ${recipients.length} recipient(s)!`);
+            closeCompose();
+        });
+
+        // Save draft
+        saveDraftBtn.addEventListener('click', function() {
+            const subject = messageSubject.value.trim();
+            const body = messageBody.value.trim();
+
+            if (!subject && !body && recipients.length === 0) {
+                alert('No content to save');
+                return;
+            }
+
+            // Simulate saving draft
+            const draftData = {
+                recipients: recipients,
+                subject: subject,
+                body: body,
+                priority: document.getElementById('messagePriority').value,
+                savedAt: new Date().toISOString()
+            };
+
+            console.log('Saving draft:', draftData);
+            alert('Draft saved successfully!');
+        });
+
+        // Attach file
+        attachFileBtn.addEventListener('click', function() {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.multiple = true;
+            fileInput.onchange = function(e) {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    alert(`Attached ${files.length} file(s)`);
+                    // Here you would typically handle file upload
+                }
+            };
+            fileInput.click();
         });
 
         // Message functionality
@@ -84,4 +278,19 @@
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             // Messages page is active by default
+        });
+
+        // Get current page name from URL
+        const currentPage = window.location.pathname.split("/").pop();
+
+        // Get all sidebar links
+        const menuItems = document.querySelectorAll(".sidebar a");
+
+        // Loop through and highlight the current page link
+        menuItems.forEach(item => {
+            if (item.getAttribute("href").includes(currentPage)) {
+                item.classList.add("active");
+            } else {
+                item.classList.remove("active");
+            }
         });

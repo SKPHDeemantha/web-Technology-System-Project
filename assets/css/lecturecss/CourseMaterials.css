@@ -1,0 +1,153 @@
+/* Course Materials Specific Styles */
+.materials-grid {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.material-item {
+    border-left: 4px solid var(--primary-purple);
+    transition: all 0.3s ease;
+}
+
+.material-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+}
+
+.material-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(168, 85, 247, 0.1);
+}
+
+.material-meta {
+    font-size: 0.875rem;
+}
+
+/* Upload Area Styles */
+.upload-area {
+    border: 2px dashed var(--border-light);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-purple);
+    background: rgba(168, 85, 247, 0.05);
+}
+
+.upload-area-dragover {
+    border-color: var(--primary-purple);
+    background: rgba(168, 85, 247, 0.1);
+}
+
+.file-item {
+    background: var(--bg-light);
+    border-radius: 8px;
+}
+
+.file-name {
+    font-weight: 500;
+}
+
+/* Storage Chart Styles */
+.storage-visualization .progress {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.storage-visualization .progress-bar {
+    transition: all 0.3s ease;
+}
+
+.storage-visualization .progress-bar:hover {
+    opacity: 0.8;
+}
+
+.color-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.storage-item {
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.storage-item:hover {
+    background-color: var(--light-purple);
+}
+
+/* Filter and Search */
+.filter-option.active {
+    background-color: var(--primary-purple);
+    color: white;
+}
+
+.input-group .form-control:focus {
+    border-color: var(--primary-purple);
+    box-shadow: none;
+}
+
+/* Material Type Badges */
+.badge.bg-secondary {
+    background-color: var(--text-light) !important;
+}
+
+.badge.bg-light {
+    background-color: var(--light-purple) !important;
+    color: var(--text-dark) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .material-item .d-flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .material-icon {
+        margin-bottom: 1rem;
+    }
+    
+    .card-header .d-flex {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .input-group {
+        width: 100% !important;
+    }
+}
+
+/* File Type Colors */
+.text-purple {
+    color: var(--primary-purple) !important;
+}
+
+.bg-purple {
+    background-color: var(--primary-purple) !important;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .upload-area {
+    border-color: var(--border-light);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .file-item {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .badge.bg-light {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-dark) !important;
+}

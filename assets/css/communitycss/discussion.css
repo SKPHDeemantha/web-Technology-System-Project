@@ -29,8 +29,12 @@
 }
 
 body {
-  background: linear-gradient(135deg, var(--bg-light), rgba(248, 250, 252, 0.95));
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(
+    135deg,
+    var(--bg-light),
+    rgba(248, 250, 252, 0.95)
+  );
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-dark);
   overflow-x: hidden;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -39,16 +43,27 @@ body {
 }
 
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background:
-    radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(168, 85, 247, 0.02) 0%, transparent 50%);
+  background: radial-gradient(
+      circle at 20% 80%,
+      rgba(168, 85, 247, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(168, 85, 247, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 40%,
+      rgba(168, 85, 247, 0.02) 0%,
+      transparent 50%
+    );
   pointer-events: none;
   z-index: -1;
   transition: opacity 0.5s ease;
@@ -68,17 +83,31 @@ body::before {
 background-color: #788495;
 } */
 
-
 [data-theme="dark"] body::before {
-  background:
-    radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
+  background: radial-gradient(
+      circle at 20% 80%,
+      rgba(168, 85, 247, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(168, 85, 247, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 40%,
+      rgba(168, 85, 247, 0.06) 0%,
+      transparent 50%
+    );
 }
 
 /* ---------- HEADER ---------- */
 .dashboard-header {
-  background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+  background: linear-gradient(
+    135deg,
+    var(--primary-purple),
+    var(--dark-purple)
+  );
   color: white;
   padding: 1rem 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -209,7 +238,11 @@ background-color: #788495;
 }
 
 #sidebar .nav-link.active {
-  background: linear-gradient(135deg, var(--primary-purple), var(--accent-purple));
+  background: linear-gradient(
+    135deg,
+    var(--primary-purple),
+    var(--accent-purple)
+  );
   color: white;
   box-shadow: 0 4px 8px rgba(106, 17, 203, 0.3);
 }
@@ -257,7 +290,7 @@ main {
 }
 
 [data-theme="dark"] .table :hover {
- box-shadow: 0 4px 15px #5a32a3;
+  box-shadow: 0 4px 15px #5a32a3;
 }
 
 .card:hover {
@@ -292,7 +325,11 @@ main {
 }
 
 .table thead th {
-  background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+  background: linear-gradient(
+    135deg,
+    var(--primary-purple),
+    var(--secondary-purple)
+  );
   color: white;
   border: none;
   font-weight: 600;
@@ -306,7 +343,11 @@ main {
 }
 
 .table-hover tbody tr:hover {
-  background: linear-gradient(90deg, var(--light-purple), rgba(168, 85, 247, 0.1));
+  background: linear-gradient(
+    90deg,
+    var(--light-purple),
+    rgba(168, 85, 247, 0.1)
+  );
   transform: scale(1.02);
   box-shadow: 0 4px 10px rgba(106, 17, 203, 0.2);
 }
@@ -333,13 +374,17 @@ main {
 }
 
 .stat-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
   width: 100px;
   height: 100px;
-  background: linear-gradient(135deg, var(--light-purple), rgba(168, 85, 247, 0.1));
+  background: linear-gradient(
+    135deg,
+    var(--light-purple),
+    rgba(168, 85, 247, 0.1)
+  );
   border-radius: 50%;
   transform: translate(50px, -50px);
   opacity: 0.6;
@@ -377,7 +422,11 @@ main {
   width: 60px;
   height: 60px;
   border-radius: 12px;
-  background: linear-gradient(135deg, var(--primary-purple), var(--accent-purple));
+  background: linear-gradient(
+    135deg,
+    var(--primary-purple),
+    var(--accent-purple)
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -418,51 +467,49 @@ main {
   color: var(--text-dark);
 }
 .discussion-thread {
-    border-left: 3px solid var(--primary-purple);
-    padding-left: 15px;
-    margin-bottom: 20px;
+  border-left: 3px solid var(--primary-purple);
+  padding-left: 15px;
+  margin-bottom: 20px;
 }
 
-
-
 .comment-box {
-    background: var(--bg-light);
-    border-radius: 8px;
-    padding: 15px;
-    margin-top: 10px;
+  background: var(--bg-light);
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 10px;
 }
 
 .tag {
-    display: inline-block;
-    background: var(--primary-purple);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 20px;
-    font-size: 12px;
-    margin-right: 5px;
+  display: inline-block;
+  background: var(--primary-purple);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-right: 5px;
 }
 
 .activity-list .activity-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .activity-list .activity-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .activity-list .activity-item i {
-    margin-right: 10px;
-    width: 20px;
-    text-align: center;
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
 }
 
 .tag-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 /* ---------- DISCUSSION CARDS ---------- */
@@ -717,3 +764,97 @@ main {
   color: var(--text-dark);
 }
 
+[data-theme="dark"] #viewDiscussionModal .modal-content {
+  background-color: var(--bg-light);
+  border-color: var(--border-light);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .modal-header {
+  background-color: var(--light-purple);
+  border-bottom-color: var(--border-light);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .modal-title {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+[data-theme="dark"] #viewDiscussionModal .modal-body {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal hr {
+  border-color: var(--border-light);
+  opacity: 0.7;
+}
+
+[data-theme="dark"] #viewDiscussionModal h6 {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .form-label {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .form-control {
+  background-color: var(--light-purple);
+  border-color: var(--border-light);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionModal .form-control:focus {
+  background-color: var(--light-purple);
+  border-color: var(--primary-purple);
+  color: var(--text-dark);
+  box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.25);
+}
+
+[data-theme="dark"] #viewDiscussionModal .btn-purple {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+  color: white;
+}
+
+[data-theme="dark"] #viewDiscussionModal .btn-purple:hover {
+  background-color: var(--secondary-purple);
+  border-color: var(--secondary-purple);
+  color: white;
+}
+
+[data-theme="dark"] #repliesContainer {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #viewDiscussionContent {
+  color: var(--text-dark);
+}
+
+/* Optional: Style for individual reply items if they have a specific class */
+[data-theme="dark"] .reply-item {
+  background-color: var(--light-purple);
+  border: 1px solid var(--border-light);
+  border-radius: 0.375rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+[data-theme="dark"] .reply-author {
+  color: var(--accent-purple);
+  font-weight: bold;
+}
+
+[data-theme="dark"] .reply-date {
+  color: var(--text-light);
+  font-size: 0.875rem;
+}
+
+[data-theme="dark"] .reply-content {
+  color: var(--text-dark);
+  margin-top: 0.5rem;
+}

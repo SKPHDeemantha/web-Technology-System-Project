@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,14 +9,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link href="../../assets/css/lecturecss/announcements.css" rel="stylesheet">
     <link href="../../assets/css/lecturecss/lecturer-dashboard.css" rel="stylesheet">
+     <link href="../../assets/css/footer.css" rel="stylesheet">
 </head>
+
 <body data-theme="light">
     <!-- Header -->
     <header class="dashboard-header">
         <div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
-                    <button class="btn btn-link text-white me-3 d-md-none p-2" id="sidebarToggle" title="Toggle Sidebar">
+                    <button class="btn btn-link text-white me-3 d-md-none p-2" id="sidebarToggle"
+                        title="Toggle Sidebar">
                         <i class="fas fa-bars fa-lg"></i>
                     </button>
                     <div class="logo-section d-flex align-items-center me-4">
@@ -33,39 +37,48 @@
                         <i class="fas fa-moon fa-lg"></i>
                     </button>
                     <div class="dropdown me-3">
-                        <button class="btn btn-link text-white position-relative p-2" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" title="Notifications">
+                        <button class="btn btn-link text-white position-relative p-2" type="button"
+                            id="notificationsDropdown" data-bs-toggle="dropdown" title="Notifications">
                             <i class="fas fa-bell fa-lg"></i>
-                            <span class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle">5</span>
+                            <span
+                                class="badge bg-danger notification-badge position-absolute top-0 start-100 translate-middle">5</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow">
-                            <li><h6 class="dropdown-header fw-bold">Notifications</h6></li>
+                            <li>
+                                <h6 class="dropdown-header fw-bold">Notifications</h6>
+                            </li>
                             <li><a class="dropdown-item d-flex align-items-center" href="#">
-                                <i class="fas fa-bullhorn me-2 text-primary"></i>New announcement created</a></li>
+                                    <i class="fas fa-bullhorn me-2 text-primary"></i>New announcement created</a></li>
                             <li><a class="dropdown-item d-flex align-items-center" href="#">
-                                <i class="fas fa-comment me-2 text-warning"></i>Student replied to announcement</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                                    <i class="fas fa-comment me-2 text-warning"></i>Student replied to announcement</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item text-center fw-bold" href="#">View all notifications</a></li>
                         </ul>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-link text-white d-flex align-items-center p-2" type="button" id="profileDropdown" data-bs-toggle="dropdown">
+                        <button class="btn btn-link text-white d-flex align-items-center p-2" type="button"
+                            id="profileDropdown" data-bs-toggle="dropdown">
                             <div class="user-avatar me-2">
                                 <i class="fas fa-user-circle fa-lg"></i>
                             </div>
                             <div class="user-info text-start d-none d-sm-block">
-                                <div class="fw-bold small">Dr. Sarah Johnson</div>
-                                <div class="text-white-50 small">s.johnson@university.edu</div>
                             </div>
                             <i class="fas fa-chevron-down ms-2 small"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow">
-                            <li><a class="dropdown-item d-flex align-items-center" href="../lecturer-dashboard.html">
-                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center"
+                                    href="../../lecture/lecturer-dashboard.html">
+                                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
                             <li><a class="dropdown-item d-flex align-items-center" href="#">
-                                <i class="fas fa-cog me-2"></i>Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                                    <i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item d-flex align-items-center text-danger" href="#">
-                                <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -93,27 +106,22 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="../../components/lecture/timetable.html">
                                 <i class="fas fa-calendar-alt me-2"></i> Timetable
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="../lecture/CourseMaterials.html">
                                 <i class="fas fa-book me-2"></i> Course Materials
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="../../components/lecture/Assignments.html">
                                 <i class="fas fa-tasks me-2"></i> Assignments
                             </a>
                         </li>
                     </ul>
-                    
-                    <div class="dark-mode-toggle-sidebar mt-auto p-3">
-                        <button class="btn btn-outline-purple w-100" id="darkModeToggleSidebar">
-                            <i class="fas fa-moon me-2"></i> Switch to Dark Mode
-                        </button>
-                    </div>
+
                 </div>
             </nav>
 
@@ -137,7 +145,8 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <div>
-                                            <h5 class="card-title text-uppercase text-muted mb-0">Total Announcements</h5>
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Total Announcements
+                                            </h5>
                                             <span class="h2 font-weight-bold mb-0">24</span>
                                         </div>
                                         <div class="stat-icon">
@@ -217,9 +226,12 @@
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                     <h5 class="mb-0"><i class="fas fa-list me-2"></i>Recent Announcements</h5>
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-outline-purple active" data-filter="all">All</button>
-                                        <button class="btn btn-sm btn-outline-purple" data-filter="active">Active</button>
-                                        <button class="btn btn-sm btn-outline-purple" data-filter="scheduled">Scheduled</button>
+                                        <button class="btn btn-sm btn-outline-purple active"
+                                            data-filter="all">All</button>
+                                        <button class="btn btn-sm btn-outline-purple"
+                                            data-filter="active">Active</button>
+                                        <button class="btn btn-sm btn-outline-purple"
+                                            data-filter="scheduled">Scheduled</button>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -238,16 +250,19 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="d-grid gap-2">
-                                        <button class="btn btn-purple mb-2" data-bs-toggle="modal" data-bs-target="#createAnnouncementModal">
+                                        <button class="btn btn-purple mb-2" data-bs-toggle="modal"
+                                            data-bs-target="#createAnnouncementModal">
                                             <i class="fas fa-plus-circle me-2"></i> Create Announcement
                                         </button>
-                                        <button class="btn btn-outline-purple mb-2" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+                                        <button class="btn btn-outline-purple mb-2" data-bs-toggle="modal"
+                                            data-bs-target="#scheduleModal">
                                             <i class="fas fa-clock me-2"></i> Schedule Announcement
                                         </button>
                                         <button class="btn btn-outline-purple mb-2" id="exportAnnouncements">
                                             <i class="fas fa-download me-2"></i> Export List
                                         </button>
-                                        <button class="btn btn-outline-purple mb-2" data-bs-toggle="modal" data-bs-target="#analyticsModal">
+                                        <button class="btn btn-outline-purple mb-2" data-bs-toggle="modal"
+                                            data-bs-target="#analyticsModal">
                                             <i class="fas fa-chart-bar me-2"></i> View Analytics
                                         </button>
                                     </div>
@@ -284,11 +299,13 @@
                     <form id="announcementForm">
                         <div class="mb-3">
                             <label for="announcementTitle" class="form-label">Title</label>
-                            <input type="text" class="form-control" id="announcementTitle" placeholder="Enter announcement title" required>
+                            <input type="text" class="form-control" id="announcementTitle"
+                                placeholder="Enter announcement title" required>
                         </div>
                         <div class="mb-3">
                             <label for="announcementContent" class="form-label">Content</label>
-                            <textarea class="form-control" id="announcementContent" rows="5" placeholder="Enter announcement content" required></textarea>
+                            <textarea class="form-control" id="announcementContent" rows="5"
+                                placeholder="Enter announcement content" required></textarea>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -384,9 +401,99 @@
 
     <!-- Toast Container -->
     <div class="toast-container position-fixed top-0 end-0 p-3"></div>
+    <footer id="main-footer" class="footer" role="contentinfo">
+        <!-- Main Footer Content Container -->
+        <div class="footer-container">
+            <!-- University Logo and Description Section -->
+            <div class="footer-section logo-section">
+                <div class="logo">
+                    <i class="fas fa-university"></i>
+                    <h3>University App</h3>
+                </div>
+                <p class="description">
+                    Empowering education through innovative technology. Connect, learn, and grow with our comprehensive
+                    university platform.
+                </p>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="footer-section links-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../student/student-dashboard.html"><i class="fas fa-book"></i> Courses</a></li>
+                    <li><a href="../components/lecture/announcement.html"><i class="fas fa-bullhorn"></i>
+                            Announcements</a></li>
+                    <li><a href="../community/communities.html"><i class="fas fa-users"></i> Community</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Useful Resources Section -->
+            <div class="footer-section resources-section">
+                <h4>Useful Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#help"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                    <li><a href="#terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                    <li><a href="#privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    <li><a href="#faq"><i class="fas fa-info-circle"></i> FAQ</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Subscription Section -->
+            <div class="footer-section newsletter-section">
+                <h4>Stay Updated</h4>
+                <p>Subscribe to our newsletter for the latest updates and announcements.</p>
+                <form id="newsletter-form" class="newsletter-form" novalidate>
+                    <div class="input-group">
+                        <input type="email" id="newsletter-email" placeholder="Enter your email"
+                            aria-label="Email address for newsletter" required>
+                        <button type="submit" class="subscribe-btn" aria-label="Subscribe to newsletter">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Social Media and Copyright Section -->
+        <div class="footer-bottom">
+            <!-- Social Media Icons -->
+            <div class="social-media">
+                <a href="#" class="social-link" aria-label="Follow us on Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Follow us on Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Follow us on LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Follow us on Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Follow us on YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+
+            <!-- Copyright -->
+            <div class="copyright">
+                <p>&copy; <span id="current-year"></span> University App. All rights reserved.</p>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </footer>
+
+    <script src="../assets/js/footer.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../assets/js/lecture/annoucements.js"></script>
     <script src="../../assets/js/lecture/lecture-dashboard.js"></script>
 </body>
+
 </html>

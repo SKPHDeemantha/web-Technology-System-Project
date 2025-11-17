@@ -52,13 +52,15 @@
   margin-bottom: 0.5rem;
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
   border-radius: 8px;
   border: 1px solid var(--border-light);
   padding: 0.5rem 0.75rem;
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
   border-color: var(--primary-purple);
   box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.25);
 }

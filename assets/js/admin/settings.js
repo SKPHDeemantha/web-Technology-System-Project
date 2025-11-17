@@ -1,17 +1,17 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Load settings from localStorage on page load
     loadSettings();
 
     // Form submission handler
     const settingsForm = document.getElementById('settingsForm');
-    settingsForm.addEventListener('submit', function(event) {
+    settingsForm.addEventListener('submit', function (event) {
         event.preventDefault();
         saveSettings();
     });
 
     // Toggle handlers
     const darkModeToggle = document.getElementById('darkMode');
-    darkModeToggle.addEventListener('change', function() {
+    darkModeToggle.addEventListener('change', function () {
         toggleDarkMode(this.checked);
         saveSettings(); // Save immediately on toggle
     });
@@ -32,12 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Button handlers
     const checkUpdatesBtn = document.querySelector('.btn-outline-purple');
-    checkUpdatesBtn.addEventListener('click', function() {
+    checkUpdatesBtn.addEventListener('click', function () {
         alert('Checking for updates... No updates available at this time.');
     });
 
     const clearCacheBtn = document.querySelector('.btn-outline-danger');
-    clearCacheBtn.addEventListener('click', function() {
+    clearCacheBtn.addEventListener('click', function () {
         if (confirm('Are you sure you want to clear the cache? This will reset all settings.')) {
             localStorage.clear();
             loadSettings(); // Reload defaults

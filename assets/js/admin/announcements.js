@@ -42,7 +42,7 @@ function renderAnnouncementsTable(filter = 'all') {
   const filteredAnnouncements = announcements.filter(announcement => {
     const matchesFilter = filter === 'all' || announcement.status === filter;
     const matchesSearch = announcement.title.toLowerCase().includes(searchTerm) ||
-                         announcement.content.toLowerCase().includes(searchTerm);
+      announcement.content.toLowerCase().includes(searchTerm);
     return matchesFilter && matchesSearch;
   });
 
@@ -114,7 +114,7 @@ function getTargetDisplay(target) {
 }
 
 // Global function for delete operations
-window.deleteAnnouncement = function(id) {
+window.deleteAnnouncement = function (id) {
   if (confirm('Are you sure you want to delete this announcement?')) {
     const announcements = JSON.parse(localStorage.getItem('adminAnnouncements')) || [];
     const updatedAnnouncements = announcements.filter(announcement => announcement.id !== id);
@@ -129,7 +129,7 @@ window.deleteAnnouncement = function(id) {
 };
 
 // Global function for edit operations
-window.editAnnouncement = function(id) {
+window.editAnnouncement = function (id) {
   const announcements = JSON.parse(localStorage.getItem('adminAnnouncements')) || [];
   const announcement = announcements.find(a => a.id === id);
 
@@ -151,7 +151,7 @@ window.editAnnouncement = function(id) {
 };
 
 // Global function for view operations
-window.viewAnnouncement = function(id) {
+window.viewAnnouncement = function (id) {
   const announcements = JSON.parse(localStorage.getItem('adminAnnouncements')) || [];
   const announcement = announcements.find(a => a.id === id);
 
@@ -184,11 +184,11 @@ function updateAnnouncementStats() {
 }
 
 // Initialize announcements when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Handle add announcement form submission
   const addAnnouncementForm = document.getElementById('addAnnouncementForm');
   if (addAnnouncementForm) {
-    addAnnouncementForm.addEventListener('submit', function(e) {
+    addAnnouncementForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
       const announcementData = {
@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Handle edit announcement form submission
   const editAnnouncementForm = document.getElementById('editAnnouncementForm');
   if (editAnnouncementForm) {
-    editAnnouncementForm.addEventListener('submit', function(e) {
+    editAnnouncementForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
       const announcementId = parseInt(document.getElementById('editAnnouncementId').value);
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Handle filter changes
   const announcementFilter = document.getElementById('announcementFilter');
   if (announcementFilter) {
-    announcementFilter.addEventListener('change', function() {
+    announcementFilter.addEventListener('change', function () {
       renderAnnouncementsTable(this.value);
     });
   }
@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Handle search
   const announcementSearch = document.getElementById('announcementSearch');
   if (announcementSearch) {
-    announcementSearch.addEventListener('input', function() {
+    announcementSearch.addEventListener('input', function () {
       renderAnnouncementsTable(document.getElementById('announcementFilter').value);
     });
   }

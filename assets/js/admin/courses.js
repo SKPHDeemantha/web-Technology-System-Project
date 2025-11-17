@@ -80,7 +80,7 @@ function renderCoursesTable() {
 }
 
 // Global function for delete operations
-window.deleteCourse = function(id) {
+window.deleteCourse = function (id) {
   if (confirm('Are you sure you want to delete this course?')) {
     const courses = JSON.parse(localStorage.getItem('adminCourses')) || [];
     const updatedCourses = courses.filter(course => course.id !== id);
@@ -95,7 +95,7 @@ window.deleteCourse = function(id) {
 };
 
 // Global function for edit operations
-window.editCourse = function(id) {
+window.editCourse = function (id) {
   const courses = JSON.parse(localStorage.getItem('adminCourses')) || [];
   const course = courses.find(c => c.id === id);
 
@@ -117,11 +117,11 @@ window.editCourse = function(id) {
 };
 
 // Initialize courses when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Handle add course form submission
   const addCourseForm = document.getElementById('addCourseForm');
   if (addCourseForm) {
-    addCourseForm.addEventListener('submit', function(e) {
+    addCourseForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
       const lecturerSelect = document.getElementById('courseInstructor');
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Handle edit course form submission
   const editCourseForm = document.getElementById('editCourseForm');
   if (editCourseForm) {
-    editCourseForm.addEventListener('submit', function(e) {
+    editCourseForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
       const courseId = parseInt(document.getElementById('editCourseId').value);

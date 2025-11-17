@@ -106,10 +106,10 @@ function updateLogFilters(logs) {
 }
 
 // Export logs functionality
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const exportLogsBtn = document.getElementById('exportLogsBtn');
   if (exportLogsBtn) {
-    exportLogsBtn.addEventListener('click', function() {
+    exportLogsBtn.addEventListener('click', function () {
       const logs = JSON.parse(localStorage.getItem('activityLogs')) || [];
 
       if (logs.length === 0) {

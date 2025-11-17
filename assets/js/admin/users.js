@@ -14,7 +14,7 @@ function initUsersTable() {
   // User filter functionality
   const userFilter = document.getElementById('userFilter');
   if (userFilter) {
-    userFilter.addEventListener('change', function() {
+    userFilter.addEventListener('change', function () {
       renderUsersTable(this.value);
     });
   }
@@ -65,7 +65,7 @@ function renderUsersTable(filter = 'all') {
 }
 
 // Global function for delete operations
-window.deleteUser = function(id) {
+window.deleteUser = function (id) {
   if (confirm('Are you sure you want to delete this user?')) {
     const users = JSON.parse(localStorage.getItem('adminUsers')) || [];
     const updatedUsers = users.filter(user => user.id !== id);

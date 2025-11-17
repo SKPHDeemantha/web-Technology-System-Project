@@ -1,8 +1,8 @@
 // Form Submissions for Modals
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const addUserForm = document.getElementById('addUserForm');
   if (addUserForm) {
-    addUserForm.addEventListener('submit', function(e) {
+    addUserForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
       const name = document.getElementById('userName').value;
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const addCommunityForm = document.getElementById('addCommunityForm');
   if (addCommunityForm) {
-    addCommunityForm.addEventListener('submit', function(e) {
+    addCommunityForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
       const name = document.getElementById('communityName').value;
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const addEventForm = document.getElementById('addEventForm');
   if (addEventForm) {
-    addEventForm.addEventListener('submit', function(e) {
+    addEventForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
       const name = document.getElementById('eventName').value;
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const settingsForm = document.getElementById('settingsForm');
   if (settingsForm) {
-    settingsForm.addEventListener('submit', function(e) {
+    settingsForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
       // In a real application, this would save to a backend

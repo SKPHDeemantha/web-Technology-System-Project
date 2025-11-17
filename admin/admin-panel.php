@@ -1,3 +1,12 @@
+<?php
+include '../connect.php';
+session_start();
+// if(!isset($_SESSION['user_id'])){
+//     header("Location: ../index.php");
+//     exit();
+// }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +15,7 @@
   <title>Admin Panel - University Management System</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
    <link rel="stylesheet" href="../assets/css/admincss/admin-panel.css">
    <link rel="stylesheet" href="../assets/css/admincss/dashboard.css">
 </head>
@@ -34,18 +44,11 @@
         </div>
 
         <!-- Events Section -->
-        <div id="events" class="dashboard-section">
-          <div id="events-content"></div>
-        </div>
+    
 
         <!-- Courses Section -->
         <div id="courses" class="dashboard-section">
           <div id="courses-content"></div>
-        </div>
-
-        <!-- Announcements Section -->
-        <div id="announcements" class="dashboard-section">
-          <div id="announcements-content"></div>
         </div>
 
         <!-- Activity Log Section -->
@@ -85,10 +88,10 @@
         <div class="footer-section links-section">
             <h4>Quick Links</h4>
             <ul class="footer-links">
-                <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="../student/student-dashboard.html"><i class="fas fa-book"></i> Courses</a></li>
-                <li><a href="../components/lecture/announcement.html"><i class="fas fa-bullhorn"></i> Announcements</a></li>
-                <li><a href="../community/communities.html"><i class="fas fa-users"></i> Community</a></li>
+                <li><a href="../index.php"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="../student/student-dashboard.php"><i class="fas fa-book"></i> Courses</a></li>
+                <li><a href="../components/lecture/announcement.php"><i class="fas fa-bullhorn"></i> Announcements</a></li>
+                <li><a href="../community/communities.php"><i class="fas fa-users"></i> Community</a></li>
                 <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
             </ul>
         </div>
@@ -164,7 +167,6 @@
   <script src="../assets/js/admin/componentLoader.js"></script>
   <script src="../assets/js/admin/users.js"></script>
   <script src="../assets/js/admin/courses.js"></script>
-  <script src="../assets/js/admin/announcements.js"></script>
   <script src="../assets/js/admin/events.js"></script>
   <script src="../assets/js/admin/activity-log.js"></script>
   <script src="../assets/js/admin/analytics.js"></script>
@@ -173,5 +175,6 @@
   <script src="../assets/js/admin/modals.js"></script>
   <script src="../assets/js/admin/settings.js"></script>
   <script src="../assets/js/admin/profile.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </body>
 </html>

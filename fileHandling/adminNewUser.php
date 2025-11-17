@@ -1,7 +1,7 @@
 <?php
 include '../connect.php';
-session_start();
-$_SESSION['user_id'] = null;
+// session_start();
+// $_SESSION['user_id'] = null;
 
 $id = $_GET['id'];
 
@@ -12,14 +12,15 @@ if ($id == "save") {
     $email     = $_POST['email'];
     $password  = $_POST['password'];
     $role      = $_POST['role'];
-    $year      = isset($_POST['year']) ? $_POST['year'] : "";
+    // $year      = isset($_POST['year']) ? $_POST['year'] : "";
+    $year      = "first";
 
     // ROLE CONVERSION
-    if ($role == "student") {
+    if ($role == "Student") {
         $role_id = 1;
-    } elseif ($role == "lecturer") {
+    } elseif ($role == "Lecturer") {
         $role_id = 2;
-    } elseif ($role == "admin") {
+    } elseif ($role == "Admin") {
         $role_id = 3;
     } else {
         $role_id = 0;
@@ -65,46 +66,6 @@ if ($id == "save") {
     }
 
     exit();
-} else if ($id == "check"){ //login process
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $role = $_POST['role'];
-    $year = isset($_POST['year']) ? $_POST['year'] : "";
-
-    // ROLE CONVERSION
-    if ($role == "student") {
-        $role_id = 1;
-    } elseif ($role == "lecturer") {
-        $role_id = 2;
-    } elseif ($role == "admin") {
-        $role_id = 3;
-    } else {
-        $role_id = 0;
-    }
-
-    // YEAR CONVERSION
-    if ($year == "first")  $year_id = 1;
-    elseif ($year == "second") $year_id = 2;
-    elseif ($year == "third")  $year_id = 3;
-    elseif ($year == "fourth") $year_id = 4;
-    else $year_id = 0;
-
-    // Hash password (OLD WAY)
-    $password_hash = md5($password);
-
-// ESCAPE (SQL Injection protection)
-    $email        = mysqli_real_escape_string($con, $email);
-    $password_hash= mysqli_real_escape_string($con, $password_hash);
-
-    $query = "SELECT * FROM users WHERE email='$email' AND password_hash='$password_hash' AND is_active=1 AND role_id=$role_id AND year_id= $year_id LIMIT 1";
-    $result = mysqli_query($con, $query);
-    if (mysqli_num_rows($result) == 1) {
-        $user = mysqli_fetch_assoc($result);
-        $_SESSION['user_id'] = $user['id'];
-        echo 1; // Login successful
-    } else {
-        echo 0; // Login failed
-    }
-    exit();
+} else if ($id == "saveCommunity"){
+    
 }
-?>

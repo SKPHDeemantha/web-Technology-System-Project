@@ -142,9 +142,9 @@ function loginHandler(email, password, role, year) {
         alert("Login Successful!");
 
         if (role === 'admin') {
-          window.location.href = 'admin/admin-panel.html';
+          window.location.href = 'admin/admin-panel.php';
         } else {
-          window.location.href = 'community/communities.html';
+          window.location.href = 'community/communities.php';
         }
       } else {
         alert("Invalid credentials or user not found!");

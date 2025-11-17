@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50508
 File Encoding         : 65001
 
-Date: 2025-11-16 14:16:10
+Date: 2025-11-17 06:43:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -150,6 +150,48 @@ CREATE TABLE `chat_rooms` (
 
 -- ----------------------------
 -- Records of chat_rooms
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for communities
+-- ----------------------------
+DROP TABLE IF EXISTS `communities`;
+CREATE TABLE `communities` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `category` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_by` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `idx_category` (`category`),
+  KEY `idx_created_by` (`created_by`),
+  CONSTRAINT `communities_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Table structure for community_members
+-- ----------------------------
+DROP TABLE IF EXISTS `community_members`;
+CREATE TABLE `community_members` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `community_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `joined_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `role` enum('member','moderator','admin') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'member',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_membership` (`community_id`,`user_id`),
+  KEY `idx_community` (`community_id`),
+  KEY `idx_user` (`user_id`),
+  CONSTRAINT `community_members_ibfk_1` FOREIGN KEY (`community_id`) REFERENCES `communities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `community_members_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of community_members
 -- ----------------------------
 
 -- ----------------------------
@@ -385,7 +427,7 @@ CREATE TABLE `users` (
   KEY `idx_active` (`is_active`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `user_roles` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `users_ibfk_2` FOREIGN KEY (`year_id`) REFERENCES `years` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Table structure for user_roles

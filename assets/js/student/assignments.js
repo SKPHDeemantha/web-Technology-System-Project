@@ -120,25 +120,179 @@ document.addEventListener('click', function(e) {
     if (e.target.classList.contains('action-btn')) {
         const assignmentItem = e.target.closest('.assignment-item');
         const assignmentTitle = assignmentItem.querySelector('h3').textContent;
-        
+        const assignmentDetails = assignmentItem.querySelector('.assignment-details').innerHTML;
+        const statusBadge = assignmentItem.querySelector('.status-badge').textContent;
+
         if (e.target.classList.contains('primary')) {
             if (e.target.textContent.includes('Start') || e.target.textContent.includes('Continue')) {
-                alert(`Opening assignment: ${assignmentTitle}`);
-                // In a real app, this would open the assignment editor
+                openAssignmentModal('edit', assignmentTitle, assignmentDetails, statusBadge);
             }
         } else if (e.target.classList.contains('view')) {
-            alert(`Viewing feedback for: ${assignmentTitle}`);
-            // In a real app, this would show assignment feedback
+            openAssignmentModal('view', assignmentTitle, assignmentDetails, statusBadge);
         } else if (e.target.classList.contains('download')) {
+            // Handle download functionality
             alert(`Downloading: ${assignmentTitle}`);
-            // In a real app, this would trigger file download
         } else {
             // Handle other action buttons
             const action = e.target.textContent;
-            alert(`${action} for: ${assignmentTitle}`);
+            if (action === 'Save Draft' || action === 'View Requirements' || action === 'View Resources') {
+                openAssignmentModal('info', assignmentTitle, assignmentDetails, statusBadge, action);
+            } else {
+                alert(`${action} for: ${assignmentTitle}`);
+            }
         }
     }
 });
+
+// Modal functions
+function openAssignmentModal(type, title, details, status, action = '') {
+    const modal = document.getElementById('assignmentModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const modalActionBtn = document.getElementById('modalActionBtn');
+
+    modalTitle.textContent = title;
+
+    let bodyContent = '';
+
+    if (type === 'view') {
+        bodyContent = `
+            <div class="assignment-detail-view">
+                <div class="status-section">
+                    <span class="status-badge ${status.toLowerCase().replace(' ', '-')}">${status}</span>
+                </div>
+                <div class="details-section">
+                    ${details}
+                </div>
+                <div class="feedback-section">
+                    <h4>Instructor Feedback</h4>
+                    <p>Great work on this assignment! Your analysis was thorough and well-structured. Consider adding more examples in future submissions.</p>
+                    <div class="grade-display">
+                        <strong>Grade: 88%</strong>
+                    </div>
+                </div>
+            </div>
+        `;
+        modalActionBtn.style.display = 'none';
+    } else if (type === 'edit') {
+        bodyContent = `
+            <div class="assignment-edit-form">
+                <div class="status-section">
+                    <span class="status-badge ${status.toLowerCase().replace(' ', '-')}">${status}</span>
+                </div>
+                <div class="details-section">
+                    ${details}
+                </div>
+                <div class="form-section">
+                    <h4>Assignment Submission</h4>
+                    <form id="assignmentForm">
+                        <div class="form-group">
+                            <label for="assignmentFile">Upload File:</label>
+                            <input type="file" id="assignmentFile" accept=".pdf,.doc,.docx,.txt" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="assignmentNotes">Additional Notes:</label>
+                            <textarea id="assignmentNotes" rows="4" placeholder="Add any additional notes or comments..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="confirmSubmission"> I confirm that this is my original work
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+        modalActionBtn.textContent = 'Submit Assignment';
+        modalActionBtn.style.display = 'inline-block';
+        modalActionBtn.onclick = () => submitAssignment(title);
+    } else if (type === 'info') {
+        bodyContent = `
+            <div class="assignment-info-view">
+                <div class="status-section">
+                    <span class="status-badge ${status.toLowerCase().replace(' ', '-')}">${status}</span>
+                </div>
+                <div class="details-section">
+                    ${details}
+                </div>
+                <div class="info-section">
+                    <h4>${action}</h4>
+                    ${getInfoContent(action, title)}
+                </div>
+            </div>
+        `;
+        modalActionBtn.style.display = 'none';
+    }
+
+    modalBody.innerHTML = bodyContent;
+    modal.style.display = 'block';
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+function submitAssignment(title) {
+    const fileInput = document.getElementById('assignmentFile');
+    const notes = document.getElementById('assignmentNotes').value;
+    const confirmed = document.getElementById('confirmSubmission').checked;
+
+    if (!fileInput.files[0]) {
+        alert('Please select a file to upload.');
+        return;
+    }
+
+    if (!confirmed) {
+        alert('Please confirm that this is your original work.');
+        return;
+    }
+
+    // Simulate submission
+    alert(`Assignment "${title}" submitted successfully!\nFile: ${fileInput.files[0].name}\nNotes: ${notes || 'None'}`);
+    closeModal('assignmentModal');
+}
+
+function getInfoContent(action, title) {
+    switch(action) {
+        case 'Save Draft':
+            return '<p>Your progress has been saved as a draft. You can continue working on this assignment later.</p>';
+        case 'View Requirements':
+            return `
+                <div class="requirements-list">
+                    <h5>Assignment Requirements:</h5>
+                    <ul>
+                        <li>Minimum 1500 words</li>
+                        <li>Include at least 3 references</li>
+                        <li>Use APA citation format</li>
+                        <li>Submit as PDF or Word document</li>
+                        <li>Due date: January 22, 2024</li>
+                    </ul>
+                </div>
+            `;
+        case 'View Resources':
+            return `
+                <div class="resources-list">
+                    <h5>Available Resources:</h5>
+                    <ul>
+                        <li><a href="#">Research Paper Template</a></li>
+                        <li><a href="#">APA Citation Guide</a></li>
+                        <li><a href="#">Chemistry Lab Manual</a></li>
+                        <li><a href="#">Online Research Databases</a></li>
+                    </ul>
+                </div>
+            `;
+        default:
+            return '<p>Additional information will be displayed here.</p>';
+    }
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('assignmentModal');
+    if (event.target === modal) {
+        closeModal('assignmentModal');
+    }
+}
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {

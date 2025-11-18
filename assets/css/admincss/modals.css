@@ -1,0 +1,249 @@
+/* ---------- MODALS ---------- */
+:root {
+  --primary-purple: #6a11cb;
+  --secondary-purple: #7e22ce;
+  --accent-purple: #a855f7;
+  --light-purple: #f3e8ff;
+  --dark-purple: #4c1d95;
+  --text-dark: #1f2937;
+  --text-light: #ffff;
+  --bg-light: #f8fafc;
+  --border-light: #e5e7eb;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+}
+
+/* Dark mode variables */
+[data-theme="dark"] {
+  --primary-purple: #a855f7;
+  --secondary-purple: #7e22ce;
+  --accent-purple: #c084fc;
+  --light-purple: #2d1b69;
+  --dark-purple: #3b0764;
+  --text-dark: #f3f4f6;
+  --text-light: #d1d5db;
+  --text-muted: #9ca3af;
+  --bg-light: #111827;
+  --border-light: #374151;
+  --bg-main: #000000;
+  --bg-panel: #0a0a0a;
+  --border-glow: rgba(168, 85, 247, 0.4);
+  --glow-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+}
+
+/* Modal Content Styles */
+.modal-content {
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-light);
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .modal-content {
+  background-color: var(--bg-panel);
+  border-color: var(--border-light);
+  box-shadow: var(--glow-shadow);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border-light);
+  padding: 1.25rem 1.5rem;
+  background-color: transparent;
+}
+
+[data-theme="dark"] .modal-header {
+  border-bottom-color: var(--border-light);
+  background-color: var(--bg-panel);
+}
+
+.modal-title {
+  color: var(--text-dark);
+  font-weight: 600;
+  margin: 0;
+}
+
+[data-theme="dark"] .modal-title {
+  color: var(--text-dark);
+}
+
+.modal-body {
+  padding: 1.5rem;
+  background-color: transparent;
+}
+
+[data-theme="dark"] .modal-body {
+  background-color: var(--bg-panel);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-light);
+  padding: 1rem 1.5rem;
+  background-color: transparent;
+}
+
+[data-theme="dark"] .modal-footer {
+  border-top-color: var(--border-light);
+  background-color: var(--bg-panel);
+}
+
+/* Form Controls */
+.form-label {
+  color: var(--text-dark);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+[data-theme="dark"] .form-label {
+  color: var(--text-dark);
+}
+
+.form-control,
+.form-select {
+  background-color: white;
+  border: 1px solid var(--border-light);
+  color: var(--text-dark);
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+  transition: all 0.2s ease-in-out;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+  background-color: var(--light-purple);
+  border-color: var(--border-light);
+  color: var(--text-dark);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.25);
+  outline: none;
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 0 0.2rem rgba(168, 85, 247, 0.25);
+  background-color: var(--light-purple);
+}
+
+/* Form Check */
+.form-check-input {
+  border: 1px solid var(--border-light);
+}
+
+.form-check-input:checked {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+[data-theme="dark"] .form-check-input:checked {
+  background-color: var(--accent-purple);
+  border-color: var(--accent-purple);
+}
+
+.form-check-label {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .form-check-label {
+  color: var(--text-dark);
+}
+
+/* Buttons */
+.btn-purple {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+  color: white;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-purple:hover,
+.btn-purple:focus {
+  background-color: var(--secondary-purple);
+  border-color: var(--secondary-purple);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(106, 17, 203, 0.3);
+}
+
+[data-theme="dark"] .btn-purple {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+[data-theme="dark"] .btn-purple:hover,
+[data-theme="dark"] .btn-purple:focus {
+  background-color: var(--accent-purple);
+  border-color: var(--accent-purple);
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+}
+
+/* Close Button */
+.btn-close {
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+[data-theme="dark"] .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Text Areas */
+textarea.form-control {
+  resize: vertical;
+  min-height: 80px;
+}
+
+[data-theme="dark"] textarea.form-control {
+  background-color: var(--light-purple);
+  color: var(--text-dark);
+}
+
+/* Select Dropdown Options */
+.form-select option {
+  background-color: white;
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .form-select option {
+  background-color: var(--light-purple);
+  color: var(--text-dark);
+}
+
+/* Grid Layout for Forms */
+.d-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 0.5rem;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 1rem;
+  }
+}

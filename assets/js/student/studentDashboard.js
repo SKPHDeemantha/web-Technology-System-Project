@@ -219,6 +219,55 @@
             setTimeout(initGpaChart, 300);
         });
 
+        // Dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Notification dropdown
+            const notificationBtn = document.getElementById('notificationBtn');
+            const notificationDropdown = document.querySelector('.notification-dropdown');
+
+            // Profile dropdown
+            const profileBtn = document.getElementById('profileBtn');
+            const profileDropdown = document.querySelector('.profile-dropdown');
+
+            // Toggle notification dropdown
+            notificationBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                notificationDropdown.style.display = notificationDropdown.style.display === 'block' ? 'none' : 'block';
+                profileDropdown.style.display = 'none'; // Close profile dropdown
+            });
+
+            // Toggle profile dropdown
+            profileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+                notificationDropdown.style.display = 'none'; // Close notification dropdown
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function() {
+                notificationDropdown.style.display = 'none';
+                profileDropdown.style.display = 'none';
+            });
+
+            // Prevent dropdowns from closing when clicking inside them
+            notificationDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+
+            profileDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        // Logout function
+        function logout() {
+            // Clear any stored session data
+            localStorage.removeItem('userSession');
+            localStorage.removeItem('theme');
+            // Redirect to login page
+            window.location.href = '../index.html';
+        }
+
         // Get current page name from URL
         const currentPage = window.location.pathname.split("/").pop();
 

@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Portal - Assignments</title>
     <link rel="stylesheet" href="..\..\assets\css\studentcss\assignments.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="header">
         <div style="display: flex; align-items: center; gap: 15px;">
             <button class="mobile-menu-btn" id="menuToggle">☰</button>
+             <div class="logo-icon me-2">
+                <i class="fas fa-graduation-cap fa-2x"></i>
+            </div>
             <h1>Community Hub</h1>
         </div>
         <div class="header-icons">
@@ -103,7 +107,7 @@
                 </svg>
                 Resources
             </a>
-            <a href="#" class="nav-item" onclick="navigateTo('settings')">
+            <a href="setting.html" class="nav-item" onclick="navigateTo('settings')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
                 </svg>
@@ -194,6 +198,111 @@
             </div>
         </main>
     </div>
-    <script src="..\..\assets\js\student\assignments.js"></script>   
+     <!-- Include Footer -->
+    <footer id="main-footer" class="footer" role="contentinfo">
+        <!-- Main Footer Content Container -->
+        <div class="footer-container">
+            <!-- University Logo and Description Section -->
+            <div class="footer-section logo-section">
+                <div class="logo">
+                    <i class="fas fa-university"></i>
+                    <h3>University App</h3>
+                </div>
+                <p class="description">
+                    Empowering education through innovative technology. Connect, learn, and grow with our comprehensive university platform.
+                </p>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="footer-section links-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../student/student-dashboard.html"><i class="fas fa-book"></i> Courses</a></li>
+                    <li><a href="../lecture/announcement.html"><i class="fas fa-bullhorn"></i> Announcements</a></li>
+                    <li><a href="../../community/communities.html"><i class="fas fa-users"></i> Community</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Useful Resources Section -->
+            <div class="footer-section resources-section">
+                <h4>Useful Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#help"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                    <li><a href="#terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                    <li><a href="#privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    <li><a href="#faq"><i class="fas fa-info-circle"></i> FAQ</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Subscription Section -->
+            <div class="footer-section newsletter-section">
+                <h4>Stay Updated</h4>
+                <p>Subscribe to our newsletter for the latest updates and announcements.</p>
+                <form id="newsletter-form" class="newsletter-form" novalidate>
+                    <div class="input-group">
+                        <input type="email" id="newsletter-email" placeholder="Enter your email" aria-label="Email address for newsletter" required>
+                        <button type="submit" class="subscribe-btn" aria-label="Subscribe to newsletter">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Social Media and Copyright Section -->
+        <div class="footer-bottom">
+            <!-- Social Media Icons -->
+            <div class="social-media">
+                <a href="#" class="social-link" aria-label="Follow us on Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Follow us on Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Follow us on LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Follow us on Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Follow us on YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+
+            <!-- Copyright -->
+            <div class="copyright">
+                <p>&copy; <span id="current-year"></span> University App. All rights reserved.</p>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </footer>
+
+    <link href="../../assets/css/footer.css" rel="stylesheet">
+    <script src="../../assets/js/footer.js"></script>
+    <!-- Assignment Modals -->
+    <div id="assignmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Assignment Details</h2>
+                <span class="close-btn" onclick="closeModal('assignmentModal')">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="closeModal('assignmentModal')">Close</button>
+                <button class="btn primary" id="modalActionBtn">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="..\..\assets\js\student\assignments.js"></script>
 </body>
 </html>

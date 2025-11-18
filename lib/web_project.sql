@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50508
 File Encoding         : 65001
 
-Date: 2025-11-17 06:43:56
+Date: 2025-11-18 17:25:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -170,7 +170,13 @@ CREATE TABLE `communities` (
   KEY `idx_category` (`category`),
   KEY `idx_created_by` (`created_by`),
   CONSTRAINT `communities_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of communities
+-- ----------------------------
+INSERT INTO `communities` VALUES ('1', 'test1', 'test1', 'Academic', '13', '2025-11-16 15:02:35', '2025-11-16 15:01:40', '1');
+INSERT INTO `communities` VALUES ('2', 'Test Community 1', 'Test Community 1 desc', 'Academic', '13', '2025-11-18 06:02:16', '2025-11-18 06:02:16', '1');
 
 -- ----------------------------
 -- Table structure for community_members
@@ -427,7 +433,20 @@ CREATE TABLE `users` (
   KEY `idx_active` (`is_active`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `user_roles` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `users_ibfk_2` FOREIGN KEY (`year_id`) REFERENCES `years` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES ('9', 'navindualahakoon3@gmail.com', '25d55ad283aa400af464c76d713c07ad', 'Navindu', 'Alahakoon', 'Navindu Alahakoon', '1', '2', '0', '2025-11-16 10:57:37', '2025-11-16 15:27:31');
+INSERT INTO `users` VALUES ('13', 'admin@gmail.com', 'c93ccd78b2076528346216b3b2f701e6', 'Admin', 'Navindu', 'Admin Navindu', '3', '0', '1', '2025-11-16 13:19:28', '2025-11-16 13:19:28');
+INSERT INTO `users` VALUES ('17', 'newuser@gmail.com', '25d55ad283aa400af464c76d713c07ad', 'New', 'User', 'New User', '1', '1', '1', '2025-11-16 19:47:36', '2025-11-16 19:47:36');
+INSERT INTO `users` VALUES ('18', 'newadmin@gmail.com', 'fc871fd7246118f8ce413948597e2a5d', 'New', 'Admin', 'New Admin', '3', '1', '1', '2025-11-17 07:32:39', '2025-11-17 07:32:39');
+INSERT INTO `users` VALUES ('23', 'testuser@gmail.com', '1fe949c554f4121a85301b277b63c55a', 'Test', 'User', 'Test User', '1', '1', '1', '2025-11-17 10:15:49', '2025-11-17 10:15:49');
+INSERT INTO `users` VALUES ('24', 'lecturer1@gmail.com', '1eec583133e8014118cbd11c8ccbc4bf', 'Lecturer', '1', 'Lecturer 1', '2', '1', '1', '2025-11-17 10:20:28', '2025-11-17 10:20:28');
+INSERT INTO `users` VALUES ('25', 'lecturer2@gmail.com', '54c18dfca005eb5aa7fa7370017bda84', 'Lecturer', '2', 'Lecturer 2', '2', '1', '1', '2025-11-17 10:30:40', '2025-11-17 10:30:40');
+INSERT INTO `users` VALUES ('26', 'testinguser@gmail.com', '1abde7c05e94a7455e75cb8fff1f9ea8', 'testing', 'user', 'testing user', '1', '1', '1', '2025-11-18 05:21:10', '2025-11-18 05:21:10');
+INSERT INTO `users` VALUES ('27', 'adminnew@gmail.com', 'c257093259de239de712f57d27f723c6', 'Admin', 'new', 'Admin new', '3', '0', '1', '2025-11-18 16:38:35', '2025-11-18 16:38:35');
 
 -- ----------------------------
 -- Table structure for user_roles

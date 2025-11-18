@@ -1,3 +1,6 @@
+<?php
+include 'connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,7 +73,7 @@
                         <button type="submit" class="btn btn-primary btn-full">Sign Up</button>
 
                         <p class="text-center mt-3">Already have an account?
-                            <a href="index.html">Login</a>
+                            <a href="index.php">Login</a>
                         </p>
                     </form>
                 </div>
@@ -78,9 +81,10 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function closeSignup() {
-            window.location.href = 'index.html'; // Redirect to index.html on close
+            window.location.href = 'index.php'; // Redirect to index.php on close
         }
 
         // Show year selection when student is selected
@@ -98,9 +102,27 @@
             e.preventDefault();
             const fullName = document.getElementById('fullName').value;
             const email = document.getElementById('email').value;
+            const password = document.getElementById('signupPassword').value;
+            const rePassword = document.getElementById('rePassword').value;
             const role = document.getElementById('role').value;
-            console.log('Signup attempted:', { fullName, email, role });
-            alert('Signup functionality will be implemented here');
+            const year = document.getElementById('year').value;
+
+            // Basic validation
+            if (!fullName || !email || !password || !rePassword || !role) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            if (password !== rePassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+            if (role === 'student' && !year) {
+                alert('Please select your year.');
+                return;
+            }
+
+            // Call signup handler
+            signupHandler(fullName, email, password, role, year);
         });
 
         // Close modal on Escape key
@@ -109,6 +131,28 @@
                 closeSignup();
             }
         });
+
+        /* -------------------------------
+           SIGNUP AJAX
+        ---------------------------------*/
+        function signupHandler(fullname, email, password, role, year) {
+            $.ajax({
+                url: "fileHandling/signuphandling.php?id=save",
+                type: "POST",
+                data: { fullname, email, password, role, year },
+                success: function (response) {
+                    if (response == 1) {
+                        alert("Account created successfully!");
+                        window.location.href = "index.php";
+                    } else {
+                        alert("Saving Error!");
+                    }
+                },
+                error: function () {
+                    alert("AJAX Error!");
+                }
+            });
+        }
     </script>
 </body>
 

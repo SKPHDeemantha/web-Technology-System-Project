@@ -4,74 +4,263 @@ include 'connect.php';
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>University Login</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <link rel="stylesheet" href="assets/css/login.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLE Dashboard - Virtual Learning Environment</title>
+    <link rel="stylesheet" href="assets/css/login.css">
 </head>
+
 <body>
-  <div class="auth-container">
-    <div class="auth-card fade-in">
-      <div class="auth-left">
-        <h2 class="title">Welcome Back</h2>
-        <p class="subtitle">Login to your University Portal</p>
-
-        <form id="loginForm">
-          <div class="form-group">
-            <label for="role">Login as:</label>
-            <select class="form-select" id="role" required>
-              <option value="" disabled selected>Select Role</option>
-              <option value="student">Student</option>
-              <option value="lecturer">Lecturer</option>
-              <option value="admin">Admin</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label id="yearLabel" style="display:none;">Year</label>
-            <select class="form-control" id="year" name="year" style="display:none;">
-              <option value="">Select Year</option>
-              <option value="first">First Year</option>
-              <option value="second">Second Year</option>
-              <option value="third">Third Year</option>
-              <option value="fourth">Fourth Year</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" id="email" class="form-control" placeholder="you@example.com" required />
-          </div>
-
-          <div class="form-group password-group">
-            <label>Password</label>
-            <input type="password" class="form-control" id="password" placeholder="••••••••" required />
-            <!-- <i class="fa-solid fa-eye toggle-password"></i> -->
-          </div>
-
-          <button type="submit" class="btn-gradient w-100 mt-3">Login</button>
-          <p class="text-center mt-3">Don't have an account? <a href="signup.php">Sign up</a></p>
-        </form>
-
-        <div class="oauth-login">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="https://xvuxswvxdsxzfjtsdorn.supabase.co/storage/v1/object/public/images/logo.jpg"
+                        alt="VLE Logo" class="logo-small" />
+                    <span class="logo-text">VLE Dashboard</span>
+                </div>
+                <button class="btn btn-primary" onclick="handleLogin()">Login</button>
+            </div>
         </div>
-      </div>
+    </header>
 
-      <div class="auth-right">
-        <div class="info-card">
-          <div class="image-container">
-            <img src="https://xvuxswvxdsxzfjtsdorn.supabase.co/storage/v1/object/public/images/login-LMS.jpg" alt="Login LMS Image">
-          </div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <div class="logo-large-wrapper">
+                        <img src="https://xvuxswvxdsxzfjtsdorn.supabase.co/storage/v1/object/public/images/logo.jpg"
+                            alt="VLE Logo" class="logo-large" />
+                    </div>
+
+                    <h1 class="hero-title">
+                        Welcome to Your Virtual Learning Environment
+                    </h1>
+
+                    <p class="hero-description">
+                        Access your courses, track your progress, and connect with educators all in one place.
+                        Start your learning journey today.
+                    </p>
+
+                    <div class="button-group">
+                        <button class="btn btn-primary btn-lg" onclick="handleLogin()">
+                            Get Started
+                        </button>
+                        <button class="btn btn-outline btn-lg">
+                            Learn More
+                        </button>
+                    </div>
+
+                    <!-- Features Grid -->
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                                </svg>
+                            </div>
+                            <h3 class="feature-title">Quality Education</h3>
+                            <p class="feature-description">
+                                Access world-class courses and learning materials
+                            </p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+                                </svg>
+                            </div>
+                            <h3 class="feature-title">Rich Resources</h3>
+                            <p class="feature-description">
+                                Comprehensive library of learning resources
+                            </p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                            </div>
+                            <h3 class="feature-title">Collaborative</h3>
+                            <p class="feature-description">
+                                Connect and learn with peers and mentors
+                            </p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="8" r="6" />
+                                    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+                                </svg>
+                            </div>
+                            <h3 class="feature-title">Track Progress</h3>
+                            <p class="feature-description">
+                                Monitor achievements and earn certificates
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2025 VLE Dashboard. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-overlay" onclick="closeLogin()"></div>
+        <div class="auth-container">
+            <div class="auth-card fade-in">
+                <button class="close-btn" onclick="closeLogin()">&times;</button>
+                <div class="auth-left">
+                    <h2 class="title">Welcome Back</h2>
+                    <p class="subtitle">Login to your University Portal</p>
+
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="role">Login as:</label>
+                            <select class="form-select" id="role" required>
+                                <option value="" disabled selected>Select Role</option>
+                                <option value="student">Student</option>
+                                <option value="lecturer">Lecturer</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="yearGroup" style="display:none;">
+                            <label for="year">Select Year:</label>
+                            <select class="form-select" id="year">
+                                <option value="" disabled selected>Select Year</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" placeholder="you@example.com" required />
+                        </div>
+
+                        <div class="form-group password-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="••••••••" required />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Login</button>
+
+                        <p class="text-center mt-3">Already have an account?
+                            <a href="signup.php">Signup</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script src="assets/js/auth.js"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function handleLogin() {
+            document.getElementById('loginModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLogin() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Show year selection when student is selected
+        document.getElementById('role').addEventListener('change', function () {
+            const yearGroup = document.getElementById('yearGroup');
+            if (this.value === 'student') {
+                yearGroup.style.display = 'block';
+            } else {
+                yearGroup.style.display = 'none';
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const role = document.getElementById('role').value;
+            const year = document.getElementById('year').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+
+            // Basic validation
+            if (!role || !email || !password) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            if (role === 'student' && !year) {
+                alert('Please select your year.');
+                return;
+            }
+
+            // Call login handler
+            loginHandler(email, password, role, year);
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeLogin();
+            }
+        });
+
+        /* -------------------------------
+           LOGIN AJAX
+        ---------------------------------*/
+        function loginHandler(email, password, role, year) {
+            $.ajax({
+                url: "fileHandling/signuphandling.php?id=check",
+                type: "POST",
+                data: { email, password, role, year },
+                success: function (response) {
+                    if (response == 1) {
+                        alert("Login Successful!");
+
+                        if (role === 'admin') {
+                            window.location.href = 'admin/admin-panel.php';
+                        } else {
+                            window.location.href = 'community/communities.php';
+                        }
+                    } else {
+                        alert("Invalid credentials or user not found!");
+                    }
+                },
+                error: function () {
+                    alert("AJAX Error!");
+                }
+            });
+        }
+    </script>
 </body>
+
 </html>

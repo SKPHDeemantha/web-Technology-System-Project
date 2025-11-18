@@ -70,7 +70,23 @@ if (strcmp($RequestType, "getUserCount") == 0) {
     }
     $ResponseXML .= "</XMLgetUserData>";
     echo $ResponseXML;
-}  
+}else if(strcmp($RequestType, "getUserDataForEdit") == 0){
+    $userId = $_GET["userId"];
+    $ResponseXML = "<XMLgetUserDataForEdit>";
+
+    $SQL = "select * from users where id='$userId'";
+    // echo $SQL;
+    $result = mysqli_query($con, $SQL);
+    while($row = mysqli_fetch_array($result)){
+        $ResponseXML .= "<userId><![CDATA[" . $row['id'] . "]]></userId>\n";
+        $ResponseXML .= "<fullName><![CDATA[" . $row['display_name'] . "]]></fullName>\n";
+        $ResponseXML .= "<email><![CDATA[" . $row['email'] . "]]></email>\n";
+        $ResponseXML .= "<role><![CDATA[" . $row['role_id'] . "]]></role>\n";
+        $ResponseXML .= "<status><![CDATA[" . $row['is_active'] . "]]></status>\n";
+    }
+    $ResponseXML .= "</XMLgetUserDataForEdit>";
+    echo $ResponseXML;
+}
 
 
 

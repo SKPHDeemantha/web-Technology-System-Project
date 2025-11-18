@@ -1,3 +1,14 @@
+<?php
+
+include '../connect.php';
+session_start();
+if(!isset($_SESSION['user_id'])){
+    header("Location: ../index.php");
+    exit();
+}
+
+?>
+
 <link rel="stylesheet" href="../assets/css/admincss/dashboard.css">
 <div class="d-flex justify-content-between align-items-center mb-4">
   <div>

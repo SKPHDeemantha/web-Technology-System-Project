@@ -71,6 +71,23 @@ $(document).ready(function () {
 
 });
 
+  /* ============================================================
+     EDIT USER FORM (DB BASED)
+     ============================================================ */
+  $(document).on("submit", "#editUserForm", function (e) {
+    e.preventDefault();
+
+    const name = $("#editUserName").val();
+    const role = $("#editUserRole").val();
+    const email = $("#editUserEmail").val();
+    const user_id = $("#editUserId").val();
+    const status = $("#editUserStatus").val();
+
+    editUserHandler(name, email, role, user_id, status);
+
+    addToActivityLog(`Edited user: ${name} (${role})`);
+  });
+
 
 
 /* ============================================================
@@ -96,6 +113,37 @@ function newUserHandler(fullname, email, password, role) {
 
       } else {
         alert("Error adding user!");
+      }
+    },
+    error: function () {
+      alert("AJAX Error!");
+    }
+  });
+}
+
+/* ============================================================
+   AJAX: EDIT USER
+   ============================================================ */
+function editUserHandler(fullname, email, role, user_id, status) {
+  $.ajax({
+    url: "../fileHandling/adminNewUser.php?id=update",
+    type: "POST",
+    data: { fullname, email, role, user_id, status },
+
+    success: function (response) {
+      if (response == 1) {
+
+        alert("User updated successfully!");
+
+        renderUsersTable($("#userFilter").val()); // Refresh table
+        updateDashboardStats();
+        loadDashboardData();
+
+        $("#editUserModal").modal("hide");
+        $("#editUserForm")[0].reset();
+
+      } else {
+        alert("Error editing user!");
       }
     },
     error: function () {

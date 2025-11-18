@@ -143,7 +143,7 @@ async function loadSectionContent(sectionName) {
     return; // Content already loaded
   }
 
-  const fileName = sectionName === 'activity' ? 'activity-log.html' : `${sectionName}.html`;
+  const fileName = sectionName === 'activity' ? 'activity-log.html' : `${sectionName}.php`;
 
   try {
     const response = await fetch(`../components/admin/${fileName}`);
@@ -167,7 +167,7 @@ function initializeNavigation() {
 
       // Special case for communities: navigate to community page
       if (sectionId === 'communities') {
-        window.location.href = '../community/communities.html';
+        window.location.href = '../community/communities.php';
         return;
       }
 

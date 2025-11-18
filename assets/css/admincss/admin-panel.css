@@ -5,7 +5,7 @@
   --light-purple: #f3e8ff;
   --dark-purple: #4c1d95;
   --text-dark: #1f2937;
-  --text-light: #6b7280;
+  --text-light: #ffffff;
   --bg-light: #f8fafc;
   --border-light: #e5e7eb;
   --success: #10b981;
@@ -22,8 +22,10 @@
   --dark-purple: #3b0764;
   --text-light: #d1d5db;
   --text-muted: #9ca3af;
-  --bg-main: #000000; /* Pure black */
-  --bg-panel: #0a0a0a; /* Slightly lifted black for contrast */
+  --bg-main: #000000;
+  /* Pure black */
+  --bg-panel: #0a0a0a;
+  /* Slightly lifted black for contrast */
   --border-glow: rgba(168, 85, 247, 0.4);
   --glow-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
 }

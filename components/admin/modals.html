@@ -120,6 +120,53 @@
     </div>
   </div>
 </div>
+
+<!-- Edit User Model -->
+<div class="modal fade" id="editUserModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editUserForm">
+          <div class="mb-3">
+            <label for="editUserId" class="form-label">ID</label>
+            <input type="text" class="form-control" id="editUserId" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="editUserName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="editUserName" placeholder="" required>
+          </div>
+          <div class="mb-3">
+            <label for="editUserRole" class="form-label">Role</label>
+            <select class="form-select" id="editUserRole" required>
+              <option value="Student">Student</option>
+              <option value="Lecturer">Lecturer</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="editUserEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="editUserEmail" required>
+          </div>
+          <div class="mb-3">
+            <label for="editUserStatus" class="form-label">Status</label>
+            <select class="form-select" id="editUserStatus" required>
+              <option value="1">Active</option>
+              <option value="0">Inactive</option>
+            </select>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-purple">Edit User</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script> -->
 <script src="../assets/js/admin/modals.js"></script>
 

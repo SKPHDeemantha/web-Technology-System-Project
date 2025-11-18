@@ -6,7 +6,7 @@
   --light-purple: #f3e8ff;
   --dark-purple: #4c1d95;
   --text-dark: #1f2937;
-  --text-light: #6b7280;
+  --text-light: #ffff;
   --bg-light: #f8fafc;
   --border-light: #e5e7eb;
   --success: #10b981;
@@ -240,7 +240,7 @@ textarea.form-control {
   .modal-dialog {
     margin: 0.5rem;
   }
-  
+
   .modal-header,
   .modal-body,
   .modal-footer {

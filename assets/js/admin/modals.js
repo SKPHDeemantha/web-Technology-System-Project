@@ -5,7 +5,7 @@ $(document).ready(function () {
      ADD USER FORM (DB BASED)
      ============================================================ */
   $(document).on("submit", "#addUserForm", function (e) {
-    e.preventDefault(); // stop page refresh
+    e.preventDefault();
 
     const name = $("#userName").val();
     const role = $("#userRole").val();
@@ -35,7 +35,7 @@ $(document).ready(function () {
 
 
   /* ============================================================
-     ADD COURSE FORM (LOCALSTORAGE) - Tell me if you want DB!
+     ADD COURSE FORM (LOCALSTORAGE)
      ============================================================ */
   $("#addCourseModal form").on("submit", function (e) {
     e.preventDefault();
@@ -46,6 +46,7 @@ $(document).ready(function () {
     const credits = $("#courseCredits").val();
 
     const courses = JSON.parse(localStorage.getItem("adminCourses")) || [];
+
     const newCourse = {
       id: Date.now(),
       code,
@@ -86,24 +87,17 @@ function newUserHandler(fullname, email, password, role) {
 
         alert("User added successfully!");
 
-        // Refresh User Table
-        renderUsersTable($("#userFilter").val());
-
-        // Refresh Dashboard
+        renderUsersTable($("#userFilter").val()); // Refresh table
         updateDashboardStats();
         loadDashboardData();
 
-        // Close modal
         $("#addUserModal").modal("hide");
-
-        // Reset form
         $("#addUserForm")[0].reset();
 
       } else {
         alert("Error adding user!");
       }
     },
-
     error: function () {
       alert("AJAX Error!");
     }
@@ -126,17 +120,11 @@ function newCommunityHandler(name, description, category) {
 
         alert("Community created successfully!");
 
-        // Refresh community table
         renderCommunitiesTable();
-
-        // Refresh dashboard
         updateDashboardStats();
         loadDashboardData();
 
-        // Close modal
         $("#addCommunityModal").modal("hide");
-
-        // Reset form
         $("#addCommunityForm")[0].reset();
 
       } else {
@@ -147,5 +135,61 @@ function newCommunityHandler(name, description, category) {
     error: function () {
       alert("AJAX Error!");
     }
+  });
+}
+
+
+
+/* ============================================================
+   📌 ACTIVITY LOG — LOCALSTORAGE ONLY
+   ============================================================ */
+function addToActivityLog(message) {
+
+  let activity = JSON.parse(localStorage.getItem("recentActivity")) || [];
+
+  const newEntry = {
+    id: Date.now(),
+    message: message,
+    time: new Date().toLocaleString()
+  };
+
+  // Newest on top
+  activity.unshift(newEntry);
+
+  // Keep only last 10
+  activity = activity.slice(0, 10);
+
+  localStorage.setItem("recentActivity", JSON.stringify(activity));
+
+  // Auto update dashboard if visible
+  if (typeof renderRecentActivity === "function") {
+    renderRecentActivity();
+  }
+}
+
+
+
+/* ============================================================
+   📌 RENDER RECENT ACTIVITY UI
+   ============================================================ */
+function renderRecentActivity() {
+
+  const container = document.getElementById("recentActivityList");
+  if (!container) return;
+
+  const activity = JSON.parse(localStorage.getItem("recentActivity")) || [];
+
+  container.innerHTML = "";
+
+  activity.forEach(item => {
+    const div = document.createElement("div");
+    div.classList.add("activity-item");
+
+    div.innerHTML = `
+      <p class="activity-message">${item.message}</p>
+      <small class="activity-time">${item.time}</small>
+    `;
+
+    container.appendChild(div);
   });
 }

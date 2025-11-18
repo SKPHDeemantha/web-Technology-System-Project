@@ -23,7 +23,6 @@ window.loadDashboardData = loadDashboardData;
 // ==============================
 function loadDashboardData() {
 
-  // Helper to perform XML AJAX
   function fetchXML(url) {
     return $.ajax({ url, async: false }).responseXML;
   }
@@ -46,7 +45,7 @@ function loadDashboardData() {
   const logsCount =
     logXML.getElementsByTagName("logCount")[0]?.textContent || 0;
 
-  // ----- ALWAYS UPDATE DASHBOARD STATS -----
+  // ----- ALWAYS UPDATE DB COUNTS -----
   const updatedStats = {
     totalUsers: parseInt(usersCount),
     totalCommunities: parseInt(communitiesCount),
@@ -57,13 +56,13 @@ function loadDashboardData() {
     eventGrowth: 0.0,
     logGrowth: 8.7
   };
-
+  
   localStorage.setItem('dashboardStats', JSON.stringify(updatedStats));
 
 
-  // =============================
-  // LOAD USER LIST FROM DATABASE
-  // =============================
+  // ===========================
+  // LOAD USER LIST FROM DB
+  // ===========================
   const userDataXML = fetchXML('adminxml.php?request=getUserData');
 
   const rowNos = userDataXML.getElementsByTagName("rowNo");
@@ -94,36 +93,40 @@ function loadDashboardData() {
   localStorage.setItem('recentUsers', JSON.stringify(recentUsers));
 
 
-  // =============================
-  // SET DEFAULT ACTIVITY & CHART
-  // =============================
-  const defaultActivity = [
-    { type: 'user', title: 'New User Registration', description: 'System activity example', time: '2 hours ago', marker: 'bg-success' },
-    { type: 'community', title: 'Community Created', description: 'Example timeline', time: '4 hours ago', marker: 'bg-primary' }
-  ];
-
+  // ===========================
+  // DEFAULT ACTIVITY — ONLY ONCE
+  // ===========================
   if (!localStorage.getItem('recentActivity')) {
+    const defaultActivity = [
+      { message: 'New User Registration', time: '2 hours ago' },
+      { message: 'Community Created', time: '4 hours ago' }
+    ];
+
     localStorage.setItem('recentActivity', JSON.stringify(defaultActivity));
   }
 
-  const defaultChartData = {
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    datasets: [
-      {
+
+  // ===========================
+  // DEFAULT CHART — ONLY ONCE
+  // ===========================
+  if (!localStorage.getItem('activityChartData')) {
+    const defaultChartData = {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
         label: 'User Activity',
         data: [65, 78, 66, 74, 58, 80, 67],
         borderColor: '#6a11cb',
         backgroundColor: 'rgba(106, 17, 203, 0.1)',
         tension: 0.4,
         fill: true
-      }
-    ]
-  };
+      }]
+    };
 
-  if (!localStorage.getItem('activityChartData')) {
     localStorage.setItem('activityChartData', JSON.stringify(defaultChartData));
   }
 }
+
+
 
 
 

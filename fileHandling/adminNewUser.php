@@ -1,7 +1,10 @@
 <?php
 include '../connect.php';
-// session_start();
-// $_SESSION['user_id'] = null;
+session_start();
+if(!isset($_SESSION['user_id'])){
+    header("Location: ../index.php");
+    exit();
+}
 
 $id = $_GET['id'];
 
@@ -66,6 +69,4 @@ if ($id == "save") {
     }
 
     exit();
-} else if ($id == "saveCommunity"){
-    
 }

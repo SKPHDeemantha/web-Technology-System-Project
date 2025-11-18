@@ -3,10 +3,10 @@ session_start();
 header('Content-Type: text/xml');
 echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 include '../connect.php';
-// if(!isset($_SESSION['user_id'])){
-//     header("Location: ../index.php");
-//     exit();
-// }
+if(!isset($_SESSION['user_id'])){
+    header("Location: ../index.php");
+    exit();
+}
 
 $RequestType = $_GET["request"];
 

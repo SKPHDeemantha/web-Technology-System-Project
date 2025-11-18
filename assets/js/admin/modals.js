@@ -1,130 +1,195 @@
-// Form Submissions for Modals
-document.addEventListener('DOMContentLoaded', function () {
-  const addUserForm = document.getElementById('addUserForm');
-  if (addUserForm) {
-    addUserForm.addEventListener('submit', function (e) {
-      e.preventDefault();
+// Ensure jQuery is loaded FIRST
+$(document).ready(function () {
 
-      const name = document.getElementById('userName').value;
-      const role = document.getElementById('userRole').value;
-      const email = document.getElementById('userEmail').value;
+  /* ============================================================
+     ADD USER FORM (DB BASED)
+     ============================================================ */
+  $(document).on("submit", "#addUserForm", function (e) {
+    e.preventDefault();
 
-      const users = JSON.parse(localStorage.getItem('adminUsers')) || [];
-      const newUser = {
-        id: Date.now(),
-        name,
-        role,
-        email,
-        status: 'Active'
-      };
+    const name = $("#userName").val();
+    const role = $("#userRole").val();
+    const email = $("#userEmail").val();
+    const password = $("#userPassword").val();
 
-      users.push(newUser);
-      localStorage.setItem('adminUsers', JSON.stringify(users));
+    newUserHandler(name, email, password, role);
 
-      // Add to activity log
-      addToActivityLog(`Added new user: ${name} (${role})`);
+    addToActivityLog(`Added new user: ${name} (${role})`);
+  });
 
-      // Update UI
-      renderUsersTable(document.getElementById('userFilter').value);
-      updateDashboardStats();
 
-      // Close modal and reset form
-      bootstrap.Modal.getInstance(document.getElementById('addUserModal')).hide();
-      this.reset();
+  /* ============================================================
+     ADD COMMUNITY FORM (DB BASED)
+     ============================================================ */
+  $(document).on("submit", "#addCommunityForm", function (e) {
+    e.preventDefault();
 
-      // Show success message
-      showAlert('User added successfully!', 'success');
-    });
-  }
+    const name        = $("#communityName").val();
+    const description = $("#communityDesc").val();
+    const category    = $("#communityCategory").val();
 
-  const addCommunityForm = document.getElementById('addCommunityForm');
-  if (addCommunityForm) {
-    addCommunityForm.addEventListener('submit', function (e) {
-      e.preventDefault();
+    newCommunityHandler(name, description, category);
 
-      const name = document.getElementById('communityName').value;
-      const description = document.getElementById('communityDesc').value;
-      const category = document.getElementById('communityCategory').value;
+    addToActivityLog(`Created new community: ${name}`);
+  });
 
-      const communities = JSON.parse(localStorage.getItem('adminCommunities')) || [];
-      const newCommunity = {
-        id: Date.now(),
-        name,
-        description,
-        category,
-        members: 0
-      };
 
-      communities.push(newCommunity);
-      localStorage.setItem('adminCommunities', JSON.stringify(communities));
+  /* ============================================================
+     ADD COURSE FORM (LOCALSTORAGE)
+     ============================================================ */
+  $("#addCourseModal form").on("submit", function (e) {
+    e.preventDefault();
 
-      // Add to activity log
-      addToActivityLog(`Created new community: ${name}`);
+    const code = $("#courseCode").val();
+    const name = $("#courseName").val();
+    const instructor = $("#courseInstructor").val();
+    const credits = $("#courseCredits").val();
 
-      // Update UI
-      renderCommunitiesTable();
-      updateDashboardStats();
+    const courses = JSON.parse(localStorage.getItem("adminCourses")) || [];
 
-      // Close modal and reset form
-      bootstrap.Modal.getInstance(document.getElementById('addCommunityModal')).hide();
-      this.reset();
+    const newCourse = {
+      id: Date.now(),
+      code,
+      name,
+      instructor,
+      credits
+    };
 
-      // Show success message
-      showAlert('Community created successfully!', 'success');
-    });
-  }
+    courses.push(newCourse);
+    localStorage.setItem("adminCourses", JSON.stringify(courses));
 
-  const addEventForm = document.getElementById('addEventForm');
-  if (addEventForm) {
-    addEventForm.addEventListener('submit', function (e) {
-      e.preventDefault();
+    addToActivityLog(`Added new course: ${name} (${code})`);
 
-      const name = document.getElementById('eventName').value;
-      const date = document.getElementById('eventDate').value;
-      const time = document.getElementById('eventTime').value;
-      const location = document.getElementById('eventLocation').value;
-      const description = document.getElementById('eventDescription').value;
+    renderCoursesTable();
+    updateDashboardStats();
 
-      const events = JSON.parse(localStorage.getItem('adminEvents')) || [];
-      const newEvent = {
-        id: Date.now(),
-        name,
-        date,
-        time,
-        location,
-        description,
-        status: 'Upcoming'
-      };
+    $("#addCourseModal").modal("hide");
+    this.reset();
 
-      events.push(newEvent);
-      localStorage.setItem('adminEvents', JSON.stringify(events));
+    showAlert("Course added successfully!", "success");
+  });
 
-      // Add to activity log
-      addToActivityLog(`Scheduled new event: ${name}`);
-
-      // Update UI
-      renderEventsTable(document.getElementById('eventMonthFilter').value);
-      updateDashboardStats();
-
-      // Close modal and reset form
-      bootstrap.Modal.getInstance(document.getElementById('addEventModal')).hide();
-      this.reset();
-
-      // Show success message
-      showAlert('Event scheduled successfully!', 'success');
-    });
-  }
-
-  const settingsForm = document.getElementById('settingsForm');
-  if (settingsForm) {
-    settingsForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      // In a real application, this would save to a backend
-      showAlert('Settings saved successfully!', 'success');
-
-      // Add to activity log
-      addToActivityLog('Updated system settings');
-    });
-  }
 });
+
+
+
+/* ============================================================
+   AJAX: ADD NEW USER
+   ============================================================ */
+function newUserHandler(fullname, email, password, role) {
+  $.ajax({
+    url: "../fileHandling/adminNewUser.php?id=save",
+    type: "POST",
+    data: { fullname, email, password, role },
+
+    success: function (response) {
+      if (response == 1) {
+
+        alert("User added successfully!");
+
+        renderUsersTable($("#userFilter").val()); // Refresh table
+        updateDashboardStats();
+        loadDashboardData();
+
+        $("#addUserModal").modal("hide");
+        $("#addUserForm")[0].reset();
+
+      } else {
+        alert("Error adding user!");
+      }
+    },
+    error: function () {
+      alert("AJAX Error!");
+    }
+  });
+}
+
+
+
+/* ============================================================
+   AJAX: ADD NEW COMMUNITY
+   ============================================================ */
+function newCommunityHandler(name, description, category) {
+  $.ajax({
+    url: "../fileHandling/adminNewCommunity.php?id=save",
+    type: "POST",
+    data: { name, description, category },
+
+    success: function (response) {
+      if (response == 1) {
+
+        alert("Community created successfully!");
+
+        renderCommunitiesTable();
+        updateDashboardStats();
+        loadDashboardData();
+
+        $("#addCommunityModal").modal("hide");
+        $("#addCommunityForm")[0].reset();
+
+      } else {
+        alert("Error creating community!");
+      }
+    },
+
+    error: function () {
+      alert("AJAX Error!");
+    }
+  });
+}
+
+
+
+/* ============================================================
+   📌 ACTIVITY LOG — LOCALSTORAGE ONLY
+   ============================================================ */
+function addToActivityLog(message) {
+
+  let activity = JSON.parse(localStorage.getItem("recentActivity")) || [];
+
+  const newEntry = {
+    id: Date.now(),
+    message: message,
+    time: new Date().toLocaleString()
+  };
+
+  // Newest on top
+  activity.unshift(newEntry);
+
+  // Keep only last 10
+  activity = activity.slice(0, 10);
+
+  localStorage.setItem("recentActivity", JSON.stringify(activity));
+
+  // Auto update dashboard if visible
+  if (typeof renderRecentActivity === "function") {
+    renderRecentActivity();
+  }
+}
+
+
+
+/* ============================================================
+   📌 RENDER RECENT ACTIVITY UI
+   ============================================================ */
+function renderRecentActivity() {
+
+  const container = document.getElementById("recentActivityList");
+  if (!container) return;
+
+  const activity = JSON.parse(localStorage.getItem("recentActivity")) || [];
+
+  container.innerHTML = "";
+
+  activity.forEach(item => {
+    const div = document.createElement("div");
+    div.classList.add("activity-item");
+
+    div.innerHTML = `
+      <p class="activity-message">${item.message}</p>
+      <small class="activity-time">${item.time}</small>
+    `;
+
+    container.appendChild(div);
+  });
+}

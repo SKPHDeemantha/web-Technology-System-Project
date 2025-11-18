@@ -88,7 +88,7 @@ function initializeDarkMode() {
 
 function getActiveSectionFromHash() {
   const hash = window.location.hash.substring(1);
-  const validSections = ['dashboard', 'analytics', 'users', 'courses', 'announcements', 'activity', 'settings'];
+  const validSections = ['dashboard', 'analytics', 'users', 'courses', 'activity', 'settings'];
   return validSections.includes(hash) ? hash : 'dashboard';
 }
 
@@ -223,12 +223,6 @@ function initializeSection(sectionId) {
         break;
       case 'users':
         initUsersTable();
-        break;
-      case 'courses':
-        initCoursesTable();
-        break;
-      case 'announcements':
-        initAnnouncementsTable();
         break;
       default:
         // No specific initialization needed for other sections

@@ -1,4 +1,6 @@
-// Dashboard Functions
+// ==============================
+// DASHBOARD INITIALIZER
+// ==============================
 function initDashboard() {
   loadDashboardData();
   renderStats();
@@ -6,120 +8,169 @@ function initDashboard() {
   renderRecentUsers();
   renderRecentActivity();
 
-  // Add event listeners
   const refreshBtn = document.getElementById('refreshBtn');
-  if (refreshBtn) {
-    refreshBtn.addEventListener('click', refreshData);
-  }
+  if (refreshBtn) refreshBtn.addEventListener('click', refreshData);
 
   const exportBtn = document.getElementById('exportDataBtn');
-  if (exportBtn) {
-    exportBtn.addEventListener('click', exportData);
-  }
+  if (exportBtn) exportBtn.addEventListener('click', exportData);
 }
 
+window.loadDashboardData = loadDashboardData;
+
+
+// ==============================
+// LOAD ALL DATA FROM DATABASE
+// ==============================
 function loadDashboardData() {
-  // Load or initialize dashboard data in localStorage
-  if (!localStorage.getItem('dashboardStats')) {
-    const defaultStats = {
-      totalUsers: 1248,
-      totalCommunities: 42,
-      totalEvents: 18,
-      activeLogs: 327,
-      userGrowth: 4.3,
-      communityGrowth: 2.1,
-      eventGrowth: 0.0,
-      logGrowth: 8.7
-    };
-    localStorage.setItem('dashboardStats', JSON.stringify(defaultStats));
+
+  function fetchXML(url) {
+    return $.ajax({ url, async: false }).responseXML;
   }
 
-  if (!localStorage.getItem('recentUsers')) {
-    const defaultUsers = [
-      { name: 'John Doe', role: 'Student', status: 'Active' },
-      { name: 'Jane Smith', role: 'Lecturer', status: 'Active' },
-      { name: 'Robert Johnson', role: 'Student', status: 'Pending' }
-    ];
-    localStorage.setItem('recentUsers', JSON.stringify(defaultUsers));
+  // ----- GET COUNTS -----
+  const userXML = fetchXML('adminxml.php?request=getUserCount');
+  const communityXML = fetchXML('adminxml.php?request=getCommunityCount');
+  const eventXML = fetchXML('adminxml.php?request=getEventCount');
+  const logXML = fetchXML('adminxml.php?request=getLogCount');
+
+  const usersCount =
+    userXML.getElementsByTagName("userCount")[0]?.textContent || 0;
+
+  const communitiesCount =
+    communityXML.getElementsByTagName("communityCount")[0]?.textContent || 0;
+
+  const eventsCount =
+    eventXML.getElementsByTagName("eventCount")[0]?.textContent || 0;
+
+  const logsCount =
+    logXML.getElementsByTagName("logCount")[0]?.textContent || 0;
+
+  // ----- ALWAYS UPDATE DB COUNTS -----
+  const updatedStats = {
+    totalUsers: parseInt(usersCount),
+    totalCommunities: parseInt(communitiesCount),
+    totalEvents: parseInt(eventsCount),
+    activeLogs: parseInt(logsCount),
+    userGrowth: 4.3,
+    communityGrowth: 2.1,
+    eventGrowth: 0.0,
+    logGrowth: 8.7
+  };
+  
+  localStorage.setItem('dashboardStats', JSON.stringify(updatedStats));
+
+
+  // ===========================
+  // LOAD USER LIST FROM DB
+  // ===========================
+  const userDataXML = fetchXML('adminxml.php?request=getUserData');
+
+  const rowNos = userDataXML.getElementsByTagName("rowNo");
+  const userIds = userDataXML.getElementsByTagName("userId");
+  const fullNames = userDataXML.getElementsByTagName("fullName");
+  const roles = userDataXML.getElementsByTagName("role");
+  const statuses = userDataXML.getElementsByTagName("status");
+
+  function mapRole(num) {
+    switch (num) {
+      case "1": return "Student";
+      case "2": return "Lecturer";
+      case "3": return "Admin";
+      default: return "Unknown";
+    }
   }
 
+  const recentUsers = [];
+  for (let i = 0; i < rowNos.length; i++) {
+    recentUsers.push({
+      id: userIds[i].textContent,
+      name: fullNames[i].textContent,
+      role: mapRole(roles[i].textContent),
+      status: statuses[i].textContent === "1" ? "Active" : "Inactive"
+    });
+  }
+
+  localStorage.setItem('recentUsers', JSON.stringify(recentUsers));
+
+
+  // ===========================
+  // DEFAULT ACTIVITY — ONLY ONCE
+  // ===========================
   if (!localStorage.getItem('recentActivity')) {
     const defaultActivity = [
-      { type: 'user', title: 'New User Registration', description: 'John Doe joined as Student', time: '2 hours ago', marker: 'bg-success' },
-      { type: 'community', title: 'Community Created', description: 'Computer Science Club created by Admin', time: '4 hours ago', marker: 'bg-primary' },
-      { type: 'event', title: 'Event Scheduled', description: 'Tech Conference scheduled for Oct 15', time: '1 day ago', marker: 'bg-warning' },
-      { type: 'system', title: 'System Update', description: 'Admin panel updated to version 2.1', time: '2 days ago', marker: 'bg-info' }
+      { message: 'New User Registration', time: '2 hours ago' },
+      { message: 'Community Created', time: '4 hours ago' }
     ];
+
     localStorage.setItem('recentActivity', JSON.stringify(defaultActivity));
   }
 
+
+  // ===========================
+  // DEFAULT CHART — ONLY ONCE
+  // ===========================
   if (!localStorage.getItem('activityChartData')) {
     const defaultChartData = {
       labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      datasets: [
-        {
-          label: 'User Activity',
-          data: [65, 78, 66, 74, 58, 80, 67],
-          borderColor: '#6a11cb',
-          backgroundColor: 'rgba(106, 17, 203, 0.1)',
-          tension: 0.4,
-          fill: true
-        },
-        {
-          label: 'Community Activity',
-          data: [28, 40, 35, 50, 46, 55, 60],
-          borderColor: '#a855f7',
-          backgroundColor: 'rgba(168, 85, 247, 0.1)',
-          tension: 0.4,
-          fill: true
-        }
-      ]
+      datasets: [{
+        label: 'User Activity',
+        data: [65, 78, 66, 74, 58, 80, 67],
+        borderColor: '#6a11cb',
+        backgroundColor: 'rgba(106, 17, 203, 0.1)',
+        tension: 0.4,
+        fill: true
+      }]
     };
+
     localStorage.setItem('activityChartData', JSON.stringify(defaultChartData));
   }
 }
 
+
+
+
+
+// ==============================
+// RENDER STATS
+// ==============================
 function renderStats() {
   const stats = JSON.parse(localStorage.getItem('dashboardStats'));
 
-  document.getElementById('totalUsers').textContent = stats.totalUsers.toLocaleString();
+  document.getElementById('totalUsers').textContent = stats.totalUsers;
   document.getElementById('totalCommunities').textContent = stats.totalCommunities;
   document.getElementById('totalEvents').textContent = stats.totalEvents;
   document.getElementById('activeLogs').textContent = stats.activeLogs;
 
-  // Update growth indicators
   updateGrowthIndicator('totalUsers', stats.userGrowth, 'success');
   updateGrowthIndicator('totalCommunities', stats.communityGrowth, 'success');
   updateGrowthIndicator('totalEvents', stats.eventGrowth, 'warning');
   updateGrowthIndicator('activeLogs', stats.logGrowth, 'danger');
 }
 
-function updateGrowthIndicator(statId, growth, type) {
-  const container = document.getElementById(statId).closest('.card-body').querySelector('.mt-3');
-  const icon = growth >= 0 ? 'fa-arrow-up' : 'fa-arrow-down';
-  const colorClass = type === 'success' ? 'text-success' : type === 'danger' ? 'text-danger' : 'text-warning';
+function updateGrowthIndicator(id, growth, type) {
+  const container = document.getElementById(id)
+    .closest('.card-body')
+    .querySelector('.mt-3');
 
-  container.className = `mt-3 mb-0 ${colorClass}`;
+  const icon = growth >= 0 ? 'fa-arrow-up' : 'fa-arrow-down';
+
+  container.className = `mt-3 mb-0 text-${type}`;
   container.innerHTML = `
     <span class="me-2"><i class="fas ${icon}"></i> ${Math.abs(growth)}%</span>
-    <span class="text-nowrap">Since last month</span>
+    <span>Since last month</span>
   `;
 }
 
+
+
+// ==============================
+// ACTIVITY CHART
+// ==============================
 function renderActivityChart() {
   const canvas = document.getElementById('activityChart');
   if (!canvas) return;
 
-  // Destroy existing chart if it exists
-  if (canvas.chart) {
-    canvas.chart.destroy();
-  }
-
-  // Ensure Chart.js is loaded
-  if (typeof Chart === 'undefined') {
-    console.error('Chart.js is not loaded');
-    return;
-  }
+  if (canvas.chart) canvas.chart.destroy();
 
   const chartData = JSON.parse(localStorage.getItem('activityChartData'));
   const ctx = canvas.getContext('2d');
@@ -129,21 +180,16 @@ function renderActivityChart() {
     data: chartData,
     options: {
       responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'top'
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
+      maintainAspectRatio: false
     }
   });
 }
 
+
+
+// ==============================
+// RECENT USERS TABLE
+// ==============================
 function renderRecentUsers() {
   const users = JSON.parse(localStorage.getItem('recentUsers'));
   const tbody = document.querySelector('#dashboard-content .table tbody');
@@ -153,7 +199,7 @@ function renderRecentUsers() {
 
   users.forEach(user => {
     const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
-    const statusClass = user.status === 'Active' ? 'bg-success' : 'bg-warning';
+    const statusClass = user.status === "Active" ? "bg-success" : "bg-warning";
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
@@ -173,6 +219,11 @@ function renderRecentUsers() {
   });
 }
 
+
+
+// ==============================
+// RECENT ACTIVITY
+// ==============================
 function renderRecentActivity() {
   const activities = JSON.parse(localStorage.getItem('recentActivity'));
   const timeline = document.querySelector('.activity-timeline');
@@ -180,65 +231,59 @@ function renderRecentActivity() {
 
   timeline.innerHTML = '';
 
-  activities.forEach(activity => {
+  activities.forEach(act => {
     const item = document.createElement('div');
     item.className = 'activity-item';
     item.innerHTML = `
-      <div class="activity-marker ${activity.marker}"></div>
+      <div class="activity-marker ${act.marker}"></div>
       <div class="activity-content">
-        <h6>${activity.title}</h6>
-        <p>${activity.description}</p>
-        <small class="text-muted">${activity.time}</small>
+        <h6>${act.title}</h6>
+        <p>${act.description}</p>
+        <small class="text-muted">${act.time}</small>
       </div>
     `;
-
     timeline.appendChild(item);
   });
 }
 
+
+
+// ==============================
+// REFRESH DATA (REAL DATABASE)
+// ==============================
 function refreshData() {
-  // Simulate data refresh
-  const refreshBtn = document.getElementById('refreshBtn');
-  const originalText = refreshBtn.innerHTML;
-  refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Refreshing...';
-  refreshBtn.disabled = true;
 
-  // Simulate API call delay
+  const btn = document.getElementById('refreshBtn');
+  const original = btn.innerHTML;
+
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Refreshing...';
+  btn.disabled = true;
+
   setTimeout(() => {
-    // Update stats with slight changes
-    const stats = JSON.parse(localStorage.getItem('dashboardStats'));
-    stats.totalUsers += Math.floor(Math.random() * 10) - 5;
-    stats.totalCommunities += Math.floor(Math.random() * 5) - 2;
-    stats.totalEvents += Math.floor(Math.random() * 3) - 1;
-    stats.activeLogs += Math.floor(Math.random() * 20) - 10;
 
-    localStorage.setItem('dashboardStats', JSON.stringify(stats));
-
-    // Update chart data
-    const chartData = JSON.parse(localStorage.getItem('activityChartData'));
-    chartData.datasets.forEach(dataset => {
-      dataset.data = dataset.data.map(val => val + Math.floor(Math.random() * 10) - 5);
-    });
-    localStorage.setItem('activityChartData', JSON.stringify(chartData));
-
-    // Re-render dashboard
+    loadDashboardData();     // <-- REAL DB REFRESH
     renderStats();
+    renderRecentUsers();
     renderActivityChart();
 
-    refreshBtn.innerHTML = originalText;
-    refreshBtn.disabled = false;
+    btn.innerHTML = original;
+    btn.disabled = false;
 
-    showAlert('Dashboard data refreshed successfully!', 'success');
-  }, 1500);
+    showAlert('Dashboard refreshed successfully!', 'success');
+
+  }, 1000);
 }
 
+
+
+// ==============================
+// EXPORT DATA
+// ==============================
 function exportData() {
   const data = {
     stats: JSON.parse(localStorage.getItem('dashboardStats')),
-    users: JSON.parse(localStorage.getItem('adminUsers')) || [],
-    communities: JSON.parse(localStorage.getItem('communities')) || [],
-    events: JSON.parse(localStorage.getItem('events')) || [],
-    activity: JSON.parse(localStorage.getItem('activityLogs')) || []
+    users: JSON.parse(localStorage.getItem('recentUsers')),
+    activity: JSON.parse(localStorage.getItem('recentActivity'))
   };
 
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -246,36 +291,20 @@ function exportData() {
 
   const a = document.createElement('a');
   a.href = url;
-  a.download = `admin-dashboard-export-${new Date().toISOString().split('T')[0]}.json`;
-  document.body.appendChild(a);
+  a.download = `dashboard-export-${new Date().toISOString().split('T')[0]}.json`;
   a.click();
-  document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  showAlert('Data exported successfully!', 'success');
+  showAlert('Export successful!', 'success');
 }
 
-// Utility function to update dashboard stats (called from other modules)
+
+
+// ==============================
+// UPDATE DASHBOARD (optional use)
+// ==============================
 function updateDashboardStats() {
-  const users = JSON.parse(localStorage.getItem('adminUsers')) || [];
-  const communities = JSON.parse(localStorage.getItem('communities')) || [];
-  const events = JSON.parse(localStorage.getItem('events')) || [];
-  const logs = JSON.parse(localStorage.getItem('activityLogs')) || [];
-
-  const stats = {
-    totalUsers: users.length,
-    totalCommunities: communities.length,
-    totalEvents: events.length,
-    activeLogs: logs.length,
-    userGrowth: 4.3, // Mock growth values
-    communityGrowth: 2.1,
-    eventGrowth: 0.0,
-    logGrowth: 8.7
-  };
-
-  localStorage.setItem('dashboardStats', JSON.stringify(stats));
+  loadDashboardData();
   renderStats();
 }
-
-// Make updateDashboardStats globally available
 window.updateDashboardStats = updateDashboardStats;

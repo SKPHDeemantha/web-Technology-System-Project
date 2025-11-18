@@ -116,3 +116,57 @@ document.querySelector('.toggle-password').addEventListener('click', function() 
 document.getElementById('googleLogin').addEventListener('click', () => {
   alert('Google OAuth login flow to be implemented.');
 });
+<<<<<<< HEAD
+=======
+
+
+/* -------------------------------
+   SIGNUP AJAX
+---------------------------------*/
+function signupHandler(fullname, email, password, role, year) {
+  $.ajax({
+    url: "fileHandling/signuphandling.php?id=save",
+    type: "POST",
+    data: { fullname, email, password, role, year },
+    success: function (response) {
+      if (response == 1) {
+        alert("Account created successfully!");
+        window.location.href = "index.php";
+      } else {
+        alert("Saving Error!");
+      }
+    },
+    error: function () {
+      alert("AJAX Error!");
+    }
+  });
+}
+
+
+/* -------------------------------
+   LOGIN AJAX
+---------------------------------*/
+function loginHandler(email, password, role, year) {
+  $.ajax({
+    url: "fileHandling/signuphandling.php?id=check",
+    type: "POST",
+    data: { email, password, role, year },
+    success: function (response) {
+      if (response == 1) {
+        alert("Login Successful!");
+
+        if (role === 'admin') {
+          window.location.href = 'admin/admin-panel.php';
+        } else {
+          window.location.href = 'community/communities.php';
+        }
+      } else {
+        alert("Invalid credentials or user not found!");
+      }
+    },
+    error: function () {
+      alert("AJAX Error!");
+    }
+  });
+}
+>>>>>>> Dev-Navindu

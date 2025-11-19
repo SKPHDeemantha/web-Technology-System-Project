@@ -1,49 +1,73 @@
-// Course Management Functions
-function initCoursesTable() {
-  const courses = JSON.parse(localStorage.getItem('adminCourses')) || [
-    {
-      id: 1,
-      code: 'CS101',
-      name: 'Introduction to Computer Science',
-      lecturer: 'Dr. Jane Smith',
-      lecturerId: 2,
-      year: '1st Year',
-      semester: 'Fall',
-      credits: 3,
-      students: 45,
-      status: 'Active'
-    },
-    {
-      id: 2,
-      code: 'MTH201',
-      name: 'Advanced Mathematics',
-      lecturer: 'Prof. Robert Brown',
-      lecturerId: 3,
-      year: '2nd Year',
-      semester: 'Spring',
-      credits: 4,
-      students: 32,
-      status: 'Active'
-    },
-    {
-      id: 3,
-      code: 'PHY150',
-      name: 'Physics Fundamentals',
-      lecturer: 'Dr. Alice Johnson',
-      lecturerId: 4,
-      year: '1st Year',
-      semester: 'Fall',
-      credits: 3,
-      students: 28,
-      status: 'Active'
-    }
-  ];
-
-  localStorage.setItem('adminCourses', JSON.stringify(courses));
-  renderCoursesTable();
+// Global fetchXML function
+function fetchXML(url) {
+  return $.ajax({ url, async: false }).responseXML;
 }
 
-function renderCoursesTable() {
+// Course Management Functions
+function initCoursesTable() {
+
+  const userDataXML = fetchXML('../admin/adminxml.php?request=getCourseData');
+
+  const rowNos     = userDataXML.getElementsByTagName("rowNo");
+  const courseIds    = userDataXML.getElementsByTagName("courseId");
+  const courseCodes  = userDataXML.getElementsByTagName("courseCode");
+  const courseNames      = userDataXML.getElementsByTagName("courseName");
+  const courseDescriptions     = userDataXML.getElementsByTagName("courseDescription");
+  const courseCredits   = userDataXML.getElementsByTagName("courseCredit");
+  const courseYears   = userDataXML.getElementsByTagName("courseYear");
+  const courseLecturers   = userDataXML.getElementsByTagName("courseLecturer");
+  const courseStudents   = userDataXML.getElementsByTagName("courseStudentCount");
+  const courseStatuses   = userDataXML.getElementsByTagName("courseStatus");
+
+    // --- Build JS array from XML ---
+    const courseList = [];
+    for (let i = 0; i < rowNos.length; i++) {
+        courseList.push({
+            id: courseIds[i].textContent,
+            code: courseCodes[i].textContent,
+            name: courseNames[i].textContent,
+            description: courseDescriptions[i].textContent,
+            credits: courseCredits[i].textContent,
+            year: courseYears[i].textContent,
+            lecturer: courseLecturers[i].textContent,
+            students: courseStudents[i].textContent,
+            status: courseStatuses[i].textContent == "1" ? "Active" : "Inactive"
+        });
+    }
+    // --- Save to localStorage ---
+    localStorage.setItem('adminCourses', JSON.stringify(courseList));
+
+    // --- Render table initially ---
+    renderCoursesTable();
+
+    // --- Add search functionality ---
+    const courseSearch = document.getElementById('courseSearch');
+    const buttonSearch = document.getElementById('buttonSearch');
+    
+    if (courseSearch) {
+        // Search on input (real-time)
+        courseSearch.addEventListener('input', function () {
+            renderCoursesTable(this.value);
+        });
+
+        // Also trigger search on Enter key
+        courseSearch.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                renderCoursesTable(this.value);
+            }
+        });
+    }
+
+    if (buttonSearch) {
+        // Search on button click
+        buttonSearch.addEventListener('click', function () {
+            const searchTerm = courseSearch ? courseSearch.value : '';
+            renderCoursesTable(searchTerm);
+        });
+    }
+}
+
+function renderCoursesTable(searchTerm = '') {
   const courses = JSON.parse(localStorage.getItem('adminCourses')) || [];
   const tbody = document.getElementById('coursesTableBody');
 
@@ -51,7 +75,18 @@ function renderCoursesTable() {
 
   tbody.innerHTML = '';
 
-  courses.forEach(course => {
+  // Apply search filter if search term exists
+  let filteredCourses = courses;
+  if (searchTerm) {
+    filteredCourses = courses.filter(course =>
+      course.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.lecturer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.year.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
+  filteredCourses.forEach(course => {
     const tr = document.createElement('tr');
 
     tr.innerHTML = `
@@ -77,6 +112,17 @@ function renderCoursesTable() {
 
     tbody.appendChild(tr);
   });
+
+  // Show message if no courses found
+  if (filteredCourses.length === 0) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td colspan="7" class="text-center text-muted py-4">
+        ${searchTerm ? 'No courses found matching your search.' : 'No courses available.'}
+      </td>
+    `;
+    tbody.appendChild(tr);
+  }
 }
 
 // Global function for delete operations
@@ -86,7 +132,13 @@ window.deleteCourse = function (id) {
     const updatedCourses = courses.filter(course => course.id !== id);
     localStorage.setItem('adminCourses', JSON.stringify(updatedCourses));
 
-    renderCoursesTable();
+    deleteCourseHandler(id);
+
+    // Get current search term
+    const courseSearch = document.getElementById('courseSearch');
+    const searchTerm = courseSearch ? courseSearch.value : '';
+    
+    renderCoursesTable(searchTerm);
     updateDashboardStats();
     addToActivityLog('Deleted a course');
 
@@ -94,27 +146,68 @@ window.deleteCourse = function (id) {
   }
 };
 
-// Global function for edit operations
-window.editCourse = function (id) {
+// edit course function
+window.editCourse = function(id) {
   const courses = JSON.parse(localStorage.getItem('adminCourses')) || [];
-  const course = courses.find(c => c.id === id);
+  const course = courses.find(u => u.id === id);
 
-  if (course) {
-    // Populate edit modal with course data
-    document.getElementById('editCourseId').value = course.id;
-    document.getElementById('editCourseCode').value = course.code;
-    document.getElementById('editCourseName').value = course.name;
-    document.getElementById('editCourseLecturer').value = course.lecturerId;
-    document.getElementById('editCourseYear').value = course.year;
-    document.getElementById('editCourseSemester').value = course.semester;
-    document.getElementById('editCourseCredits').value = course.credits;
-    document.getElementById('editCourseStatus').value = course.status;
+  const userDataXML = fetchXML('../admin/adminxml.php?request=getCourseDataForEdit&courseId=' + id);
 
-    // Show edit modal
-    const editModal = new bootstrap.Modal(document.getElementById('editCourseModal'));
-    editModal.show();
+  const courseCode = userDataXML.getElementsByTagName("courseCode")[0].textContent;
+  const courseName = userDataXML.getElementsByTagName("courseName")[0].textContent;
+  const courseDescription = userDataXML.getElementsByTagName("courseDescription")[0].textContent;
+  const courseCredits = userDataXML.getElementsByTagName("courseCredit")[0].textContent;
+  const courseYear = userDataXML.getElementsByTagName("courseYear")[0].textContent;
+  const courseLecturer = userDataXML.getElementsByTagName("courseLecturer")[0].textContent;
+  const courseLecturerId = userDataXML.getElementsByTagName("courseLecturerId")[0].textContent;
+  // const courseStudentCount = userDataXML.getElementsByTagName("courseStudentCount")[0].textContent;
+  const courseStatus = userDataXML.getElementsByTagName("courseStatus")[0].textContent;
+
+  if (courseCode.length > 0 && courseName.length > 0 && courseDescription.length > 0 && courseCredits.length > 0 && courseYear.length > 0 && courseLecturer.length > 0) {
+    $('#editCourseId').val(id);
+    $('#editCourseCode').val(courseCode);
+    $('#editCourseName').val(courseName);
+    $('#editCourseDesc').val(courseDescription);
+    $('#editCourseYear').val(courseYear);
+    $('#editCourseInstructor').val(courseLecturerId);
+    $('#editCourseCredits').val(courseCredits);
+    $('#editCourseModal').modal('show');
+  } else {
+    alert('Error loading course data for editing.');
   }
+
 };
+
+/* ============================================================
+   AJAX: DELETE USER
+   ============================================================ */
+function deleteCourseHandler(course_id) {
+  $.ajax({
+    url: "../fileHandling/adminNewCourse.php?id=delete",
+    type: "POST",
+    data: {course_id},
+
+    success: function (response) {
+      if (response == 1) {
+
+        alert("User deleted successfully!");
+
+        const courseSearch = document.getElementById('courseSearch');
+        const searchTerm = courseSearch ? courseSearch.value : '';
+    
+        renderCoursesTable(searchTerm);
+        updateDashboardStats();
+        loadDashboardData();
+
+      } else {
+        alert("Error deleting user!");
+      }
+    },
+    error: function () {
+      alert("AJAX Error!");
+    }
+  });
+}
 
 // Initialize courses when DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
@@ -149,8 +242,12 @@ document.addEventListener('DOMContentLoaded', function () {
       // Add to activity log
       addToActivityLog(`Created new course: ${courseData.code} - ${courseData.name}`);
 
+      // Get current search term
+      const courseSearch = document.getElementById('courseSearch');
+      const searchTerm = courseSearch ? courseSearch.value : '';
+
       // Update UI
-      renderCoursesTable();
+      renderCoursesTable(searchTerm);
       updateDashboardStats();
 
       // Close modal and reset form
@@ -196,8 +293,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Add to activity log
         addToActivityLog(`Updated course: ${updatedCourse.code} - ${updatedCourse.name}`);
 
+        // Get current search term
+        const courseSearch = document.getElementById('courseSearch');
+        const searchTerm = courseSearch ? courseSearch.value : '';
+
         // Update UI
-        renderCoursesTable();
+        renderCoursesTable(searchTerm);
         updateDashboardStats();
 
         // Close modal
@@ -210,5 +311,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Initialize courses table
+  $(document).ready(function() {
   initCoursesTable();
+});
+  // initCoursesTable();
 });

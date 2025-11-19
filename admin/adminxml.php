@@ -70,7 +70,91 @@ if (strcmp($RequestType, "getUserCount") == 0) {
     }
     $ResponseXML .= "</XMLgetUserData>";
     echo $ResponseXML;
-}  
+}else if(strcmp($RequestType, "getUserDataForEdit") == 0){
+    $userId = $_GET["userId"];
+    $ResponseXML = "<XMLgetUserDataForEdit>";
+
+    $SQL = "select * from users where id='$userId'";
+    // echo $SQL;
+    $result = mysqli_query($con, $SQL);
+    while($row = mysqli_fetch_array($result)){
+        $ResponseXML .= "<userId><![CDATA[" . $row['id'] . "]]></userId>\n";
+        $ResponseXML .= "<fullName><![CDATA[" . $row['display_name'] . "]]></fullName>\n";
+        $ResponseXML .= "<email><![CDATA[" . $row['email'] . "]]></email>\n";
+        $ResponseXML .= "<role><![CDATA[" . $row['role_id'] . "]]></role>\n";
+        $ResponseXML .= "<status><![CDATA[" . $row['is_active'] . "]]></status>\n";
+    }
+    $ResponseXML .= "</XMLgetUserDataForEdit>";
+    echo $ResponseXML;
+}else if(strcmp($RequestType, "getCourseData") == 0){
+    $ResponseXML = "<XMLgetCourseData>";
+
+    $SQL = "SELECT
+                courses.*,
+                users.display_name AS lecturer,
+                COUNT(enrollments.id) AS students
+            FROM courses
+            INNER JOIN users 
+                ON users.id = courses.lecturer_id
+            LEFT JOIN enrollments 
+                ON enrollments.course_id = courses.id
+            GROUP BY courses.id";
+    // echo $SQL;
+    $result = mysqli_query($con, $SQL);
+    $count = mysqli_num_rows($result);
+    $ResponseXML .= "<count><![CDATA[" . $count . "]]></count>\n";
+    $rowNo=1;
+    while($row = mysqli_fetch_array($result)){
+        $ResponseXML .= "<rowNo><![CDATA[" . $rowNo . "]]></rowNo>\n";
+        $ResponseXML .= "<courseId><![CDATA[" . $row['id'] . "]]></courseId>\n";
+        $ResponseXML .= "<courseCode><![CDATA[" . $row['course_code'] . "]]></courseCode>\n";
+        $ResponseXML .= "<courseName><![CDATA[" . $row['course_name'] . "]]></courseName>\n";
+        $ResponseXML .= "<courseDescription><![CDATA[" . $row['description'] . "]]></courseDescription>\n";
+        $ResponseXML .= "<courseCredit><![CDATA[" . $row['credits'] . "]]></courseCredit>\n";
+        $ResponseXML .= "<courseYear><![CDATA[" . $row['year_id'] . "]]></courseYear>\n";
+        $ResponseXML .= "<courseLecturer><![CDATA[" . $row['lecturer'] . "]]></courseLecturer>\n";
+        $ResponseXML .= "<courseStudentCount><![CDATA[" . $row['students'] . "]]></courseStudentCount>\n";
+        $ResponseXML .= "<courseStatus><![CDATA[" . $row['is_active'] . "]]></courseStatus>\n";
+        $rowNo++;
+    }
+    $ResponseXML .= "</XMLgetCourseData>";
+    echo $ResponseXML;    
+}else if(strcmp($RequestType, "getCourseDataForEdit") == 0){
+    $id = $_GET['courseId'];
+    $ResponseXML = "<XMLgetCourseDataForEdit>\n";
+    
+    $SQL = "SELECT
+                courses.*,
+                users.display_name AS lecturer,
+                COUNT(enrollments.id) AS students
+            FROM courses
+            LEFT JOIN users
+                ON users.id = courses.lecturer_id
+            LEFT JOIN enrollments
+                ON enrollments.course_id = courses.id
+            WHERE courses.id = $id
+            GROUP BY courses.id
+            ";
+    
+    // echo $SQL;
+    $result = mysqli_query($con, $SQL);
+    $row = mysqli_fetch_array($result);
+
+    $ResponseXML .= "<courseId><![CDATA[" . $row['id'] . "]]></courseId>\n";
+    $ResponseXML .= "<courseCode><![CDATA[" . $row['course_code'] . "]]></courseCode>\n";
+    $ResponseXML .= "<courseName><![CDATA[" . $row['course_name'] . "]]></courseName>\n";
+    $ResponseXML .= "<courseDescription><![CDATA[" . $row['description'] . "]]></courseDescription>\n";
+    $ResponseXML .= "<courseCredit><![CDATA[" . $row['credits'] . "]]></courseCredit>\n";
+    $ResponseXML .= "<courseYear><![CDATA[" . $row['year_id'] . "]]></courseYear>\n";
+    $ResponseXML .= "<courseLecturer><![CDATA[" . $row['lecturer'] . "]]></courseLecturer>\n";
+    $ResponseXML .= "<courseLecturerId><![CDATA[" . $row['lecturer_id'] . "]]></courseLecturerId>\n";
+    // $ResponseXML .= "<courseStudentCount><![CDATA[" . $row['students'] . "]]></courseStudentCount>\n";
+    $ResponseXML .= "<courseStatus><![CDATA[" . $row['is_active'] . "]]></courseStatus>\n";
+
+    $ResponseXML .= "</XMLgetCourseDataForEdit>";
+    echo $ResponseXML;
+
+}
 
 
 

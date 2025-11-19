@@ -1,0 +1,233 @@
+<link rel="stylesheet" href="../assets/css/admincss/dashboard.css">
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2>Dashboard Overview</h2>
+    <p class="text-muted">Welcome back, Admin! Here's what's happening today.</p>
+  </div>
+  <div>
+    <button class="btn btn-purple" id="refreshBtn">
+      <i class="fas fa-sync-alt me-1"></i> Refresh Data
+    </button>
+  </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row mb-4">
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card stat-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h5 class="card-title text-uppercase text-muted mb-0">Total Users</h5>
+            <span class="h2 font-weight-bold mb-0" id="totalUsers">1,248</span>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
+        <p class="mt-3 mb-0 text-success">
+          <span class="me-2"><i class="fas fa-arrow-up"></i> 4.3%</span>
+          <span class="text-nowrap">Since last month</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card stat-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h5 class="card-title text-uppercase text-muted mb-0">Communities</h5>
+            <span class="h2 font-weight-bold mb-0" id="totalCommunities">42</span>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-users-cog"></i>
+          </div>
+        </div>
+        <p class="mt-3 mb-0 text-success">
+          <span class="me-2"><i class="fas fa-arrow-up"></i> 2.1%</span>
+          <span class="text-nowrap">Since last month</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card stat-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h5 class="card-title text-uppercase text-muted mb-0">Events</h5>
+            <span class="h2 font-weight-bold mb-0" id="totalEvents">18</span>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+        </div>
+        <p class="mt-3 mb-0 text-warning">
+          <span class="me-2"><i class="fas fa-minus"></i> 0.0%</span>
+          <span class="text-nowrap">Since last month</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card stat-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h5 class="card-title text-uppercase text-muted mb-0">Active Logs</h5>
+            <span class="h2 font-weight-bold mb-0" id="activeLogs">327</span>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-history"></i>
+          </div>
+        </div>
+        <p class="mt-3 mb-0 text-danger">
+          <span class="me-2"><i class="fas fa-arrow-up"></i> 8.7%</span>
+          <span class="text-nowrap">Since last month</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8 mb-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Activity Overview</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="activityChart" height="250"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 mb-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Quick Actions</h5>
+      </div>
+      <div class="card-body">
+        <div class="d-grid gap-2">
+          <button class="btn btn-purple mb-2" data-bs-toggle="modal" data-bs-target="#addUserModal">
+            <i class="fas fa-user-plus me-2"></i> Add New User
+          </button>
+          <button class="btn btn-outline-purple mb-2" data-bs-toggle="modal" data-bs-target="#addCommunityModal">
+            <i class="fas fa-plus-circle me-2"></i> Create Community
+          </button>
+          <button class="btn btn-outline-purple mb-2" id="exportDataBtn">
+            <i class="fas fa-file-export me-2"></i> Export Data
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6 mb-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0"><i class="fas fa-user-friends me-2"></i>Recent Users</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center ">
+                    <div
+                      class="avatar-sm bg-purple text-white rounded-circle me-2 d-flex align-items-center justify-content-center">
+                      JD
+                    </div>
+                    <div>John Doe</div>
+                  </div>
+                </td>
+                <td>Student</td>
+                <td><span class="badge bg-success">Active</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div
+                      class="avatar-sm bg-purple text-white rounded-circle me-2 d-flex align-items-center justify-content-center">
+                      JS
+                    </div>
+                    <div>Jane Smith</div>
+                  </div>
+                </td>
+                <td>Lecturer</td>
+                <td><span class="badge bg-success">Active</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div
+                      class="avatar-sm bg-purple text-white rounded-circle me-2 d-flex align-items-center justify-content-center">
+                      RJ
+                    </div>
+                    <div>Robert Johnson</div>
+                  </div>
+                </td>
+                <td>Student</td>
+                <td><span class="badge bg-warning">Pending</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 mb-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0"><i class="fas fa-history me-2"></i>Recent Activity</h5>
+      </div>
+      <div class="card-body">
+        <div class="activity-timeline">
+          <div class="activity-item">
+            <div class="activity-marker bg-success"></div>
+            <div class="activity-content">
+              <h6>New User Registration</h6>
+              <p>John Doe joined as Student</p>
+              <small class="text-muted">2 hours ago</small>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-marker bg-primary"></div>
+            <div class="activity-content">
+              <h6>Community Created</h6>
+              <p>Computer Science Club created by Admin</p>
+              <small class="text-muted">4 hours ago</small>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-marker bg-warning"></div>
+            <div class="activity-content">
+              <h6>Event Scheduled</h6>
+              <p>Tech Conference scheduled for Oct 15</p>
+              <small class="text-muted">1 day ago</small>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-marker bg-info"></div>
+            <div class="activity-content">
+              <h6>System Update</h6>
+              <p>Admin panel updated to version 2.1</p>
+              <small class="text-muted">2 days ago</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/admin/dashboard.js"></script>

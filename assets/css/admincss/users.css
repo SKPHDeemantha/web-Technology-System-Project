@@ -1,0 +1,141 @@
+/* ---------- CUSTOM BUTTONS ---------- */
+.btn-purple {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+  color: white;
+}
+
+.btn-purple:hover {
+  background-color: var(--secondary-purple);
+  border-color: var(--secondary-purple);
+  color: white;
+}
+
+.btn-outline-purple {
+  color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+.btn-outline-purple:hover {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+  color: white;
+}
+
+/* ---------- TABLES ---------- */
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  font-weight: 600;
+  color: var(--text-dark);
+  border-top: none;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  vertical-align: middle;
+  padding: 1rem 0.75rem;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(106, 17, 203, 0.05);
+}
+
+/* ---------- FORM CONTROLS ---------- */
+.form-label {
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  padding: 0.5rem 0.75rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.25);
+}
+
+.form-check-input:checked {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+/* ---------- PAGINATION ---------- */
+.page-link {
+  color: var(--primary-purple);
+  border: 1px solid var(--border-light);
+}
+
+.page-link:hover {
+  color: var(--dark-purple);
+  background-color: var(--light-purple);
+  border-color: var(--border-light);
+}
+
+.page-item.active .page-link {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+/* ---------- MODALS ---------- */
+.modal-header {
+  border-bottom: 1px solid var(--border-light);
+  padding: 1.25rem 1.5rem;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-light);
+  padding: 1rem 1.5rem;
+}
+
+/* ---------- TABLES ---------- */
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  font-weight: 600;
+  color: var(--text-dark);
+  border-top: none;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  vertical-align: middle;
+  padding: 1rem 0.75rem;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(106, 17, 203, 0.05);
+}
+
+/* Dark mode tables */
+[data-theme="dark"] .table th,
+[data-theme="dark"] .table td {
+  color: var(--text-light);
+}
+
+[data-theme="dark"] .table-hover tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .table-light {
+  background-color: var(--dark-purple);
+  color: var(--text-light);
+}

@@ -1,0 +1,75 @@
+/* ---------- PAGINATION ---------- */
+.page-link {
+  color: var(--primary-purple);
+  border: 1px solid var(--border-light);
+}
+
+.page-link:hover {
+  color: var(--dark-purple);
+  background-color: var(--light-purple);
+  border-color: var(--border-light);
+}
+
+.page-item.active .page-link {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+/* ---------- DARK MODE ---------- */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode .card {
+  background-color: #1e1e1e;
+  border-color: #333;
+  color: #ffffff;
+}
+
+body.dark-mode .card-header {
+  background-color: #2a2a2a;
+  border-bottom-color: #333;
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+  background-color: #2a2a2a;
+  border-color: #555;
+  color: #ffffff;
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode .form-select:focus {
+  background-color: #2a2a2a;
+  border-color: var(--primary-purple);
+  color: #ffffff;
+}
+
+body.dark-mode .form-check-label {
+  color: #ffffff;
+}
+
+body.dark-mode .text-muted {
+  color: #cccccc !important;
+}
+
+body.dark-mode .btn-outline-purple {
+  color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+body.dark-mode .btn-outline-purple:hover {
+  background-color: var(--primary-purple);
+  color: #ffffff;
+}
+
+body.dark-mode .btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+body.dark-mode .btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #ffffff;
+}

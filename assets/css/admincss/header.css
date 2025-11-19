@@ -1,0 +1,108 @@
+/* ---------- HEADER ---------- */
+.dashboard-header {
+  background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  transition: all 0.3s ease;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .header-actions .btn {
+    padding: 0.5rem;
+  }
+
+  .logo-section h1 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Dark mode header */
+[data-theme="dark"] .dashboard-header {
+  background: linear-gradient(135deg, var(--dark-purple), var(--primary-purple));
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.logo {
+  font-size: 1.8rem;
+  color: white;
+}
+
+.header-actions .btn {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.header-actions .btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Dark Mode Toggle Button */
+#darkModeToggle {
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  color: white;
+}
+
+#darkModeToggle:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+#darkModeToggle i {
+  transition: transform 0.3s ease;
+}
+
+#darkModeToggle:hover i {
+  transform: scale(1.1);
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  font-size: 0.7rem;
+}
+
+/* Dark mode dropdown menus for notifications and user details */
+[data-theme="dark"] .dropdown-menu {
+  background-color: var(--dark-purple);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .dropdown-item {
+  color: var(--text-light);
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+}
+
+[data-theme="dark"] .dropdown-header {
+  color: var(--text-light);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}

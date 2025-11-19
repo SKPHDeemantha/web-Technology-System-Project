@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="../assets/css/admincss/users.css">
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2>User Management</h2>
+    <p class="text-muted">Manage all users in the system</p>
+  </div>
+  <button class="btn btn-purple" data-bs-toggle="modal" data-bs-target="#addUserModal">
+    <i class="fas fa-plus me-1"></i> Add User
+  </button>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h5 class="mb-0">All Users</h5>
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex justify-content-end">
+          <div class="me-2">
+            <select id="userFilter" class="form-select form-select-sm">
+              <option value="all">All Roles</option>
+              <option value="Admin">Admin</option>
+              <option value="Lecturer">Lecturer</option>
+              <option value="Student">Student</option>
+            </select>
+          </div>
+          <div class="input-group input-group-sm w-auto">
+            <input type="text" class="form-control" placeholder="Search users...">
+            <button class="btn btn-outline-secondary" type="button">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody">
+          <!-- Users will be populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+    <nav aria-label="User pagination">
+      <ul class="pagination justify-content-end mb-0">
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<script src="../assets/js/admin/users.js"></script>

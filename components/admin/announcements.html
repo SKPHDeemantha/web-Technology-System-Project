@@ -1,0 +1,232 @@
+<link rel="stylesheet" href="../assets/css/admincss/announcements.css">
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2>System Announcements</h2>
+    <p class="text-muted">Publish system-wide announcements to all users</p>
+  </div>
+  <button class="btn btn-purple" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">
+    <i class="fas fa-plus me-1"></i> Create Announcement
+  </button>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card stat-card">
+      <div class="card-body text-center">
+        <div class="stat-icon">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <h5 class="card-title">Total Announcements</h5>
+        <span class="h3 font-weight-bold" id="totalAnnouncements">0</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card stat-card">
+      <div class="card-body text-center">
+        <div class="stat-icon">
+          <i class="fas fa-eye"></i>
+        </div>
+        <h5 class="card-title">Active Announcements</h5>
+        <span class="h3 font-weight-bold" id="activeAnnouncements">0</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card stat-card">
+      <div class="card-body text-center">
+        <div class="stat-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <h5 class="card-title">Scheduled</h5>
+        <span class="h3 font-weight-bold" id="scheduledAnnouncements">0</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card stat-card">
+      <div class="card-body text-center">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h5 class="card-title">Total Recipients</h5>
+        <span class="h3 font-weight-bold" id="totalRecipients">1,248</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h5 class="mb-0">All Announcements</h5>
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex justify-content-end">
+          <div class="me-2">
+            <select id="announcementFilter" class="form-select form-select-sm">
+              <option value="all">All Status</option>
+              <option value="active">Active</option>
+              <option value="scheduled">Scheduled</option>
+              <option value="expired">Expired</option>
+            </select>
+          </div>
+          <div class="input-group input-group-sm w-auto">
+            <input type="text" class="form-control" placeholder="Search announcements..." id="announcementSearch">
+            <button class="btn btn-outline-secondary" type="button">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Title</th>
+            <th>Target Audience</th>
+            <th>Status</th>
+            <th>Published Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="announcementsTableBody">
+          <!-- Announcements will be populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Add Announcement Modal -->
+<div class="modal fade" id="addAnnouncementModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create New Announcement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addAnnouncementForm">
+          <div class="mb-3">
+            <label for="announcementTitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="announcementTitle" required>
+          </div>
+          <div class="mb-3">
+            <label for="announcementContent" class="form-label">Content</label>
+            <textarea class="form-control" id="announcementContent" rows="6" required></textarea>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="announcementTarget" class="form-label">Target Audience</label>
+              <select class="form-select" id="announcementTarget" required>
+                <option value="all">All Users</option>
+                <option value="1st Year">1st Year Students</option>
+                <option value="2nd Year">2nd Year Students</option>
+                <option value="3rd Year">3rd Year Students</option>
+                <option value="4th Year">4th Year Students</option>
+                <option value="lecturers">Lecturers Only</option>
+                <option value="students">Students Only</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="announcementPriority" class="form-label">Priority</label>
+              <select class="form-select" id="announcementPriority" required>
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="publishDate" class="form-label">Publish Date</label>
+              <input type="datetime-local" class="form-control" id="publishDate" required>
+            </div>
+            <div class="col-md-6">
+              <label for="expiryDate" class="form-label">Expiry Date (Optional)</label>
+              <input type="datetime-local" class="form-control" id="expiryDate">
+            </div>
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="sendNotification">
+            <label class="form-check-label" for="sendNotification">Send push notification to all recipients</label>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-purple">Create Announcement</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Announcement Modal -->
+<div class="modal fade" id="editAnnouncementModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Announcement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editAnnouncementForm">
+          <input type="hidden" id="editAnnouncementId">
+          <div class="mb-3">
+            <label for="editAnnouncementTitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="editAnnouncementTitle" required>
+          </div>
+          <div class="mb-3">
+            <label for="editAnnouncementContent" class="form-label">Content</label>
+            <textarea class="form-control" id="editAnnouncementContent" rows="6" required></textarea>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="editAnnouncementTarget" class="form-label">Target Audience</label>
+              <select class="form-select" id="editAnnouncementTarget" required>
+                <option value="all">All Users</option>
+                <option value="1st Year">1st Year Students</option>
+                <option value="2nd Year">2nd Year Students</option>
+                <option value="3rd Year">3rd Year Students</option>
+                <option value="4th Year">4th Year Students</option>
+                <option value="lecturers">Lecturers Only</option>
+                <option value="students">Students Only</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="editAnnouncementPriority" class="form-label">Priority</label>
+              <select class="form-select" id="editAnnouncementPriority" required>
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="editPublishDate" class="form-label">Publish Date</label>
+              <input type="datetime-local" class="form-control" id="editPublishDate" required>
+            </div>
+            <div class="col-md-6">
+              <label for="editExpiryDate" class="form-label">Expiry Date (Optional)</label>
+              <input type="datetime-local" class="form-control" id="editExpiryDate">
+            </div>
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="editSendNotification">
+            <label class="form-check-label" for="editSendNotification">Send push notification to all recipients</label>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-purple">Update Announcement</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/admin/announcements.js"></script>

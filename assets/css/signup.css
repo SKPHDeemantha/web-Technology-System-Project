@@ -24,6 +24,10 @@ body {
   overflow: hidden;
   width: 100%;
   max-width: 950px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .auth-left, .auth-right {
@@ -142,8 +146,6 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -374,6 +376,8 @@ body::before {
 /* Optional fade-in animation */
 .fade-in {
   animation: fadeIn 1s ease-in;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 @keyframes fadeIn {

@@ -36,9 +36,9 @@ include 'connect.php';
             <div class="logo-text">EDUNEXXUS</div>
         </div>
 
-        <nav class="nav-buttons">
+        <!-- <nav class="nav-buttons">
             <label for="login-modal" class="btn btn-outline">Login</label>
-        </nav>
+        </nav> -->
 
         <nav class="nav-buttons">
             <button class="btn btn-outline" onclick="window.location.href='signup.php'">Sign Up</button>

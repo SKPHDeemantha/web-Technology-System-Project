@@ -12,83 +12,79 @@ include 'connect.php';
 </head>
 
 <body>
-    <!-- Signup Modal -->
-    <div id="signupModal" class="modal" style="display: flex;">
+        <div id="signupModal" class="modal" style="display: flex;">
         <div class="modal-overlay" onclick="closeSignup()"></div>
-        <div class="auth-container">
-            <div class="auth-card fade-in">
-                <button class="close-btn" onclick="closeSignup()">&times;</button>
+    <div class="auth-container">
+        <div class="auth-card fade-in">
+            <button class="close-btn" onclick="closeSignup()">&times;</button>
                 <div class="auth-left">
-                    <h2 class="title">Create Account</h2>
-                    <p class="subtitle">Join the University Portal today</p>
+            <h2 class="title">Create Account</h2>
+            <p class="subtitle">Join the University Portal today</p>
 
-                    <form id="signupForm">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" class="form-control" id="fullName" placeholder="John Doe" required>
-                        </div>
-
-                        <div class="form-group password-group">
-    <label>Password</label>
-    <input type="password" class="form-control" id="signupPassword">
-    <i class="eye-icon" onclick="togglePassword('signupPassword', this)">👁</i>
-</div>
-
-<div class="form-group password-group">
-    <label>Re-type Password</label>
-    <input type="password" class="form-control" id="rePassword">
-    <i class="eye-icon" onclick="togglePassword('rePassword', this)">👁</i>
-</div>
-
-                        <ul class="password-rules">
-                            <li>At least 8 characters</li>
-                            <li>At least one number or symbol</li>
-                            <li>Uppercase and lowercase letters</li>
-                        </ul>
-
-                        <div class="form-group">
-                            <label>Re-type Password</label>
-                            <input type="password" class="form-control" id="rePassword" placeholder="••••••••" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="role">Role</label>
-                            <select class="form-select" id="role" required>
-                                <option value="" disabled selected>Select Role</option>
-                                <option value="student">Student</option>
-                                <option value="lecturer">Lecturer</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group" id="yearGroup" style="display:none;">
-                            <label for="year">Year</label>
-                            <select class="form-select" id="year">
-                                <option value="" disabled selected>Select Year</option>
-                                <option value="1">1st Year</option>
-                                <option value="2">2nd Year</option>
-                                <option value="3">3rd Year</option>
-                                <option value="4">4th Year</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-full">Sign Up</button>
-
-                        <p class="text-center mt-3">Already have an account?
-                            <a href="index.php">Login</a>
-                        </p>
-                    </form>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-control" id="fullName" placeholder="John Doe" required>
                 </div>
-            </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group password-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="signupPassword" required>
+                    <i class="eye-icon" onclick="togglePassword('signupPassword', this)">👁</i>
+                </div>
+
+                <div class="form-group password-group">
+                    <label>Re-type Password</label>
+                    <input type="password" class="form-control" id="rePassword" placeholder="••••••••" required>
+                    <i class="eye-icon" onclick="togglePassword('rePassword', this)">👁</i>
+                </div>
+
+                <ul class="password-rules">
+                    <li>At least 8 characters</li>
+                    <li>At least one number or symbol</li>
+                    <li>Uppercase and lowercase letters</li>
+                </ul>
+
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select class="form-select" id="role" required>
+                        <option value="" disabled selected>Select Role</option>
+                        <option value="student">Student</option>
+                        <option value="lecturer">Lecturer</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="yearGroup" style="display:none;">
+                    <label for="year">Year</label>
+                    <select class="form-select" id="year">
+                        <option value="" disabled selected>Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">Sign Up</button>
+
+                <p class="text-center mt-3">Already have an account?
+                    <a href="index.php">Login</a>
+                </p>
+            </form>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function closeSignup() {
-            window.location.href = 'index.php'; // Redirect to index.php on close
+            window.location.href = "index.php";
         }
-
         // Show year selection when student is selected
         document.getElementById('role').addEventListener('change', function () {
             const yearGroup = document.getElementById('yearGroup');
@@ -127,13 +123,6 @@ include 'connect.php';
             signupHandler(fullName, email, password, role, year);
         });
 
-        // Close modal on Escape key
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                closeSignup();
-            }
-        });
-
         /* -------------------------------
            SIGNUP AJAX
         ---------------------------------*/
@@ -157,15 +146,15 @@ include 'connect.php';
         }
 
         function togglePassword(fieldId, icon) {
-    const field = document.getElementById(fieldId);
-    if (field.type === "password") {
-        field.type = "text";
-        icon.style.color = "#7b2ff7";
-    } else {
-        field.type = "password";
-        icon.style.color = "#777";
-    }
-}
+            const field = document.getElementById(fieldId);
+            if (field.type === "password") {
+                field.type = "text";
+                icon.style.color = "#7b2ff7";
+            } else {
+                field.type = "password";
+                icon.style.color = "#777";
+            }
+        }
     </script>
 </body>
 

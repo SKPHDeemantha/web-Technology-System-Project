@@ -10,6 +10,10 @@ body {
              no-repeat center center fixed;
   background-size: cover;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 body::before {

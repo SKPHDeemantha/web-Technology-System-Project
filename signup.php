@@ -28,15 +28,17 @@ include 'connect.php';
                             <input type="text" class="form-control" id="fullName" placeholder="John Doe" required>
                         </div>
 
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
-                        </div>
-
                         <div class="form-group password-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" id="signupPassword" placeholder="••••••••" required>
-                        </div>
+    <label>Password</label>
+    <input type="password" class="form-control" id="signupPassword">
+    <i class="eye-icon" onclick="togglePassword('signupPassword', this)">👁</i>
+</div>
+
+<div class="form-group password-group">
+    <label>Re-type Password</label>
+    <input type="password" class="form-control" id="rePassword">
+    <i class="eye-icon" onclick="togglePassword('rePassword', this)">👁</i>
+</div>
 
                         <ul class="password-rules">
                             <li>At least 8 characters</li>
@@ -153,6 +155,17 @@ include 'connect.php';
                 }
             });
         }
+
+        function togglePassword(fieldId, icon) {
+    const field = document.getElementById(fieldId);
+    if (field.type === "password") {
+        field.type = "text";
+        icon.style.color = "#7b2ff7";
+    } else {
+        field.type = "password";
+        icon.style.color = "#777";
+    }
+}
     </script>
 </body>
 

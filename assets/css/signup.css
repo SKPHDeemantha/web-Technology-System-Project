@@ -134,6 +134,127 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 0.4s ease;
+}
+
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.modal-container {
+    position: relative;
+    background: white;
+    border-radius: 24px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 100px rgba(0, 0, 0, 0.3);
+    transform: scale(1);
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: modalSlideIn 0.5s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #9ca3af;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f3f4f6;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    background: #9333ea;
+    color: white;
+    transform: rotate(90deg);
+}
+
+.modal-content {
+    padding: 3rem;
+}
+
+/* Scrollbar Styling */
+.modal-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.modal-container::-webkit-scrollbar-thumb {
+    background: #9333ea;
+    border-radius: 10px;
+}
+
+.modal-container::-webkit-scrollbar-thumb:hover {
+    background: #7c3aed;
+}
+
+/* Responsive for modal */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 2rem 1.5rem;
+    }
+    .modal-container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 1.5rem 1rem;
+    }
+    .modal-container {
+        max-width: 95%;
+        border-radius: 15px;
+    }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .auth-card {

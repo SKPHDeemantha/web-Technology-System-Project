@@ -33,41 +33,24 @@ $(document).ready(function () {
     addToActivityLog(`Created new community: ${name}`);
   });
 
-
   /* ============================================================
-     ADD COURSE FORM (LOCALSTORAGE)
+     ADD COURSE FORM (DB BASED)
      ============================================================ */
-  $("#addCourseModal form").on("submit", function (e) {
-    e.preventDefault();
 
-    const code = $("#courseCode").val();
-    const name = $("#courseName").val();
-    const instructor = $("#courseInstructor").val();
-    const credits = $("#courseCredits").val();
+     $(document).on("submit", "#addCousrseForm", function (e){
+      e.preventDefault();
 
-    const courses = JSON.parse(localStorage.getItem("adminCourses")) || [];
+      const courseCode = $("#courseCode").val();
+      const courseName = $("#courseName").val();
+      const courseInstructor = $("#courseInstructor").val();
+      const courseCredits = $("#courseCredits").val();
+      const courseYear = $("#courseYear").val();
+      const courseDesc = $("#courseDesc").val();
 
-    const newCourse = {
-      id: Date.now(),
-      code,
-      name,
-      instructor,
-      credits
-    };
+      newCourseHandler(courseCode, courseName, courseDesc, courseInstructor, courseCredits, courseYear);
 
-    courses.push(newCourse);
-    localStorage.setItem("adminCourses", JSON.stringify(courses));
-
-    addToActivityLog(`Added new course: ${name} (${code})`);
-
-    renderCoursesTable();
-    updateDashboardStats();
-
-    $("#addCourseModal").modal("hide");
-    this.reset();
-
-    showAlert("Course added successfully!", "success");
-  });
+     });
+  
 
 });
 
@@ -186,6 +169,35 @@ function newCommunityHandler(name, description, category) {
   });
 }
 
+/* ============================================================
+   AJAX: ADD NEW COURSE
+   ============================================================ */
+
+  function newCourseHandler(courseCode, courseName, courseDesc, courseInstructor, courseCredits, courseYear){
+    $.ajax({
+      url: "../fileHandling/adminNewCourse.php?id=save",
+      type: "POST",
+      data: { courseCode, courseName, courseDesc, courseInstructor, courseCredits, courseYear },
+
+      success: function (response) {
+        if (response == 1) {
+          alert("Course added successfully!");
+          renderCoursesTable();
+
+          updateDashboardStats();
+          loadDashboardData();
+          $("#addCourseModal").modal("hide");
+          $("#addCousrseForm")[0].reset();
+
+        } else {
+          alert("Error adding course!");
+        }
+      },
+      error: function () {
+        alert("AJAX Error!");
+      }
+    });
+  }
 
 
 /* ============================================================

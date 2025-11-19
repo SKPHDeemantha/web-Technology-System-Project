@@ -1,3 +1,14 @@
+<?php
+
+include '../../connect.php';
+session_start();
+if(!isset($_SESSION['user_id'])){
+    header("Location: ../index.php");
+    exit();
+}
+
+?>
+
 <!-- Modals for CRUD -->
 <!-- Add User Modal -->
 <link rel="stylesheet" href="../assets/css/admincss/modals.css">
@@ -90,7 +101,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="addCousrseForm">
           <div class="mb-3">
             <label for="courseCode" class="form-label">Course Code</label>
             <input type="text" class="form-control" id="courseCode" required>
@@ -100,12 +111,32 @@
             <input type="text" class="form-control" id="courseName" required>
           </div>
           <div class="mb-3">
+            <label for="courseDesc" class="form-label">Description</label>
+            <textarea class="form-control" id="courseDesc" rows="3" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="courseYear" class="form-label">Course Year</label>
+            <select class="form-select" id="courseYear" required>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
+            </select>
+          </div>
+
+          <?php
+
+          $query = "SELECT id, display_name FROM users WHERE role_id = (SELECT id FROM user_roles WHERE role_name = 'lecturer') AND is_active = 1";
+          $result = mysqli_query($con, $query);
+          ?>
+          <div class="mb-3">
             <label for="courseInstructor" class="form-label">Instructor</label>
             <select class="form-select" id="courseInstructor" required>
-              <option value="">Select Instructor</option>
-              <option value="1">Dr. Jane Smith</option>
-              <option value="2">Prof. Robert Brown</option>
-              <option value="3">Dr. Alice Johnson</option>
+              <?php
+              while ($row = mysqli_fetch_assoc($result)) {
+                  echo '<option value="' . $row['id'] . '">' . $row['display_name'] . '</option>';
+              }
+              ?>
             </select>
           </div>
           <div class="mb-3">

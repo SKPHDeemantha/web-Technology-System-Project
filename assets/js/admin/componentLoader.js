@@ -21,7 +21,7 @@ async function loadComponents() {
     document.getElementById('sidebar-placeholder').innerHTML = sidebarHtml;
 
     // Load modals
-    const modalsResponse = await fetch('../components/admin/modals.html');
+    const modalsResponse = await fetch('../components/admin/modals.php');
     if (!modalsResponse.ok) throw new Error('Failed to load modals');
     const modalsHtml = await modalsResponse.text();
     document.getElementById('modals-placeholder').innerHTML = modalsHtml;
@@ -223,6 +223,9 @@ function initializeSection(sectionId) {
         break;
       case 'users':
         initUsersTable();
+        break;
+      case 'courses':
+        initCoursesTable();
         break;
       default:
         // No specific initialization needed for other sections

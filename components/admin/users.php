@@ -70,5 +70,5 @@ if(!isset($_SESSION['user_id'])){
     </nav>
   </div>
 </div>
-<?php include 'modals.html'; ?>
+<?php include 'modals.php'; ?>
 <script src="../assets/js/admin/users.js"></script>

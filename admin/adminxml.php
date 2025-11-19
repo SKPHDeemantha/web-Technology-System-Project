@@ -119,6 +119,41 @@ if (strcmp($RequestType, "getUserCount") == 0) {
     }
     $ResponseXML .= "</XMLgetCourseData>";
     echo $ResponseXML;    
+}else if(strcmp($RequestType, "getCourseDataForEdit") == 0){
+    $id = $_GET['courseId'];
+    $ResponseXML = "<XMLgetCourseDataForEdit>\n";
+    
+    $SQL = "SELECT
+                courses.*,
+                users.display_name AS lecturer,
+                COUNT(enrollments.id) AS students
+            FROM courses
+            LEFT JOIN users
+                ON users.id = courses.lecturer_id
+            LEFT JOIN enrollments
+                ON enrollments.course_id = courses.id
+            WHERE courses.id = $id
+            GROUP BY courses.id
+            ";
+    
+    // echo $SQL;
+    $result = mysqli_query($con, $SQL);
+    $row = mysqli_fetch_array($result);
+
+    $ResponseXML .= "<courseId><![CDATA[" . $row['id'] . "]]></courseId>\n";
+    $ResponseXML .= "<courseCode><![CDATA[" . $row['course_code'] . "]]></courseCode>\n";
+    $ResponseXML .= "<courseName><![CDATA[" . $row['course_name'] . "]]></courseName>\n";
+    $ResponseXML .= "<courseDescription><![CDATA[" . $row['description'] . "]]></courseDescription>\n";
+    $ResponseXML .= "<courseCredit><![CDATA[" . $row['credits'] . "]]></courseCredit>\n";
+    $ResponseXML .= "<courseYear><![CDATA[" . $row['year_id'] . "]]></courseYear>\n";
+    $ResponseXML .= "<courseLecturer><![CDATA[" . $row['lecturer'] . "]]></courseLecturer>\n";
+    $ResponseXML .= "<courseLecturerId><![CDATA[" . $row['lecturer_id'] . "]]></courseLecturerId>\n";
+    // $ResponseXML .= "<courseStudentCount><![CDATA[" . $row['students'] . "]]></courseStudentCount>\n";
+    $ResponseXML .= "<courseStatus><![CDATA[" . $row['is_active'] . "]]></courseStatus>\n";
+
+    $ResponseXML .= "</XMLgetCourseDataForEdit>";
+    echo $ResponseXML;
+
 }
 
 

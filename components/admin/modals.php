@@ -198,6 +198,75 @@ if(!isset($_SESSION['user_id'])){
   </div>
 </div>
 
+<!-- Edit Course Model -->
+
+<div class="modal fade" id="editCourseModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Course</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body ">
+        <form id="editCourseForm">
+          <div class="mb-3">
+            <label for="editCourseId" class="form-label">Course ID</label>
+            <input type="text" class="form-control" id="editCourseId" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="editCourseCode" class="form-label ">Course Code</label>
+            <input type="text" class="form-control" id="editCourseCode" required>
+          </div>
+          <div class="mb-3">
+            <label for="editCourseName" class="form-label ">Course Name</label>
+            <input type="text" class="form-control" id="editCourseName" required>
+          </div>
+          <div class="mb-3">
+            <label for="editCourseDesc" class="form-label ">Description</label>
+            <textarea class="form-control" id="editCourseDesc" rows="3" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="editCourseYear" class="form-label ">Course Year</label>
+            <select class="form-select" id="editCourseYear" required>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="editCourseInstructor" class="form-label ">Instructor</label>
+            <select class="form-select" id="editCourseInstructor" required>
+              <?php
+              // Reuse the same query to fetch lecturers
+              $result = mysqli_query($con, $query);
+              while ($row = mysqli_fetch_assoc($result)) {
+                  echo '<option value="' . $row['id'] . '">' . $row['display_name'] . '</option>';
+              }
+              ?>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="editCourseCredits" class="form-label ">Credits</label>
+            <input type="number" class="form-control" id="editCourseCredits" min="1" max="5" required>
+          </div>
+          <div class="mb-3">
+            <label for="editCourseStatus" class="form-label">Status</label>
+            <select class="form-select" id="editCourseStatus" required>
+              <option value="1">Active</option>
+              <option value="0">Inactive</option>
+            </select>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-purple">Edit Course</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script> -->
 <script src="../assets/js/admin/modals.js"></script>
 

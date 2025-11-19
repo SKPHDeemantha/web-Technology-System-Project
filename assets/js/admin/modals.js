@@ -71,6 +71,26 @@ $(document).ready(function () {
     addToActivityLog(`Edited user: ${name} (${role})`);
   });
 
+/* ============================================================
+     EDIT COURSES FORM (DB BASED)
+     ============================================================ */
+  $(document).on("submit", "#editCourseForm", function (e) {
+    e.preventDefault();
+    
+    const course_id = $("#editCourseId").val();
+    const courseCode = $("#editCourseCode").val();
+    const courseName = $("#editCourseName").val();
+    const courseDesc = $("#editCourseDesc").val();
+    const courseInstructor = $("#editCourseInstructor").val();
+    const courseCredits = $("#editCourseCredits").val();
+    const courseYear = $("#editCourseYear").val();
+    const courseStatus = $("#editCourseStatus").val();
+
+    editCourseHandler( courseCode, courseName, courseDesc, courseInstructor, courseCredits, courseYear, course_id, courseStatus );
+
+    addToActivityLog(`Edited course: ${courseName} (${courseCode})`);
+
+  });
 
 
 /* ============================================================
@@ -135,6 +155,36 @@ function editUserHandler(fullname, email, role, user_id, status) {
   });
 }
 
+
+/* ============================================================
+   AJAX: EDIT COURSE
+   ============================================================ */
+
+function editCourseHandler( courseCode, courseName, courseDesc, courseInstructor, courseCredits, courseYear, course_id, courseStatus ) {
+  $.ajax({
+    url: "../fileHandling/adminNewCourse.php?id=update",
+    type: "POST",
+    data: { courseCode, courseName, courseDesc, courseInstructor, courseCredits, courseYear, course_id, courseStatus },
+    success: function (response) {
+      if (response == 1) {
+        alert("Course updated successfully!");
+        renderCoursesTable(); // Refresh table
+
+        updateDashboardStats();
+
+        loadDashboardData();
+
+        $("#editCourseModal").modal("hide");
+        $("#editCourseForm")[0].reset();
+      } else {
+        alert("Error editing course!");
+      }
+    },
+    error: function () {
+      alert("AJAX Error!");
+    }
+  });
+}
 
 
 /* ============================================================

@@ -21,7 +21,7 @@ async function loadComponents() {
     document.getElementById('sidebar-placeholder').innerHTML = sidebarHtml;
 
     // Load modals
-    const modalsResponse = await fetch('../components/admin/modals.html');
+    const modalsResponse = await fetch('../components/admin/modals.php');
     if (!modalsResponse.ok) throw new Error('Failed to load modals');
     const modalsHtml = await modalsResponse.text();
     document.getElementById('modals-placeholder').innerHTML = modalsHtml;
@@ -88,7 +88,7 @@ function initializeDarkMode() {
 
 function getActiveSectionFromHash() {
   const hash = window.location.hash.substring(1);
-  const validSections = ['dashboard', 'analytics', 'users', 'courses', 'announcements', 'activity', 'settings'];
+  const validSections = ['dashboard', 'analytics', 'users', 'courses', 'activity', 'settings'];
   return validSections.includes(hash) ? hash : 'dashboard';
 }
 
@@ -143,7 +143,7 @@ async function loadSectionContent(sectionName) {
     return; // Content already loaded
   }
 
-  const fileName = sectionName === 'activity' ? 'activity-log.html' : `${sectionName}.html`;
+  const fileName = sectionName === 'activity' ? 'activity-log.html' : `${sectionName}.php`;
 
   try {
     const response = await fetch(`../components/admin/${fileName}`);
@@ -167,7 +167,7 @@ function initializeNavigation() {
 
       // Special case for communities: navigate to community page
       if (sectionId === 'communities') {
-        window.location.href = '../community/communities.html';
+        window.location.href = '../community/communities.php';
         return;
       }
 
@@ -226,9 +226,6 @@ function initializeSection(sectionId) {
         break;
       case 'courses':
         initCoursesTable();
-        break;
-      case 'announcements':
-        initAnnouncementsTable();
         break;
       default:
         // No specific initialization needed for other sections

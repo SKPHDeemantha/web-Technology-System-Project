@@ -1,3 +1,14 @@
+<?php
+
+include '../../connect.php';
+session_start();
+if(!isset($_SESSION['user_id'])){
+    header("Location: ../index.php");
+    exit();
+}
+
+?>
+
 <link rel="stylesheet" href="../assets/css/admincss/users.css">
 <div class="d-flex justify-content-between align-items-center mb-4">
   <div>
@@ -26,8 +37,8 @@
             </select>
           </div>
           <div class="input-group input-group-sm w-auto">
-            <input type="text" class="form-control" placeholder="Search users...">
-            <button class="btn btn-outline-secondary" type="button">
+            <input type="text" class="form-control" placeholder="Search users..." id="userSearch">
+            <button class="btn btn-outline-secondary" type="button" id="buttonSearch">
               <i class="fas fa-search"></i>
             </button>
           </div>
@@ -54,17 +65,10 @@
     </div>
     <nav aria-label="User pagination">
       <ul class="pagination justify-content-end mb-0">
-        <li class="page-item disabled">
-          <a class="page-link" href="#" tabindex="-1">Previous</a>
-        </li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">Next</a>
-        </li>
+        <!-- Pagination will be populated by JavaScript -->
       </ul>
     </nav>
   </div>
 </div>
+<?php include 'modals.php'; ?>
 <script src="../assets/js/admin/users.js"></script>

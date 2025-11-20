@@ -143,7 +143,7 @@ async function loadSectionContent(sectionName) {
     return; // Content already loaded
   }
 
-  const fileName = sectionName === 'activity' ? 'activity-log.html' : `${sectionName}.php`;
+  const fileName = sectionName === 'activity' ? 'activity-log.php' : `${sectionName}.php`;
 
   try {
     const response = await fetch(`../components/admin/${fileName}`);

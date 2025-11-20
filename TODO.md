@@ -1,10 +1,10 @@
-# TODO: Implement Pagination for Users Table
+# Analytics XML Fetch TODO
 
-## Pending Tasks
-- [ ] Add global variables for currentPage and itemsPerPage in users.js
-- [ ] Modify renderUsersTable to accept page and itemsPerPage parameters, slice the filtered users array accordingly
-- [ ] Create renderPagination function to dynamically generate pagination HTML based on total users, current page, and items per page
-- [ ] Update initUsersTable to initialize pagination after rendering the table
-- [ ] Add event listeners for pagination buttons (previous, next, page numbers) to change page and re-render table and pagination
-- [ ] Ensure pagination works with filtering by resetting currentPage to 1 when filter changes
-- [ ] Test the pagination functionality to ensure it works correctly
+- [x] Update fileHandling/analyticsfetch.php to return XML data instead of JSON
+  - [x] Change header to application/xml
+  - [x] Generate XML structure with userRoles, topCommunities, activityTrends
+- [ ] Update assets/js/admin/analytics.js to parse XML response
+  - [ ] Change fetch to parse XML instead of JSON
+  - [ ] Extract data from XML elements
+- [ ] Test the XML endpoint for valid XML response
+- [ ] Verify analytics load correctly in browser with XML data

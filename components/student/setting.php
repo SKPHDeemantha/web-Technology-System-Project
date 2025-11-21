@@ -43,73 +43,73 @@
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">Student Portal</div>
-            <a href="../../student/student-dashboard.html" class="nav-item" onclick="navigateTo('dashboard')">
+            <a href="../../student/student-dashboard.php" class="nav-item" onclick="navigateTo('dashboard')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
                 </svg>
                 Dashboard
             </a>
-            <a href="..\..\community\communities.html" class="nav-item" onclick="navigateTo('communities')">
+            <a href="..\..\community\communities.php" class="nav-item" onclick="navigateTo('communities')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
                 </svg>
                 Communities
             </a>
-            <a href="profile.html" class="nav-item" onclick="navigateTo('profile')">
+            <a href="profile.php" class="nav-item" onclick="navigateTo('profile')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
                 Profile
             </a>
-            <a href="course.html" class="nav-item" onclick="navigateTo('courses')">
+            <a href="course.php" class="nav-item" onclick="navigateTo('courses')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
                 </svg>
                 Courses
             </a>
-            <a href="grade.html" class="nav-item" onclick="navigateTo('grades')">
+            <a href="grade.php" class="nav-item" onclick="navigateTo('grades')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
                 </svg>
                 Grades
             </a>
-            <a href="attendence.html" class="nav-item" onclick="navigateTo('attendance')">
+            <a href="attendence.php" class="nav-item" onclick="navigateTo('attendance')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
                 </svg>
                 Attendance
             </a>
-            <a href="schedule.html" class="nav-item" onclick="navigateTo('schedule')">
+            <a href="schedule.php" class="nav-item" onclick="navigateTo('schedule')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
                 </svg>
                 Schedule
             </a>
-            <a href="assignments.html" class="nav-item" onclick="navigateTo('assignments')">
+            <a href="assignments.php" class="nav-item" onclick="navigateTo('assignments')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
                 </svg>
                 Assignments
             </a>
-            <a href="message.html" class="nav-item" onclick="navigateTo('messages')">
+            <a href="message.php" class="nav-item" onclick="navigateTo('messages')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 14H6v-2h2v2zm0-3H6V9h2v2zm0-3H6V6h2v2zm7 6h-5v-2h5v2zm3-3h-8V9h8v2zm0-3h-8V6h8v2z"/>
                 </svg>
                 Messages
             </a>
-            <a href="announcements.html" class="nav-item" onclick="navigateTo('announcements')">
+            <a href="announcements.php" class="nav-item" onclick="navigateTo('announcements')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 9h-2V5h2v6zm0 4h-2v-2h2v2z"/>
                 </svg>
                 Announcements
             </a>
-            <a href="resources.html" class="nav-item" onclick="navigateTo('resources')">
+            <a href="resources.php" class="nav-item" onclick="navigateTo('resources')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
                 </svg>
                 Resources
             </a>
-            <a href="setting.html" class="nav-item active" onclick="navigateTo('settings')">
+            <a href="setting.php" class="nav-item active" onclick="navigateTo('settings')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
                 </svg>
@@ -424,10 +424,10 @@
             <div class="footer-section links-section">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="../../index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="../../student/student-dashboard.html"><i class="fas fa-book"></i> Courses</a></li>
-                    <li><a href="../lecture/announcement.html"><i class="fas fa-bullhorn"></i> Announcements</a></li>
-                    <li><a href="../../community/communities.html"><i class="fas fa-users"></i> Community</a></li>
+                    <li><a href="../../index.php"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../student/student-dashboard.php"><i class="fas fa-book"></i> Courses</a></li>
+                    <li><a href="../lecture/announcement.php"><i class="fas fa-bullhorn"></i> Announcements</a></li>
+                    <li><a href="../../community/communities.php"><i class="fas fa-users"></i> Community</a></li>
                     <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
             </div>

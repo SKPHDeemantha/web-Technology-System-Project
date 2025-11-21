@@ -210,6 +210,10 @@ include 'connect.php';
 
                     if (role === 'admin') {
                         window.location.href = "admin/admin-panel.php";
+                    } else if (role === 'student') {
+                        window.location.href = "student/student-dashboard.php";
+                    } else if (role === 'lecturer') {
+                        window.location.href = "lecture/lecturer-dashboard.php";
                     } else {
                         window.location.href = "community/communities.php";
                     }

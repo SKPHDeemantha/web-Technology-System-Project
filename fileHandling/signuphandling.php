@@ -83,10 +83,10 @@ if ($id == "save") {
     }
 
     // YEAR CONVERSION
-    if ($year == "first")  $year_id = 1;
-    elseif ($year == "second") $year_id = 2;
-    elseif ($year == "third")  $year_id = 3;
-    elseif ($year == "fourth") $year_id = 4;
+    if ($year == "1")  $year_id = 1;
+    elseif ($year == "2") $year_id = 2;
+    elseif ($year == "3")  $year_id = 3;
+    elseif ($year == "4") $year_id = 4;
     else $year_id = 0;
 
     // Hash password (OLD WAY)
@@ -101,6 +101,7 @@ if ($id == "save") {
     if (mysqli_num_rows($result) == 1) {
         $user = mysqli_fetch_assoc($result);
         $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_role'] = $user['role_id'];
         echo 1; // Login successful
     } else {
         echo 0; // Login failed

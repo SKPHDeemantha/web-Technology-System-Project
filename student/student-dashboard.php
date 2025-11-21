@@ -1,3 +1,82 @@
+<?php
+session_start();
+require_once '../connect.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ../index.php');
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+$user_role = $_SESSION['user_role'];
+
+if ($user_role != 1) { // Assuming 1 is student role_id
+    header('Location: ../index.php');
+    exit();
+}
+
+// Fetch user details
+$user_query = "SELECT * FROM users WHERE id = ?";
+$stmt = mysqli_prepare($con, $user_query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$user_result = mysqli_stmt_get_result($stmt);
+$user = mysqli_fetch_assoc($user_result);
+
+// Fetch enrolled courses count
+$enrolled_query = "SELECT COUNT(*) as count FROM enrollments WHERE student_id = ? AND status = 'active'";
+$stmt = mysqli_prepare($con, $enrolled_query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$enrolled_result = mysqli_stmt_get_result($stmt);
+$enrolled = mysqli_fetch_assoc($enrolled_result)['count'];
+
+// Fetch GPA (average score)
+$gpa_query = "SELECT AVG(g.score) as gpa FROM grades g WHERE g.student_id = ?";
+$stmt = mysqli_prepare($con, $gpa_query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$gpa_result = mysqli_stmt_get_result($stmt);
+$gpa_row = mysqli_fetch_assoc($gpa_result);
+$gpa = $gpa_row['gpa'] ? round($gpa_row['gpa'], 1) : 0.0;
+
+// Fetch attendance rate
+$attendance_query = "SELECT (SUM(CASE WHEN status='present' THEN 1 ELSE 0 END) / COUNT(*)) * 100 as rate FROM attendance WHERE student_id = ?";
+$stmt = mysqli_prepare($con, $attendance_query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$attendance_result = mysqli_stmt_get_result($stmt);
+$attendance_row = mysqli_fetch_assoc($attendance_result);
+$attendance_rate = $attendance_row['rate'] ? round($attendance_row['rate'], 1) : 0.0;
+
+// Fetch pending tasks (assignments not graded yet)
+$pending_query = "SELECT COUNT(*) as count FROM assignments a JOIN enrollments e ON a.course_id = e.course_id WHERE e.student_id = ? AND a.due_date > NOW() AND NOT EXISTS (SELECT 1 FROM grades g WHERE g.assignment_id = a.id AND g.student_id = ?)";
+$stmt = mysqli_prepare($con, $pending_query);
+mysqli_stmt_bind_param($stmt, "ii", $user_id, $user_id);
+mysqli_stmt_execute($stmt);
+$pending_result = mysqli_stmt_get_result($stmt);
+$pending = mysqli_fetch_assoc($pending_result)['count'];
+
+// Fetch GPA data for chart (average per course)
+$chart_query = "SELECT c.course_name, AVG(g.score) as avg_score FROM grades g JOIN assignments a ON g.assignment_id = a.id JOIN courses c ON a.course_id = c.id WHERE g.student_id = ? GROUP BY c.id, c.course_name";
+$stmt = mysqli_prepare($con, $chart_query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$chart_result = mysqli_stmt_get_result($stmt);
+$gpa_data = [];
+$course_labels = [];
+while ($row = mysqli_fetch_assoc($chart_result)) {
+    $course_labels[] = $row['course_name'];
+    $gpa_data[] = round($row['avg_score'], 1);
+}
+
+// If no data, provide defaults
+if (empty($course_labels)) {
+    $course_labels = ['No Data'];
+    $gpa_data = [0];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,9 +146,9 @@
                     <div class="profile-info">
                         <img src="../assets/images/default-avatar.png" alt="Profile Picture" class="profile-pic">
                         <div>
-                            <h5>John Doe</h5>
-                            <p>Student ID: 12345678</p>
-                            <p>Email: john.doe@university.edu</p>
+                            <h5><?php echo htmlspecialchars($user['display_name']); ?></h5>
+                            <p>Student ID: <?php echo htmlspecialchars($user['id']); ?></p>
+                            <p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
                         </div>
                     </div>
                     <hr>
@@ -87,7 +166,7 @@
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">Student Portal</div>
-            <a href="student-dashboard.html" class="nav-item active" onclick="navigateTo('dashboard')">
+            <a href="student-dashboard.php" class="nav-item active" onclick="navigateTo('dashboard')">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
                 </svg>
@@ -181,7 +260,7 @@
                                 <i class="fas fa-book-open"></i>
                             </div>
                             <h4>Courses Enrolled</h4>
-                            <h1>5</h1>
+                            <h1><?php echo $enrolled; ?></h1>
                             <p>Click to view details</p>
                         </div>
                         <div class="card">
@@ -189,7 +268,7 @@
                                 <i class="fas fa-chart-bar"></i>
                             </div>
                             <h4>Current GPA</h4>
-                            <h1 class="green">3.8</h1>
+                            <h1 class="green"><?php echo $gpa; ?></h1>
                             <p>Click to view grades</p>
                         </div>
                         <div class="card">
@@ -197,7 +276,7 @@
                                 <i class="fas fa-user-check"></i>
                             </div>
                             <h4>Attendance Rate</h4>
-                            <h1 class="blue">92%</h1>
+                            <h1 class="blue"><?php echo $attendance_rate; ?>%</h1>
                             <p>Click to view attendance</p>
                         </div>
                         <div class="card">
@@ -205,7 +284,7 @@
                                 <i class="fas fa-tasks"></i>
                             </div>
                             <h4>Pending Tasks</h4>
-                            <h1 class="orange">2</h1>
+                            <h1 class="orange"><?php echo $pending; ?></h1>
                             <p>Click to view assignments</p>
                         </div>
                     </div>
@@ -303,7 +382,7 @@
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
                     <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="../student/student-dashboard.html"><i class="fas fa-book"></i> Courses</a></li>
+                    <li><a href="../student/student-dashboard.php"><i class="fas fa-book"></i> Courses</a></li>
                     <li><a href="../components/lecture/announcement.html"><i class="fas fa-bullhorn"></i>
                             Announcements</a></li>
                     <li><a href="../community/communities.html"><i class="fas fa-users"></i> Community</a></li>
@@ -373,6 +452,32 @@
 
     <link href="../assets/css/footer.css" rel="stylesheet">
     <script src="../assets/js/footer.js"></script>
+
+    <script>
+        // Chart.js for GPA Chart
+        const ctx = document.getElementById('gpaChart').getContext('2d');
+        const gpaChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($course_labels); ?>,
+                datasets: [{
+                    label: 'Average GPA per Course',
+                    data: <?php echo json_encode($gpa_data); ?>,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 4.0
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

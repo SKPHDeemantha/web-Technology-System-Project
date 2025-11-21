@@ -1,0 +1,139 @@
+<link rel="stylesheet" href="../assets/css/admincss/settings.css">
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2>System Settings</h2>
+    <p class="text-muted">Configure system preferences and options</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5 class="mb-0">General Settings</h5>
+      </div>
+      <div class="card-body">
+        <form id="settingsForm">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="systemName" class="form-label">System Name</label>
+              <input type="text" class="form-control" id="systemName" value="University Management System">
+            </div>
+            <div class="col-md-6">
+              <label for="adminEmail" class="form-label">Admin Email</label>
+              <input type="email" class="form-control" id="adminEmail" value="admin@university.edu">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="timezone" class="form-label">Timezone</label>
+              <select class="form-select" id="timezone">
+                <option selected>UTC-5 (Eastern Time)</option>
+                <option>UTC-8 (Pacific Time)</option>
+                <option>UTC+0 (GMT)</option>
+                <option>UTC+1 (Central European Time)</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="dateFormat" class="form-label">Date Format</label>
+              <select class="form-select" id="dateFormat">
+                <option selected>MM/DD/YYYY</option>
+                <option>DD/MM/YYYY</option>
+                <option>YYYY-MM-DD</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="systemDescription" class="form-label">System Description</label>
+            <textarea class="form-control" id="systemDescription"
+              rows="3">University Management System for students, faculty, and administration.</textarea>
+          </div>
+          <button type="submit" class="btn btn-purple">Save Settings</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">Notification Settings</h5>
+      </div>
+      <div class="card-body">
+        <div class="form-check form-switch mb-3">
+          <input class="form-check-input" type="checkbox" id="enableNotifications" checked>
+          <label class="form-check-label" for="enableNotifications">Enable Email Notifications</label>
+        </div>
+        <div class="form-check form-switch mb-3">
+          <input class="form-check-input" type="checkbox" id="newUserNotifications" checked>
+          <label class="form-check-label" for="newUserNotifications">Notify on New User Registration</label>
+        </div>
+        <div class="form-check form-switch mb-3">
+          <input class="form-check-input" type="checkbox" id="eventNotifications">
+          <label class="form-check-label" for="eventNotifications">Notify on Event Creation</label>
+        </div>
+        <div class="form-check form-switch mb-3">
+          <input class="form-check-input" type="checkbox" id="systemNotifications" checked>
+          <label class="form-check-label" for="systemNotifications">System Update Notifications</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5 class="mb-0">Appearance</h5>
+      </div>
+      <div class="card-body">
+        <div class="form-check form-switch mb-3">
+          <input class="form-check-input" type="checkbox" id="darkMode">
+          <label class="form-check-label" for="darkMode">Enable Dark Mode</label>
+        </div>
+        <div class="mb-3">
+          <label for="themeColor" class="form-label">Theme Color</label>
+          <select class="form-select" id="themeColor">
+            <option selected>Purple (Default)</option>
+            <option>Blue</option>
+            <option>Green</option>
+            <option>Red</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="sidebarStyle" class="form-label">Sidebar Style</label>
+          <select class="form-select" id="sidebarStyle">
+            <option selected>Expanded</option>
+            <option>Collapsed</option>
+            <option>Mini</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">System Information</h5>
+      </div>
+      <div class="card-body">
+        <div class="mb-2">
+          <small class="text-muted">Version</small>
+          <div>2.1.0</div>
+        </div>
+        <div class="mb-2">
+          <small class="text-muted">Last Updated</small>
+          <div>October 15, 2023</div>
+        </div>
+        <div class="mb-2">
+          <small class="text-muted">Database</small>
+          <div>MySQL 8.0</div>
+        </div>
+        <div class="mb-2">
+          <small class="text-muted">Server</small>
+          <div>Ubuntu 20.04</div>
+        </div>
+        <div class="mt-3">
+          <button class="btn btn-outline-purple btn-sm me-2">Check for Updates</button>
+          <button class="btn btn-outline-danger btn-sm">Clear Cache</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/admin/settings.js"></script>
